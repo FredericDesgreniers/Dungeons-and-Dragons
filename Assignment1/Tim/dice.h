@@ -10,6 +10,6 @@ class Dice {
 private:
 	static const regex pattern;
 public:
-	int Dice::roll(string string);
+	static int Dice::roll(string string);
 
 };

@@ -1,7 +1,7 @@
 #include "Dice.h"
 
 // This regex will find all patterns of the form xdy or xdy+z and capture x, y, z if applicable
-const regex Dice::pattern("^(\\d+)[dD](\\d+)(?:\\+(\\d+))*$");
+const ::regex Dice::pattern("^(\\d+)[dD](\\d+)(?:\\+(\\d+))*$"); 
 
 //Create random device to seed generator
 random_device seeder;
@@ -9,17 +9,17 @@ random_device seeder;
 mt19937 engine(seeder());
 
 
-int Dice::roll(string diceInput) {
+int Dice::roll(::string diceInput) {
 
 	// Declare regex result
 	smatch result;
 
-	if (regex_search(diceInput, result, pattern)) {
+	if (::regex_search(diceInput, result, pattern)) {
 		//Input is valid dice notation
 		//Store parsed data for x, y in integers, initialize variables
 		int diceNum = stoi(result[1]), diceVal = stoi(result[2]), diceMod = 0, rollSum = 0, currentRoll = 0;
 		cout << "Rolling " << diceInput << endl;;
-
+		
 
 		//Define uniform distribution from 1 to diceVal
 		uniform_int_distribution<int> dist(1, diceVal);
@@ -39,7 +39,7 @@ int Dice::roll(string diceInput) {
 		}
 
 		// Output the final roll sum
-		cout << "Total: " << rollSum << endl << endl;
+		cout << "Total: " << rollSum << endl << endl; 
 		return rollSum;
 	}
 
