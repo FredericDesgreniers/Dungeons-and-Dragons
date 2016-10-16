@@ -1,6 +1,13 @@
 #include "map_tile.h"
+#include <iostream>
 
-MapTile::MapTile(int id): id(id)
+MapTile::MapTile(int id)
 {
-	walkable = true;
+	this->id = id;
+	walkable = id > 0 ? false : true;
+	if(id > 0)
+	{
+		std::cout << "HYE";
+	}
+
 }

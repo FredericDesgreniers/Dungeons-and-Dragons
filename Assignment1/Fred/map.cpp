@@ -76,3 +76,4 @@ bool Map::spawnEntity(Entity* entity, int x, int y)
 	entityGrid[x][y] = entity;
 	return true;
 }
+
