@@ -1,5 +1,6 @@
 #include "map.h"
 #include <iostream>
+#include "string"
 
 
 int main(int argc, char* argv[])
@@ -25,18 +26,28 @@ int main(int argc, char* argv[])
 		for (int y = 0; y < map->getHeight(); y++)
 		{
 			MapTile* mp = map->getTile(x, y);
-			dMap[x][y] = mp->getId()==0?' ':map->getTile(x, y)->getId()+'0';
+			dMap[x][y] = mp->getId()==0?' ':'W';
 		}
 	}
+	dMap[14][13] = 'E';
+	dMap[0][0] = 'S';
 	for (int i = 0; i < path.size(); i++)
 	{
 		Node* n = path.at(i);
 		dMap[n->x][n->y] = 'p';
 	}
+	std::cout << std::string(2, ' ');
 	for (int x = 0; x < map->getWidth(); x++)
 	{
-		for (int y = 0; y < map->getHeight(); y++) {
-			std::cout << dMap[x][y];
+		std::cout << x << ' ';
+	}
+	std::cout << std::endl;
+	for (int y = 0; y < map->getHeight(); y++) {
+		std::cout << y << " ";
+
+		for (int x = 0; x < map->getWidth(); x++)
+		{
+			std::cout << dMap[x][y] << ' ';
 		}
 		std::cout << std::endl;
 	}

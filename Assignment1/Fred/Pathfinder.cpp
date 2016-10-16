@@ -152,7 +152,7 @@ std::vector<Node*> Pathfinder::getPath(int x1, int y1)
 		path.push_back(current);
 		current = current->parent;
 	}
-
+	path.push_back(current);
 	return path;
 
 
