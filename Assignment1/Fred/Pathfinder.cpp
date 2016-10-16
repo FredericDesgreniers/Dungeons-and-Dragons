@@ -167,7 +167,7 @@ void Pathfinder::printHGrid()
 	{
 		for (int y = 0; y < height; y++)
 		{
-			std::cout << nodeGrid[x][y]->h << " ";
+			printf("%2d ", nodeGrid[x][y]->h);
 		}
 		std::cout << std::endl;
 	}

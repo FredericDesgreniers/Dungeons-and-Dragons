@@ -14,6 +14,14 @@ int main(int argc, char* argv[])
 	map->setTile(new MapTile(1), 6,0);
 	map->setTile(new MapTile(1), 6,1);
 
+	for (int i = 19; i > 3; i--)
+	{
+		map->setTile(new MapTile(1), i, 7);
+	}for (int i = 0; i < 16; i++)
+	{
+		map->setTile(new MapTile(1), i, 3);
+	}
+
 	Pathfinder* pf = new Pathfinder(map, 14, 13);
 	std::cout << std::endl;
 	pf->printHGrid();
@@ -39,7 +47,7 @@ int main(int argc, char* argv[])
 	std::cout << std::string(2, ' ');
 	for (int x = 0; x < map->getWidth(); x++)
 	{
-		std::cout << x << ' ';
+		printf("%2d", x);
 	}
 	std::cout << std::endl;
 	
