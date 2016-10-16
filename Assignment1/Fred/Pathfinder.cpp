@@ -1,6 +1,8 @@
 #include "Pathfinder.h"
 #include <iostream>
 #include <algorithm>
+#include <queue>
+
 Pathfinder::Pathfinder(Map* map, int destinationX, int destinationY)
 {
 	this->map = map;
@@ -35,7 +37,7 @@ void Pathfinder::createNodeGrid()
 /**
  * Get a path from x1, y1 to the destination
  */
-void Pathfinder::getPath(int x1, int y1)
+std::vector<Node*> Pathfinder::getPath(int x1, int y1)
 {
 	//open nodes list
 	std::vector<Node*> openNodes;
@@ -95,12 +97,16 @@ void Pathfinder::getPath(int x1, int y1)
 				if(!inOpen && !inClose){
 					node->parent = current;
 					openNodes.push_back(node);
-					std::cout << "(" << node->x << " " << node->y << ") - ";
+					//std::cout << "(" << node->x << " " << node->y <<"/"<<node->getLocalFValue()<< "/ "<< node->getFValue()<<") - ";
 				}else if(inClose) //if in closed list, ignore node
 				{
 					continue;
 				}else if(inOpen) //if on open, calculate costs to poentially change parent?
 				{
+					if(current->g + node->g < node->g)
+					{
+						node->parent = current;
+					}
 					//TODO calculate new parent if cost is low enough
 				}
 
@@ -112,36 +118,43 @@ void Pathfinder::getPath(int x1, int y1)
 		{
 			break;
 		}
-
+		
 		//find the node in the open list with the lowest value
 		int lowestIndex = -1;
 		int lowestF = -1;
 		for (int i = 0; i < openNodes.size(); i++)
 		{
 			Node* n = openNodes.at(i);
+			//std::cout << "(" << i << ": " << n->x << "," << n->y << " / " << n->getFValue() << "), ";
 			if( lowestF < 0 || n->getFValue() < lowestF)
 			{
 				lowestIndex = i;
+				lowestF = n->getFValue();
 			}
 		
 		}
+		//std::cout << std::endl << lowestIndex << std::endl << std::endl;
 		//if no nodes found, exit loop. No solution
 		if (lowestIndex < 0)
 			break;
 
 		//set the current to the open node with lowest F cost. 
 		current = openNodes.at(lowestIndex);
-		std::cout << "current: " << current->x << ":" << current->y;
-		std::cout << std::endl;
+		//std::cout << "current: " << current->x << ":" << current->y;
+		//std::cout << std::endl;
 		
 	}
-
-	//trace back path from destination to start using parents. 
+	std::vector<Node*> path;
+	//trace back path from destination to start using parents
+	
 	while(current->parent != nullptr)
 	{
-		std::cout << current->x << " " << current->y << std::endl;
+		path.push_back(current);
 		current = current->parent;
 	}
+
+	return path;
+
 
 }
 

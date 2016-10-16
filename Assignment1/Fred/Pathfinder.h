@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "map.h"
+#include <queue>
 class Node;
 class Map;
 class Pathfinder
@@ -10,7 +11,7 @@ public:
 	Pathfinder(Map* map, int, int);
 
 	void createNodeGrid();
-	void getPath(int x1, int y1);
+	std::vector<Node*> getPath(int x1, int y1);
 	void printHGrid();
 private:
 
@@ -42,3 +43,4 @@ public:
 		 return this->x == n1.x && this->y == n1.y;
 	}
 };
+
