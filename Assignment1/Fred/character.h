@@ -2,8 +2,11 @@
 #include "stdlib.h"
 #include "time.h"
 
+
 class Character
 {
+
+
 private:
 	int level;
 	int hitpoints;
