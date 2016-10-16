@@ -42,8 +42,10 @@ int main(int argc, char* argv[])
 		std::cout << x << ' ';
 	}
 	std::cout << std::endl;
+	
 	for (int y = 0; y < map->getHeight(); y++) {
-		std::cout << y << " ";
+		printf("%2d ", y);
+
 
 		for (int x = 0; x < map->getWidth(); x++)
 		{
