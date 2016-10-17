@@ -11,6 +11,8 @@ public:
 	Pathfinder(Map* map, int, int);
 
 	void createNodeGrid();
+	void refreshHeuristics();
+	void setDestination(int dx, int dy);
 	std::vector<Node*> getPath(int x1, int y1);
 	void printHGrid();
 private:
