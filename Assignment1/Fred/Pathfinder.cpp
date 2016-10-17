@@ -34,6 +34,24 @@ void Pathfinder::createNodeGrid()
 		}
 	}
 }
+void Pathfinder::setDestination(int dx, int dy)
+{
+	destinationX = dx;
+	destinationY = dy;
+	refreshHeuristics();
+}
+
+void Pathfinder::refreshHeuristics()
+{
+	for (int x = 0; x < width; x++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			nodeGrid[x][y]->calculateHeuristic(destinationX, destinationY);
+		}
+	}
+}
+
 /**
  * Get a path from x1, y1 to the destination
  */
