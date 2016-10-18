@@ -17,7 +17,7 @@ int main()
 		printf("TTF_Init: %s\n", TTF_GetError());
 		exit(2);
 	}
-	//create Window
+	//create Window 
 	SDL_Window *win = SDL_CreateWindow("D&D game", 50, 50, 500, 500, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if (win == nullptr)
 	{
