@@ -1,8 +1,10 @@
 #pragma once
+#include "Pathfinder.h"
 #include "map_tile.h"
 #include "entity.h"
 #define TILE_EMPTY 0
-class Map
+#define TILE_WALL 1
+class Map 
 {
 private:
 	MapTile ***tileGrid;
@@ -33,5 +35,6 @@ public:
 	{
 		return height;
 	}
+
 
 };
