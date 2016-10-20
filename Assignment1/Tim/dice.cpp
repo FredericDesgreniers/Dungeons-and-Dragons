@@ -1,20 +1,19 @@
 #include "Dice.h"
 
 // This regex will find all patterns of the form xdy or xdy+z and capture x, y, z if applicable
-const ::regex Dice::pattern("^(\\d+)[dD](\\d+)(?:\\+(\\d+))*$"); 
-
+const regex Dice::pattern("^(\\d+)[dD](\\d+)(?:\\+(\\d+))*$"); 
 //Create random device to seed generator
-random_device seeder;
+random_device Dice::seeder;
 //Create mersenne twister engine
-mt19937 engine(seeder());
+mt19937 Dice::engine(Dice::seeder());
 
 
-int Dice::roll(::string diceInput) {
+int Dice::roll(string diceInput) {
 
 	// Declare regex result
 	smatch result;
 
-	if (::regex_search(diceInput, result, pattern)) {
+	if (regex_search(diceInput, result, pattern)) {
 		//Input is valid dice notation
 		//Store parsed data for x, y in integers, initialize variables
 		int diceNum = stoi(result[1]), diceVal = stoi(result[2]), diceMod = 0, rollSum = 0, currentRoll = 0;
