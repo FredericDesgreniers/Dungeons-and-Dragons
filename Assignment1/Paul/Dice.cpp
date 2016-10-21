@@ -12,12 +12,12 @@ static default_random_engine defaultEngine(time(NULL));
 //!Empty default constructor for dice class.
 Dice::Dice()
 {
-	//!deliberately empty
 }
 
-//!roll function for Dice class
-//!/param a string of the form xdy / xdy+z
+//!roll() function. Core part of the dice
+//!@param a string of the form xdy / xdy+z
 //!This string is checked against a regular expression
+//!Data from the string is extracted using regular expression's capture groups
 //!If validated the function will roll x die with y faces and a modifier z is added if required
 int Dice::roll(string string)
 {
@@ -28,7 +28,7 @@ int Dice::roll(string string)
 	//capture groups are extracted into an array
 	if (regex_search(string, inputValue, rgx))
 	{
-		//!two capture groups get extracted here
+		//two capture groups get extracted here
 		int numberOfRolls = stoi(inputValue[1]);
 		int diceSize = stoi(inputValue[2]);
 
