@@ -22,11 +22,15 @@ class CharacterTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(testValidNewCharacter); 
 	CPPUNIT_TEST(testInvalidNewCharacter);
 	CPPUNIT_TEST(testHit); 
+	CPPUNIT_TEST(testModifier);
+	CPPUNIT_TEST(testRandomGen);
 	CPPUNIT_TEST_SUITE_END();
 protected:
 	void testValidNewCharacter();
 	void testInvalidNewCharacter();
 	void testHit();
+	void testModifier();
+	void testRandomGen();
 };
 
 //! test case registration
@@ -59,3 +63,22 @@ void CharacterTest::testHit()
 	conan->hit(4); 
 	CPPUNIT_ASSERT(conan->getHitPoints() == 6);
 }
+//! test method to test the getModifier() method
+//! Test Case: a call to the modifger method should return the (ability score - 10) / 2
+//! Tested item: Character::getModifer()
+void CharacterTest::testModifier()
+{
+	Character *conan = new Character(12, 12, 12, 12, 12, 12);
+
+	CPPUNIT_ASSERT(conan->getModifier(conan->getCharisma()) == 1);
+}
+//! test method to test the random gen for the default constructor
+//! Test Case: Using the defualt constructor should create a valid character
+//! Tested item: Character::Character()
+void CharacterTest::testRandomGen()
+{
+	Character *conan = new Character(12, 12, 12, 12, 12, 12);
+
+	CPPUNIT_ASSERT(conan->validateNewCharacter());
+}
+

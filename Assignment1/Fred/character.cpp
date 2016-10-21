@@ -34,7 +34,7 @@ void Character::hit(int damage)
 
 int Character::getModifier(int score)
 {
-	return score - 10 / 2;
+	return (score - 10) / 2;
 }
 
 bool Character::validateNewCharacter()

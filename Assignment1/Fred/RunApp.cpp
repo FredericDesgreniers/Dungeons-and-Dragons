@@ -1,88 +1,75 @@
-#include "map.h"
+//! @file 
+//! @brief Driver file to create and execute the test suite 
+//!
+//! Brief instruction on how to set CppUnit:
+//! from: http ://www.comp.nus.edu.sg/~cs3215/tools/cppunitAll.html
+//!
+//!	First, to install cppUnit :
+//!
+//!	 1. Unpack the CppUnit archive (https://sourceforge.net/projects/cppunit/files/cppunit/1.12.1/) to a directory of your choice, in this example I assume it is D:\. 
+//!  2. Go to D:/cppunit-1.12.1/src and open the CppUnitLibraries.dsw in Visual Studio.
+//!  3. Select the cppunit project in the Solution Explorer and go to 'Project > Properties > Configuration Properties > Librarian > General. Put "Debug\cppunit.lib" in the ‘Output File’ textbox. 
+//!  4. Right-click on the cppunit project in the Solution Explorer pane and choose Build.
+//!  5. After successful compilation, D:/cppunit-1.12.1/lib/cppunit.lib is produced which you then need to setup the Visual Studio Linker with (see below).
+
+//!
+//! To setup a project from scratch for Compilation / Linking:
+//!
+//!	  1. Activate 'Project > Properties > C/C++ >  Code Generation > Runtime Library > Multi - threaded Debug DLL'
+//!	  2. Go to 'Project > Properties > C/C++ > General'. Put "D:\cppunit-1.12.1\include" in the 'Additional Include Directories' text box.
+//!	  3. Go to 'Project > Properties > Linker > Input'. Put "D:\cppunit-1.12.1\lib\cppunit.lib" in the 'Additional Dependences' text box.
+//!	  4. Go to 'Project > Properties > Build Events > Post-Build Event'. Put '"$(TargetPath)"' in the 'Command Line' textbox.Put 'Unit Tests...' in the 'Description' textbox.
+#define TEST
+
+#ifdef TEST
+#include <cppunit/CompilerOutputter.h>
+#include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/ui/text/TestRunner.h>
+
+#endif
 #include <iostream>
-#include "string"
-
-
+#include "character.h"
+//! main() function. Entry point of the program
+//! It does the following: 
+//! 1. Create a test suite object from the registry as populated by the code in the Test Classes
+//! 2. Create a test runner that will execute all the tests in the registry
+//! 3. (optionally) sets an outputter that will output the results
+//! 4. Run the test cases. 
 int main(int argc, char* argv[])
 {
+	bool wasSucessful = true;
+#ifdef TEST
+  // Get the top level suite from the registry
+  CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
 
-	Map* map = new Map(50,50);
+  // Adds the test to the list of test to run
+  CppUnit::TextUi::TestRunner runner;
+  runner.addTest( suite );
 
-	map->setTile(new MapTile(1),14,12);
-	map->setTile(new MapTile(1), 14, 14);
-	map->setTile(new MapTile(1), 13, 13);
-	map->setTile(new MapTile(1), 5,0);
-	map->setTile(new MapTile(1), 6,0);
-	map->setTile(new MapTile(1), 6,1);
+  // Change the default outputter to a compiler error format outputter
+  runner.setOutputter( new CppUnit::CompilerOutputter( &runner.result(),
+                                                       std::cerr ) );
+  // Run the tests.
+  wasSucessful = runner.run();
+#endif
 
-	for (int i = 19; i > 3; i--)
-	{
-		map->setTile(new MapTile(1), i, 7);
-	}for (int i = 0; i < 16; i++)
-	{
-		map->setTile(new MapTile(1), i, 3);
-	}
-	for (int i = 34; i > -1; i--)
-	{
-		if(i!=12)
-		map->setTile(new MapTile(1), i, 34);
-	}for (int i = 3; i < 50; i++)
-	{
-		map->setTile(new MapTile(1), i, 45);
-	}
+  std::cout << "Driver tests" << std::endl;
 
-	Pathfinder* pf = new Pathfinder(map, 0, 0);
-	std::cout << std::endl;
-	pf->printHGrid();
-	std::vector<Node*> path = pf->getPath(49,49);
-	std::cout << std::endl;
-	for (int i = 0; i < 2; i++)
-	{
-		char** dMap = new char*[map->getWidth()];
-		for (int x = 0; x < map->getWidth(); x++)
-		{
-			dMap[x] = new char[map->getHeight()];
-			for (int y = 0; y < map->getHeight(); y++)
-			{
-				MapTile* mp = map->getTile(x, y);
-				dMap[x][y] = mp->getId() == 0 ? ' ' : 'W';
-			}
-		}
-		dMap[14][13] = 'E';
-		dMap[0][0] = 'S';
-		if(i==1){
-			for (int i = 0; i < path.size(); i++)
-			{
-				Node* n = path.at(i);
-				dMap[n->x][n->y] = 'p';
-			}
-		}
-		std::cout << std::string(3, ' ');
-		for (int x = 0; x < map->getWidth(); x++)
-		{
-			printf("%3d", x);
-		}
-		std::cout << std::endl << std::string(map->getWidth() * 3 + 4, '-') << std::endl;
+  std::cout << "Character 1: " << std::endl;
+  Character character(1);
+  std::cout << character.toString() << std::endl;
+  std::cout << "valid: " << std::boolalpha << character.validateNewCharacter() << std::endl << std::endl;
 
-		for (int y = 0; y < map->getHeight(); y++) {
-			printf("%2d |", y);
+  std::cout << "Character 2: " << std::endl;
+  Character character2(1, 2, 3, 4, 5, 6);
+  std::cout << character2.toString() << std::endl;
+  std::cout << "valid: " << std::boolalpha << character2.validateNewCharacter() << std::endl;
+
+  getchar();
+
+  // Return error code 1 if the one of test failed.
+  return wasSucessful ? 0 : 1;
 
 
-			for (int x = 0; x < map->getWidth(); x++)
-			{
-				std::cout << ' ' << dMap[x][y] << ' ';
-			}
-			std::cout << '|' << std::endl;
-		}
-		for (int x = 0; x < map->getWidth(); x++)
-		{
-			delete dMap[x];
-		}
-		delete dMap;
-		std::cout << std::string(map->getWidth() * 3 + 4, '-') << std::endl;
-	}
-	int s;
-	std::cin >> s;
 
-	
 }
