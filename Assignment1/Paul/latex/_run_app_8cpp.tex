@@ -1,0 +1,118 @@
+\hypertarget{_run_app_8cpp}{}\section{Run\+App.\+cpp File Reference}
+\label{_run_app_8cpp}\index{Run\+App.\+cpp@{Run\+App.\+cpp}}
+
+
+Driver file to create and execute the test suite.  
+
+
+{\ttfamily \#include $<$cppunit/\+Compiler\+Outputter.\+h$>$}\\*
+{\ttfamily \#include $<$cppunit/extensions/\+Test\+Factory\+Registry.\+h$>$}\\*
+{\ttfamily \#include $<$cppunit/ui/text/\+Test\+Runner.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}dice.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{_run_app_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Driver file to create and execute the test suite. 
+
+Brief instruction on how to set Cpp\+Unit\+: from\+: http \+://www.comp.\+nus.\+edu.\+sg/$\sim$cs3215/tools/cppunit\+All.html
+
+First, to install cpp\+Unit \+:
+
+
+\begin{DoxyEnumerate}
+\item Unpack the Cpp\+Unit archive (\href{https://sourceforge.net/projects/cppunit/files/cppunit/1.12.1/}{\tt https\+://sourceforge.\+net/projects/cppunit/files/cppunit/1.\+12.\+1/}) to a directory of your choice, in this example I assume it is D\+:.
+\item Go to D\+:/cppunit-\/1.12.\+1/src and open the Cpp\+Unit\+Libraries.\+dsw in Visual Studio.
+\item Select the cppunit project in the Solution Explorer and go to 'Project $>$ Properties $>$ Configuration Properties $>$ Librarian $>$ General. Put \char`\"{}\+Debug\textbackslash{}cppunit.\+lib\char`\"{} in the ‘\+Output File’ textbox.
+\item Right-\/click on the cppunit project in the Solution Explorer pane and choose Build.
+\item After successful compilation, D\+:/cppunit-\/1.12.\+1/lib/cppunit.lib is produced which you then need to setup the Visual Studio Linker with (see below). 
+\end{DoxyEnumerate}
+
+Definition in file \hyperlink{_run_app_8cpp_source}{Run\+App.\+cpp}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{_run_app_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{}\index{Run\+App.\+cpp@{Run\+App.\+cpp}!main@{main}}
+\index{main@{main}!Run\+App.\+cpp@{Run\+App.\+cpp}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{_run_app_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Main function. 
+
+To setup a project from scratch for Compilation / Linking\+:
+
+
+\begin{DoxyEnumerate}
+\item Activate 'Project $>$ Properties $>$ C/\+C++ $>$ Code Generation $>$ Runtime Library $>$ Multi -\/ threaded Debug D\+L\+L'
+\item Go to 'Project $>$ Properties $>$ C/\+C++ $>$ General'. Put \char`\"{}\+D\+:\textbackslash{}cppunit-\/1.\+12.\+1\textbackslash{}include\char`\"{} in the 'Additional Include Directories' text box.
+\item Go to 'Project $>$ Properties $>$ Linker $>$ Input'. Put \char`\"{}\+D\+:\textbackslash{}cppunit-\/1.\+12.\+1\textbackslash{}lib\textbackslash{}cppunit.\+lib\char`\"{} in the 'Additional Dependences' text box.
+\item Go to 'Project $>$ Properties $>$ Build Events $>$ Post-\/\+Build Event'. Put '\char`\"{}\$(\+Target\+Path)\char`\"{}' in the 'Command Line' textbox.\+Put 'Unit Tests...' in the 'Description' textbox. 
+\end{DoxyEnumerate}
+
+Definition at line 30 of file Run\+App.\+cpp.
+
+
+\begin{DoxyCode}
+31 \{
+32   \textcolor{comment}{// Get the top level suite from the registry}
+33   CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
+34 
+35   \textcolor{comment}{// Adds the test to the list of test to run}
+36   CppUnit::TextUi::TestRunner runner;
+37   runner.addTest( suite );
+38 
+39   \textcolor{comment}{// Change the default outputter to a compiler error format outputter}
+40   runner.setOutputter( \textcolor{keyword}{new} CppUnit::CompilerOutputter( &runner.result(),
+41                                                        std::cerr ) );
+42   \textcolor{comment}{// Run the tests.}
+43   \textcolor{keywordtype}{bool} wasSucessful = runner.run();
+44 
+45   getchar();
+46 
+47   \textcolor{comment}{// new dice object}
+48   \hyperlink{class_dice}{Dice}* d = \textcolor{keyword}{new} \hyperlink{class_dice}{Dice}();
+49 
+50   \textcolor{keywordtype}{int} result = 0;
+51 
+52   cout << \textcolor{stringliteral}{"------- DRIVER FOR DICE CLASS -------"} << endl;
+53   cout << \textcolor{stringliteral}{"If you wish to run the test cases, the #define TEST should NOT be commented out at the start of
+       main"} << endl << endl;
+54 
+55   cout << \textcolor{stringliteral}{"----- Different dice can be rolled but restricted to only those -----"} << endl << endl;
+56   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"1d4"});
+57   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"1d6"});
+58   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"1d8"});
+59   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"1d10"});
+60   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"1d12"});
+61   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"1d20"});
+62   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"1d100"});
+63 
+64   cout << \textcolor{stringliteral}{"\(\backslash\)n----- Multiple dice can be rolled -----"} << endl << endl;
+65   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"5d6"});
+66   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"3d10"});
+67   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"10d12"});
+68   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"9d100"});
+69 
+70   cout << \textcolor{stringliteral}{"\(\backslash\)n----- And modifiers can be added to the sum of dice rolls -----"} << endl << endl;
+71   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"1d4+15"});
+72   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"1d8+13"});
+73   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"2d12+8"});
+74   result = d->\hyperlink{class_dice_a7428dd940e0af226820414ca07147771}{roll}(\textcolor{stringliteral}{"13d4+140"});
+75 
+76   \textcolor{keyword}{delete} d;
+77   d = NULL;
+78 
+79   \textcolor{comment}{// Return error code 1 if the one of test failed.}
+80   \textcolor{keywordflow}{return} wasSucessful ? 0 : 1;
+81 \}
+\end{DoxyCode}
