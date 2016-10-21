@@ -26,6 +26,9 @@
 
 #include "dice.h"
 
+
+//! The define Driver should be commented out if only the test cases need to be executed.
+#define DRIVER
 //!Main function
 int main(int argc, char* argv[])
 {
@@ -43,7 +46,9 @@ int main(int argc, char* argv[])
   bool wasSucessful = runner.run();
 
   getchar();
-
+#ifdef DRIVER
+  //! Driver implementation
+  //! Tests different possibilities.
   // new dice object
   Dice* d = new Dice();
 
@@ -75,6 +80,7 @@ int main(int argc, char* argv[])
 
   delete d;
   d = NULL;
+#endif DRIVER
 
   // Return error code 1 if the one of test failed.
   return wasSucessful ? 0 : 1;
