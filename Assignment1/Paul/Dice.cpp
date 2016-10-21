@@ -1,6 +1,7 @@
 //! @file
 //! @brief Dice implementation
 //!
+//!Implements the roll function in Dice class
 #include "Dice.h"
 
 //!regex for dice expression xdy/xdy+z (for limited dice size)
@@ -9,16 +10,14 @@ static const regex rgx("^((?:[1-9]+)(?:\\d+)*)d(100|4|6|8|10|12|20)(?:\\+((?:[0-
 //!random number generator engine
 static default_random_engine defaultEngine(time(NULL));
 
+//!Dice Constructor
 //!Empty default constructor for dice class.
 Dice::Dice()
 {
 }
 
-//!roll() function. Core part of the dice
-//!@param a string of the form xdy / xdy+z
-//!This string is checked against a regular expression
-//!Data from the string is extracted using regular expression's capture groups
-//!If validated the function will roll x die with y faces and a modifier z is added if required
+//!roll() function
+//!Core part of the dice
 int Dice::roll(string string)
 {
 	//declares the object that will hold the values extracted from the string

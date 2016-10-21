@@ -1,8 +1,9 @@
 //! @file
 //! @brief Driver file and test cases
-
-//! #define DRIVER should be commented out if only the test cases need to be executed.
 //!
+//! IMPORTANT!
+//! The #define DRIVER should be commented out if only the test cases need to be executed.
+
 //! Brief instruction on how to set CppUnit:
 //! from: http ://www.comp.nus.edu.sg/~cs3215/tools/cppunitAll.html
 //!
@@ -27,13 +28,9 @@
 #include <cppunit/ui/text/TestRunner.h>
 
 #include "dice.h"
+#define DRIVER
 
-//! IMPORTANT!
-//! The #define DRIVER should be commented out if only the test cases need to be executed.
 
-// -----------------
-//#define DRIVER
-// -----------------
 
 //! main() function. Entry point of the program
 //! It does the following:
