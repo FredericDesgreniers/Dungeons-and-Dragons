@@ -1,16 +1,22 @@
+//! @file 
+//! @brief Dice class implementation 
+//!
+
 #include "Dice.h"
 
 // This regex will find all patterns of the form xdy or xdy+z and capture x, y, z if applicable
-const regex Dice::pattern("^(\\d+)[dD](\\d+)(?:\\+(\\d+))*$"); 
+regex Dice::pattern("^(\\d+)[dD](4|6|8|10|12|20|100)(?:\\+(\\d+))*$"); 
 //Create random device to seed generator
 random_device Dice::seeder;
 //Create mersenne twister engine
 mt19937 Dice::engine(Dice::seeder());
 
 
+// Roll Function for the dice class
+// Takes a string in the form xdy or xdy+z where x, y, z are integers and returns a dice roll
 int Dice::roll(string diceInput) {
 
-	// Declare regex result
+	// Declare regex result 
 	smatch result;
 
 	if (regex_search(diceInput, result, pattern)) {
@@ -47,3 +53,5 @@ int Dice::roll(string diceInput) {
 		return -1;
 	}
 }
+
+

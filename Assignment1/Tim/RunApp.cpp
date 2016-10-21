@@ -21,6 +21,9 @@
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
+#include "dice.h"
+#include <string>
+#include <iostream>
 
 //! main() function. Entry point of the program
 //! It does the following: 
@@ -28,9 +31,16 @@
 //! 2. Create a test runner that will execute all the tests in the registry
 //! 3. (optionally) sets an outputter that will output the results
 //! 4. Run the test cases. 
+
+//#define TEST
+
+
+
 int main(int argc, char* argv[])
 {
-  // Get the top level suite from the registry
+
+#ifdef TEST
+	// Get the top level suite from the registry
   CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
 
   // Adds the test to the list of test to run
@@ -47,4 +57,26 @@ int main(int argc, char* argv[])
 
   // Return error code 1 if the one of test failed.
   return wasSucessful ? 0 : 1;
+
+#else
+using namespace std;
+string input = "";
+	cout << "This driver will allow you to enter a string in dice notation to test rolling functionality.\n>";
+	while (true) {
+		cout << "Please enter valid dice notation or enter \"quit\" to exit:\n>";
+		cin.sync();
+		getline(cin, input);
+		if (input.compare("quit") == 0) {
+			cout << "Exiting...";
+			break;
+		}
+		else {
+			Dice::roll(input);
+		} 
+	} 
+
+#endif
+  return 0;
+
+
 }
