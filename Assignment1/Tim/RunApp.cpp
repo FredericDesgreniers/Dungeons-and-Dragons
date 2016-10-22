@@ -32,7 +32,7 @@
 //! 3. (optionally) sets an outputter that will output the results
 //! 4. Run the test cases. 
 
-//#define TEST
+#define TEST
 
 
 
@@ -59,22 +59,67 @@ int main(int argc, char* argv[])
   return wasSucessful ? 0 : 1;
 
 #else
-using namespace std;
-string input = "";
-	cout << "This driver will allow you to enter a string in dice notation to test rolling functionality.\n>";
-	while (true) {
-		cout << "Please enter valid dice notation or enter \"quit\" to exit:\n>";
-		cin.sync();
-		getline(cin, input);
-		if (input.compare("quit") == 0) {
-			cout << "Exiting...";
-			break;
-		}
-		else {
-			Dice::roll(input);
-		} 
-	} 
 
+// Test dice class by rolling 1, 2, 3, 4, then 5 of each valid dice type
+
+std::cout << "Testing D4 rolls: \n\n";
+string input;
+int j = 1;
+for (int i = 0; i < 5; i++) {
+	input = std::to_string(j) + "d4";
+	Dice::roll(input);
+	j++;
+}
+std::cout << endl;
+std::cout << "Testing D6 rolls: \n\n";
+j = 1;
+for (int i = 0; i < 5; i++) {
+	input = std::to_string(j) + "d6";
+	Dice::roll(input);
+	j++;
+}
+std::cout << endl;
+std::cout << "Testing D8 rolls: \n\n";
+j = 1;
+for (int i = 0; i < 5; i++) {
+	input = std::to_string(j) + "d8";
+	Dice::roll(input);
+	j++;
+}
+std::cout << endl;
+std::cout << "Testing D10 rolls: \n\n";
+j = 1;
+for (int i = 0; i < 5; i++) {
+	input = std::to_string(j) + "d10";
+	Dice::roll(input);
+	j++;
+}
+std::cout << endl;
+std::cout << "Testing D12 rolls: \n\n";
+j = 1;
+for (int i = 0; i < 5; i++) {
+	input = std::to_string(j) + "d12";
+	Dice::roll(input);
+	j++;
+}
+std::cout << endl;
+std::cout << "Testing D20 rolls: \n\n";
+j = 1;
+for (int i = 0; i < 5; i++) {
+	input = std::to_string(j) + "d20";
+	Dice::roll(input);
+	j++;
+}
+std::cout << endl;
+std::cout << "Testing D100 rolls: \n\n";
+j = 1;
+for (int i = 0; i < 5; i++) {
+	input = std::to_string(j) + "d100";
+	Dice::roll(input);
+	j++;
+}
+std::cout << endl;
+std::cout << "Tests complete. Exiting";
 #endif
   return 0;
 

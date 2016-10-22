@@ -1,0 +1,220 @@
+\hypertarget{class_dice_test}{}\section{Dice\+Test Class Reference}
+\label{class_dice_test}\index{Dice\+Test@{Dice\+Test}}
+
+
+Test Class for the \hyperlink{class_dice}{Dice} class.  
+
+
+Inheritance diagram for Dice\+Test\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_dice_test}
+\end{center}
+\end{figure}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_dice_test_a3e9f2421e914d4f18de2327828345860}{test\+Dice\+Roll\+Input\+Validity} ()
+\item 
+void \hyperlink{class_dice_test_a365b7b1d1ffe9faac8f306de9944d173}{test\+Dice\+Rolling\+Bounds} ()
+\item 
+void \hyperlink{class_dice_test_ac46b7044f229250c84b8dafaf432c80d}{test\+Invalid\+Dice\+Types} ()
+\item 
+void \hyperlink{class_dice_test_a849ab553a12a5a5d4deec59ddd1edf30}{test\+Multiple\+Dice} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_dice_test_ae60af42068499ec4e3dac71d8a7d31d5}{}\label{class_dice_test_ae60af42068499ec4e3dac71d8a7d31d5} 
+{\bfseries C\+P\+P\+U\+N\+I\+T\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+TE} (\hyperlink{class_dice_test}{Dice\+Test})
+\item 
+\hypertarget{class_dice_test_ae60a88cf9ee33179fc1d7ba0d0ac27c9}{}\label{class_dice_test_ae60a88cf9ee33179fc1d7ba0d0ac27c9} 
+{\bfseries C\+P\+P\+U\+N\+I\+T\+\_\+\+T\+E\+ST} (\hyperlink{class_dice_test_a3e9f2421e914d4f18de2327828345860}{test\+Dice\+Roll\+Input\+Validity})
+\item 
+\hypertarget{class_dice_test_a2114378e2f9228c529f19055c2b07d2b}{}\label{class_dice_test_a2114378e2f9228c529f19055c2b07d2b} 
+{\bfseries C\+P\+P\+U\+N\+I\+T\+\_\+\+T\+E\+ST} (\hyperlink{class_dice_test_a365b7b1d1ffe9faac8f306de9944d173}{test\+Dice\+Rolling\+Bounds})
+\item 
+\hypertarget{class_dice_test_af30057a8554704368f119ab1a26c6e8a}{}\label{class_dice_test_af30057a8554704368f119ab1a26c6e8a} 
+{\bfseries C\+P\+P\+U\+N\+I\+T\+\_\+\+T\+E\+ST} (\hyperlink{class_dice_test_ac46b7044f229250c84b8dafaf432c80d}{test\+Invalid\+Dice\+Types})
+\item 
+\hypertarget{class_dice_test_a7de775b83af7ea891c87c1203119c262}{}\label{class_dice_test_a7de775b83af7ea891c87c1203119c262} 
+{\bfseries C\+P\+P\+U\+N\+I\+T\+\_\+\+T\+E\+ST} (\hyperlink{class_dice_test_a849ab553a12a5a5d4deec59ddd1edf30}{test\+Multiple\+Dice})
+\item 
+\hypertarget{class_dice_test_a8200325837de38fdee61cdec137b64a4}{}\label{class_dice_test_a8200325837de38fdee61cdec137b64a4} 
+{\bfseries C\+P\+P\+U\+N\+I\+T\+\_\+\+T\+E\+S\+T\+\_\+\+S\+U\+I\+T\+E\+\_\+\+E\+ND} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Test Class for the \hyperlink{class_dice}{Dice} class. 
+
+Definition at line 20 of file Dice\+Test.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_dice_test_a365b7b1d1ffe9faac8f306de9944d173}{}\label{class_dice_test_a365b7b1d1ffe9faac8f306de9944d173} 
+\index{Dice\+Test@{Dice\+Test}!test\+Dice\+Rolling\+Bounds@{test\+Dice\+Rolling\+Bounds}}
+\index{test\+Dice\+Rolling\+Bounds@{test\+Dice\+Rolling\+Bounds}!Dice\+Test@{Dice\+Test}}
+\subsubsection{\texorpdfstring{test\+Dice\+Rolling\+Bounds()}{testDiceRollingBounds()}}
+{\footnotesize\ttfamily void Dice\+Test\+::test\+Dice\+Rolling\+Bounds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+test method for roll function of the \hyperlink{class_dice}{Dice} class Test Case\+: the upperbound of all values returned from roll function 
+
+Definition at line 64 of file Dice\+Test.\+cpp.
+
+
+\begin{DoxyCode}
+65 \{
+66     \textcolor{keywordtype}{int} result = 0;
+67     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 1000; j++) \{
+68         result= \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d4"});
+69         CPPUNIT\_ASSERT(result >= 1);
+70         CPPUNIT\_ASSERT(result <= 4);
+71     \}
+72     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 1000; j++) \{
+73         result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d6"});
+74         CPPUNIT\_ASSERT(result >= 1);
+75         CPPUNIT\_ASSERT(result <= 6);
+76     \}
+77     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 1000; j++) \{
+78         \textcolor{keywordtype}{int} numbers = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d8"});
+79         CPPUNIT\_ASSERT(result >= 1);
+80         CPPUNIT\_ASSERT(result <= 8);
+81     \}
+82     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 1000; j++) \{
+83         \textcolor{keywordtype}{int} numbers = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d10"});
+84         CPPUNIT\_ASSERT(result >= 1);
+85         CPPUNIT\_ASSERT(result <= 10);
+86     \}
+87     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 1000; j++) \{
+88         \textcolor{keywordtype}{int} numbers = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d12"});
+89         CPPUNIT\_ASSERT(result >= 1);
+90         CPPUNIT\_ASSERT(result <= 12);
+91     \}
+92     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 1000; j++) \{
+93         \textcolor{keywordtype}{int} numbers = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d20"});
+94         CPPUNIT\_ASSERT(result >= 1);
+95         CPPUNIT\_ASSERT(result <= 20);
+96     \}
+97     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 1000; j++) \{
+98         \textcolor{keywordtype}{int} numbers = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d100"});
+99         CPPUNIT\_ASSERT(result >= 1);
+100         CPPUNIT\_ASSERT(result <= 100);
+101     \}
+102 \}
+\end{DoxyCode}
+\hypertarget{class_dice_test_a3e9f2421e914d4f18de2327828345860}{}\label{class_dice_test_a3e9f2421e914d4f18de2327828345860} 
+\index{Dice\+Test@{Dice\+Test}!test\+Dice\+Roll\+Input\+Validity@{test\+Dice\+Roll\+Input\+Validity}}
+\index{test\+Dice\+Roll\+Input\+Validity@{test\+Dice\+Roll\+Input\+Validity}!Dice\+Test@{Dice\+Test}}
+\subsubsection{\texorpdfstring{test\+Dice\+Roll\+Input\+Validity()}{testDiceRollInputValidity()}}
+{\footnotesize\ttfamily void Dice\+Test\+::test\+Dice\+Roll\+Input\+Validity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+test method for roll function of the \hyperlink{class_dice}{Dice} class Test Case\+: the the validity of input string 
+
+Definition at line 40 of file Dice\+Test.\+cpp.
+
+
+\begin{DoxyCode}
+41 \{
+42     \textcolor{keywordtype}{int} result = 0;
+43     
+44     \textcolor{comment}{// test that if the string is valid, the result is calculated}
+45     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"4d20"});
+46     CPPUNIT\_ASSERT(result > 0);
+47     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"3d10+1"});
+48     CPPUNIT\_ASSERT(result > 0);
+49 
+50     \textcolor{comment}{//test that is the string is invalid, roll() returns -1}
+51     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"4d"});
+52     CPPUNIT\_ASSERT(result == -1);
+53     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"d20"});
+54     CPPUNIT\_ASSERT(result == -1);
+55     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"420"});
+56     CPPUNIT\_ASSERT(result == -1);
+57     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"4d20+"});
+58     CPPUNIT\_ASSERT(result == -1);
+59 \}
+\end{DoxyCode}
+\hypertarget{class_dice_test_ac46b7044f229250c84b8dafaf432c80d}{}\label{class_dice_test_ac46b7044f229250c84b8dafaf432c80d} 
+\index{Dice\+Test@{Dice\+Test}!test\+Invalid\+Dice\+Types@{test\+Invalid\+Dice\+Types}}
+\index{test\+Invalid\+Dice\+Types@{test\+Invalid\+Dice\+Types}!Dice\+Test@{Dice\+Test}}
+\subsubsection{\texorpdfstring{test\+Invalid\+Dice\+Types()}{testInvalidDiceTypes()}}
+{\footnotesize\ttfamily void Dice\+Test\+::test\+Invalid\+Dice\+Types (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+test method for roll function of the \hyperlink{class_dice}{Dice} class Test Case\+: rolling dice of invalid types (ie not d4, 6, 8, 10, 12, 20, 100) 
+
+Definition at line 107 of file Dice\+Test.\+cpp.
+
+
+\begin{DoxyCode}
+108 \{
+109     \textcolor{keywordtype}{int} result = 0;
+110     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"2d9"});
+111     CPPUNIT\_ASSERT(result == -1);
+112     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d102"});
+113     CPPUNIT\_ASSERT(result == -1);
+114     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"4d17"});
+115     CPPUNIT\_ASSERT(result == -1);
+116     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d11"});
+117     CPPUNIT\_ASSERT(result == -1);
+118     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d62"});
+119     CPPUNIT\_ASSERT(result == -1);
+120     result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"1d10000"});
+121 \}
+\end{DoxyCode}
+\hypertarget{class_dice_test_a849ab553a12a5a5d4deec59ddd1edf30}{}\label{class_dice_test_a849ab553a12a5a5d4deec59ddd1edf30} 
+\index{Dice\+Test@{Dice\+Test}!test\+Multiple\+Dice@{test\+Multiple\+Dice}}
+\index{test\+Multiple\+Dice@{test\+Multiple\+Dice}!Dice\+Test@{Dice\+Test}}
+\subsubsection{\texorpdfstring{test\+Multiple\+Dice()}{testMultipleDice()}}
+{\footnotesize\ttfamily void Dice\+Test\+::test\+Multiple\+Dice (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+test method for roll function of the \hyperlink{class_dice}{Dice} class Test Case\+: rolling multiple dice in one function call 
+
+Definition at line 125 of file Dice\+Test.\+cpp.
+
+
+\begin{DoxyCode}
+126 \{
+127     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 500; j++) \{
+128         \textcolor{keywordtype}{int} result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"2d6"});
+129         CPPUNIT\_ASSERT(result >= 2);
+130         CPPUNIT\_ASSERT(result <= 12);
+131     \}
+132 
+133     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 500; j++) \{
+134         \textcolor{keywordtype}{int} result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"3d8"});
+135         CPPUNIT\_ASSERT(result >= 3);
+136         CPPUNIT\_ASSERT(result <= 24);
+137     \}
+138 
+139     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 500; j++) \{
+140         \textcolor{keywordtype}{int} result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"4d10"});
+141         CPPUNIT\_ASSERT(result >= 4);
+142         CPPUNIT\_ASSERT(result <= 40);
+143     \}
+144 
+145     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 500; j++) \{
+146         \textcolor{keywordtype}{int} result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"5d12"});
+147         CPPUNIT\_ASSERT(result >= 5);
+148         CPPUNIT\_ASSERT(result <= 60);
+149     \}
+150 
+151     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 500; j++) \{
+152         \textcolor{keywordtype}{int} result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"6d20"});
+153         CPPUNIT\_ASSERT(result >= 6);
+154         CPPUNIT\_ASSERT(result <= 120);
+155     \}
+156 
+157     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 1; j <= 500; j++) \{
+158         \textcolor{keywordtype}{int} result = \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{Dice::roll}(\textcolor{stringliteral}{"7d100"});
+159         CPPUNIT\_ASSERT(result >= 7);
+160         CPPUNIT\_ASSERT(result <= 700);
+161     \}
+162 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_dice_test_8cpp}{Dice\+Test.\+cpp}\end{DoxyCompactItemize}

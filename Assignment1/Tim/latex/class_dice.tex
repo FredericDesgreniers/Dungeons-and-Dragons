@@ -1,0 +1,147 @@
+\hypertarget{class_dice}{}\section{Dice Class Reference}
+\label{class_dice}\index{Dice@{Dice}}
+
+
+\hyperlink{class_dice}{Dice} class.  
+
+
+
+
+{\ttfamily \#include $<$dice.\+h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{class_dice_a4923bdf22040579e6e071e1e987916c2}{roll} (string string)
+\begin{DoxyCompactList}\small\item\em Takes a string in dice notation and simulates dice rolls. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static random\+\_\+device \hyperlink{class_dice_af481058183b404432e1f0e44ac2edda7}{seeder}
+\item 
+static mt19937 \hyperlink{class_dice_ac2419b5841ba494b6f8beec92ab0cc6d}{engine}
+\item 
+static regex \hyperlink{class_dice_aed565a295973cdcc36921307ff4133b0}{pattern}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_dice}{Dice} class. 
+
+Used in simulating dice rolls for D\&D style gameplay. This class contains a single static function called roll which takes a string in valid dice notation and returns the resulting simulated dice rolls.
+
+$<$regex$>$ library is used to verify strings are in correct dice notation and parse them for relevant data.
+
+$<$random$>$ library is used for random\+\_\+device, mt19937, and uniform\+\_\+distribution types. We use a random\+\_\+device to produce a non-\/deterministic seed for an mt19937 mersenne twister engine, then define a uniform distribution between 1 and the value of the dice being rolled. The reason for using a mersenne twister over a simpler rand() implementation is that mt19937 generates a much better approximation of randomness. Rand() used in combination with mod generates numbers biased towards the lower end. By using mt19937 in conjunction with uniform distribution, we generate unbiased, uniformly distributed numbers between 1 and the dice value with very small overhead.
+
+$<$iostream$>$ is used to output to console for testing and debugging purposes 
+
+Definition at line 28 of file dice.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_dice_a4923bdf22040579e6e071e1e987916c2}{}\label{class_dice_a4923bdf22040579e6e071e1e987916c2} 
+\index{Dice@{Dice}!roll@{roll}}
+\index{roll@{roll}!Dice@{Dice}}
+\subsubsection{\texorpdfstring{roll()}{roll()}}
+{\footnotesize\ttfamily int Dice\+::roll (\begin{DoxyParamCaption}\item[{string}]{string }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Takes a string in dice notation and simulates dice rolls. 
+
+Takes a string in the form xdy or xdy+z and where x, z are integers and y is one of 4, 6, 8, 10, 12, 20, 100. Simulates rolling x y-\/sided dice and returns the result (+z if applicable) 
+
+Definition at line 17 of file dice.\+cpp.
+
+
+\begin{DoxyCode}
+17                                \{
+18 
+19     \textcolor{comment}{// Declare regex result }
+20     smatch result;
+21 
+22     \textcolor{keywordflow}{if} (regex\_search(diceInput, result, \hyperlink{class_dice_aed565a295973cdcc36921307ff4133b0}{pattern})) \{
+23         \textcolor{comment}{//Input is valid dice notation}
+24         \textcolor{comment}{//Store parsed data for x, y in integers, initialize variables}
+25         \textcolor{keywordtype}{int} diceNum = stoi(result[1]), diceVal = stoi(result[2]), diceMod = 0, rollSum = 0, currentRoll = 0
+      ;
+26         cout << \textcolor{stringliteral}{"Rolling "} << diceInput << endl;;
+27         
+28 
+29         \textcolor{comment}{//Define uniform distribution from 1 to diceVal}
+30         uniform\_int\_distribution<int> dist(1, diceVal);
+31 
+32         \textcolor{comment}{// Roll [diceNum] pseudorandom numbers between 1 and [diceVal], store their sum in rollSum. Output
+       result of each roll}
+33         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < diceNum; i++) \{
+34             currentRoll = dist(\hyperlink{class_dice_ac2419b5841ba494b6f8beec92ab0cc6d}{engine});
+35             cout << \textcolor{stringliteral}{"Roll "} << i + 1 << \textcolor{stringliteral}{": "} << currentRoll << endl;
+36             rollSum += currentRoll;
+37         \}
+38 
+39         \textcolor{comment}{// Check if z exists and if so, store it in diceMod and add it to sum}
+40         \textcolor{keywordflow}{if} (result[3].matched) \{
+41             diceMod = stoi(result[3]);
+42             cout << \textcolor{stringliteral}{"Modifier: +"} << diceMod << endl;
+43             rollSum += diceMod;
+44         \}
+45 
+46         \textcolor{comment}{// Output the final roll sum}
+47         cout << \textcolor{stringliteral}{"Total: "} << rollSum << endl << endl; 
+48         \textcolor{keywordflow}{return} rollSum;
+49     \}
+50 
+51     \textcolor{keywordflow}{else} \{
+52         cout << \textcolor{stringliteral}{"Invalid input string '"} << diceInput << \textcolor{stringliteral}{"': input must be in the form xdy or xdy+z"} << 
+      endl << endl;
+53         \textcolor{keywordflow}{return} -1;
+54     \}
+55 \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_dice_ac2419b5841ba494b6f8beec92ab0cc6d}{}\label{class_dice_ac2419b5841ba494b6f8beec92ab0cc6d} 
+\index{Dice@{Dice}!engine@{engine}}
+\index{engine@{engine}!Dice@{Dice}}
+\subsubsection{\texorpdfstring{engine}{engine}}
+{\footnotesize\ttfamily mt19937 Dice\+::engine\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+mt19937
+
+Mersenne twister engine used to generate pseudorandom numbers for dice rolls 
+
+Definition at line 39 of file dice.\+h.
+
+\hypertarget{class_dice_aed565a295973cdcc36921307ff4133b0}{}\label{class_dice_aed565a295973cdcc36921307ff4133b0} 
+\index{Dice@{Dice}!pattern@{pattern}}
+\index{pattern@{pattern}!Dice@{Dice}}
+\subsubsection{\texorpdfstring{pattern}{pattern}}
+{\footnotesize\ttfamily regex Dice\+::pattern\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+regex pattern
+
+Regex used to verify a string is valid dice notation and parse the string 
+
+Definition at line 44 of file dice.\+h.
+
+\hypertarget{class_dice_af481058183b404432e1f0e44ac2edda7}{}\label{class_dice_af481058183b404432e1f0e44ac2edda7} 
+\index{Dice@{Dice}!seeder@{seeder}}
+\index{seeder@{seeder}!Dice@{Dice}}
+\subsubsection{\texorpdfstring{seeder}{seeder}}
+{\footnotesize\ttfamily random\+\_\+device Dice\+::seeder\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+random\+\_\+device
+
+Generates seed for mersenne twister 
+
+Definition at line 34 of file dice.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{dice_8h}{dice.\+h}\item 
+\hyperlink{dice_8cpp}{dice.\+cpp}\end{DoxyCompactItemize}
