@@ -1,11 +1,9 @@
 #include "Renderer.h"
 
 TTF_Font* Renderer::FONT_ROBOTO_24 = nullptr;
+SDL_Window* Renderer::window = nullptr;
+SDL_Renderer* Renderer::renderer = nullptr;
 
-Renderer::Renderer()
-{
-	
-}
 /**
  *
  */
@@ -85,7 +83,7 @@ SDL_Texture* Renderer::CreateTexture(std::string text, TTF_Font* font, SDL_Color
 
 void Renderer::RenderTexture(SDL_Texture* texture, SDL_Rect* bounds)
 {
-	SDL_RenderCopy(renderer, texture, NULL, bounds);
+	SDL_RenderCopy(Renderer::renderer, texture, NULL, bounds);
 }
 
 
@@ -96,9 +94,6 @@ void Renderer::iniRender()
 
 void Renderer::render()
 {
-	
-
-
 
 	SDL_RenderPresent(renderer);
 
@@ -109,9 +104,8 @@ void Renderer::destroyTexture(SDL_Texture* texture)
 	SDL_DestroyTexture(texture);
 }
 
-Renderer::~Renderer()
+void Renderer::destroyRenderer()
 {
-	
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();

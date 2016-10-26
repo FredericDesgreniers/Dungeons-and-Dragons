@@ -3,28 +3,52 @@
 #include <SDL/SDL_ttf.h>
 
 #include <iostream>
-
+/**
+ * Manages Rendering with the help of SDL
+ */
 class Renderer
 {
 public:
-	Renderer();
-	bool init();
-	
-	void iniRender();
-	void render();
 
+	/**
+	 * Initialize SDL and TTF_FONTs
+	 */
+	static bool init();
+	
+	/**
+	 * Start tick rendering process
+	 */
+	static void iniRender();
+	/**
+	 * Render on screen.
+	 */
+	static void render();
+
+	/**
+	 * Roboto 24 font
+	 */
 	static TTF_Font* FONT_ROBOTO_24;
 	
-	SDL_Texture* CreateTexture(std::string text, TTF_Font* font, SDL_Color color);
-	void RenderTexture(SDL_Texture*, SDL_Rect* bounds);
+	/**
+	 * Create texture from string, font and color
+	 */
+	static SDL_Texture* CreateTexture(std::string text, TTF_Font* font, SDL_Color color);
+	/**
+	 * Render a texture within select bounds
+	 */
+	static void RenderTexture(SDL_Texture*, SDL_Rect* bounds);
 
-	void destroyTexture(SDL_Texture* texture);
+	/**
+	 * Destroy texture.
+	 */
+	static void destroyTexture(SDL_Texture* texture);
 
-	~Renderer();
+	static void destroyRenderer();
 
-private:
-	SDL_Window *window;
-	SDL_Renderer *renderer;
-	bool loadFonts();
+	static SDL_Window *window;
+	static SDL_Renderer *renderer;
+	static bool loadFonts();
+
+
 
 };
