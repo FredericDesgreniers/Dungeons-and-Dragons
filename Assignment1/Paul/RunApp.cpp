@@ -1,6 +1,9 @@
 //! @file
-//! @brief Driver file to create and execute the test suite
+//! @brief Driver file and test cases
 //!
+//! IMPORTANT!
+//! The #define DRIVER should be commented out if only the test cases need to be executed.
+
 //! Brief instruction on how to set CppUnit:
 //! from: http ://www.comp.nus.edu.sg/~cs3215/tools/cppunitAll.html
 //!
@@ -25,8 +28,16 @@
 #include <cppunit/ui/text/TestRunner.h>
 
 #include "dice.h"
+#define DRIVER
 
-//!Main function
+
+
+//! main() function. Entry point of the program
+//! It does the following:
+//! 1. Create a test suite object from the registry as populated by the code in the Test Classes
+//! 2. Create a test runner that will execute all the tests in the registry
+//! 3. (optionally) sets an outputter that will output the results
+//! 4. Run the test cases.
 int main(int argc, char* argv[])
 {
   // Get the top level suite from the registry
@@ -43,7 +54,9 @@ int main(int argc, char* argv[])
   bool wasSucessful = runner.run();
 
   getchar();
-
+#ifdef DRIVER
+  // Driver implementation
+  // Tests different possibilities.
   // new dice object
   Dice* d = new Dice();
 
@@ -75,6 +88,7 @@ int main(int argc, char* argv[])
 
   delete d;
   d = NULL;
+#endif DRIVER
 
   // Return error code 1 if the one of test failed.
   return wasSucessful ? 0 : 1;
