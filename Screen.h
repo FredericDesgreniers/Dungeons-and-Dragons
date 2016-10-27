@@ -8,7 +8,7 @@ class Screen
 {
 public:
 	Screen();
-	void render();
+	virtual void render();
 	void tick();
 
 	void click(int x, int y);
