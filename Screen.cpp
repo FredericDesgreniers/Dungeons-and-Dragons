@@ -3,8 +3,6 @@
 
 Screen::Screen()
 {
-	SDL_Color whiteColor = { 255,255,255 };
-	titleText = Renderer::CreateTexture("d&d game", Renderer::FONT_ROBOTO_24, whiteColor);
 
 }
 
@@ -17,11 +15,35 @@ void Screen::render()
 	text_rect.h = 40;
 
 	Renderer::RenderTexture(titleText, &text_rect);
+
+	for(Button* b: buttons)
+	{
+		b->render();
+	}
+
 }
 
 void Screen::tick()
 {
 	
+}
+
+void Screen::onButtonClicked(Button* b)
+{
+	
+}
+
+
+
+void Screen::click(int x, int y)
+{
+	for (Button* b : buttons)
+		if (b->isInBounds(x, y))
+		{
+			onButtonClicked(b);
+			return;
+		}
+		
 }
 
 Screen::~Screen()
