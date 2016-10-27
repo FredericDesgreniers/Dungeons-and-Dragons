@@ -23,10 +23,10 @@ int main()
 
 	//font location / bounds
 
-	
+	bool running = true;
 
 	//render loop
-	while(true) //TODO: Add loop exit.
+	while(running) //TODO: Add loop exit.
 	{
 		SDL_Event event;
 		while(SDL_PollEvent(&event))
@@ -39,6 +39,9 @@ int main()
 
 				SDL_GetMouseState(&x, &y);
 				gui_manager.clickScreen(x, y);
+				break;
+			case SDL_QUIT:
+				running = false;
 				break;
 			}
 		}
