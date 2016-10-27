@@ -4,7 +4,7 @@
 class ScreenMain : public Screen
 {
 public:
-	ScreenMain();
+	ScreenMain(Game* game);
 
 	void onButtonClicked(Button* b) override;
 

@@ -1,7 +1,7 @@
 #include "Screen.h"
 #include "Renderer.h"
 
-Screen::Screen()
+Screen::Screen(Game* game):game(game)
 {
 
 }

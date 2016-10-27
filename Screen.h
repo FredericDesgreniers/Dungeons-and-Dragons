@@ -4,10 +4,12 @@
 #include "Button.h"
 
 
+class Game;
+
 class Screen
 {
 public:
-	Screen();
+	Screen(Game* game);
 	virtual void render();
 	void tick();
 
@@ -21,6 +23,8 @@ public:
 	}
 
 	~Screen();
+protected:
+	Game* game;
 private:
 	SDL_Texture* titleText;
 	std::vector<Button*> buttons;
