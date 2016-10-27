@@ -76,8 +76,7 @@ SDL_Texture* Renderer::CreateTexture(std::string text, TTF_Font* font, SDL_Color
 		return nullptr;
 	}
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, sText);
-	
-
+	SDL_FreeSurface(sText);
 	return texture;
 }
 
@@ -98,7 +97,7 @@ void Renderer::render()
 
 	SDL_RenderPresent(renderer);
 
-	SDL_Delay(100);
+	SDL_Delay(20);
 }
 void Renderer::destroyTexture(SDL_Texture* texture)
 {
