@@ -89,6 +89,7 @@ void Renderer::RenderTexture(SDL_Texture* texture, SDL_Rect* bounds)
 
 void Renderer::iniRender()
 {
+	setColor(0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 }
 
@@ -102,6 +103,17 @@ void Renderer::render()
 void Renderer::destroyTexture(SDL_Texture* texture)
 {
 	SDL_DestroyTexture(texture);
+}
+
+void Renderer::RenderRect(int x, int y, int width, int height)
+{
+	SDL_Rect rect;
+	rect.x = x;
+	rect.y = y;
+	rect.w = width;
+	rect.h = height;
+
+	SDL_RenderFillRect(renderer, &rect);
 }
 
 void Renderer::destroyRenderer()

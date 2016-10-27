@@ -38,6 +38,13 @@ public:
 	 */
 	static void RenderTexture(SDL_Texture*, SDL_Rect* bounds);
 
+	static void setColor(int r, int g, int b, int a)
+	{
+		SDL_SetRenderDrawColor(renderer, r, g, b, a);
+	}
+
+	static void RenderRect(int x, int y, int width, int height);
+
 	/**
 	 * Destroy texture.
 	 */
