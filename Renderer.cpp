@@ -85,6 +85,21 @@ void Renderer::RenderTexture(SDL_Texture* texture, SDL_Rect* bounds)
 	SDL_RenderCopy(Renderer::renderer, texture, NULL, bounds);
 }
 
+void Renderer::drawString(std::string str, TTF_Font* font, int x, int y, int scale,  SDL_Color color)
+{
+	SDL_Texture* texture = CreateTexture(str, font, color);
+
+	SDL_Rect bounds;
+	bounds.x = x;
+	bounds.y = y;
+
+	TTF_SizeText(font, str.c_str(), &bounds.w, &bounds.h);
+	bounds.w *= scale;
+	bounds.h *= scale;
+	RenderTexture(texture, &bounds);
+
+	destroyTexture(texture);
+}
 
 void Renderer::iniRender()
 {
