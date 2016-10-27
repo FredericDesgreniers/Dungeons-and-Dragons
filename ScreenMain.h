@@ -7,4 +7,6 @@ public:
 	ScreenMain();
 
 	void onButtonClicked(Button* b) override;
+
+	void render() override;
 };
