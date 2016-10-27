@@ -5,35 +5,42 @@
 
 #undef main
 
-int main()
+Game::Game()
 {
-	GuiManager gui_manager;
+	
+}
 
-	if(!Renderer::init())
-		return 1;
+bool Game::ini()
+{
+
+	if (!Renderer::init())
+		return false;
 
 	//font color
 
 
 
-	ScreenMain* startScreen = new ScreenMain();
-	
+	ScreenMain* startScreen = new ScreenMain(this);
+
 	gui_manager.setScreen(startScreen);
 
+	return true;
 
-	//font location / bounds
+}
 
+bool Game::run()
+{
 	bool running = true;
 
 	//render loop
-	while(running) //TODO: Add loop exit.
+	while (running) //TODO: Add loop exit.
 	{
 		SDL_Event event;
-		while(SDL_PollEvent(&event))
+		while (SDL_PollEvent(&event))
 		{
-			switch(event.type)
+			switch (event.type)
 			{
-				
+
 			case SDL_MOUSEBUTTONUP:
 				int x, y;
 
@@ -58,7 +65,38 @@ int main()
 
 	}
 
-	
+	return true;
+}
+
+bool Game::exit()
+{
 	Renderer::destroyRenderer();
+
+	return true;
+}
+
+
+int main()
+{
+	Game game;
+	if(!game.ini())
+	{
+		std::cout << "Error initializing the game" << std::endl;
+	}
+	if(!game.run())
+	{
+		std::cout << "Error running the game" << std::endl;
+	}
+	if(!game.exit())
+	{
+		std::cout << "Error exiting the game" << std::endl;
+	}
+
+	//font location / bounds
+
+	
+
+	
+
 
 }
