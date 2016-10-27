@@ -29,3 +29,9 @@ void Button::render()
 
 	Renderer::RenderTexture(texture, &rect);
 }
+
+
+Button::~Button()
+{
+	Renderer::destroyTexture(texture);
+}

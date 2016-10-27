@@ -19,6 +19,8 @@ public:
 	
 	int getId() { return id; }
 
+	~Button();
+
 private:
 	int id, x, y, width, height;
 	std::string text;
