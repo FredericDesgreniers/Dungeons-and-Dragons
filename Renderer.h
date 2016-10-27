@@ -46,6 +46,11 @@ public:
 	static void RenderRect(int x, int y, int width, int height);
 
 	/**
+	 * Draw string with font at position x, y
+	 */
+	static void drawString(std::string str, TTF_Font* font, int x, int y, int scale, SDL_Color);
+
+	/**
 	 * Destroy texture.
 	 */
 	static void destroyTexture(SDL_Texture* texture);
