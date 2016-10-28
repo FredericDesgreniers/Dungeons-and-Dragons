@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
+#include "Style.h"
 #include <SDL/SDL.h>
 
-class Button
+class Button : public Style
 {
 public:
 	Button(int id, std::string text, int x, int y, int width, int height);
@@ -18,6 +19,8 @@ public:
 	int getHeight() { return height; }
 	
 	int getId() { return id; }
+
+	void setFontColor(int r, int g, int b, int a) override;
 
 	~Button();
 
