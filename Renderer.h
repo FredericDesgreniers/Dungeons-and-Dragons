@@ -42,8 +42,14 @@ public:
 	{
 		SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	}
+	static void setColor(SDL_Color &color)
+	{
+		setColor(color.r, color.g, color.b, color.a);
+	}
 
-	static void RenderRect(int x, int y, int width, int height);
+	static void RenderRect(int x, int y, int width, int height);	
+	
+	static void RenderRectOutline(int x, int y, int width, int height);
 
 	/**
 	 * Draw string with font at position x, y
