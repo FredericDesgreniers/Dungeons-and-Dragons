@@ -6,12 +6,26 @@ class Style
 public:
 	Style(SDL_Rect dimensions);
 	Style(int x, int y, int w, int h);
+	/**
+	 * Draw default style:
+	 *	-background
+	 *	-border
+	 */
+	void drawDefaultStyle(bool hover);
 
-	void drawDefaultStyle(bool);
-	void drawBackground(bool);
-	void drawBorder(bool);
+	/**
+	 * Draw background using backgroundColor]
+	 */
+	void drawBackground(bool hover);
 
+	/**
+	 * draw border using backgroundBorder and bvordersize
+	 */
+	void drawBorder(bool hover);
 
+	/**
+	 * Set background color for element
+	 */
 	void setBackgroundColor(int r, int g, int b, int a)
 	{
 		backgroundColor.r = r;
@@ -19,6 +33,10 @@ public:
 		backgroundColor.b = b;
 		backgroundColor.a = a;
 	}
+
+	/**
+	 * Set border color for element
+	 */
 	void setBorderColor(int r, int g, int b, int a)
 	{
 		borderColor.r = r;
@@ -26,6 +44,9 @@ public:
 		borderColor.b = b;
 		borderColor.a = a;
 	}
+	/**
+	 * Set background color for element when hovering
+	 */
 	void setBackgroundColor_hover(int r, int g, int b, int a)
 	{
 		backgroundColor_hover.r = r;
@@ -33,6 +54,9 @@ public:
 		backgroundColor_hover.b = b;
 		backgroundColor_hover.a = a;
 	}
+	/**
+	 * Set border color for element when hovering
+	 */
 	void setBorderColor_hover(int r, int g, int b, int a)
 	{
 		borderColor_hover.r = r;
@@ -40,15 +64,25 @@ public:
 		borderColor_hover.b = b;
 		borderColor_hover.a = a;
 	}
+
+	/**
+	 * set Border size
+	 */
 	void setBorderSize(int borderSize)
 	{
 		this->borderSize = borderSize;
 	}
+	/**
+	 * Set border size when hovering
+	 */
 	void setBorderSize_hover(int borderSize)
 	{
 		this->borderSize_hover = borderSize;
 	}
 
+	/**
+	 * Set color that should be displayed for text
+	 */
 	virtual void setFontColor(int r, int g, int b, int a)
 	{
 		fontColor.r = r;

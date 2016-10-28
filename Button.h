@@ -8,8 +8,14 @@ class Button : public Style
 public:
 	Button(int id, std::string text, int x, int y, int width, int height);
 
+	/**
+	 * Returns if x and y are within the bounds of the button
+	 */
 	bool isInBounds(int x, int y) { return x >= this->x && y >= this->y && x <= this->x + width && y <= this->y + height; }
 
+	/**
+	 * Render button on screen
+	 */
 	void render();
 
 	int getX() { return x; }

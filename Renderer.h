@@ -30,8 +30,10 @@ public:
 	static TTF_Font* FONT_ROBOTO_24;
 	
 	/**
-	 * Create texture from string, font and color
-	 */
+	* Create a text texture using the text, the color and the font
+	* Use this for static textures. Use drawString() for dynamic textures.
+	*
+	*/
 	static SDL_Texture* CreateTexture(std::string text, TTF_Font* font, SDL_Color color);
 	/**
 	 * Render a texture within select bounds
@@ -52,8 +54,10 @@ public:
 	static void RenderRectOutline(int x, int y, int width, int height);
 
 	/**
-	 * Draw string with font at position x, y
-	 */
+	* Draw a string on the screen.
+	* Creates a new texture each time.
+	* Do not use this for static strings, use CreateTexture() and renderTexture() instead.
+	*/
 	static void drawString(std::string str, TTF_Font* font, int x, int y, int scale, SDL_Color);
 
 	/**
