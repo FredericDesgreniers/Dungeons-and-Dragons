@@ -15,11 +15,11 @@ public:
 
 	void click(int x, int y);
 
-	virtual void onButtonClicked(Button* b);
 
-	void addButton(Button* b)
+
+	void addComponent(Component* comp)
 	{
-		buttons.push_back(b);
+		components.push_back(comp);
 	}
 
 	~Screen();
@@ -27,5 +27,5 @@ protected:
 	Game* game;
 private:
 	SDL_Texture* titleText;
-	std::vector<Button*> buttons;
+	std::vector<Component*> components;
 };

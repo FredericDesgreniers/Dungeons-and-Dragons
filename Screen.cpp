@@ -16,9 +16,9 @@ void Screen::render()
 
 	Renderer::RenderTexture(titleText, &text_rect);
 
-	for(Button* b: buttons)
+	for(Component* comp:components)
 	{
-		b->render();
+		comp->render();
 	}
 
 }
@@ -28,20 +28,15 @@ void Screen::tick()
 	
 }
 
-void Screen::onButtonClicked(Button* b)
-{
-	
-}
 
 
 
 void Screen::click(int x, int y)
 {
-	for (Button* b : buttons)
-		if (b->isInBounds(x, y))
+	for (Component* c : components)
+		if (c->isInBounds(x, y))
 		{
-			onButtonClicked(b);
-			return;
+			c->click(x - c->getPositionX(), y - c->getPositionY());
 		}
 		
 }
