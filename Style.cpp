@@ -23,10 +23,16 @@ void Style::drawBackground(bool hover)
 {
 	//draw background
 	if (hover)
+	{ 
+		if (backgroundColor_hover.a == 0)
+			return;
 		Renderer::setColor(backgroundColor_hover);
-	else
+	}
+	else{
+		if (backgroundColor.a == 0)
+			return;
 		Renderer::setColor(backgroundColor);
-
+	}
 	Renderer::RenderRect(dimensions.x-padding_left, dimensions.y-padding_top, dimensions.w+padding_left+padding_right, dimensions.h+padding_top+padding_bottom);
 
 }

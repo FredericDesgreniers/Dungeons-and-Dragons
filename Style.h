@@ -127,7 +127,40 @@ public:
 	{
 		setPadding(padding, padding, padding, padding);
 	}
+	void setFontUnderline_both(int size)
+	{
+		setFontUnderline(size);
+		setFontUnderline_hover(size);
+	}
+	void setFontUnderline(int size)
+	{
+		fontUnderline = size;
+	}
+	
+	void setFontUnderline_hover(int size)
+	{
+		fontUnderline_hover = size;
+	}
+	void setFontUnderlineColor_both(int r, int g, int b, int a)
+	{
+		setFontUnderlineColor(r, g, b, a);
+		setFontUnderlineColor_hover(r, g, b, a);
+	}
 
+	void setFontUnderlineColor(int r, int g, int b, int a)
+	{
+		fontUnderlineColor.r = r;
+		fontUnderlineColor.g = g;
+		fontUnderlineColor.b = b;
+		fontUnderlineColor.a = a;
+	}
+	void setFontUnderlineColor_hover(int r, int g, int b, int a)
+	{
+		fontUnderlineColor_hover.r = r;
+		fontUnderlineColor_hover.g = g;
+		fontUnderlineColor_hover.b = b;
+		fontUnderlineColor_hover.a = a;
+	}
 	/**
 	 * Set color that should be displayed for text
 	 */
@@ -146,10 +179,15 @@ protected:
 	SDL_Color borderColor_hover;
 
 	SDL_Color fontColor;
+	SDL_Color fontUnderlineColor;
+	SDL_Color fontUnderlineColor_hover;
+
 
 	int borderSize;
 	int borderSize_hover;
 
 	int padding_right, padding_left, padding_top, padding_bottom;
+
+	int fontUnderline, fontUnderline_hover;
 
 };
