@@ -8,25 +8,13 @@ class Button : public Style
 public:
 	Button(int id, std::string text, int x, int y, int width, int height);
 
-	/**
-	 * Returns if x and y are within the bounds of the button
-	 */
-	bool isInBounds(int x, int y)
-	{
-		return x >= this->x-padding_left && y >= this->y-padding_top && x <= this->x + width+padding_left+padding_right && y <= this->y + height + padding_top+padding_bottom;
-	}
+
 
 	/**
 	 * Render button on screen
 	 */
 	void render();
 
-	int getX() { return x; }
-	int getY() { return y; }
-
-	int getWidth() { return width; }
-	int getHeight() { return height; }
-	
 	int getId() { return id; }
 
 	/**
@@ -39,7 +27,7 @@ public:
 	~Button();
 
 private:
-	int id, x, y, width, height;
+	int id;
 	std::string text;
 
 	SDL_Texture* texture;
