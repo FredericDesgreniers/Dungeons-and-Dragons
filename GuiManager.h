@@ -12,6 +12,16 @@ public:
 
 	void clickScreen(int x, int y);
 
+	void setDebug(bool d)
+	{
+		debug = d;
+	}
+
+	void toggleDebug()
+	{
+		debug = !debug;
+	}
+
 	/**
 	 * Set the screen, return pointer to old screen
 	 */
@@ -19,5 +29,6 @@ public:
 	
 private:
 	Screen* currentScreen;
+	bool debug;
 	
 };

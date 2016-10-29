@@ -5,6 +5,8 @@
 GuiManager::GuiManager()
 {
 	currentScreen = nullptr;
+
+	debug = false;
 }
 
 void GuiManager::renderScreen()
@@ -12,14 +14,17 @@ void GuiManager::renderScreen()
 	if (currentScreen != nullptr)
 		currentScreen->render();
 
-#ifdef DEBUG
+if (debug){
+
+	if (currentScreen != nullptr)
+		currentScreen->renderDebug();
 
 	int mx, my;
 	SDL_GetMouseState(&mx, &my);
 	Renderer::drawString(std::to_string(mx) + " : " + std::to_string(my), Renderer::FONT_ROBOTO_24, 0, 0, 1, { 255,255,255,255 });
 
 
-#endif
+}
 }
 
 

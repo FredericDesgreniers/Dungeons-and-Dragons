@@ -35,6 +35,15 @@ void Screen::click(int x, int y)
 		
 }
 
+void Screen::renderDebug()
+{
+	for (Component* comp : components)
+	{
+		comp->renderDebug();
+	}
+}
+
+
 Screen::~Screen()
 {
 	Renderer::destroyTexture(titleText);

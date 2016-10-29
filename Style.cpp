@@ -62,3 +62,9 @@ void Style::setFontColor(int r, int g, int b, int a)
 	fontColor.a = a;
 }
 
+void Style::renderDebug()
+{
+	Component::renderDebug();
+	Renderer::setColor(0, 255, 0, 255);
+	Renderer::RenderRectOutline(dimensions.x - padding_left, dimensions.y - padding_top, dimensions.w + padding_left + padding_right, dimensions.h + padding_top + padding_bottom);
+}

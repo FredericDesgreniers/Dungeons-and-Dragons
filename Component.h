@@ -28,6 +28,8 @@ public:
 	}
 
 	virtual void render();
+	virtual void renderDebug();
+	
 	virtual void tick();
 
 	/**

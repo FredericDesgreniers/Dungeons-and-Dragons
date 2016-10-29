@@ -24,6 +24,8 @@ public:
 	 */
 	void drawBorder(bool hover);
 
+	virtual void renderDebug() override;
+
 	/**
 	* Returns if x and y are within the bounds of the button
 	*/

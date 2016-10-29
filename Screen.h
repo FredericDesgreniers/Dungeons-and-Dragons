@@ -11,6 +11,8 @@ class Screen
 public:
 	Screen(Game* game);
 	virtual void render();
+	virtual void renderDebug();
+
 	void tick();
 
 	void click(int x, int y);
@@ -23,6 +25,8 @@ public:
 	{
 		components.push_back(comp);
 	}
+
+
 
 	~Screen();
 protected:
