@@ -15,3 +15,13 @@ Component::Component(int positionX, int positionY, int width, int height) : Comp
 	
 }
 
+void Component::render()
+{
+	
+}
+
+void Component::tick()
+{
+	
+}
+
