@@ -50,6 +50,13 @@ bool Game::run()
 			case SDL_QUIT:
 				running = false;
 				break;
+			case SDL_KEYUP:
+				switch(event.key.keysym.sym)
+				{
+				case SDLK_z:
+					gui_manager.toggleDebug();
+					break;
+				}
 			}
 		}
 
