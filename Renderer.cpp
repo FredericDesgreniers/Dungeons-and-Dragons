@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-TTF_Font* Renderer::FONT_ROBOTO_24 = nullptr;
+Font Renderer::FONT_ROBOTO("Roboto-Regular");
 SDL_Window* Renderer::window = nullptr;
 SDL_Renderer* Renderer::renderer = nullptr;
 
@@ -43,29 +43,12 @@ bool Renderer::init()
 		return false;
 	}
 
-	if(!loadFonts())
-	{
-		return false;
-	}
+
 
 	return true;
 }
 
-bool Renderer::loadFonts()
-{
-	//open font
-	Renderer::FONT_ROBOTO_24 = TTF_OpenFont("resources/Roboto-Regular.ttf", 24);
-	if (Renderer::FONT_ROBOTO_24 == nullptr)
-	{
-		SDL_DestroyRenderer(renderer);
-		SDL_DestroyWindow(window);
-		std::cout << "TTF_openFOnt... error: " << TTF_GetError() << std::endl;
-		SDL_Quit();
-		std::cin.get();
-		return false;
-	}
-	return true;
-}
+
 
 SDL_Texture* Renderer::CreateTexture(std::string text, TTF_Font* font, SDL_Color color)
 {

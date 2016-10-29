@@ -3,11 +3,12 @@
 #include "Style.h"
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
+#include "Font.h"
 
 class Button : public Style
 {
 public:
-	Button(std::string text,TTF_Font* font, int x, int y, int width, int height);
+	Button(std::string text,Font* font, int x, int y, int width, int height);
 
 
 
@@ -24,15 +25,19 @@ public:
 	 */
 	void setFontColor(int r, int g, int b, int a) override;
 
+	void setFontSize(int size) override;
+
+	void reloadTexture();
+
 	void adjustButtonDimensions()
 	{
-		TTF_SizeText(font, text.c_str(),  &dimensions.w, &dimensions.h);
+		TTF_SizeText(font->get(fontSize), text.c_str(),  &dimensions.w, &dimensions.h);
 	}
 
 	~Button();
 
 private:
 	std::string text;
-	TTF_Font* font;
+	Font* font;
 	SDL_Texture* texture;
 };

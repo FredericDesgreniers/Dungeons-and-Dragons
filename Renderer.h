@@ -3,6 +3,8 @@
 #include <SDL/SDL_ttf.h>
 
 #include <iostream>
+#include "Font.h"
+
 /**
  * Manages Rendering with the help of SDL
  */
@@ -27,7 +29,7 @@ public:
 	/**
 	 * Roboto 24 font
 	 */
-	static TTF_Font* FONT_ROBOTO_24;
+	static Font FONT_ROBOTO;
 	
 	/**
 	* Create a text texture using the text, the color and the font
@@ -78,7 +80,6 @@ public:
 
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
-	static bool loadFonts();
 
 	static Uint32 getAverageFrameTime();
 

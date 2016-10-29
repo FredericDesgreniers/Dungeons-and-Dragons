@@ -3,7 +3,7 @@
 
 ScreenMain::ScreenMain(Game* game) : Screen(game)
 {
-	Button* playBtn = new Button( "Play", Renderer::FONT_ROBOTO_24, 100, 100, 100, 30);
+	Button* playBtn = new Button( "Play", &Renderer::FONT_ROBOTO, 100, 100, 100, 30);
 
 	playBtn->setFontColor(255, 255, 255, 255);
 
@@ -22,7 +22,7 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 		std::cout << "Go to Play screen!" << std::endl;
 	});
 	
-	Button* createMapBtn = new Button("Create Map",Renderer::FONT_ROBOTO_24, 100, 160, 200, 30);
+	Button* createMapBtn = new Button("Create Map",&Renderer::FONT_ROBOTO, 100, 160, 200, 30);
 
 	createMapBtn->adjustButtonDimensions();
 

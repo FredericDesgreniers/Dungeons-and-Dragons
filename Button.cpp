@@ -2,10 +2,10 @@
 #include <SDL/SDL.h>
 #include "Renderer.h"
 
-Button::Button(std::string text, TTF_Font* font, int x, int y,int width, int height):Style(x, y, width, height), text(text), font(font)
+Button::Button(std::string text, Font* font, int x, int y,int width, int height):Style(x, y, width, height), text(text), font(font)
 {
 
-	texture = Renderer::CreateTexture(text, font, { 0,0,0,255 });
+	texture = Renderer::CreateTexture(text, font->get(fontSize), { 0,0,0,255 });
 
 }
 
@@ -35,9 +35,21 @@ void Button::render()
 void Button::setFontColor(int r, int g, int b, int a)
 {
 	Style::setFontColor(r, g, b, a);
-	Renderer::destroyTexture(texture);
-	texture = Renderer::CreateTexture(text, Renderer::FONT_ROBOTO_24, fontColor);
+	reloadTexture();
 }
+
+void Button::setFontSize(int size)
+{
+	Style::setFontSize(size);
+	reloadTexture();
+}
+
+void Button::reloadTexture()
+{
+	Renderer::destroyTexture(texture);
+	texture = Renderer::CreateTexture(text, font->get(fontSize), fontColor);
+}
+
 
 Button::~Button()
 {
