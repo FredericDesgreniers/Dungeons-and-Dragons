@@ -18,12 +18,19 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 
 	playBtn->addOnClick_callback([](Component* comp, int x, int y)
 	{
-		std::cout << "Play button pressed at relative pos " << x << ", " << y << std::endl;
+		//TODO Create new screen to redirect to
+		std::cout << "Go to Play screen!" << std::endl;
 	});
 	
 	Button* createMapBtn = new Button("Create Map",Renderer::FONT_ROBOTO_24, 100, 150, 200, 30);
 
 	createMapBtn->adjustButtonDimensions();
+
+	createMapBtn->addOnClick_callback([](Component* comp, int x, int y)
+	{
+		//TODO Create new screen to redirect to
+		std::cout << "Go to Map Creation screen!" << std::endl;
+	});
 	copyStyle(*playBtn, *createMapBtn);
 
 	addComponent(playBtn);
