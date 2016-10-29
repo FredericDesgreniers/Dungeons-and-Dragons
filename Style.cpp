@@ -1,16 +1,13 @@
 #include "Style.h"
 #include "Renderer.h"
 
-Style::Style(SDL_Rect rect) : dimensions(rect)
+Style::Style(int width, int height) : Component(width, height)
 {
 	
 }
-Style::Style(int x, int y, int w, int h)
+Style::Style(int x, int y, int w, int h) : Component(x, y, w, h)
 {
-	dimensions.x = x;
-	dimensions.y = y;
-	dimensions.w = w;
-	dimensions.h = h;
+
 }
 
 
@@ -19,6 +16,8 @@ void Style::drawDefaultStyle(bool hover)
 	drawBackground(hover);
 	drawBorder(hover);
 }
+
+
 
 void Style::drawBackground(bool hover)
 {

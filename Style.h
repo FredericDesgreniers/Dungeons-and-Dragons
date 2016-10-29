@@ -1,10 +1,11 @@
 #pragma once
 #include <SDL/SDL.h>
+#include "Component.h"
 
-class Style
+class Style : public Component
 {
 public:
-	Style(SDL_Rect dimensions);
+	Style(int width, int height);
 	Style(int x, int y, int w, int h);
 	/**
 	 * Draw default style:
@@ -23,6 +24,13 @@ public:
 	 */
 	void drawBorder(bool hover);
 
+	/**
+	* Returns if x and y are within the bounds of the button
+	*/
+	bool isInBounds(int x, int y)
+	{
+		return x >= dimensions.x - padding_left && y >= dimensions.y - padding_top && x <= dimensions.x + dimensions.w + padding_left + padding_right && y <= dimensions.y + dimensions.h + padding_top + padding_bottom;
+	}
 
 	/**
 	 * Set background color for element
@@ -141,5 +149,4 @@ protected:
 
 	int padding_right, padding_left, padding_top, padding_bottom;
 
-	SDL_Rect dimensions;
 };
