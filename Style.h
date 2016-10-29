@@ -27,9 +27,12 @@ public:
 	/**
 	* Returns if x and y are within the bounds of the button
 	*/
-	bool isInBounds(int x, int y)
+	bool isInBounds(int x, int y) override
 	{
-		return x >= dimensions.x - padding_left && y >= dimensions.y - padding_top && x <= dimensions.x + dimensions.w + padding_left + padding_right && y <= dimensions.y + dimensions.h + padding_top + padding_bottom;
+		return x >= dimensions.x - padding_left - borderSize
+ 		&& y >= dimensions.y - padding_top - borderSize
+		&& x <= dimensions.x + dimensions.w  +padding_right + borderSize 
+		&& y <= dimensions.y + dimensions.h  + padding_bottom + borderSize;
 	}
 
 	/**
