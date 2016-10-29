@@ -5,11 +5,12 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 {
 	Button* playBtn = new Button(0, "Play", 100, 100, 100, 30);
 
-	playBtn->setBackgroundColor_both(255, 255, 255, 255);
+	playBtn->setFontColor(255, 255, 255, 255);
 
-	playBtn->setBorderColor(255, 255, 255, 255);
-	playBtn->setBorderColor_hover(255, 0, 0, 255);
-	playBtn->setBorderSize(5);
+	playBtn->setBackgroundColor_both(255, 255, 255, 0);
+
+	playBtn->setFontUnderlineColor_hover(255, 255, 255, 255);
+	playBtn->setFontUnderline_hover(1);
 
 
 
