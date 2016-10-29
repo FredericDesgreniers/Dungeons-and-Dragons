@@ -140,6 +140,10 @@ void Renderer::RenderRectOutline(int x, int y, int width, int height)
 
 	SDL_RenderDrawRect(renderer, &rect);
 }
+void Renderer::drawLine(int x1, int y1, int x2, int y2)
+{
+	SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+}
 
 void Renderer::destroyRenderer()
 {
