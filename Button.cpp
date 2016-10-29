@@ -19,6 +19,17 @@ void Button::render()
 	drawDefaultStyle(hover);
 
 	Renderer::RenderTexture(texture, &dimensions);
+
+	if(hover && fontUnderline_hover > 0)
+	{
+		Renderer::setColor(fontUnderlineColor_hover);
+		Renderer::drawLine(dimensions.x, dimensions.y + dimensions.h, dimensions.x + dimensions.w, dimensions.y + dimensions.h);
+
+	}else if (fontUnderline > 0)
+	{
+		Renderer::setColor(fontUnderlineColor);
+		Renderer::drawLine(dimensions.x, dimensions.y + dimensions.h, dimensions.x + dimensions.w, dimensions.y + dimensions.h);
+	}
 }
 
 void Button::setFontColor(int r, int g, int b, int a)
