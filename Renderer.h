@@ -80,6 +80,15 @@ public:
 	static SDL_Renderer *renderer;
 	static bool loadFonts();
 
+	static Uint32 getAverageFrameTime();
 
+private:
+
+	
+	static int fpsCounter;
+
+	static Uint32 lastTime;
+
+	static Uint32 fpsArray[20];
 
 };

@@ -4,6 +4,10 @@ TTF_Font* Renderer::FONT_ROBOTO_24 = nullptr;
 SDL_Window* Renderer::window = nullptr;
 SDL_Renderer* Renderer::renderer = nullptr;
 
+Uint32 Renderer::fpsArray[20];
+int Renderer::fpsCounter = 0;
+Uint32 Renderer::lastTime = 0;
+
 /**
  *
  */
@@ -109,11 +113,35 @@ void Renderer::iniRender()
 
 void Renderer::render()
 {
+		if(lastTime == 0)
+		{
+			lastTime = SDL_GetTicks();
+		}else
+		{
+			Uint32 time = SDL_GetTicks();
+			fpsArray[fpsCounter] = time - lastTime;
+			lastTime = time;
+
+			fpsCounter++;
+			if (fpsCounter >= 20)
+				fpsCounter = 0;
+		}
 
 	SDL_RenderPresent(renderer);
 
-	SDL_Delay(20);
 }
+
+Uint32 Renderer::getAverageFrameTime()
+{
+	Uint32 total = 0;
+	for (int i = 0; i < 20; i++)
+	{
+		total += fpsArray[i];
+	}
+	return total / 20;
+}
+
+
 void Renderer::destroyTexture(SDL_Texture* texture)
 {
 	SDL_DestroyTexture(texture);

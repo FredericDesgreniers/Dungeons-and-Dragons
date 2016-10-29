@@ -23,6 +23,24 @@ if (debug){
 	SDL_GetMouseState(&mx, &my);
 	Renderer::drawString(std::to_string(mx) + " : " + std::to_string(my), Renderer::FONT_ROBOTO_24, 0, 0, 1, { 255,255,255,255 });
 
+	Uint32 averageFrameTime = Renderer::getAverageFrameTime();
+	int fps = 1000 / (int)averageFrameTime;
+
+	SDL_Color fpsColor;
+	if(fps < 30)
+	{
+		fpsColor.r = 255;
+	}else if(fps < 60)
+	{
+		fpsColor.r = 255;
+		fpsColor.g = 255;
+	}else
+	{
+		fpsColor.g = 255;
+	}
+
+	Renderer::drawString(std::to_string(fps), Renderer::FONT_ROBOTO_24, 0, 40, 1,
+	fpsColor);
 
 }
 }
