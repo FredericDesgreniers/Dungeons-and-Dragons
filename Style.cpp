@@ -68,3 +68,9 @@ void Style::renderDebug()
 	Renderer::setColor(0, 255, 0, 255);
 	Renderer::RenderRectOutline(dimensions.x - padding_left, dimensions.y - padding_top, dimensions.w + padding_left + padding_right, dimensions.h + padding_top + padding_bottom);
 }
+
+
+Style::~Style()
+{
+	
+}

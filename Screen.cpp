@@ -11,6 +11,8 @@ void Screen::render()
 
 	for(Component* comp:components)
 	{
+		if (!comp->isVisible())
+			continue;
 		comp->render();
 	}
 
@@ -27,11 +29,13 @@ void Screen::tick()
 
 void Screen::click(int x, int y)
 {
-	for (Component* c : components)
+	for (Component* c : components) {
+
 		if (c->isInBounds(x, y))
 		{
 			c->click(x - c->getPositionX(), y - c->getPositionY());
 		}
+	}
 		
 }
 
@@ -39,6 +43,8 @@ void Screen::renderDebug()
 {
 	for (Component* comp : components)
 	{
+		if(!comp->isVisible())
+			continue;;
 		comp->renderDebug();
 	}
 }
@@ -46,6 +52,7 @@ void Screen::renderDebug()
 
 Screen::~Screen()
 {
-	Renderer::destroyTexture(titleText);
+	for (Component* c : components)
+		delete c;
 }
 

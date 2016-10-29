@@ -190,6 +190,7 @@ public:
 		copyTo.padding_bottom = copyFrom.padding_bottom;
 	}
 
+	virtual ~Style();
 protected:
 	SDL_Color backgroundColor;
 	SDL_Color backgroundColor_hover;
