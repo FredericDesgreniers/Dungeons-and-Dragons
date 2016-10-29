@@ -164,12 +164,28 @@ public:
 	/**
 	 * Set color that should be displayed for text
 	 */
-	virtual void setFontColor(int r, int g, int b, int a)
+	virtual void setFontColor(int r, int g, int b, int a);
+
+	friend void copyStyle(Style &copyFrom, Style &copyTo)
 	{
-		fontColor.r = r;
-		fontColor.g = g;
-		fontColor.b = b;
-		fontColor.a = a;
+		copyTo.setFontColor(copyFrom.fontColor.r, copyFrom.fontColor.g, copyFrom.fontColor.b, copyFrom.fontColor.a);
+		copyTo.backgroundColor = copyFrom.backgroundColor;
+		copyTo.backgroundColor_hover = copyFrom.backgroundColor_hover;
+
+		copyTo.borderSize = copyFrom.borderSize;
+		copyTo.borderSize_hover = copyFrom.borderSize_hover;
+		copyTo.borderColor = copyFrom.borderColor;
+		copyTo.borderColor_hover = copyFrom.borderColor_hover;
+
+		copyTo.fontUnderline = copyFrom.fontUnderline;
+		copyTo.fontUnderline_hover = copyFrom.fontUnderline_hover;
+		copyTo.fontUnderlineColor = copyFrom.fontUnderlineColor;
+		copyTo.fontUnderlineColor_hover = copyFrom.fontUnderlineColor_hover;
+		
+		copyTo.padding_left = copyFrom.padding_left;
+		copyTo.padding_right = copyFrom.padding_right;
+		copyTo.padding_top = copyFrom.padding_top;
+		copyTo.padding_bottom = copyFrom.padding_bottom;
 	}
 
 protected:

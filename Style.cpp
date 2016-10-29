@@ -54,3 +54,11 @@ void Style::drawBorder(bool hover)
 }
 
 
+void Style::setFontColor(int r, int g, int b, int a)
+{
+	fontColor.r = r;
+	fontColor.g = g;
+	fontColor.b = b;
+	fontColor.a = a;
+}
+
