@@ -23,6 +23,7 @@ public:
 	 */
 	void drawBorder(bool hover);
 
+
 	/**
 	 * Set background color for element
 	 */
@@ -65,6 +66,23 @@ public:
 		borderColor_hover.a = a;
 	}
 
+	/*
+	 * Set background color for both hover and non-hover
+	 */
+	void setBackgroundColor_both(int r, int g, int b, int a)
+	{
+		setBackgroundColor(r, g, b, a);
+		setBackgroundColor_hover(r, g, b, a);
+	}
+	/**
+	 * Set border color for both hover and non-hover
+	 */
+	void setBorderColor_both(int r, int g, int b, int a)
+	{
+		setBorderColor(r, g, b, a);
+		setBorderColor_hover(r, g, b, a);
+	}
+
 	/**
 	 * set Border size
 	 */
@@ -81,6 +99,25 @@ public:
 	}
 
 	/**
+	 * Set padding
+	 */
+	void setPadding(int top, int right, int bottom, int left)
+	{
+		padding_top = top;
+		padding_right = right;
+		padding_bottom = bottom;
+		padding_left = left;
+	}
+
+	/**
+	 * Set padding
+	 */
+	void setPadding(int padding)
+	{
+		setPadding(padding, padding, padding, padding);
+	}
+
+	/**
 	 * Set color that should be displayed for text
 	 */
 	virtual void setFontColor(int r, int g, int b, int a)
@@ -90,6 +127,7 @@ public:
 		fontColor.b = b;
 		fontColor.a = a;
 	}
+
 protected:
 	SDL_Color backgroundColor;
 	SDL_Color backgroundColor_hover;
@@ -100,6 +138,8 @@ protected:
 
 	int borderSize;
 	int borderSize_hover;
+
+	int padding_right, padding_left, padding_top, padding_bottom;
 
 	SDL_Rect dimensions;
 };

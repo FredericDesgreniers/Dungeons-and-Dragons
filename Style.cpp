@@ -28,7 +28,7 @@ void Style::drawBackground(bool hover)
 	else
 		Renderer::setColor(backgroundColor);
 
-	Renderer::RenderRect(dimensions.x, dimensions.y, dimensions.w, dimensions.h);
+	Renderer::RenderRect(dimensions.x-padding_left, dimensions.y-padding_top, dimensions.w+padding_left+padding_right, dimensions.h+padding_top+padding_bottom);
 
 }
 
@@ -44,7 +44,7 @@ void Style::drawBorder(bool hover)
 		Renderer::setColor(borderColor);
 
 	for (int i = 1; i <= borderSize; i++)
-		Renderer::RenderRectOutline(dimensions.x-i, dimensions.y-i, dimensions.w+i*2, dimensions.h+i*2);
+		Renderer::RenderRectOutline(dimensions.x-padding_left-i, dimensions.y-padding_top-i, dimensions.w+i*2+padding_right+padding_left, dimensions.h+i*2+padding_top+padding_bottom);
 
 }
 
