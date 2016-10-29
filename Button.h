@@ -11,7 +11,10 @@ public:
 	/**
 	 * Returns if x and y are within the bounds of the button
 	 */
-	bool isInBounds(int x, int y) { return x >= this->x && y >= this->y && x <= this->x + width && y <= this->y + height; }
+	bool isInBounds(int x, int y)
+	{
+		return x >= this->x-padding_left && y >= this->y-padding_top && x <= this->x + width+padding_left+padding_right && y <= this->y + height + padding_top+padding_bottom;
+	}
 
 	/**
 	 * Render button on screen
@@ -26,6 +29,11 @@ public:
 	
 	int getId() { return id; }
 
+	/**
+	 * Set the font color for the button text. 
+	 * Calling this will destroy and create a texture.
+	 * Do not call this often
+	 */
 	void setFontColor(int r, int g, int b, int a) override;
 
 	~Button();
