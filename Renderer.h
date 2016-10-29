@@ -48,9 +48,13 @@ public:
 	{
 		setColor(color.r, color.g, color.b, color.a);
 	}
-
+	/**
+	* Renders a filled rectangle
+	*/
 	static void RenderRect(int x, int y, int width, int height);	
-	
+	/**
+	* Renders a rectangle outline.
+	*/
 	static void RenderRectOutline(int x, int y, int width, int height);
 
 	/**
