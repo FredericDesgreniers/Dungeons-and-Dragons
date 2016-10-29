@@ -15,12 +15,12 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 
 	playBtn->setPadding(10);
 
-	addButton(playBtn);
-}
+	playBtn->addOnClick_callback([](Component* comp, int x, int y)
+	{
+		std::cout << "Play button pressed at relative pos " << x << ", " << y << std::endl;
+	});
 
-void ScreenMain::onButtonClicked(Button* b)
-{
-	
+	addComponent(playBtn);
 }
 
 void ScreenMain::render()
