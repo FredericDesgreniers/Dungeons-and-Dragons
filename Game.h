@@ -1,6 +1,9 @@
 #pragma once
 #include "GuiManager.h"
 
+class GuiManager;
+
+
 class Game
 {
 public:
@@ -19,6 +22,11 @@ public:
 	 */
 	bool exit();
 
+	GuiManager* getGuiManager()
+	{
+		return gui_manager;
+	}
+
 private:
-	GuiManager gui_manager;
+	GuiManager* gui_manager;
 };

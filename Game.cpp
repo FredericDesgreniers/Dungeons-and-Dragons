@@ -2,12 +2,14 @@
 #include "Renderer.h"
 #include "GuiManager.h"
 #include "ScreenMain.h"
+#include "ScreenTitle.h"
 
 #undef main
 
+
 Game::Game()
 {
-	
+	gui_manager = new GuiManager();
 }
 
 bool Game::ini()
@@ -20,10 +22,10 @@ bool Game::ini()
 
 
 
-	ScreenMain* startScreen = new ScreenMain(this);
+	ScreenTitle* titleScreen = new ScreenTitle(this);
 
-	gui_manager.setScreen(startScreen);
-
+	gui_manager->setScreen(titleScreen);
+	
 	return true;
 
 }
@@ -45,7 +47,7 @@ bool Game::run()
 				int x, y;
 
 				SDL_GetMouseState(&x, &y);
-				gui_manager.clickScreen(x, y);
+				gui_manager->clickScreen(x, y);
 				break;
 			case SDL_QUIT:
 				running = false;
@@ -54,18 +56,18 @@ bool Game::run()
 				switch(event.key.keysym.sym)
 				{
 				case SDLK_z:
-					gui_manager.toggleDebug();
+					gui_manager->toggleDebug();
 					break;
 				}
 			}
 		}
 
 		//logic here
-		gui_manager.runTick();
+		gui_manager->runTick();
 
 		Renderer::iniRender();
 
-		gui_manager.renderScreen();
+		gui_manager->renderScreen();
 		//render here
 
 		Renderer::render();
