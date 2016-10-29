@@ -1,7 +1,8 @@
 #pragma once
 #include "Screen.h"
-#include <vector>
-#include "Button.h"
+#include <iostream>
+
+class Screen;
 
 class GuiManager
 {
@@ -20,6 +21,7 @@ public:
 	void toggleDebug()
 	{
 		debug = !debug;
+		std::cout << "Debug is now " << (debug ? "on" : "off") << std::endl;
 	}
 
 	/**

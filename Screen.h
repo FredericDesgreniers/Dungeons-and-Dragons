@@ -2,7 +2,7 @@
 #include <SDL/SDL.h>
 #include <vector>
 #include "Button.h"
-
+#include "Game.h"
 
 class Game;
 
@@ -13,7 +13,7 @@ public:
 	virtual void render();
 	virtual void renderDebug();
 
-	void tick();
+	virtual void tick();
 
 	void click(int x, int y);
 
@@ -32,6 +32,5 @@ public:
 protected:
 	Game* game;
 private:
-	SDL_Texture* titleText;
 	std::vector<Component*> components;
 };
