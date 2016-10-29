@@ -22,7 +22,7 @@ bool Renderer::init()
 	}
 
 		//create Window 
-	window = SDL_CreateWindow("D&D game", 50, 50, 500, 500, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+	window = SDL_CreateWindow("D&D game", 50, 50, 900, 900, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if (window == nullptr)
 	{
 		std::cout << "SDL_CreateWindow error: " << SDL_GetError() << std::endl;
