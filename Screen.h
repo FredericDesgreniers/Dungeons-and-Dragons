@@ -16,7 +16,9 @@ public:
 	void click(int x, int y);
 
 
-
+	/*
+	 * Add component to component list. 
+	 */
 	void addComponent(Component* comp)
 	{
 		components.push_back(comp);

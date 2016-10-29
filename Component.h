@@ -19,6 +19,9 @@ public:
 	void setWidth(int width) { dimensions.w = width; }
 	void setHeight(int height) { dimensions.h = height; }
 
+	/**
+	 * Add function to callback list. Called when component is clicked. positions are relative
+	 */
 	void addOnClick_callback(std::function<void(Component*, int, int)> func)
 	{
 		onClick_callbacks.push_back(func);
@@ -27,6 +30,9 @@ public:
 	virtual void render();
 	virtual void tick();
 
+	/**
+	 * Component got clicked
+	 */
 	virtual void click(int x, int y)
 	{
 		for(std::function<void(Component*, int, int)> func : onClick_callbacks)
