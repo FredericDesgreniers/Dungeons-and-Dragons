@@ -65,6 +65,11 @@ public:
 	static void drawString(std::string str, TTF_Font* font, int x, int y, int scale, SDL_Color);
 
 	/**
+	 * Draw line from coords x1,y1 to x2,y2
+	 */
+	static void drawLine(int x1, int  y1, int  x2, int  y2);
+
+	/**
 	 * Destroy texture.
 	 */
 	static void destroyTexture(SDL_Texture* texture);
