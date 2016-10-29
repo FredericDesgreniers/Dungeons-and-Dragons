@@ -18,6 +18,10 @@ void Style::drawDefaultStyle(bool hover)
 }
 
 
+void Style::setFontSize(int size)
+{
+	fontSize = size;
+}
 
 void Style::drawBackground(bool hover)
 {

@@ -168,6 +168,8 @@ public:
 	 */
 	virtual void setFontColor(int r, int g, int b, int a);
 
+	virtual void setFontSize(int size);
+
 	friend void copyStyle(Style &copyFrom, Style &copyTo)
 	{
 		copyTo.setFontColor(copyFrom.fontColor.r, copyFrom.fontColor.g, copyFrom.fontColor.b, copyFrom.fontColor.a);
@@ -208,5 +210,7 @@ protected:
 	int padding_right, padding_left, padding_top, padding_bottom;
 
 	int fontUnderline, fontUnderline_hover;
+
+	int fontSize = 24;
 
 };
