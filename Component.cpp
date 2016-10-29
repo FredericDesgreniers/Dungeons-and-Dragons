@@ -32,3 +32,7 @@ void Component::renderDebug()
 	Renderer::RenderRectOutline(dimensions.x, dimensions.y, dimensions.w, dimensions.h);
 }
 
+Component::~Component()
+{
+	
+}

@@ -19,6 +19,22 @@ public:
 	void setWidth(int width) { dimensions.w = width; }
 	void setHeight(int height) { dimensions.h = height; }
 
+	void setVisible(bool visible)
+	{
+		this->visible = visible;
+	}
+
+	bool isVisible()
+	{
+		return visible;
+	}
+
+	void scale(int s)
+	{
+		dimensions.h *= s;
+		dimensions.w *= s;
+	}
+
 	/**
 	 * Add function to callback list. Called when component is clicked. positions are relative
 	 */
@@ -51,7 +67,10 @@ public:
 		return x >= dimensions.x && y >= dimensions.y && x <= dimensions.x + dimensions.w  && y <= dimensions.y + dimensions.h;
 	}
 
+	virtual ~Component();
 protected:
 	SDL_Rect dimensions;
 	std::vector<std::function<void(Component*, int , int)>> onClick_callbacks;
+
+	bool visible = true;
 };
