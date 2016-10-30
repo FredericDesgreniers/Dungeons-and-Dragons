@@ -4,6 +4,8 @@ Font Renderer::FONT_ROBOTO("Roboto-Regular");
 SDL_Window* Renderer::window = nullptr;
 SDL_Renderer* Renderer::renderer = nullptr;
 
+std::stack<Screen*> Renderer::voidedScreens;
+
 Uint32 Renderer::fpsArray[20];
 int Renderer::fpsCounter = 0;
 Uint32 Renderer::lastTime = 0;

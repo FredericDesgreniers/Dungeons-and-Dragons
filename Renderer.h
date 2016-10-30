@@ -4,6 +4,9 @@
 
 #include <iostream>
 #include "Font.h"
+#include <vector>
+#include "Screen.h"
+#include <stack>
 
 /**
  * Manages Rendering with the help of SDL
@@ -83,6 +86,21 @@ public:
 
 	static Uint32 getAverageFrameTime();
 
+	static void addVoidScreen(Screen* screen)
+	{
+		voidedScreens.push(screen);
+	}
+
+	static void destroyVoidedScreens()
+	{
+		while(!voidedScreens.empty())
+		{
+			Screen* screen = voidedScreens.top();
+			delete screen;
+			voidedScreens.pop();
+		}
+	}
+
 private:
 
 	
@@ -91,5 +109,7 @@ private:
 	static Uint32 lastTime;
 
 	static Uint32 fpsArray[20];
+
+	static std::stack<Screen*> voidedScreens;
 
 };

@@ -6,3 +6,7 @@ project/project.VC.opendb
 *.vcxproj
 project/project/project.vcxproj.filters
 *.user
+*.sdf
+COMP-345-DnD.VC.opendb
+COMP-345-DnD/COMP-345-DnD.vcxproj.filters
+COMP-345-DnD.vcxproj.filters

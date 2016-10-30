@@ -19,7 +19,7 @@ ScreenTitle::ScreenTitle(Game* game) : Screen(game)
 	button->addOnClick_callback([this](Component* c, int x, int y)
 	{
 		Screen* screen = this->game->getGuiManager()->setScreen(new ScreenMain(this->game));
-		delete screen;
+		Renderer::addVoidScreen(screen);
 	});
 
 	addComponent(button);

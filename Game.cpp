@@ -72,6 +72,8 @@ bool Game::run()
 
 		Renderer::render();
 
+
+		Renderer::destroyVoidedScreens();
 	}
 
 	return true;
