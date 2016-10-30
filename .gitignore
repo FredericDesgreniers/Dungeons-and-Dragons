@@ -1,1 +1,8 @@
 Assignment1/Paul/html/annotated.html
+*.suo
+project/project.sdf
+*.sln
+project/project.VC.opendb
+*.vcxproj
+project/project/project.vcxproj.filters
+*.user
