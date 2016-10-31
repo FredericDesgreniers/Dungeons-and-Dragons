@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL/SDL_ttf.h>
 #include <string>
+#include <map>
 
 class Font
 {
@@ -9,6 +10,6 @@ public:
 
 	TTF_Font* get(int index);
 private:
-	TTF_Font *fonts[100];
+	std::map<int,TTF_Font*> fonts;
 	std::string name;
 };

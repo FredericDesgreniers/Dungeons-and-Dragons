@@ -6,9 +6,9 @@ Font::Font(std::string name): name(name)
 
 }
 
-TTF_Font* Font::get(int size)
+TTF_Font* Font::get(const int size)
 {
-	if(size < 0 || size >=100)
+	if(size < 0)
 	{
 		return nullptr;
 	}
