@@ -62,8 +62,11 @@ void MapComponent::click(int x, int y)
 	int tileX = x / tileWidth;
 	int tileY = y / tileHeight;
 
-	for (int i = 0; i < onTileClick_callbacks.size(); i++)
-	{
-		onTileClick_callbacks[i](map, tileX, tileY);
+	if (tileX >= 0 && tileY >= 0 && tileX < mapWidth && tileY < mapHeight) {
+
+		for (int i = 0; i < onTileClick_callbacks.size(); i++)
+		{
+			onTileClick_callbacks[i](map, tileX, tileY);
+		}
 	}
 }
