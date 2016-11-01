@@ -22,7 +22,7 @@ bool Game::ini()
 
 
 
-	ScreenTitle* titleScreen = new ScreenTitle(this);
+	ScreenMain* titleScreen = new ScreenMain(this);
 
 	gui_manager->setScreen(titleScreen);
 	
