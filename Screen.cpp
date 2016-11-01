@@ -28,6 +28,10 @@ void Screen::tick()
 }
 
 
+void Screen::reInitialize()
+{
+	
+}
 
 
 void Screen::click(int x, int y)

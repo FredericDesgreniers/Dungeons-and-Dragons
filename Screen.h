@@ -15,6 +15,8 @@ public:
 
 	virtual void tick();
 
+	virtual void reInitialize();
+	
 	void click(int x, int y);
 
 
