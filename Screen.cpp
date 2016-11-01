@@ -68,7 +68,9 @@ void Screen::setBackButton(Screen* screen)
 
 	backButton->addOnClick_callback([this](Component* component, int x, int y)
 	{
+		backScreen->reInitialize();
 		Renderer::addVoidScreen(this->game->getGuiManager()->setScreen(this->backScreen));
+		
 	});
 
 	addComponent(backButton);
