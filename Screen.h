@@ -31,6 +31,8 @@ public:
 	~Screen();
 protected:
 	Game* game;
+	Uint32 time;
 private:
 	std::vector<Component*> components;
+	
 };

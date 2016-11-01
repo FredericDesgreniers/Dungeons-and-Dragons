@@ -20,6 +20,8 @@ void Screen::render()
 
 void Screen::tick()
 {
+	time = SDL_GetTicks();
+
 	for (Component* comp : components)
 		comp->tick();
 }
