@@ -9,14 +9,6 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 {
 	Button* playBtn = new Button("Play", &Renderer::FONT_ROBOTO, 100, 100, 100, 30);
 
-	playBtn->setFontColor(255, 255, 255, 255);
-
-	playBtn->setBackgroundColor_both(255, 255, 255, 0);
-
-	playBtn->setFontUnderlineColor_hover(255, 255, 255, 255);
-	playBtn->setFontUnderline_hover(1);
-
-	playBtn->setPadding(10);
 
 	playBtn->adjustButtonDimensions();
 
@@ -35,7 +27,6 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 		//TODO Create new screen to redirect to
 		std::cout << "Go to Map Creation screen!" << std::endl;
 	});
-	copyStyle(*playBtn, *createMapBtn);
 
 	Button* charEditorBtn = new Button("Character Editor", &Renderer::FONT_ROBOTO, 100, 220, 100, 30);
 
@@ -50,7 +41,6 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	});
 
 
-	copyStyle(*playBtn, *charEditorBtn);
 
 	/*
 	Map* map = new Map(25, 25);
