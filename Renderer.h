@@ -40,6 +40,9 @@ public:
 	*
 	*/
 	static SDL_Texture* CreateTexture(std::string text, TTF_Font* font, SDL_Color color);
+
+
+	static SDL_Texture* loadTexture(std::string string);
 	/**
 	 * Render a texture within select bounds
 	 */

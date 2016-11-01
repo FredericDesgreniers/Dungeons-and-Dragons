@@ -1,5 +1,6 @@
 #include "Renderer.h"
 
+
 Font Renderer::FONT_ROBOTO("Roboto-Regular");
 SDL_Window* Renderer::window = nullptr;
 SDL_Renderer* Renderer::renderer = nullptr;
@@ -50,7 +51,10 @@ bool Renderer::init()
 	return true;
 }
 
-
+SDL_Texture* Renderer::loadTexture(std::string string)
+{
+	return nullptr;
+}
 
 SDL_Texture* Renderer::CreateTexture(std::string text, TTF_Font* font, SDL_Color color)
 {
