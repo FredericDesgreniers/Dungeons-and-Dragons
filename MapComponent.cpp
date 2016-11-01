@@ -69,4 +69,6 @@ void MapComponent::click(int x, int y)
 			onTileClick_callbacks[i](map, tileX, tileY);
 		}
 	}
+
+	Style::click(x,y);
 }
