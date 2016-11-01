@@ -26,13 +26,15 @@ public:
 		components.push_back(comp);
 	}
 
-
+	void setBackButton(Screen* screen);
 
 	~Screen();
 protected:
 	Game* game;
 	Uint32 time;
+	Button* backButton;
 private:
 	std::vector<Component*> components;
+	Screen* backScreen;
 	
 };
