@@ -9,13 +9,13 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 {
 	Button* playBtn = new Button("Play", &Renderer::FONT_ROBOTO, 100, 100, 100, 30);
 
-
 	playBtn->adjustButtonDimensions();
 
 	playBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		ScreenCampaignSelect* screen_campaign_select = new ScreenCampaignSelect(this->game);
-		Renderer::addVoidScreen(this->game->getGuiManager()->setScreen(screen_campaign_select));
+		screen_campaign_select->setBackButton(this);
+		this->game->getGuiManager()->setScreen(screen_campaign_select);
 	});
 
 	Button* createMapBtn = new Button("Create Map", &Renderer::FONT_ROBOTO, 100, 160, 200, 30);

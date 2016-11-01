@@ -12,7 +12,9 @@ ScreenCampaignSelect::ScreenCampaignSelect(Game* game) : Screen(game)
 	defaultCampaignButton->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		Campaign* campaign = new Campaign("Default");
-		Renderer::addVoidScreen(this->game->getGuiManager()->setScreen(new ScreenCharacterSelect(this->game, campaign)));
+		Screen* screen = new ScreenCharacterSelect(this->game, campaign);
+		screen->setBackButton(this);
+		this->game->getGuiManager()->setScreen(screen);
 	});
 
 	addComponent(defaultCampaignButton);

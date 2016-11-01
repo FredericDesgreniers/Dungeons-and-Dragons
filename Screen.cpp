@@ -6,6 +6,7 @@ Screen::Screen(Game* game):game(game)
 
 }
 
+
 void Screen::render()
 {
 
@@ -51,6 +52,23 @@ void Screen::renderDebug()
 	}
 }
 
+void Screen::setBackButton(Screen* screen)
+{
+	backScreen = screen;
+	int wWidth, wHeight;
+	SDL_GetWindowSize(Renderer::window, &wWidth, &wHeight);
+
+	backButton = new Button("back", &Renderer::FONT_ROBOTO, 15, wHeight - 30, 0, 0);
+	backButton->adjustButtonDimensions();
+	backButton->setPositionY(wHeight - backButton->getHeight() - 10);
+
+	backButton->addOnClick_callback([this](Component* component, int x, int y)
+	{
+		Renderer::addVoidScreen(this->game->getGuiManager()->setScreen(this->backScreen));
+	});
+
+	addComponent(backButton);
+}
 
 Screen::~Screen()
 {
