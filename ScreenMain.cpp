@@ -36,6 +36,20 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	});
 	copyStyle(*playBtn, *createMapBtn);
 
+	Button* charEditorBtn = new Button("Character Editor", &Renderer::FONT_ROBOTO, 100, 220, 100, 30);
+
+	charEditorBtn->adjustButtonDimensions();
+
+	charEditorBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		Screen* screen = this->game->getGuiManager()->setScreen(new ScreenCharacterCreation(this->game));
+		Renderer::addVoidScreen(screen);
+		
+		std::cout << "Go to Character Editor!" << std::endl;
+	});
+	copyStyle(*playBtn, *charEditorBtn);
+
+
 	Map* map = new Map(25, 25);
 	MapComponent* mapComp = new MapComponent(map, 15, 250, 400, 400);
 
