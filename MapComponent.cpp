@@ -41,5 +41,5 @@ void MapComponent::tick() {
 }
 
 void MapComponent::renderDebug() {
-
+	Style::renderDebug();
 }
