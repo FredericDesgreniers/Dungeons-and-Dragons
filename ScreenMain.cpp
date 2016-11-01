@@ -1,4 +1,5 @@
 #include "ScreenMain.h"
+#include "ScreenCharacterCreation.h"
 #include "Renderer.h"
 #include "Map.h"
 #include "MapComponent.h"
@@ -48,6 +49,7 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	mapComp->setPadding(10, 10, 10, 10);
 	addComponent(playBtn);
 	addComponent(createMapBtn);
+	addComponent(charEditorBtn);
 	addComponent(mapComp);
 }
 
