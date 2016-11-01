@@ -30,12 +30,15 @@ void ScreenTitle::render()
 {
 	Screen::render();
 	Uint8 colorProgress;
-	if (ticksSinceStart > (255 / 2)) {
+	double secondsSinceStart = ((double)time / 1000);
+
+
+	if (secondsSinceStart > 2) {
 		colorProgress = 255;
 		
 	}
 	else
-		colorProgress = ticksSinceStart*2;
+		colorProgress = (secondsSinceStart/2) * 255;
 
 	Renderer::drawString("Dungeons and Dragons", Renderer::FONT_ROBOTO.get(48), 100, 100, 1, { colorProgress,colorProgress,colorProgress,255 });
 	if(ticksSinceStart > 255/2+20)
