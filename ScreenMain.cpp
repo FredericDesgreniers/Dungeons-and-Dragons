@@ -5,7 +5,7 @@
 
 ScreenMain::ScreenMain(Game* game) : Screen(game)
 {
-	Button* playBtn = new Button( "Play", &Renderer::FONT_ROBOTO, 100, 100, 100, 30);
+	Button* playBtn = new Button("Play", &Renderer::FONT_ROBOTO, 100, 100, 100, 30);
 
 	playBtn->setFontColor(255, 255, 255, 255);
 
@@ -23,8 +23,8 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 		//TODO Create new screen to redirect to
 		std::cout << "Go to Play screen!" << std::endl;
 	});
-	
-	Button* createMapBtn = new Button("Create Map",&Renderer::FONT_ROBOTO, 100, 160, 200, 30);
+
+	Button* createMapBtn = new Button("Create Map", &Renderer::FONT_ROBOTO, 100, 160, 200, 30);
 
 	createMapBtn->adjustButtonDimensions();
 
@@ -37,6 +37,14 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 
 	Map* map = new Map(25, 25);
 	MapComponent* mapComp = new MapComponent(map, 15, 250, 400, 400);
+
+	mapComp->addOnTileClickedCallback([this](Map* map, int x, int y)
+	{
+		MapTile* tile = map->getTile(x,y);
+		tile->setId(tile->getId() == TILE_EMPTY ? TILE_WALL : TILE_EMPTY);
+
+	});
+
 	mapComp->setPadding(10, 10, 10, 10);
 	addComponent(playBtn);
 	addComponent(createMapBtn);
