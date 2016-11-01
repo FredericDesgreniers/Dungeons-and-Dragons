@@ -22,7 +22,7 @@ void MapComponent::render() {
 			int y = j*tileHeight + getPositionY();
 
 			bool hover = mx > x && mx < x + tileWidth && my>y && my < y + tileHeight;
-			if (hover)
+			if (!previewMode && hover)
 				Renderer::setColor(255, 255, 255, 255);
 			else
 				Renderer::setColor(200,200,200,255);

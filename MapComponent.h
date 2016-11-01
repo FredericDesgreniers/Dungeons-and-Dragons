@@ -8,7 +8,10 @@ public:
 	void render() override;
 	void tick() override;
 	void renderDebug() override;
-
+	void setPreviewMode(bool previewMode) {
+		this->previewMode = previewMode;
+	}
 private:
 	Map* map;
+	bool previewMode;
 };
