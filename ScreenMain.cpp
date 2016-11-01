@@ -1,5 +1,7 @@
 #include "ScreenMain.h"
 #include "Renderer.h"
+#include "Map.h"
+#include "MapComponent.h"
 
 ScreenMain::ScreenMain(Game* game) : Screen(game)
 {
@@ -33,8 +35,12 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	});
 	copyStyle(*playBtn, *createMapBtn);
 
+	Map* map = new Map(25, 25);
+	MapComponent* mapComp = new MapComponent(map, 0, 300, 400, 400);
+
 	addComponent(playBtn);
 	addComponent(createMapBtn);
+	addComponent(mapComp);
 }
 
 void ScreenMain::render()
