@@ -36,8 +36,8 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	copyStyle(*playBtn, *createMapBtn);
 
 	Map* map = new Map(25, 25);
-	MapComponent* mapComp = new MapComponent(map, 0, 300, 400, 400);
-
+	MapComponent* mapComp = new MapComponent(map, 15, 250, 400, 400);
+	mapComp->setPadding(10, 10, 10, 10);
 	addComponent(playBtn);
 	addComponent(createMapBtn);
 	addComponent(mapComp);
