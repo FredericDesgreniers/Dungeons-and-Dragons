@@ -15,6 +15,12 @@ public:
 	{
 		return id;
 	}
+
+	void setId(int id)
+	{
+		this->id = id;
+	}
+
 	bool getWalkable()
 	{
 		return walkable;
