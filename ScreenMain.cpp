@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Map.h"
 #include "MapComponent.h"
+#include "ScreenCampaignSelect.h"
 
 ScreenMain::ScreenMain(Game* game) : Screen(game)
 {
@@ -19,10 +20,10 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 
 	playBtn->adjustButtonDimensions();
 
-	playBtn->addOnClick_callback([](Component* comp, int x, int y)
+	playBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		//TODO Create new screen to redirect to
-		std::cout << "Go to Play screen!" << std::endl;
+		ScreenCampaignSelect* screen_campaign_select = new ScreenCampaignSelect(this->game);
+		Renderer::addVoidScreen(this->game->getGuiManager()->setScreen(screen_campaign_select));
 	});
 
 	Button* createMapBtn = new Button("Create Map", &Renderer::FONT_ROBOTO, 100, 160, 200, 30);
@@ -47,9 +48,11 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 		
 		std::cout << "Go to Character Editor!" << std::endl;
 	});
+
+
 	copyStyle(*playBtn, *charEditorBtn);
 
-
+	/*
 	Map* map = new Map(25, 25);
 	MapComponent* mapComp = new MapComponent(map, 15, 250, 400, 400);
 
@@ -59,12 +62,14 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 		tile->setId(tile->getId() == TILE_EMPTY ? TILE_WALL : TILE_EMPTY);
 
 	});
-
+	
 	mapComp->setPadding(10, 10, 10, 10);
+	addComponent(mapComp);
+	*/
 	addComponent(playBtn);
 	addComponent(createMapBtn);
 	addComponent(charEditorBtn);
-	addComponent(mapComp);
+	
 }
 
 void ScreenMain::render()
