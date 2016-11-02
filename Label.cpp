@@ -18,7 +18,7 @@ void Label::render()
 	SDL_GetMouseState(&mx, &my);
 	bool hover = isInBounds(mx, my);
 
-	drawDefaultStyle(hover);
+	drawDefaultStyle();
 
 	Renderer::RenderTexture(texture, &dimensions);
 
