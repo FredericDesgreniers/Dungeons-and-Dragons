@@ -15,3 +15,11 @@ void VariableComponent::tick()
 	}
 }
 
+VariableComponent* VariableComponent::setFontSize(int size)
+{
+	Label::setFontSize(size);
+	adjustDimensions();
+	return this;
+}
+
+
