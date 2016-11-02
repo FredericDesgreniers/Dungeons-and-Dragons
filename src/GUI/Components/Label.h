@@ -32,10 +32,7 @@ public:
 	void setText(std::string text);
 	std::string getText();
 
-	void adjustDimensions()
-	{
-		TTF_SizeText(font->get(fontSize), text.c_str(), &dimensions.w, &dimensions.h);
-	}
+	Label* adjustDimensions();
 
 	~Label();
 
