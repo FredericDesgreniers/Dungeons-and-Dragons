@@ -58,6 +58,11 @@ void GuiManager::clickScreen(int x, int y)
 {
 	currentScreen->click(x, y);
 }
+void GuiManager::keyPressed(SDL_Keycode code)
+{
+	if (currentScreen != nullptr)
+		currentScreen->keyPressed(code);
+}
 
 
 Screen* GuiManager::setScreen(Screen* screen)

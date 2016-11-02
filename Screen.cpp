@@ -40,7 +40,11 @@ void Screen::click(int x, int y)
 
 		if (c->isInBounds(x, y))
 		{
+			c->setInFocus(true);
 			c->click(x - c->getPositionX(), y - c->getPositionY());
+		}else
+		{
+			c->setInFocus(false);
 		}
 	}
 		
@@ -74,6 +78,14 @@ void Screen::setBackButton(Screen* screen)
 	});
 
 	addComponent(backButton);
+}
+
+void Screen::keyPressed(SDL_Keycode keycode)
+{
+	for (Component* c:components)
+	{
+		c->keyPressed(keycode);
+	}
 }
 
 Screen::~Screen()

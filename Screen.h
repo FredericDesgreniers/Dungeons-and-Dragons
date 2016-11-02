@@ -16,6 +16,9 @@ public:
 	virtual void tick();
 
 	virtual void reInitialize();
+
+	virtual void keyPressed(SDL_Keycode keycode);
+
 	
 	void click(int x, int y);
 

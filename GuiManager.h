@@ -11,6 +11,8 @@ public:
 	void renderScreen();
 	void runTick();
 
+	void keyPressed(SDL_Keycode code);
+
 	void clickScreen(int x, int y);
 
 	void setDebug(bool d)
