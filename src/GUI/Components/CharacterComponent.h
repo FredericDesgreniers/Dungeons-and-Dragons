@@ -15,26 +15,12 @@ public:
 
 	void render() override;
 
-	void reloadLabelText();
 	void tick() override;
 
 
 	~CharacterComponent();
 private:
 	Character* character;
-	
 
-	void drawStat(int x, int y, std::string name, int level);
-
-	VariableComponent* levelLabel;
-
-	//int str, int dex, int cons, int intel, int wisd, int chari
-	VariableComponent* labelStr;
-	VariableComponent* labelDex;
-	VariableComponent* labelCons;
-	VariableComponent* labelInt;
-	VariableComponent* labelWisd;
-	VariableComponent* labelChari;
-	VariableComponent* statLabels[6];
 
 };
