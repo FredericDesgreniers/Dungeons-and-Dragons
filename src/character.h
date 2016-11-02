@@ -2,11 +2,12 @@
 #include "stdlib.h"
 #include "time.h"
 #include <string>
+#include "entity.h"
 
 /**
  * Character class
  */
-class Character
+class Character:public Entity
 {
 
 

@@ -1,7 +1,7 @@
 #include "character.h"
 #include <iostream>
 
-Character::Character(int level)
+Character::Character(int level):Entity('C')
 {
 	srand(time(NULL));
 
@@ -18,7 +18,7 @@ Character::Character(int level)
 
 }
 
-Character::Character(int str, int dex, int cons, int intel, int wisd, int chari)
+Character::Character(int str, int dex, int cons, int intel, int wisd, int chari):Entity('C')
 {
 	abilityscores[0] = str;
 	abilityscores[1] = dex;
