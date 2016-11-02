@@ -2,8 +2,9 @@
 #include "ScreenCharacterCreation.h"
 
 #include "ScreenCampaignSelect.h"
-#include "../../Renderer.h"
+
 #include "../Components/TextField.h"
+#include "../Renderer.h"
 
 
 ScreenMain::ScreenMain(Game* game) : Screen(game)

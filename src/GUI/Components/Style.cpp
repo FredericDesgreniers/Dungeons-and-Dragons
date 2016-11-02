@@ -1,5 +1,6 @@
 #include "Style.h"
-#include "../../Renderer.h"
+
+#include "../Renderer.h"
 
 
 Style::Style(int width, int height) : Component(width, height)

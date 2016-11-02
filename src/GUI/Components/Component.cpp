@@ -1,5 +1,6 @@
 #include "Component.h"
-#include "../../Renderer.h"
+
+#include "../Renderer.h"
 
 
 Component::Component(int width, int height)

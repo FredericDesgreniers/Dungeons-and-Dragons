@@ -1,6 +1,7 @@
 #include "Game.h"
-#include "Renderer.h"
+
 #include "GUI/Screens/ScreenMain.h"
+#include "GUI/Renderer.h"
 
 
 #undef main

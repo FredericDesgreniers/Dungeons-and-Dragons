@@ -1,5 +1,5 @@
 #include "MapComponent.h"
-#include "../../Renderer.h"
+#include "../Renderer.h"
 
 
 MapComponent::MapComponent(Map* map, int x, int y, int width, int height):map(map), Style(x,y,width,height) {

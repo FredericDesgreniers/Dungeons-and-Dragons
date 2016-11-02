@@ -1,8 +1,8 @@
 #include "ScreenCharacterCreation.h"
 
 #include "screenMain.h"
+#include "../Renderer.h"
 
-#include "../../Renderer.h"
 
 ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 {	

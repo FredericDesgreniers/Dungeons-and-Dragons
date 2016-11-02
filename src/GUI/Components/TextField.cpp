@@ -2,7 +2,8 @@
 
 #include <ctime>
 #include <locale>
-#include "../../Renderer.h"
+
+#include "../Renderer.h"
 
 
 TextField::TextField(std::string text, int x, int y, int width, int height):Style(x,y,width,height), text(text)

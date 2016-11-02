@@ -1,7 +1,8 @@
 
 #include <SDL/SDL.h>
 #include "Label.h"
-#include "../../Renderer.h"
+
+#include "../Renderer.h"
 
 Label::Label(std::string text, Font* font, int x, int y, int width, int height) :Style(x, y, width, height), text(text), font(font)
 {

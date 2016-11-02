@@ -1,5 +1,6 @@
 #include "Screen.h"
-#include "../../Renderer.h"
+
+#include "../Renderer.h"
 
 
 Screen::Screen(Game* game):game(game)

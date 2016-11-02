@@ -1,7 +1,8 @@
 #include "ScreenCharacterSelect.h"
 
 #include "ScreenPlayCampaign.h"
-#include "../../Renderer.h"
+#include "../Renderer.h"
+
 
 ScreenCharacterSelect::ScreenCharacterSelect(Game* game, Campaign* campaign):Screen(game), campaign(campaign)
 {
