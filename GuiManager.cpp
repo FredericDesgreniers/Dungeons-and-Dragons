@@ -24,7 +24,9 @@ if (debug){
 	Renderer::drawString(std::to_string(mx) + " : " + std::to_string(my), Renderer::FONT_ROBOTO.get(15), 0, 0, 1, { 255,255,255,255 });
 
 	Uint32 averageFrameTime = Renderer::getAverageFrameTime();
-	int fps = 1000 / (int)averageFrameTime;
+	int fps = 0;
+	if((int)averageFrameTime > 0)
+		int fps = 1000 / (int)averageFrameTime;
 
 	SDL_Color fpsColor;
 	if(fps < 30)
