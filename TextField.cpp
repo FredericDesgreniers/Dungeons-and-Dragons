@@ -21,12 +21,19 @@ void TextField::keyPressed(SDL_Keycode keycode)
 {
 	if (!inFocus)
 		return;
-
-	if(keycode== SDLK_BACKSPACE)
+	switch(keycode){
+	case(SDLK_BACKSPACE):
 	{
 		if(text.size() > 0)
 			text = text.substr(0, text.size()-1);
 		return;
+	}
+	case(SDLK_SPACE):
+		{
+			text += " ";
+			return;
+
+		}
 	}
 	bool good = false;
 	std::string keyName(SDL_GetKeyName(keycode));
