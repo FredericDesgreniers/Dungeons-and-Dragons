@@ -9,4 +9,7 @@ public:
 	
 
 	void render() override;
+
+private:
+	std::string strength, constitution, dexterity, intelligence, wisdom, charisma;
 };
