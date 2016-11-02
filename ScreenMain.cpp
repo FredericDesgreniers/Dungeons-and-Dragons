@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "MapComponent.h"
 #include "ScreenCampaignSelect.h"
+#include "TextField.h"
 
 ScreenMain::ScreenMain(Game* game) : Screen(game)
 {
@@ -41,7 +42,7 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	});
 
 
-
+	TextField* textfield = new TextField("", 10, 300, 400, 40);
 	/*
 	Map* map = new Map(25, 25);
 	MapComponent* mapComp = new MapComponent(map, 15, 250, 400, 400);
@@ -59,7 +60,7 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	addComponent(playBtn);
 	addComponent(createMapBtn);
 	addComponent(charEditorBtn);
-	
+	addComponent(textfield);
 }
 
 void ScreenMain::render()
