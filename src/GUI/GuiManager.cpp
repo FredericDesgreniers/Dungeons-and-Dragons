@@ -26,7 +26,7 @@ if (debug){
 	Uint32 averageFrameTime = Renderer::getAverageFrameTime();
 	int fps = 0;
 	if((int)averageFrameTime > 0)
-		int fps = 1000 / (int)averageFrameTime;
+		fps = 1000 / (int)averageFrameTime;
 
 	SDL_Color fpsColor;
 	if(fps < 30)
