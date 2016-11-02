@@ -124,6 +124,10 @@ public:
 		return abilityscores[5];
 	}
 
+	int* getAbilityScoreArray()
+	{
+		return abilityscores;
+	}
 
 };
 
