@@ -11,6 +11,7 @@ class ScreenPlayCampaign: public Screen
 public:
 	ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character);
 	void render() override;
+	void keyPressed(SDL_Keycode code) override;
 private:
 
 	Campaign* campaign;
