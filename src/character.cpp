@@ -4,6 +4,9 @@
 Character::Character(int level)
 {
 	srand(time(NULL));
+
+	this->level = level;
+
 	abilityscores[0] = rand() %16+3;
 	abilityscores[1] = rand() % 16 + 3;
 	abilityscores[2] = rand() % 16 + 3;
