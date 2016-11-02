@@ -1,6 +1,7 @@
 #pragma once
 #include "Style.h"
-#include "character.h"
+
+#include  "../../character.h"
 
 
 class CharacterComponent:public Style

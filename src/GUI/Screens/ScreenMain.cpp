@@ -1,10 +1,10 @@
 #include "ScreenMain.h"
 #include "ScreenCharacterCreation.h"
-#include "Renderer.h"
-#include "Map.h"
-#include "MapComponent.h"
+
 #include "ScreenCampaignSelect.h"
-#include "TextField.h"
+#include "../../Renderer.h"
+#include "../Components/TextField.h"
+
 
 ScreenMain::ScreenMain(Game* game) : Screen(game)
 {

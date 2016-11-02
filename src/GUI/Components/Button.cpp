@@ -1,6 +1,6 @@
 #include "Button.h"
 #include <SDL/SDL.h>
-#include "Renderer.h"
+
 
 Button::Button(std::string text, Font* font, int x, int y,int width, int height):Label(text,font, x, y, width, height)
 {

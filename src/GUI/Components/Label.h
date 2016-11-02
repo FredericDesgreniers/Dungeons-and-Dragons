@@ -3,7 +3,7 @@
 #include "Style.h"
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
-#include "Font.h"
+#include "../Font.h"
 
 class Label : public Style
 {

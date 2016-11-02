@@ -1,6 +1,6 @@
 #pragma once
-#include "Component.h"
-#include "Style.h"
+
+#include "GUI/Components/Style.h"
 
 class TextField: public Style
 {
@@ -9,7 +9,7 @@ public:
 
 	void render() override;
 	void keyPressed(SDL_Keycode) override;
-
+	void tick() override;
 	std::string getText()
 	{
 		return text;
@@ -17,6 +17,8 @@ public:
 
 private:
 	std::string text;
+	
+	Uint32 timeOfLastErase;
 
 	std::vector<std::string> whiteList;
 };

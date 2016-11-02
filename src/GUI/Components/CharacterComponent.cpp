@@ -1,5 +1,7 @@
 #include "CharacterComponent.h"
-#include "Renderer.h"
+
+#include "../../character.h"
+#include "../../Renderer.h"
 
 CharacterComponent::CharacterComponent(Character* character, int x, int y, int width, int height):Style(x,y,width,height), character(character)
 {

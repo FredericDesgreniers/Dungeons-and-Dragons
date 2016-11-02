@@ -1,5 +1,5 @@
 #include "ScreenPlayCampaign.h"
-#include "Renderer.h"
+
 
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
 {

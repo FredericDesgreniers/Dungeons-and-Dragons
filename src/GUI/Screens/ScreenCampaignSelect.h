@@ -1,6 +1,7 @@
 #pragma once
 #include "Screen.h"
-#include "Campaign.h"
+#include "../../Campaign.h"
+
 
 class ScreenCampaignSelect : public Screen
 {

@@ -1,9 +1,9 @@
 #pragma once
 #include "Screen.h"
-#include "character.h"
-#include "Campaign.h"
-#include "MapComponent.h"
-#include "CharacterComponent.h"
+#include "../../Campaign.h"
+#include "../../character.h"
+#include "../Components/MapComponent.h"
+#include "../Components/CharacterComponent.h"
 
 
 class ScreenPlayCampaign: public Screen

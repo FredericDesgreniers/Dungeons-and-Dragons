@@ -1,8 +1,11 @@
 #pragma once
 #include <SDL/SDL.h>
 #include <vector>
-#include "Button.h"
-#include "Game.h"
+
+#include "../Components/Component.h"
+
+#include "../../Game.h"
+#include "../Components/Button.h"
 
 class Game;
 

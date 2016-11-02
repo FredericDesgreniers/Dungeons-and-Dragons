@@ -1,8 +1,7 @@
 #include "Game.h"
 #include "Renderer.h"
-#include "GuiManager.h"
-#include "ScreenMain.h"
-#include "ScreenTitle.h"
+#include "GUI/Screens/ScreenMain.h"
+
 
 #undef main
 
@@ -52,7 +51,7 @@ bool Game::run()
 			case SDL_QUIT:
 				running = false;
 				break;
-			case SDL_KEYUP:
+			case SDL_KEYDOWN:
 				gui_manager->keyPressed(event.key.keysym.sym);
 				switch(event.key.keysym.sym)
 				{

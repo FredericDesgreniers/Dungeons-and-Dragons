@@ -1,6 +1,7 @@
 #include "ScreenTitle.h"
-#include "Renderer.h"
+
 #include "ScreenMain.h"
+#include "../../Renderer.h"
 
 ScreenTitle::ScreenTitle(Game* game) : Screen(game)
 {

@@ -1,6 +1,8 @@
 #include "TextField.h"
-#include "Renderer.h"
+
 #include <ctime>
+#include <locale>
+#include "../../Renderer.h"
 
 
 TextField::TextField(std::string text, int x, int y, int width, int height):Style(x,y,width,height), text(text)
@@ -24,8 +26,10 @@ void TextField::keyPressed(SDL_Keycode keycode)
 	switch(keycode){
 	case(SDLK_BACKSPACE):
 	{
-		if(text.size() > 0)
-			text = text.substr(0, text.size()-1);
+		if (text.size() > 0) {
+			text = text.substr(0, text.size() - 1);
+			timeOfLastErase = SDL_GetTicks();
+		}
 		return;
 	}
 	case(SDLK_SPACE):
@@ -53,6 +57,17 @@ void TextField::keyPressed(SDL_Keycode keycode)
 		text += keyName;
 	}
 		
+}
+void TextField::tick()
+{
+	if(SDL_GetKeyboardState(NULL)[SDL_SCANCODE_BACKSPACE])
+	{
+		if(SDL_GetTicks() - timeOfLastErase > 200)
+		{
+			text = text.substr(0, text.size() - 1);
+			timeOfLastErase = SDL_GetTicks();
+		}
+	}
 }
 
 void TextField::render()

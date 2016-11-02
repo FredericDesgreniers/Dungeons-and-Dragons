@@ -1,6 +1,6 @@
 #pragma once
 #include "Style.h"
-#include "Map.h"
+#include "../../Map.h"
 
 class MapComponent : public Style {
 public:

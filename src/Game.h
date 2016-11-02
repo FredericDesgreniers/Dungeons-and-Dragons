@@ -1,5 +1,5 @@
 #pragma once
-#include "GuiManager.h"
+#include "GUI/GuiManager.h"
 
 class GuiManager;
 

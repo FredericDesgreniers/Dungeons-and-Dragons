@@ -1,6 +1,6 @@
 #pragma once
 #include "Screen.h"
-#include "Campaign.h"
+#include "../../Campaign.h"
 
 class ScreenCharacterSelect:public Screen
 {

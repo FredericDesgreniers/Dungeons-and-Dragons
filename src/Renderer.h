@@ -3,9 +3,9 @@
 #include <SDL/SDL_ttf.h>
 
 #include <iostream>
-#include "Font.h"
+#include "GUI/Font.h"
 #include <vector>
-#include "Screen.h"
+#include "GUI/Screens/Screen.h"
 #include <stack>
 
 /**

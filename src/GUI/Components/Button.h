@@ -3,8 +3,10 @@
 #include "Style.h"
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
-#include "Font.h"
+
 #include "Label.h"
+
+class Font;
 
 class Button : public Label
 {
