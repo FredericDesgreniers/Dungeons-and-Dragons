@@ -68,9 +68,24 @@ public:
 	}
 
 	virtual ~Component();
+
+	bool isInFocus()
+	{
+		return inFocus;
+	}
+
+	void setInFocus(bool focus)
+	{
+		inFocus = focus;
+	}
+
+	virtual void keyPressed(SDL_Keycode keycode);
+
 protected:
 	SDL_Rect dimensions;
 	std::vector<std::function<void(Component*, int , int)>> onClick_callbacks;
 
 	bool visible = true;
+
+	bool inFocus;
 };

@@ -28,8 +28,13 @@ void Component::tick()
 
 void Component::renderDebug()
 {
-	Renderer::setColor(255, 0, 0, 255);
+	Renderer::setColor(255, inFocus?255:0, 0, 255);
 	Renderer::RenderRectOutline(dimensions.x, dimensions.y, dimensions.w, dimensions.h);
+
+}
+void Component::keyPressed(SDL_Keycode keycode)
+{
+	
 }
 
 Component::~Component()
