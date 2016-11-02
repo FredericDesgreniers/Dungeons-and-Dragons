@@ -16,6 +16,7 @@ Uint32 Renderer::lastTime = 0;
  */
 bool Renderer::init()
 {
+
 	//Initilize SDL2
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
@@ -80,6 +81,10 @@ void Renderer::RenderTexture(SDL_Texture* texture, SDL_Rect* bounds)
 
 void Renderer::drawString(std::string str, TTF_Font* font, int x, int y, int scale,  SDL_Color color)
 {
+	if(str.size() <= 0)
+	{
+		str = " ";
+	}
 	SDL_Texture* texture = CreateTexture(str, font, color);
 
 	SDL_Rect bounds;
