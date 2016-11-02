@@ -168,7 +168,7 @@ public:
 	 */
 	virtual void setFontColor(int r, int g, int b, int a);
 
-	virtual void setFontSize(int size);
+	virtual Style* setFontSize(int size);
 
 	friend void copyStyle(Style &copyFrom, Style &copyTo)
 	{

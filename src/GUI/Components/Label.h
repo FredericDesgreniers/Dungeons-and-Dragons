@@ -25,7 +25,7 @@ public:
 	*/
 	void setFontColor(int r, int g, int b, int a) override;
 
-	void setFontSize(int size) override;
+	Label* setFontSize(int size) override;
 
 	void reloadTexture();
 

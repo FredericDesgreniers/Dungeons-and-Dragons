@@ -9,7 +9,7 @@ CharacterComponent::CharacterComponent(Character* character, int x, int y, int w
 	setFontSize(15);
 
 	int i = 10;
-	addComponent((new Label("Level  - ", &Renderer::FONT_ROBOTO, 10, i+=20, 0, 0))->adjustDimensions());
+	addComponent((new Label("Level  - ", &Renderer::FONT_ROBOTO, 10, i+=20, 0, 0))->setFontSize(10)->adjustDimensions());
 
 	addComponent ((new Label("Str  - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->adjustDimensions());
 	addComponent(new VariableComponent(&character->getAbilityScoreArray()[0], &Renderer::FONT_ROBOTO, 80, i));

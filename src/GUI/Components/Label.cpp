@@ -42,10 +42,11 @@ void Label::setFontColor(int r, int g, int b, int a)
 	reloadTexture();
 }
 
-void Label::setFontSize(int size)
+Label* Label::setFontSize(int size)
 {
 	Style::setFontSize(size);
 	reloadTexture();
+	return this;
 }
 
 void Label::reloadTexture()
