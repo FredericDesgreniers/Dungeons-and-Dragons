@@ -5,6 +5,7 @@
 #include "Pane.h"
 #include "Label.h"
 #include "../Renderer.h"
+#include "VariableComponent.h"
 
 
 class CharacterComponent:public Pane
@@ -15,6 +16,8 @@ public:
 	void render() override;
 
 	void reloadLabelText();
+	void tick() override;
+
 
 	~CharacterComponent();
 private:
@@ -23,15 +26,15 @@ private:
 
 	void drawStat(int x, int y, std::string name, int level);
 
-	Label* levelLabel;
+	VariableComponent* levelLabel;
 
 	//int str, int dex, int cons, int intel, int wisd, int chari
-	Label* labelStr;
-	Label* labelDex;
-	Label* labelCons;
-	Label* labelInt;
-	Label* labelWisd;
-	Label* labelChari;
-	Label* statLabels[6];
+	VariableComponent* labelStr;
+	VariableComponent* labelDex;
+	VariableComponent* labelCons;
+	VariableComponent* labelInt;
+	VariableComponent* labelWisd;
+	VariableComponent* labelChari;
+	VariableComponent* statLabels[6];
 
 };

@@ -8,55 +8,42 @@ CharacterComponent::CharacterComponent(Character* character, int x, int y, int w
 {
 	setFontSize(15);
 
-	levelLabel = new Label("Level  - " + std::to_string(character->getStrength()), &Renderer::FONT_ROBOTO, 10, 12, 0, 0);
-	levelLabel->setFontSize(18);
-	labelStr = new Label("Str  - " + std::to_string(character->getStrength()), &Renderer::FONT_ROBOTO, 10, 10, 0, 0);
-	labelDex = new Label("Dex  - "+std::to_string(character->getStrength()), &Renderer::FONT_ROBOTO, 10,25,0,0);
-	labelInt = new Label("Int  - "+std::to_string(character->getStrength()), &Renderer::FONT_ROBOTO, 10,40,0,0);
-	labelWisd = new Label("Wisd - "+std::to_string(character->getStrength()), &Renderer::FONT_ROBOTO, 10,55,0,0);
-	labelCons = new Label("Cons - "+std::to_string(character->getStrength()), &Renderer::FONT_ROBOTO, 10,70,0,0);
-	labelChari = new Label("Char - "+std::to_string(character->getStrength()), &Renderer::FONT_ROBOTO, 10,85,0,0);
+	int i = 10;
+	addComponent((new Label("Level  - ", &Renderer::FONT_ROBOTO, 10, i+=20, 0, 0))->adjustDimensions());
+
+	addComponent ((new Label("Str  - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->adjustDimensions());
+	addComponent(new VariableComponent(&character->getAbilityScoreArray()[0], &Renderer::FONT_ROBOTO, 80, i));
+	addComponent ((new Label("Dex  - ", &Renderer::FONT_ROBOTO, 10, i += 20,0,0))->adjustDimensions());
+	addComponent(new VariableComponent(&character->getAbilityScoreArray()[1], &Renderer::FONT_ROBOTO, 80, i));
+	addComponent ((new Label("Int  - ", &Renderer::FONT_ROBOTO, 10, i += 20,0,0))->adjustDimensions());
+	addComponent(new VariableComponent(&character->getAbilityScoreArray()[2], &Renderer::FONT_ROBOTO, 80, i));
+	addComponent ((new Label("Wisd - ", &Renderer::FONT_ROBOTO, 10, i += 20,0,0))->adjustDimensions());
+	addComponent(new VariableComponent(&character->getAbilityScoreArray()[3], &Renderer::FONT_ROBOTO, 80, i));
+	addComponent ((new Label("Cons - ", &Renderer::FONT_ROBOTO, 10, i += 20,0,0))->adjustDimensions());
+	addComponent(new VariableComponent(&character->getAbilityScoreArray()[4], &Renderer::FONT_ROBOTO, 80, i));
+	addComponent ((new Label("Char - ",&Renderer::FONT_ROBOTO, 10, i += 20,0,0))->adjustDimensions());
+	addComponent(new VariableComponent(&character->getAbilityScoreArray()[5], &Renderer::FONT_ROBOTO, 80, i));
+
+
+	
 
 
 
-	statLabels[0] = labelStr;
-	statLabels[1] = labelDex;
-	statLabels[2] = labelInt;
-	statLabels[3] = labelWisd;
-	statLabels[4] = labelCons;
-	statLabels[5] = labelChari;
 
-	addComponent(levelLabel);
-
-	for (int i = 0; i < 6; i++)
-	{
-		statLabels[i]->setFontSize(18);
-		statLabels[i]->setPositionY(i * 25 + 40);
-		addComponent(statLabels[i]);
-		statLabels[i]->adjustDimensions();
-	}
 	this->setHeight(7 * 25 + 30);
-	this->setWidth(90);
+	this->setWidth(100);
 	reloadLabelText();
+
+}
+void CharacterComponent::tick()
+{
+	Pane::tick();
 
 }
 
 void CharacterComponent::reloadLabelText()
 {
-	levelLabel->setText("Level " + std::to_string(character->getLevel()));
-	levelLabel->adjustDimensions();
 
-	labelStr->setText("Str " + std::to_string(character->getStrength()));
-	labelDex->setText("Dex " + std::to_string(character->getDexterity()));
-	labelInt->setText("Int " + std::to_string(character->getIntelligence()));
-	labelWisd->setText("Wisd " + std::to_string(character->getWisdom()));
-	labelCons->setText("Cons " + std::to_string(character->getConsitution()));
-	labelChari->setText("Char " + std::to_string(character->getCharisma()));
-
-	for (int i = 0; i < 6; i ++)
-	{
-		statLabels[i]->adjustDimensions();
-	}
 }
 
 void CharacterComponent::render()
