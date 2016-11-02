@@ -10,6 +10,11 @@ public:
 	void render() override;
 	void keyPressed(SDL_Keycode) override;
 
+	std::string getText()
+	{
+		return text;
+	}
+
 private:
 	std::string text;
 
