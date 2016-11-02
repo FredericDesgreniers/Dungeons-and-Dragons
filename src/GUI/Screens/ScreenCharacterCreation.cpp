@@ -17,6 +17,9 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	Button* backBtn = new Button("Back", &Renderer::FONT_ROBOTO, 100, 600, 100, 30);
 	backBtn->adjustButtonDimensions();
 
+	Button* confirmBtn = new Button("Confirm", &Renderer::FONT_ROBOTO, 300, 600, 100, 30);
+	rollBtn->adjustButtonDimensions();
+
 
 	
 
@@ -42,6 +45,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent(backBtn);
 	addComponent(rollBtn);
 	addComponent(nameInput);
+	addComponent(confirmBtn);
 }
 
 void ScreenCharacterCreation::render()
