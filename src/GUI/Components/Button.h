@@ -13,9 +13,10 @@ class Button : public Label
 public:
 	Button(std::string text,Font* font, int x, int y, int width, int height);
 
-	void adjustButtonDimensions()
+	Button* adjustButtonDimensions()
 	{
 		Label::adjustDimensions();
+		return this;
 	}
 
 

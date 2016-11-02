@@ -64,6 +64,15 @@ void Label::setText(std::string text)
 	reloadTexture();
 }
 
+Label* Label::adjustDimensions()
+{
+
+	
+		TTF_SizeText(font->get(fontSize), text.c_str(), &dimensions.w, &dimensions.h);
+
+		return this;
+	
+}
 
 
 Label::~Label()
