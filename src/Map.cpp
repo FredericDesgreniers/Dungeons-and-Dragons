@@ -1,5 +1,5 @@
 #include "map.h"
-
+#include <algorithm>
 Map::Map(int width, int height): height(height), width(width)
 {
 	tileGrid = new MapTile**[width];
@@ -46,21 +46,38 @@ Entity* Map::getEntity(int x, int y)
 
 Entity* Map::moveEntity(int x1, int y1, int x2, int y2)
 {
+	if(x2>=0 && y2>=0 && x2<width && y2 < height)
 	if(getTile(x2,y2)->getWalkable())
 	if(getEntity(x1,y1) != nullptr && getEntity(x2,y2) == nullptr)
 	{
 		Entity* entity = entityGrid[x1][y1];
 		entityGrid[x1][y1] = nullptr;
 		entityGrid[x2][y2] = entity;
+		entity->setPosition(x2, y2);
 		return entity;
 	}
 	return nullptr;
 }
 
+class Entity* Map::moveEntity(class Entity* entity, int x, int y)
+{
+	return moveEntity(entity->getPositionX(), entity->getPositionY(), x, y);
+}
+
+
 Entity* Map::removeEntity(int x, int y)
 {
 	Entity* entity = getEntity(x,y);
 	entityGrid[x][y] = nullptr;
+	if(entity!=nullptr)
+		for (int i = 0; i < entities.size(); i++)
+		{
+			if(entities[i] == entity)
+			{
+				entities.erase(entities.begin() + i);
+				break;
+			}
+		}
 	return entity;
 }
 
@@ -74,6 +91,8 @@ bool Map::spawnEntity(Entity* entity, int x, int y)
 		return false;
 
 	entityGrid[x][y] = entity;
+	entity->setPosition(x, y);
+	entities.push_back(entity);
 	return true;
 }
 

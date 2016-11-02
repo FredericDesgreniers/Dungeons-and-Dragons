@@ -1,14 +1,20 @@
 #pragma once
 
 #include "map_tile.h"
-#include "entity.h"
+#include "Entity.h"
+#include <vector>
 #define TILE_EMPTY 0
 #define TILE_WALL 1
+#define SPAWNTILE 2
+#define ENDTILE 3
+
 class Map 
 {
 private:
 	MapTile ***tileGrid;
 	Entity ***entityGrid;
+
+	std::vector<Entity*> entities;
 
 	int width;
 	int height;
@@ -22,6 +28,8 @@ public:
 	Entity* getEntity(int x, int y);
 
 	Entity* moveEntity(int x1, int y1, int x2, int y2);
+
+	Entity* moveEntity(Entity* entity, int x, int y);
 
 	Entity* removeEntity(int x, int y);
 
