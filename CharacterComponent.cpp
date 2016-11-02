@@ -8,7 +8,7 @@ CharacterComponent::CharacterComponent(Character* character, int x, int y, int w
 
 void CharacterComponent::render()
 {
-	drawDefaultStyle(false);
+	drawDefaultStyle();
 	drawStat(getPositionX(), getPositionY(), "Charisma", character->getCharisma());
 	drawStat(getPositionX(), getPositionY()+30, "Constitution", character->getConsitution());
 	drawStat(getPositionX(), getPositionY()+60, "Desterity", character->getDexterity());

@@ -11,8 +11,13 @@ Style::Style(int x, int y, int w, int h) : Component(x, y, w, h)
 }
 
 
-void Style::drawDefaultStyle(bool hover)
+void Style::drawDefaultStyle()
 {
+	int mx, my;
+
+	SDL_GetMouseState(&mx, &my);
+	bool hover = isInBounds(mx, my);
+
 	drawBackground(hover);
 	drawBorder(hover);
 }
@@ -69,7 +74,7 @@ void Style::setFontColor(int r, int g, int b, int a)
 void Style::renderDebug()
 {
 	Component::renderDebug();
-	Renderer::setColor(0, 255, 0, 255);
+	Renderer::setColor(inFocus?255:0, 255, 0, 255);
 	Renderer::RenderRectOutline(dimensions.x - padding_left, dimensions.y - padding_top, dimensions.w + padding_left + padding_right, dimensions.h + padding_top + padding_bottom);
 }
 

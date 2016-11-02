@@ -12,7 +12,7 @@ public:
 	 *	-background
 	 *	-border
 	 */
-	void drawDefaultStyle(bool hover);
+	void drawDefaultStyle();
 
 	/**
 	 * Draw background using backgroundColor]
