@@ -38,6 +38,22 @@ void Component::keyPressed(SDL_Keycode keycode)
 {
 	
 }
+void Component::click(int x, int y)
+{
+	int mx, my;
+	SDL_GetMouseState(&mx, &my);
+	if (isInBounds(mx,my)) {
+		setInFocus(true);
+		for (std::function<void(Component*, int, int)> func : onClick_callbacks)
+		{
+			func(this, x, y);
+		}
+	}
+	else
+	{
+		setInFocus(false);
+	}
+}
 
 Component::~Component()
 {

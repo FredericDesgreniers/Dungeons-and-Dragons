@@ -10,10 +10,6 @@ void Pane::click(int x, int y)
 	Style::click(x, y);
 	for (Component* c : subComponents)
 	{
-		if (c->isInBounds(x+getPositionX(), y+getPositionY()))
-			c->setInFocus(true);
-		else
-			c->setInFocus(false);
 		c->click(x - c->getPositionX(), y - c->getPositionY());
 	}
 }

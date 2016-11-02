@@ -39,15 +39,7 @@ void Screen::reInitialize()
 void Screen::click(int x, int y)
 {
 	for (Component* c : components) {
-
-		if (c->isInBounds(x, y))
-		{
-			c->setInFocus(true);
-			c->click(x - c->getPositionX(), y - c->getPositionY());
-		}else
-		{
-			c->setInFocus(false);
-		}
+		c->click(x - c->getPositionX(), y - c->getPositionY());
 	}
 		
 }

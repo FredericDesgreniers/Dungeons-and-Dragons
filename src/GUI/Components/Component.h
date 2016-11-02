@@ -51,14 +51,7 @@ public:
 	/**
 	 * Component got clicked
 	 */
-	virtual void click(int x, int y)
-	{
-		for(std::function<void(Component*, int, int)> func : onClick_callbacks)
-		{
-			func(this, x, y);
-		}
-	}
-
+	virtual void click(int x, int y);
 	/**
 	* Returns if x and y are within the bounds of the button
 	*/
