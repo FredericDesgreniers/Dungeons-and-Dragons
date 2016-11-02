@@ -9,12 +9,12 @@ CharacterComponent::CharacterComponent(Character* character, int x, int y, int w
 void CharacterComponent::render()
 {
 	drawDefaultStyle(false);
-	drawStat(getPositionX(), getPositionY(), "charisma", character->getCharisma());
-	drawStat(getPositionX(), getPositionY()+30, "constitution", character->getConsitution());
-	drawStat(getPositionX(), getPositionY()+60, "desterity", character->getDexterity());
-	drawStat(getPositionX(), getPositionY()+90, "intelligence", character->getIntelligence());
-	drawStat(getPositionX(), getPositionY()+120, "strenght", character->getStrength());
-	drawStat(getPositionX(), getPositionY()+150, "wisdom", character->getWisdom());
+	drawStat(getPositionX(), getPositionY(), "Charisma", character->getCharisma());
+	drawStat(getPositionX(), getPositionY()+30, "Constitution", character->getConsitution());
+	drawStat(getPositionX(), getPositionY()+60, "Desterity", character->getDexterity());
+	drawStat(getPositionX(), getPositionY()+90, "Intelligence", character->getIntelligence());
+	drawStat(getPositionX(), getPositionY()+120, "Strenght", character->getStrength());
+	drawStat(getPositionX(), getPositionY()+150, "Wisdom", character->getWisdom());
 
 }
 void CharacterComponent::drawStat(int x, int y, std::string name, int level)
