@@ -53,6 +53,17 @@ void Label::reloadTexture()
 	Renderer::destroyTexture(texture);
 	texture = Renderer::CreateTexture(text, font->get(fontSize), fontColor);
 }
+std::string Label::getText()
+{
+	return text;
+}
+
+void Label::setText(std::string text)
+{
+	this->text = text;
+	reloadTexture();
+}
+
 
 
 Label::~Label()
