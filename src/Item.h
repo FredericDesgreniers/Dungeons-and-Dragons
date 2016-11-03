@@ -1,6 +1,5 @@
 #include <string>
 #include <iostream>
-using namespace std;
 
 
 class Item
@@ -11,19 +10,22 @@ public:
 		HELMET, // int, wis, armor class
 		ARMOR,  // armor class
 		SHIELD, // armor class
-		RING,   // armor class, str, con, wis, cha
+		RING,   // str, con, wis, cha, armor class.
 		BELT,   // con, str
 		BOOTS,  // armor class, dex
 		WEAPON  // attack, damage
 	};
 
   Item();
-  Item(ItemType iType);
+  // Item with all member variables.
+  Item(std::string name, ItemType iType, int str, int dex, int con, int intl, int wis, int cha, int atk, int dmg, int arm);
+
+
   ~Item();
 
 
-  string getName();
-  void setName(string iName);
+  std::string getName();
+  void setName(std::string iName);
 
   ItemType getItemType();
   void setItemType(ItemType iType);
@@ -61,7 +63,7 @@ private:
 
 
   // items all have a name
-  string itemName;
+  std::string itemName;
   // and a type
   ItemType type;
 

@@ -1,14 +1,86 @@
 #include "Item.h"
 
+
 Item::Item()
 {
 
 }
 
-Item::Item(ItemType iType)
+Item::Item(std::string name, ItemType iType, int str, int dex, int con, int intl, int wis, int cha, int atk, int dmg, int arm)
 {
+	this->itemName = name;
 
+	switch (iType)
+	{
+	case HELMET:
+		type = iType;
+		setIntBoost(intl);
+		setWisBoost(wis);
+		setArmBoost(arm);
+		strBoost = 0;
+		dexBoost = 0;
+		conBoost = 0;
+		chaBoost = 0;
+		atkBoost = 0;
+		dmgBoost = 0;
+		break;
+
+	case ARMOR || SHIELD:
+		type = iType;
+		setArmBoost(arm);
+		strBoost = 0;
+		dexBoost = 0;
+		conBoost = 0;
+		intBoost = 0;
+		wisBoost = 0;
+		chaBoost = 0;
+		atkBoost = 0;
+		dmgBoost = 0;
+
+		break;
+
+	case RING:
+		type = iType;
+		setStrBoost(str);
+		setConBoost(con);
+		setWisBoost(wis);
+		setChaBoost(cha);
+		setArmBoost(arm);
+		dexBoost = 0;
+		intBoost = 0;
+		atkBoost = 0;
+		dmgBoost = 0;
+		break;
+
+	case BELT:
+		type = iType;
+		setStrBoost(str);
+		setConBoost(con);
+		dexBoost = 0;
+		intBoost = 0;
+		wisBoost = 0;
+		chaBoost = 0;
+		atkBoost = 0;
+		dmgBoost = 0;
+		armBoost = 0;
+		break;
+
+	case WEAPON:
+		type = iType;
+		setAtkBoost(atk);
+		setDmgBoost(dmg);
+		strBoost = 0;
+		dexBoost = 0;
+		conBoost = 0;
+		intBoost = 0;
+		wisBoost = 0;
+		chaBoost = 0;
+		armBoost = 0;
+		break;
+
+	}
 }
+
 
 Item::~Item()
 {
@@ -20,11 +92,11 @@ Item::~Item()
 * GETTERS AND SETTERS
 */
 
-string Item::getName() {
+std::string Item::getName() {
   return this->itemName;
 }
 
-void Item::setName(string iName) {
+void Item::setName(std::string iName) {
   this->itemName = iName;
 }
 
@@ -148,7 +220,7 @@ void Item::setArmBoost(int armB) {
 bool Item::checkValididty(int boost)
 {
 	if (0 < boost || boost > 5) {
-		cout << "Item boost can only be 1-5, unallowed boost assignment" << endl;
+		std::cout << "Item boost can only be 1-5, unallowed boost assignment" << std::endl;
 		return false;
 	}
 	else {
