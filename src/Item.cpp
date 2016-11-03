@@ -28,12 +28,12 @@ void Item::setName(string iName) {
   this->itemName = iName;
 }
 
-ItemType Item::getItemType() {
-  return this->ItemType;
+Item::ItemType Item::getItemType() {
+  return this->type;
 }
 
 void Item::setItemType(ItemType iType) {
-  this->ItemType = iType;
+  this->type = iType;
 }
 
 int Item::getStrBoost() {
@@ -64,47 +64,47 @@ int Item::getIntBoost() {
   return this->intBoost;
 }
 
-void setIntBoost(int intB) {
+void Item::setIntBoost(int intB) {
   this->intBoost = intB;
 }
 
-int getWisBoost() {
+int Item::getWisBoost() {
   return this->strBoost;
 }
 
-void setWisBoost(int wisB) {
+void Item::setWisBoost(int wisB) {
   this->wisBoost = wisB;
 }
 
-int getChaBoost() {
+int Item::getChaBoost() {
   return this->chaBoost;
 }
 
-void setChaBoost(int chaB {
+void Item::setChaBoost(int chaB) {
   this->chaBoost = chaB;
 }
 
-int getAtkBoost() {
+int Item::getAtkBoost() {
   return this->atkBoost;
 }
 
-void setAtkBoost(int atkB) {
+void Item::setAtkBoost(int atkB) {
   this->atkBoost = atkB;
 }
 
-int getDmgBoost() {
+int Item::getDmgBoost() {
   return this->dmgBoost;
 }
 
-void setDmgBoost(int dmgB) {
+void Item::setDmgBoost(int dmgB) {
   this->dmgBoost = dmgB;
 }
 
-int getArmBoost()
+int Item::getArmBoost()
 {
   return this->armBoost;
 }
 
-void setArmBoost(int armB) {
+void Item::setArmBoost(int armB) {
   this->armBoost = armB;
 }

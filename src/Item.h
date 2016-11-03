@@ -1,20 +1,20 @@
 #include <string>
+using namespace std;
 
 
 class Item
 {
 
 public:
-  static enum ItemType
-  {
-    HELMET, // int, wis, armor class
-    ARMOR,  // armor class
-    SHIELD, // armor class
-    RING,   // armor class, str, con, wis, cha
-    BELT,   // con, str
-    BOOTS,  // armor class, dex
-    WEAPON  // attack, damage
-  }
+	static enum ItemType {
+		HELMET, // int, wis, armor class
+		ARMOR,  // armor class
+		SHIELD, // armor class
+		RING,   // armor class, str, con, wis, cha
+		BELT,   // con, str
+		BOOTS,  // armor class, dex
+		WEAPON  // attack, damage
+	};
 
   Item();
   Item(ItemType iType);
@@ -25,7 +25,7 @@ public:
   void setName(string iName);
 
   ItemType getItemType();
-  void setItemType();
+  void setItemType(ItemType iType);
 
   int getStrBoost();
   void setStrBoost(int strB);
@@ -55,6 +55,8 @@ public:
   void setArmBoost(int armB);
 
 private:
+
+
   // items all have a name
   string itemName;
   // and a type
@@ -75,4 +77,4 @@ private:
   int armBoost;
 
 
-}
+};
