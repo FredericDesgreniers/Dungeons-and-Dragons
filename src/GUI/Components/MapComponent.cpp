@@ -1,7 +1,7 @@
 #include "MapComponent.h"
 #include "../Renderer.h"
 #include "CharacterComponent.h"
-
+#include "../../Monster.h"
 
 MapComponent::MapComponent(Map* map, int x, int y, int width, int height):map(map), Style(x,y,width,height) {
 
@@ -15,10 +15,14 @@ void MapComponent::render() {
 	int tileHeight = getHeight() / mapHeight;
 	int mx, my;
 	SDL_GetMouseState(&mx, &my);
-
+	Character* c = map->getCharacter();
 
 	for (int i = 0; i < mapWidth; i++) {
 		for (int j = 0; j < mapHeight; j++) {
+			int distance = c->realDistanceTo(i,j);
+			if (distance > drawDistance) {
+				continue;
+			}
 			int x= i*tileWidth + getPositionX();
 			int y = j*tileHeight + getPositionY();
 
@@ -53,12 +57,25 @@ void MapComponent::render() {
 			Entity* entity = map->getEntity(i,j);
 			if (entity != nullptr)
 			{
-				Renderer::drawString(std::string(1, entity->getRenderChar()), Renderer::FONT_ROBOTO.get(tileHeight), x, y,1,{255,255, 0,255});
+
+				SDL_Color color;
+				if (dynamic_cast<Monster*>(entity)) {
+					color = { 255,200,0,255 };
+				}
+				else if (dynamic_cast<Character*>(entity)) {
+					color = { 255,255,0,255 };
+				}
+				else {
+					color = { 255,0,255,255 };
+				}
+				
+
+				Renderer::drawString(std::string(1, entity->getRenderChar()), Renderer::FONT_ROBOTO.get(tileHeight), x+2, y-3,1,color);
 				if(LivingEntity* le = dynamic_cast<LivingEntity*>(entity)){
 					Renderer::setColor(255, 0, 0, 255);
 					double healthBar = (static_cast<double>(le->getHealth()) / static_cast<double>(le->getMaxHealth()));
 					
-					Renderer::RenderRect(x, y, healthBar*(tileWidth-5)+5,5);
+					Renderer::RenderRect(x, y, healthBar*(tileWidth-2)+2,5);
 				}
 			}
 			
@@ -83,6 +100,10 @@ void MapComponent::addOnTileClickedCallback(std::function<void(Map*, int, int)> 
 void MapComponent::setPreviewMode(bool previewMode)
 {
 	this->previewMode = previewMode;
+}
+
+void MapComponent::setDrawDistance(double d) {
+	drawDistance = d;
 }
 
 

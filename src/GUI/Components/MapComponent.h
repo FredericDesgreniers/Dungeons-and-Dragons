@@ -27,6 +27,10 @@ public:
 	 * Called when map is clicked
 	 */
 	void click(int x, int y) override;
+	/**
+	* Set the draw distance
+	*/
+	void setDrawDistance(double d);
 
 	/**
 	 * Add callback function for when a tile is clicked
@@ -36,6 +40,6 @@ public:
 private:
 	Map* map;
 	bool previewMode;
-
+	double drawDistance = 5;
 	std::vector<std::function<void(Map*, int, int)>> onTileClick_callbacks;
 };
