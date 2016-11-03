@@ -4,11 +4,11 @@
 
 Monster::Monster():LivingEntity('M')
 {
-	
+	setPathfinderDistance(8);
 }
 Monster::Monster(char c):LivingEntity(c)
 {
-	
+	setPathfinderDistance(8);
 }
 
 void Monster::simulate(Map* map, Pathfinder* pathfinder)
@@ -40,7 +40,7 @@ void Monster::simulate(Map* map, Pathfinder* pathfinder)
 		if (c->hit(5))
 			map->removeEntity(c->getPositionX(), c->getPositionY());
 	}
-	if (path.size() > 0 && path.size() < 8)
+	if (path.size() > 0 && path.size() < getPathfinderDistance())
 	{
 		Node* nextNode = path[path.size()-1];
 		map->moveEntity(this, nextNode->x, nextNode->y);
@@ -57,7 +57,7 @@ bool Monster::interact(Map* map, Entity* entity)
 			map->removeEntity(getPositionX(), getPositionY());
 		}
 		return true;
-	}
+	} 
 	return false;
 }
 
