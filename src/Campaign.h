@@ -8,11 +8,11 @@ class Campaign
 public:
 	Campaign(std::string name);
 
-	void addMap(Map* map)
+	void addMap(std::string map)
 	{
 		maps.push_back(map);
 	}	
-	std::vector<Map*>* getMaps()
+	std::vector<std::string>* getMaps()
 	{
 		return &maps;
 	}
@@ -21,10 +21,10 @@ public:
 		return name;
 	}
 
-	Map* getFirstMap();
+	std::string getFirstMap();
 
 
 private:
-	std::vector<Map*> maps;
+	std::vector<std::string> maps;
 	std::string name;
 };
