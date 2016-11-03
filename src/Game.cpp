@@ -2,6 +2,7 @@
 
 #include "GUI/Screens/ScreenMain.h"
 #include "GUI/Renderer.h"
+#include <direct.h>
 
 
 #undef main
@@ -14,6 +15,7 @@ Game::Game()
 
 bool Game::ini()
 {
+	_mkdir("maps/");
 
 	if (!Renderer::init())
 		return false;

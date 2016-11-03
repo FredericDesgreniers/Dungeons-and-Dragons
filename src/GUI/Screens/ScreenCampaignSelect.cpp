@@ -13,11 +13,6 @@ ScreenCampaignSelect::ScreenCampaignSelect(Game* game) : Screen(game)
 	{
 		Campaign* campaign = new Campaign("Default");
 
-		Map* map = new Map(25,25);
-		map->setTile(new MapTile(SPAWNTILE), 0, 0);
-		map->setTile(new MapTile(ENDTILE), 24, 24);
-		campaign->addMap(map);
-
 		Screen* screen = new ScreenCharacterSelect(this->game, campaign);
 		screen->setBackButton(this);
 		this->game->getGuiManager()->setScreen(screen);
