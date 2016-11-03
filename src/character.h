@@ -1,13 +1,13 @@
 #pragma once
-#include "stdlib.h"
-#include "time.h"
+
 #include <string>
-#include "entity.h"
+
+#include "LivingEntity.h"
 
 /**
  * Character class
  */
-class Character:public Entity
+class Character:public LivingEntity
 {
 
 

@@ -1,7 +1,8 @@
 #include "character.h"
 #include <iostream>
+#include <ctime>
 
-Character::Character(int level):Entity('C')
+Character::Character(int level):LivingEntity('C')
 {
 	srand(time(NULL));
 
@@ -18,7 +19,7 @@ Character::Character(int level):Entity('C')
 
 }
 
-Character::Character(int str, int dex, int cons, int intel, int wisd, int chari):Entity('C')
+Character::Character(int str, int dex, int cons, int intel, int wisd, int chari):LivingEntity('C')
 {
 	abilityscores[0] = str;
 	abilityscores[1] = dex;
