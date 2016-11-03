@@ -4,13 +4,10 @@
 
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
 {
-	currentmap = campaign->getFirstMap();
-	for (int i = 0; i < 20; i ++)
-	{
-		currentmap->setTile(new MapTile(TILE_WALL), i,10 );
-	}
+
+
 	
-	MapBuilder::loadMap(currentmap)->spawnCharacter(character)->spawnRandomMonsters();
+	currentmap = MapBuilder::loadFromFile(campaign->getFirstMap())->spawnCharacter(character)->spawnRandomMonsters()->get();
 
 	map_component = new MapComponent(currentmap, 0, 0, 450, 450);
 	addComponent(map_component);
