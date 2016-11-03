@@ -35,3 +35,7 @@ void Entity::setPosition(int x, int y)
 	positionY = y;
 }
 
+char Entity::getRenderChar()
+{
+	return renderChar;
+}
