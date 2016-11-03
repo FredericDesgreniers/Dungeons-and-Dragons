@@ -17,7 +17,21 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 	character_component->setBorderColor_both(150, 150, 140, 255);
 	character_component->setPadding(10, 10, 10, 10);
 	addComponent(character_component);
-
+	
+	map_component->addOnTileClickedCallback([this](Map* map, int x, int y)
+	{
+		Character* chara = this->character;
+		Entity* entity = map->getEntity(x, y);
+		if (entity != nullptr) {
+			if (abs(x - chara->getPositionX()) + abs(y - chara->getPositionY()) <= 1)
+			{
+				if(entity->interact(map, chara))
+				{
+					map->simulateMapTick();
+				}
+			}
+		}
+	});
 
 }
 
