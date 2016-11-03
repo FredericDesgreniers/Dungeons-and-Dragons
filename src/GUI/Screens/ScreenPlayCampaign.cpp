@@ -5,6 +5,11 @@
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
 {
 	currentmap = campaign->getFirstMap();
+	for (int i = 0; i < 20; i ++)
+	{
+		currentmap->setTile(new MapTile(TILE_WALL), i,10 );
+	}
+	
 	MapBuilder::loadMap(currentmap)->spawnCharacter(character)->spawnRandomMonsters();
 
 	map_component = new MapComponent(currentmap, 0, 0, 450, 450);
@@ -21,6 +26,7 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 
 void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 {
+
 	switch (code)
 	{
 	case(SDLK_w) : {
