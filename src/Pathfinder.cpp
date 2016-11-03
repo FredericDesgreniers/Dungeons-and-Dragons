@@ -37,7 +37,8 @@ void Pathfinder::createNodeGrid()
 		for (int y = 0; y < height; y++)
 		{
 			MapTile* tile = map->getTile(x, y);
-			Node* node = new Node(x, y, tile->getMovementCost(), tile->getWalkable());
+			bool entityThere = map->getEntity(x, y) != nullptr && !(x==destinationX && y==destinationY);
+			Node* node = new Node(x, y, tile->getMovementCost(), !entityThere && tile->getWalkable());
 
 			//calculate the distance to destination from tile
 			node->calculateHeuristic(destinationX, destinationY);
