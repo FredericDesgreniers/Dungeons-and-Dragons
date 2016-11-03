@@ -47,3 +47,51 @@ bool Character::validateNewCharacter()
 	}
 	return true;
 }
+
+int Character::getLevel()
+{
+	return level;
+}
+
+int* Character::getAbilityScoreArray()
+{
+	return abilityscores;
+}
+
+int Character::getStrength()
+{
+	return abilityscores[0];
+}
+
+int Character::getHitPoints()
+{
+	return hitpoints;
+}
+
+int Character::getDexterity()
+{
+	return abilityscores[1];
+}
+
+int Character::getConsitution()
+{
+	return abilityscores[2];
+}
+
+int Character::getIntelligence()
+{
+	return abilityscores[3];
+}
+
+int Character::getWisdom()
+{
+	return abilityscores[4];
+}
+
+int Character::getCharisma()
+{
+	return abilityscores[5];
+}
+
+
+

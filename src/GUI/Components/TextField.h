@@ -10,10 +10,7 @@ public:
 	void render() override;
 	void keyPressed(SDL_Keycode) override;
 	void tick() override;
-	std::string getText()
-	{
-		return text;
-	}
+	std::string getText();
 
 private:
 	std::string text;

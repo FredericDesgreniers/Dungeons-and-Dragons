@@ -55,6 +55,27 @@ void Component::click(int x, int y)
 	}
 }
 
+void Component::addOnClick_callback(std::function<void(Component*, int, int)> func)
+{
+	onClick_callbacks.push_back(func);
+}
+
+bool Component::isInBounds(int x, int y)
+{
+	return x >= dimensions.x && y >= dimensions.y && x <= dimensions.x + dimensions.w  && y <= dimensions.y + dimensions.h;
+}
+
+bool Component::isInFocus()
+{
+	return inFocus;
+}
+
+void Component::setInFocus(bool focus)
+{
+	inFocus = focus;
+}
+
+
 Component::~Component()
 {
 	

@@ -29,6 +29,10 @@ void Screen::tick()
 		comp->tick();
 }
 
+void Screen::addComponent(Component* comp)
+{
+	components.push_back(comp);
+}
 
 void Screen::reInitialize()
 {

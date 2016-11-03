@@ -104,6 +104,21 @@ void Renderer::iniRender()
 	setColor(0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 }
+void Renderer::addVoidScreen(Screen* screen)
+{
+	voidedScreens.push(screen);
+}
+
+void Renderer::destroyVoidedScreens()
+{
+	while (!voidedScreens.empty())
+	{
+		Screen* screen = voidedScreens.top();
+		delete screen;
+		voidedScreens.pop();
+	}
+}
+
 
 void Renderer::render()
 {

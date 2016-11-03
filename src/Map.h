@@ -48,19 +48,9 @@ public:
 
 	bool spawnCharacter(Character* character);
 
-	Character* getCharacter()
-	{
-		return character;
-	}
+	Character* getCharacter();
 
-	int getWidth()
-	{
-		return width;
-	}
-	int getHeight()
-	{
-		return height;
-	}
-
+	int getWidth();
+	int getHeight();
 	void simulateMapTick();
 };

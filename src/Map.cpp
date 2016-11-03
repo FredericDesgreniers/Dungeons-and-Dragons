@@ -92,7 +92,8 @@ bool Map::spawnEntity(Entity* entity, int x, int y)
 
 	if (getEntity(x,y) != nullptr)
 		return false;
-
+	if (getTile(x, y)->getWalkable() == false)
+		return false;
 	entityGrid[x][y] = entity;
 	entity->setPosition(x, y);
 	entities.push_back(entity);
@@ -121,3 +122,20 @@ bool Map::spawnCharacter(Character* character)
 
 	return (spawnEntity(character, spawnX, spawnY));
 }
+
+Character* Map::getCharacter()
+{
+	return character;
+}
+
+int Map::getHeight()
+{
+	return height;
+}
+
+int Map::getWidth()
+{
+	return width;
+}
+
+

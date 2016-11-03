@@ -15,16 +15,9 @@ public:
 
 	void clickScreen(int x, int y);
 
-	void setDebug(bool d)
-	{
-		debug = d;
-	}
+	void setDebug(bool d);
 
-	void toggleDebug()
-	{
-		debug = !debug;
-		std::cout << "Debug is now " << (debug ? "on" : "off") << std::endl;
-	}
+	void toggleDebug();
 
 	/**
 	 * Set the screen, return pointer to old screen

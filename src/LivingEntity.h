@@ -4,15 +4,9 @@
 class LivingEntity :public Entity {
 public:
 	LivingEntity(char c);
-	int getMaxHealth()
-	{
-		return maxHealth;
-	}
+	int getMaxHealth();
 
-	int getHealth()
-	{
-		return health;
-	}
+	int getHealth();
 
 	bool hit(int damage);
 

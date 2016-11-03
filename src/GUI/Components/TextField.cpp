@@ -19,6 +19,10 @@ TextField::TextField(std::string text, int x, int y, int width, int height):Styl
 	this->setBorderSize(1);
 	this->setFontColor(255, 255, 255, 255);
 }
+std::string TextField::getText()
+{
+	return text;
+}
 
 void TextField::keyPressed(SDL_Keycode keycode)
 {

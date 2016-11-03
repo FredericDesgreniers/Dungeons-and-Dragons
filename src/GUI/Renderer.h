@@ -89,20 +89,9 @@ public:
 
 	static Uint32 getAverageFrameTime();
 
-	static void addVoidScreen(Screen* screen)
-	{
-		voidedScreens.push(screen);
-	}
+	static void addVoidScreen(Screen* screen);
 
-	static void destroyVoidedScreens()
-	{
-		while(!voidedScreens.empty())
-		{
-			Screen* screen = voidedScreens.top();
-			delete screen;
-			voidedScreens.pop();
-		}
-	}
+	static void destroyVoidedScreens();
 
 private:
 

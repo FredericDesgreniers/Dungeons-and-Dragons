@@ -14,3 +14,14 @@ bool LivingEntity::hit(int damage)
 		health = maxHealth;
 	return health <= 0;
 }
+
+int LivingEntity::getHealth()
+{
+	return health;
+}
+
+int LivingEntity::getMaxHealth()
+{
+	return maxHealth;
+}
+

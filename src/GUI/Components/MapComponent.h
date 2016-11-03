@@ -8,17 +8,11 @@ public:
 	void render() override;
 	void tick() override;
 	void renderDebug() override;
-	void setPreviewMode(bool previewMode) {
-		this->previewMode = previewMode;
-	}
+	void setPreviewMode(bool previewMode);
 
 	void click(int x, int y) override;
 
-	void addOnTileClickedCallback(std::function<void(Map*, int, int)> func)
-	{
-		onTileClick_callbacks.push_back(func);
-	}
-
+	void addOnTileClickedCallback(std::function<void(Map*, int, int)> func);
 private:
 	Map* map;
 	bool previewMode;

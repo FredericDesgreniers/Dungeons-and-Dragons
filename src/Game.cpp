@@ -91,6 +91,10 @@ bool Game::exit()
 	return true;
 }
 
+GuiManager* Game::getGuiManager()
+{
+	return gui_manager;
+}
 
 int main()
 {

@@ -5,12 +5,7 @@ class Pane:public Style
 {
 public:
 	Pane(int x, int y, int width, int height);
-	void addComponent(Component* comp)
-	{
-		comp->setPositionX(comp->getPositionX() + getPositionX());
-		comp->setPositionY(comp->getPositionY() + getPositionY());
-		subComponents.push_back(comp);
-	}
+	void addComponent(Component* comp);
 
 	void render() override;
 	void tick() override;

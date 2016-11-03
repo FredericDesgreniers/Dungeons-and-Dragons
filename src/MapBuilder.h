@@ -14,10 +14,7 @@ public:
 	
 	MapBuilder* spawnRandomMonsters();
 	
-	Map* get()
-	{
-		return map;
-	}
+	Map* get();
 
 
 private:

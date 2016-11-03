@@ -11,28 +11,12 @@ private:
 public:
 	MapTile(int id);
 
-	int getId()
-	{
-		return id;
-	}
+	int getId();
 
-	void setId(int id)
-	{
-		this->id = id;
-	}
+	void setId(int id);
 
-	bool getWalkable()
-	{
-		return walkable;
-	}
+	bool getWalkable();
+	void setWalkable(bool walkable);
 
-	void setWalkable(bool walkable)
-	{
-		this->walkable = walkable;
-	}
-
-	int getMovementCost()
-	{
-		return movementCost;
-	}
+	int getMovementCost();
 };

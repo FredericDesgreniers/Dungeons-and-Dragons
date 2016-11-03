@@ -16,4 +16,10 @@ Button::Button(std::string text, Font* font, int x, int y,int width, int height)
 
 }
 
+Button* Button::adjustButtonDimensions()
+{
+	Label::adjustDimensions();
+	return this;
+}
+
 

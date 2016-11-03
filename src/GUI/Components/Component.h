@@ -38,11 +38,7 @@ public:
 	/**
 	 * Add function to callback list. Called when component is clicked. positions are relative
 	 */
-	void addOnClick_callback(std::function<void(Component*, int, int)> func)
-	{
-		onClick_callbacks.push_back(func);
-	}
-
+	void addOnClick_callback(std::function<void(Component*, int, int)> func);
 	virtual void render();
 	virtual void renderDebug();
 	
@@ -55,22 +51,12 @@ public:
 	/**
 	* Returns if x and y are within the bounds of the button
 	*/
-	virtual bool isInBounds(int x, int y)
-	{
-		return x >= dimensions.x && y >= dimensions.y && x <= dimensions.x + dimensions.w  && y <= dimensions.y + dimensions.h;
-	}
-
+	virtual bool isInBounds(int x, int y);
 	virtual ~Component();
 
-	bool isInFocus()
-	{
-		return inFocus;
-	}
+	bool isInFocus();
 
-	void setInFocus(bool focus)
-	{
-		inFocus = focus;
-	}
+	void setInFocus(bool focus);
 
 	virtual void keyPressed(SDL_Keycode keycode);
 

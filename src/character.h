@@ -65,65 +65,38 @@ public:
 	/**
 	 * Get level as int
 	 */
-	int getLevel()
-	{
-		return level;
-	}
+	int getLevel();
 	/**
 	 * Get hit points as int
 	 */
-	int getHitPoints()
-	{
-		return hitpoints;
-	}
+	int getHitPoints();
 
 	/**
 	 * Get Strength as int
 	 */
-	int getStrength()
-	{
-		return abilityscores[0];
-	} 
+	int getStrength();
 	/**
 	 * Get dexterity as int
 	 */
-	int getDexterity()
-	{
-		return abilityscores[1];
-	}
+	int getDexterity();
 	/**
 	 * Get constitution as int
 	 */
-	int getConsitution()
-	{
-		return abilityscores[2];
-	} 
+	int getConsitution();
 	/**
 	 * Get inteligence as int
 	 */
-	int getIntelligence()
-	{
-		return abilityscores[3];
-	} 
+	int getIntelligence();
 	/**
 	 * Get wisdom as int
 	 */
-	int getWisdom()
-	{
-		return abilityscores[4];
-	} 
+	int getWisdom();
 	/**
 	 * Get charisma as int
 	 */
-	int getCharisma()
-	{
-		return abilityscores[5];
-	}
+	int getCharisma();
 
-	int* getAbilityScoreArray()
-	{
-		return abilityscores;
-	}
+	int* getAbilityScoreArray();
 
 };
 

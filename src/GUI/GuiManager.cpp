@@ -46,7 +46,16 @@ if (debug){
 
 }
 }
+void GuiManager::setDebug(bool d)
+{
+	debug = d;
+}
 
+void GuiManager::toggleDebug()
+{
+	debug = !debug;
+	std::cout << "Debug is now " << (debug ? "on" : "off") << std::endl;
+}
 
 void GuiManager::runTick()
 {

@@ -13,3 +13,20 @@ std::string Campaign::getFirstMap()
 	else
 		return "default";
 }
+
+void Campaign::addMap(std::string map)
+{
+	maps.push_back(map);
+}
+
+
+std::vector<std::string>* Campaign::getMaps()
+{
+	return &maps;
+}
+
+std::string Campaign::getName()
+{
+	return name;
+}
+

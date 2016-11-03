@@ -22,10 +22,7 @@ public:
 	 */
 	bool exit();
 
-	GuiManager* getGuiManager()
-	{
-		return gui_manager;
-	}
+	GuiManager* getGuiManager();
 
 private:
 	GuiManager* gui_manager;

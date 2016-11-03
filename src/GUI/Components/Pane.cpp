@@ -33,6 +33,12 @@ void Pane::renderDebug()
 	}
 }
 
+void Pane::addComponent(Component* comp)
+{
+	comp->setPositionX(comp->getPositionX() + getPositionX());
+	comp->setPositionY(comp->getPositionY() + getPositionY());
+	subComponents.push_back(comp);
+}
 
 void Pane::render()
 {

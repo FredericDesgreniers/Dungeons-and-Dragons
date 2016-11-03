@@ -29,10 +29,7 @@ public:
 	/*
 	 * Add component to component list. 
 	 */
-	void addComponent(Component* comp)
-	{
-		components.push_back(comp);
-	}
+	void addComponent(Component* comp);
 
 	void setBackButton(Screen* screen);
 

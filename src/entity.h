@@ -11,29 +11,13 @@ public:
 
 	virtual bool interact(Map* map, Entity* entity);
 
-	void setPosition(int x, int y)
-	{
-		positionX = x;
-		positionY = y;
-	}
-	int getPositionX()
-	{
-		return positionX;
-	}
-	int getPositionY()
-	{
-		return positionY;
-	}
+	void setPosition(int x, int y);
+	int getPositionX();
+	int getPositionY();
 
-	char getRenderChar()
-	{
-		return renderChar;
-	}
+	char getRenderChar();
 
-	int distanceTo(Entity*  entity)
-	{
-		return (std::abs(entity->getPositionX() - positionX) + std::abs(entity->getPositionY() - positionY));
-	}
+	int distanceTo(Entity*  entity);
 
 private:
 	int positionX, positionY;

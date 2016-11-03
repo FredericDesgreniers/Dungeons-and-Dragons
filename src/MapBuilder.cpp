@@ -76,6 +76,10 @@ MapBuilder::MapBuilder()
 {
 
 }
+Map* MapBuilder::get()
+{
+	return map;
+}
 
 
 MapBuilder* MapBuilder::spawnCharacter(Character* character)

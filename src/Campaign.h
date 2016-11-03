@@ -8,18 +8,9 @@ class Campaign
 public:
 	Campaign(std::string name);
 
-	void addMap(std::string map)
-	{
-		maps.push_back(map);
-	}	
-	std::vector<std::string>* getMaps()
-	{
-		return &maps;
-	}
-	std::string getName()
-	{
-		return name;
-	}
+	void addMap(std::string map);
+	std::vector<std::string>* getMaps();
+	std::string getName();
 
 	std::string getFirstMap();
 
