@@ -1,4 +1,5 @@
 #pragma once
+#include <valarray>
 class Pathfinder;
 class Map;
 class Entity
@@ -27,6 +28,11 @@ public:
 	char getRenderChar()
 	{
 		return renderChar;
+	}
+
+	int distanceTo(Entity*  entity)
+	{
+		return (std::abs(entity->getPositionX() - positionX) + std::abs(entity->getPositionY() - positionY));
 	}
 
 private:
