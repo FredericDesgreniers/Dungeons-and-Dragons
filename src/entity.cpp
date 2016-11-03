@@ -17,7 +17,17 @@ bool Entity::interact(Map* map ,Entity* entity)
 
 int Entity::distanceTo(Entity* entity)
 {
-	return (std::abs(entity->getPositionX() - positionX) + std::abs(entity->getPositionY() - positionY));
+	return distanceTo(entity->getPositionX(), entity->getPositionY());
+}
+
+int Entity::distanceTo(int x, int y) {
+	return (std::abs(x - positionX) + std::abs(y - positionY));
+}
+
+double Entity::realDistanceTo(int x, int y) {
+	int dx = x - positionX;
+	int dy = y - positionY;
+	return sqrt(dx*dx+dy*dy);
 }
 
 int Entity::getPositionY()

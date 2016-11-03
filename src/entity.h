@@ -1,7 +1,9 @@
 #pragma once
 #include <valarray>
+#include <math.h>
 class Pathfinder;
 class Map;
+
 /**
  * Entity is a class to represent something that sits on a map tile like a monster, a chess, ...
  */
@@ -43,6 +45,16 @@ public:
 	 * returns distance from here to other entity
 	 */
 	int distanceTo(Entity*  entity);
+
+	/**
+	* returns distance to point in map
+	*/
+	int distanceTo(int x, int y);
+
+	/**
+	* expensive distance method
+	*/
+	double realDistanceTo(int x, int y);
 
 private:
 	int positionX, positionY;
