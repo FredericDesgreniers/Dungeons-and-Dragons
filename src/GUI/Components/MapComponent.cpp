@@ -61,7 +61,13 @@ void MapComponent::render() {
 
 				SDL_Color color;
 				if (dynamic_cast<Monster*>(entity)) {
-					color = { 255,200,0,255 };
+					if(dynamic_cast<Wizard*>(entity))
+					{
+						color = { 0,0,255,255 };
+					}else{
+						color = { 255,200,0,255  };
+
+					}
 				}
 				else if (dynamic_cast<Character*>(entity)) {
 					color = { 255,255,0,255 };
