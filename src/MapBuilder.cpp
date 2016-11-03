@@ -1,6 +1,9 @@
 #include "MapBuilder.h"
 #include <ctime>
 #include "Monster.h"
+#include <fstream>
+#include <direct.h>
+#include <iostream>
 
 MapBuilder* MapBuilder::createEmptyMap(int w, int h)
 {
@@ -14,6 +17,60 @@ MapBuilder* MapBuilder::loadMap(Map* map)
 	builder->map = map;
 	return builder;
 }
+
+MapBuilder* MapBuilder::loadFromFile(std::string fileName)
+{
+	MapBuilder* builder = new MapBuilder();
+	std::fstream mapFile("maps/"+fileName+".dnd");
+	if(mapFile.is_open())
+	{
+		int width=20, height=20;
+		std::string line;
+		std::getline(mapFile, line);
+		width = std::stoi(line);
+		std::getline(mapFile, line);
+		height = std::stoi(line);
+
+		Map* map = new Map(width, height);
+		int y = 0;
+		while(std::getline(mapFile, line))
+		{	
+			int x = 0;
+			for (int i= 0; i < line.size(); i++)
+			{
+				char c = line[i];
+				int type;
+				switch(c)
+				{
+				case 'W':
+					type = TILE_WALL;
+					break;
+				case 'S':
+					type = SPAWNTILE;
+					break;
+				case 'E':
+					type = ENDTILE;
+					break;
+				default:
+					type = TILE_EMPTY;
+
+				}
+
+				if(x>=0 && x < width && y>=0 && y < height)
+					map->setTile(new MapTile(type), x, y);
+				x++;
+				
+			}
+			y++;
+		}
+
+		
+		builder->map = map;
+		mapFile.close();
+	}
+	return builder;
+}
+
 
 MapBuilder::MapBuilder()
 {
