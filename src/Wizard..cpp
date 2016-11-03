@@ -4,6 +4,7 @@
 Wizard::Wizard():Monster('W')
 {
 	spellProgress = 0;
+	setPathfinderDistance(15);
 }
 
 void Wizard::simulate(Map* map, Pathfinder* pathfinder)
@@ -15,7 +16,10 @@ void Wizard::simulate(Map* map, Pathfinder* pathfinder)
 		if(spellProgress > 100)
 		{
 			spellProgress = 0;
-			c->hit(20);
+			if(c->hit(20))
+			{
+				map->removeEntity(c->getPositionX(), c->getPositionY());
+			}
 		}
 	}else
 	{
