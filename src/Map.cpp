@@ -138,4 +138,10 @@ int Map::getWidth()
 	return width;
 }
 
+std::vector<Entity*>* Map::getEntities()
+{
+	return &entities;
+}
+
+
 

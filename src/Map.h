@@ -87,4 +87,6 @@ public:
 	 * Simlutate a tick on the map
 	 */
 	void simulateMapTick();
+
+	std::vector<Entity*>* getEntities();
 };
