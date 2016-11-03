@@ -41,7 +41,11 @@ int Item::getStrBoost() {
 }
 
 void Item::setStrBoost(int strB) {
-  this->strBoost = strB;
+	
+	if(checkValididty(strB)) 
+	{ 
+		this->strBoost = strB;
+	}
 }
 
 int Item::getDexBoost() {
@@ -49,7 +53,11 @@ int Item::getDexBoost() {
 }
 
 void Item::setDexBoost(int dexB) {
-  this->dexBoost = dexB;
+
+	if (checkValididty(dexB))
+	{
+		this->dexBoost = dexB;
+	}
 }
 
 int Item::getConBoost() {
@@ -57,7 +65,11 @@ int Item::getConBoost() {
 }
 
 void Item::setConBoost(int conB) {
-  this->conBoost = conB;
+
+	if (checkValididty(conB))
+	{
+		this->conBoost = conB;
+	}
 }
 
 int Item::getIntBoost() {
@@ -65,7 +77,11 @@ int Item::getIntBoost() {
 }
 
 void Item::setIntBoost(int intB) {
-  this->intBoost = intB;
+
+	if (checkValididty(intB))
+	{
+		this->intBoost = intB;
+	}
 }
 
 int Item::getWisBoost() {
@@ -73,7 +89,11 @@ int Item::getWisBoost() {
 }
 
 void Item::setWisBoost(int wisB) {
-  this->wisBoost = wisB;
+	
+	if (checkValididty(wisB))
+	{
+		this->wisBoost = wisB;
+	}
 }
 
 int Item::getChaBoost() {
@@ -81,7 +101,11 @@ int Item::getChaBoost() {
 }
 
 void Item::setChaBoost(int chaB) {
-  this->chaBoost = chaB;
+	
+	if (checkValididty(chaB))
+	{
+		this->chaBoost = chaB;
+	}
 }
 
 int Item::getAtkBoost() {
@@ -89,7 +113,11 @@ int Item::getAtkBoost() {
 }
 
 void Item::setAtkBoost(int atkB) {
-  this->atkBoost = atkB;
+  
+	if (checkValididty(atkB))
+	{
+		this->atkBoost = atkB;
+	}
 }
 
 int Item::getDmgBoost() {
@@ -97,7 +125,11 @@ int Item::getDmgBoost() {
 }
 
 void Item::setDmgBoost(int dmgB) {
-  this->dmgBoost = dmgB;
+  
+	if (checkValididty(dmgB))
+	{
+		this->dmgBoost = dmgB;
+	}
 }
 
 int Item::getArmBoost()
@@ -106,5 +138,20 @@ int Item::getArmBoost()
 }
 
 void Item::setArmBoost(int armB) {
-  this->armBoost = armB;
+
+	if (checkValididty(armB))
+	{
+		this->armBoost = armB;
+	}
+}
+
+bool Item::checkValididty(int boost)
+{
+	if (0 < boost || boost > 5) {
+		cout << "Item boost can only be 1-5, unallowed boost assignment" << endl;
+		return false;
+	}
+	else {
+		return true;
+	}
 }
