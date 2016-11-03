@@ -23,7 +23,7 @@ int Dice::roll(string diceInput) {
 		//Input is valid dice notation
 		//Store parsed data for x, y in integers, initialize variables
 		int diceNum = stoi(result[1]), diceVal = stoi(result[2]), diceMod = 0, rollSum = 0, currentRoll = 0;
-		cout << "Rolling " << diceInput << endl;;
+		//cout << "Rolling " << diceInput << endl;;
 		
 
 		//Define uniform distribution from 1 to diceVal
@@ -32,19 +32,19 @@ int Dice::roll(string diceInput) {
 		// Roll [diceNum] pseudorandom numbers between 1 and [diceVal], store their sum in rollSum. Output result of each roll
 		for (int i = 0; i < diceNum; i++) {
 			currentRoll = dist(engine);
-			cout << "Roll " << i + 1 << ": " << currentRoll << endl;
+			//cout << "Roll " << i + 1 << ": " << currentRoll << endl;
 			rollSum += currentRoll;
 		}
 
 		// Check if z exists and if so, store it in diceMod and add it to sum
 		if (result[3].matched) {
 			diceMod = stoi(result[3]);
-			cout << "Modifier: +" << diceMod << endl;
+			//cout << "Modifier: +" << diceMod << endl;
 			rollSum += diceMod;
 		}
 
 		// Output the final roll sum
-		cout << "Total: " << rollSum << endl << endl; 
+		//cout << "Total: " << rollSum << endl << endl; 
 		return rollSum;
 	}
 
