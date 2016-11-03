@@ -8,6 +8,8 @@ class Monster:public LivingEntity
 {
 public:
 	Monster();
+
+	
 	/**
 	 * Simulate monster Ai. Goes towards player if player is close, otherwise goes in random directions
 	 */
@@ -18,4 +20,7 @@ public:
 	 * If Entity is a Character, monster will take damage
 	 */
 	bool interact(Map* map, Entity* entity) override;
+
+protected:
+	Monster(char c);
 };

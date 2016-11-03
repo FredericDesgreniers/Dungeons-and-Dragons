@@ -6,6 +6,10 @@ Monster::Monster():LivingEntity('M')
 {
 	
 }
+Monster::Monster(char c):LivingEntity(c)
+{
+	
+}
 
 void Monster::simulate(Map* map, Pathfinder* pathfinder)
 {
