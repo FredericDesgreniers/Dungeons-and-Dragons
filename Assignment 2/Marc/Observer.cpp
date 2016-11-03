@@ -1,8 +1,16 @@
+//! @file 
+//! @brief Implementation file for the Observer class  
+//!
+#pragma once
 #include "stdafx.h"
 #include "Observer.h"
 
-Observer::Observer() {
+// Default constructor
+Observer::Observer() 
+{
 };
 
-Observer::~Observer() {
+// Deconstructor
+Observer::~Observer() 
+{
 };

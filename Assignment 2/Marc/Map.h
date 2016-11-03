@@ -1,7 +1,11 @@
+//! @file 
+//! @brief Header file for the Map class.
+//!
 #pragma once
 #include "Tile.h"
 #include "Subject.h"
 
+//! class that represents a concrete observable Map, its attributes, and its behaviors
 class Map : public Subject
 {
 
@@ -20,7 +24,6 @@ private:
 	bool interactWith(Tile* tile);
 	void attackMonster(Tile* tile);
 	void openChest(Tile* tile);
-	void endMap();
 
 public:
 

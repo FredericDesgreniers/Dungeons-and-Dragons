@@ -1,6 +1,10 @@
+//! @file 
+//! @brief Header file for the Tile class.
+//!
 #pragma once
 #include "Coordinate.h"
 
+//! class that represents a single Tile on a Map and its attributes, namely its coordinates and the entity it contains
 class Tile
 {
 

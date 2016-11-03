@@ -28,7 +28,7 @@
 #include <cppunit/ui/text/TestRunner.h>
 using namespace std;
 
-#define USER_TEST
+//#define USER_TEST
 
 //! main() function. Entry point of the program
 //! It does the following: 
@@ -38,102 +38,113 @@ using namespace std;
 //! 4. Run the test cases. 
 int main(int argc, char* argv[])
 {
+
 #ifndef USER_TEST
 
-  // Get the top level suite from the registry
-  CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
+	cout << endl;
 
-  // Adds the test to the list of test to run
-  CppUnit::TextUi::TestRunner runner;
-  runner.addTest( suite );
+	// Get the top level suite from the registry
+	CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
 
-  // Change the default outputter to a compiler error format outputter
-  runner.setOutputter( new CppUnit::CompilerOutputter( &runner.result(),
-                                                       std::cerr ) );
-  // Run the tests.
-  bool wasSucessful = runner.run();
+	// Adds the test to the list of test to run
+	CppUnit::TextUi::TestRunner runner;
+	runner.addTest( suite );
 
-  getchar();
+	// Change the default outputter to a compiler error format outputter
+	runner.setOutputter( new CppUnit::CompilerOutputter( &runner.result(),
+														std::cerr ) );
+	// Run the tests.
+	bool wasSucessful = runner.run();
 
-  // Return error code 1 if the one of test failed.
-  return wasSucessful ? 0 : 1;
+	getchar();
+
+	// Return error code 1 if the one of test failed.
+	return wasSucessful ? 0 : 1;
 
 #endif
 
 #ifdef USER_TEST
   
-  char gameInput = NULL;
-  bool gameContinue = false;
+	char gameInput = NULL;
+	bool gameContinue = false;
 
-  Map *testMap = NULL;
-  MapView *mapView = NULL;
+	Map *testMap = NULL;
+	MapView *mapView = NULL;
 
-  do
-  {
-	  cout << "A map is being generated for you..." << endl;
-	  cout << endl;
+	// looping through different map layouts until the user is satisfied with one or quits
+	do
+	{
+		cout << "A map is being generated for you..." << endl;
+		cout << endl;
 
-	  testMap = new Map();
-	  mapView = new MapView(testMap);
+		// instantiating and generating the Map and making it observed by a MapView
+		testMap = new Map();
+		mapView = new MapView(testMap);
+		testMap->generateMap();
 
-	  testMap->generateMap();
+		cout << "Do you want to play this map (y), generate another one (n), or quit (q) ?" << endl;
+		cout << endl;
 
-	  cout << "Do you want to play this map (y), generate another one (n), or quit (q) ?" << endl;
-	  cout << endl;
+		// evalutating if the user wants to generate a new map layout
+		gameInput = NULL;
+		cin >> gameInput;
 
-	  gameInput = NULL;
-	  cin >> gameInput;
+		cout << endl;
 
-	  cout << endl;
+		if (gameInput == 'n' || gameInput == 'q')
+		{
+			gameContinue = (gameInput == 'n');
+			continue;
+		}
 
-	  if (gameInput == 'n' || gameInput == 'q')
-	  {
-		  gameContinue = (gameInput == 'n');
-		  continue;
-	  }
+		bool mapContinue = false;
 
-	  bool mapContinue = false;
+		cin.clear();
+		cin.ignore();
 
-	  cin.clear();
-	  cin.ignore();
+		// main gameplay loop, takes input to make the user navigate the map until 
+		// they reach the exit, quit, or decide to restart with another map layout
+		do
+		{
+			cout << "Do you want to go up (w), right (d), down (s), left (a), restart with a new map (r) or quit (q) ?" << endl;
+			cout << endl;
 
-	  do
-	  {
-		  cout << "Do you want to go up (w), right (d), down (s), left (a), restart with a new map (r) or quit (q) ?" << endl;
-		  cout << endl;
+			cin >> gameInput;
+			cout << endl;
 
-		  cin >> gameInput;
-		  cout << endl;
+			// executing the action dictated by the user input
+			mapContinue = testMap->controlPlayer(gameInput);
 
-		  mapContinue = testMap->controlPlayer(gameInput);
+			// handling map completion if it's the case
+			if (testMap->isCompleted())
+			{
+				cout << endl;
+				cout << "Do you want to restart with a new map (r) or quit (q) ?" << endl;
+				cout << endl;
 
-		  if (testMap->isCompleted())
-		  {
-			  cout << endl;
-			  cout << "Do you want to restart with a new map (r) or quit (q) ?" << endl;
-			  cout << endl;
+				cin >> gameInput;
 
-			  cin >> gameInput;
+				mapContinue = gameInput != 'q';
+			}
 
-			  mapContinue = gameInput != 'q';
-		  }
+			cout << endl;
 
-		  cout << endl;
+			cin.clear();
+			cin.ignore();
 
-		  cin.clear();
-		  cin.ignore();
-
-	  } while (gameInput != 'r' && gameInput != 'q' && gameInput != NULL && mapContinue);
+		} while (gameInput != 'r' && gameInput != 'q' && gameInput != NULL && mapContinue);
 	  
-	  gameContinue = (gameInput == 'r');
+		gameContinue = (gameInput == 'r');
 
-	  delete mapView;
-	  delete testMap;
+		delete mapView;
+		delete testMap;
 
-  } while (gameContinue);
+	} while (gameContinue);
 
-  cout << "Thank you for playing!" << endl;
+	cout << "Thank you for playing!" << endl;
 
-  return 0;
+	return 0;
+
 #endif
+
 }
