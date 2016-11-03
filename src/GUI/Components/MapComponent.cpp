@@ -54,6 +54,12 @@ void MapComponent::render() {
 			if (entity != nullptr)
 			{
 				Renderer::drawString(std::string(1, entity->getRenderChar()), Renderer::FONT_ROBOTO.get(tileHeight), x, y,1,{255,255, 0,255});
+				if(LivingEntity* le = dynamic_cast<LivingEntity*>(entity)){
+					Renderer::setColor(255, 0, 0, 255);
+					double healthBar = (static_cast<double>(le->getHealth()) / static_cast<double>(le->getMaxHealth()));
+					
+					Renderer::RenderRect(x, y, healthBar*tileWidth,5);
+				}
 			}
 			
 
