@@ -4,7 +4,6 @@ Entity::Entity(char renderChar):renderChar(renderChar)
 {
 	
 }
-
 void Entity::simulate(Map* map, Pathfinder* pathfinder)
 {
 	
@@ -49,3 +48,13 @@ char Entity::getRenderChar()
 {
 	return renderChar;
 }
+int Entity::getPathfinderDistance()
+{
+	return pathfinderDistance;
+}
+
+void Entity::setPathfinderDistance(int distance)
+{
+	pathfinderDistance = distance;
+}
+

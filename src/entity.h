@@ -56,7 +56,18 @@ public:
 	*/
 	double realDistanceTo(int x, int y);
 
+	/**
+	 * Set how close the entity needs to be for pathfinding to kick in
+	 */
+	void setPathfinderDistance(int distance);
+
+	/**
+	 * Get maximum distance for pathfinding
+	 */
+	int getPathfinderDistance();
 private:
 	int positionX, positionY;
 	char renderChar = ' ';
+
+	int pathfinderDistance;
 };
