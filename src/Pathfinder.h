@@ -15,6 +15,8 @@ public:
 	void setDestination(int dx, int dy);
 	std::vector<Node*> getPath(int x1, int y1);
 	void printHGrid();
+
+	~Pathfinder();
 private:
 
 	Map* map;
