@@ -1,6 +1,5 @@
 #pragma once
 #include "Tile.h"
-#include "Entity.h"
 #include "Subject.h"
 
 class Map : public Subject
