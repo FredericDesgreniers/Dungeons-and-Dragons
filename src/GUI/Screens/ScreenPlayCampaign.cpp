@@ -1,9 +1,12 @@
 #include "ScreenPlayCampaign.h"
+#include "../../MapBuilder.h"
 
 
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
 {
 	currentmap = campaign->getFirstMap();
+	MapBuilder::loadMap(currentmap)->spawnCharacter(character)->spawnRandomMonsters();
+
 	map_component = new MapComponent(currentmap, 0, 0, 450, 450);
 	addComponent(map_component);
 
@@ -13,7 +16,6 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 	character_component->setPadding(10, 10, 10, 10);
 	addComponent(character_component);
 
-	currentmap->spawnEntity(character, 0, 0);
 
 }
 
@@ -23,25 +25,25 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 	{
 	case(SDLK_w) : {
 		if (currentmap->moveEntity(character, character->getPositionX(), character->getPositionY() - 1) != nullptr) {
-
+			currentmap->simulateMapTick();
 		}
 		break;
 	}
 	case(SDLK_s) : {
 		if (currentmap->moveEntity(character, character->getPositionX(), character->getPositionY() + 1) != nullptr) {
-
+			currentmap->simulateMapTick();
 		}
 		break;
 	}
 	case(SDLK_a) : {
 		if (currentmap->moveEntity(character, character->getPositionX()-1, character->getPositionY()) != nullptr) {
-
+			currentmap->simulateMapTick();
 		}
 		break;
 	}
 	case(SDLK_d) : {
 		if (currentmap->moveEntity(character, character->getPositionX()+1, character->getPositionY()) != nullptr) {
-
+			currentmap->simulateMapTick();
 		}
 		break;
 	}
