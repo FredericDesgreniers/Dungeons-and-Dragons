@@ -1,9 +1,12 @@
 #pragma once
-
+class Pathfinder;
+class Map;
 class Entity
 {
 public:
 	Entity(char renderChar);
+
+	virtual void simulate(Map* map, Pathfinder* pathfinder);
 
 	void setPosition(int x, int y)
 	{
