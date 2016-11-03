@@ -9,3 +9,8 @@ void Entity::simulate(Map* map, Pathfinder* pathfinder)
 {
 	
 }
+
+bool Entity::interact(Map* map ,Entity* entity)
+{
+	return false;
+}

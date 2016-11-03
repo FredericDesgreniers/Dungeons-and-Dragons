@@ -8,6 +8,8 @@ public:
 
 	virtual void simulate(Map* map, Pathfinder* pathfinder);
 
+	virtual bool interact(Map* map, Entity* entity);
+
 	void setPosition(int x, int y)
 	{
 		positionX = x;
