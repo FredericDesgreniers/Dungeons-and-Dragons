@@ -31,10 +31,7 @@ Character::Character(int str, int dex, int cons, int intel, int wisd, int chari)
 	hitpoints = 10;
 }
 
-void Character::hit(int damage)
-{
-	hitpoints -= damage;
-}
+
 
 int Character::getModifier(int score)
 {

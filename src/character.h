@@ -45,12 +45,7 @@ public:
 	 */
 	int getModifier(int);
 
-	/**
-	 * Hit character for x hp.
-	 * 
-	 * Deduces the health 
-	 */
-	void hit(int);
+
 
 	/**
 	 * Make sure character has abilities within the acceptable range
