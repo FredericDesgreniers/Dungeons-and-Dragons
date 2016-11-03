@@ -1,11 +1,7 @@
 #pragma once
-#include "Style.h"
 
-#include  "../../character.h"
 #include "Pane.h"
-#include "Label.h"
-#include "../Renderer.h"
-#include "VariableComponent.h"
+#include "../../character.h"
 
 
 class CharacterComponent:public Pane

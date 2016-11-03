@@ -3,6 +3,7 @@
 #include "../../character.h"
 
 #include "../Renderer.h"
+#include "VariableComponent.h"
 
 CharacterComponent::CharacterComponent(Character* character, int x, int y, int width, int height):Pane(x,y,width,height), character(character)
 {
