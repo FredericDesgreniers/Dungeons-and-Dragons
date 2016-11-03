@@ -106,7 +106,7 @@ void Map::simulateMapTick()
 
 	for (Entity* entity:entities)
 	{
-		if(std::abs(entity->getPositionX()-character->getPositionX()) + std::abs(entity->getPositionY()-character->getPositionY()) < 10){
+		if(std::abs(entity->getPositionX()-character->getPositionX()) + std::abs(entity->getPositionY()-character->getPositionY()) <= entity->getPathfinderDistance()){
 			pathfinder->createNodeGrid();
 			entity->simulate(this, pathfinder);
 		}else
