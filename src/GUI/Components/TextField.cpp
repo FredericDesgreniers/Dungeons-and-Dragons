@@ -12,7 +12,7 @@ TextField::TextField(std::string text, int x, int y, int width, int height):Styl
 	{
 		whiteList.push_back(std::string(1,c));
 	}
-
+	maxLength = 100;
 
 	this->setBackgroundColor_both(100, 100, 100, 255);
 	this->setBorderColor_both(155, 155, 155, 255);
@@ -59,7 +59,8 @@ void TextField::keyPressed(SDL_Keycode keycode)
 		if (!state[SDL_SCANCODE_LSHIFT]) {
 			keyName = tolower(keyName[0]);
 		}
-		text += keyName;
+		if(text.size() < maxLength)
+			text += keyName;
 	}
 		
 }
@@ -92,3 +93,10 @@ void TextField::render()
 	}
 }
 
+void TextField::setMaxLength(int length) {
+	this->maxLength = length;
+}
+
+int TextField::getMaxLength() {
+	return maxLength;
+}

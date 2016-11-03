@@ -18,10 +18,15 @@ public:
 	 */
 	std::string getText();
 
+	void setMaxLength(int length);
+	int getMaxLength();
+
 private:
 	std::string text;
 	
 	Uint32 timeOfLastErase;
+
+	int maxLength;
 
 	std::vector<std::string> whiteList;
 };
