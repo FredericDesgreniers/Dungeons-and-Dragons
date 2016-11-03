@@ -2,6 +2,7 @@
 #include "../Renderer.h"
 #include "CharacterComponent.h"
 #include "../../Monster.h"
+#include "../../Wizard.h"
 
 MapComponent::MapComponent(Map* map, int x, int y, int width, int height):map(map), Style(x,y,width,height) {
 
@@ -76,10 +77,24 @@ void MapComponent::render() {
 					double healthBar = (static_cast<double>(le->getHealth()) / static_cast<double>(le->getMaxHealth()));
 					
 					Renderer::RenderRect(x, y, healthBar*(tileWidth-2)+2,5);
+				
 				}
 			}
 			
 
+		}
+	}
+
+	for (int i = 0; i < map->getEntities()->size(); i++)
+	{
+		Entity* e = (*(map->getEntities()))[i];
+		if(Wizard* wiz = dynamic_cast<Wizard*> (e))
+		{
+			if(wiz->getSpellProgress() > 0)
+			{
+				Renderer::setColor(255, 255 - wiz->getSpellProgress() * 2, 255 - wiz->getSpellProgress() * 2,255);
+				Renderer::drawLine(wiz->getPositionX()*tileWidth + getPositionX()+tileWidth/2, wiz->getPositionY()*tileHeight+getPositionY() + tileHeight / 2, c->getPositionX()*tileWidth+getPositionX() + tileWidth / 2, c->getPositionY()*tileHeight+getPositionY() + tileHeight / 2);
+			}
 		}
 	}
 }

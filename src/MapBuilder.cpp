@@ -4,6 +4,7 @@
 #include <fstream>
 #include <direct.h>
 #include <iostream>
+#include "Wizard.h"
 
 MapBuilder* MapBuilder::createEmptyMap(int w, int h)
 {
@@ -64,6 +65,8 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 				case 'M':
 					map->spawnEntity(new Monster(), x, y);
 					break;
+				case 'W':
+					map->spawnEntity(new Wizard(), x, y);
 				}
 
 				x++;
