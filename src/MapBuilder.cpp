@@ -55,9 +55,17 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 					type = TILE_EMPTY;
 
 				}
-
-				if(x>=0 && x < width && y>=0 && y < height)
+				if (x >= 0 && x < width && y >= 0 && y < height)
 					map->setTile(new MapTile(type), x, y);
+				i++;
+				c = line[i];
+				switch (c)
+				{
+				case 'M':
+					map->spawnEntity(new Monster(), x, y);
+					break;
+				}
+
 				x++;
 				
 			}
