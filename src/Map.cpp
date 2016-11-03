@@ -1,5 +1,6 @@
 #include "map.h"
 #include <algorithm>
+#include <complex>
 
 
 Map::Map(int width, int height): height(height), width(width)
@@ -104,8 +105,11 @@ void Map::simulateMapTick()
 
 	for (Entity* entity:entities)
 	{
-		entity->simulate(this, pathfinder);
-		pathfinder->createNodeGrid();
+		if(std::abs(entity->getPositionX()-character->getPositionX()) + std::abs(entity->getPositionY()-character->getPositionY()) < 10){
+			pathfinder->createNodeGrid();
+			entity->simulate(this, pathfinder);
+		}else
+		entity->simulate(this, nullptr);
 
 	}
 	delete pathfinder;

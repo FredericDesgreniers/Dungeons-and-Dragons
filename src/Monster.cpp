@@ -8,6 +8,8 @@ Monster::Monster():LivingEntity('M')
 
 void Monster::simulate(Map* map, Pathfinder* pathfinder)
 {
+	if (pathfinder == nullptr)
+		return;
 	std::vector<Node*> path = pathfinder->getPath(getPositionX(), getPositionY());
 	if (path.size() > 0 && path.size() < 5)
 	{
