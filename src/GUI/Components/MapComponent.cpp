@@ -77,6 +77,8 @@ void MapComponent::render() {
 					double healthBar = (static_cast<double>(le->getHealth()) / static_cast<double>(le->getMaxHealth()));
 					
 					Renderer::RenderRect(x, y, healthBar*(tileWidth-2)+2,5);
+					Renderer::setColor(0, 0, 0, 255);
+					Renderer::RenderRectOutline(x,y,tileWidth,5);
 				
 				}
 			}
@@ -92,8 +94,17 @@ void MapComponent::render() {
 		{
 			if(wiz->getSpellProgress() > 0)
 			{
-				Renderer::setColor(255, 255 - wiz->getSpellProgress() * 2, 255 - wiz->getSpellProgress() * 2,255);
-				Renderer::drawLine(wiz->getPositionX()*tileWidth + getPositionX()+tileWidth/2, wiz->getPositionY()*tileHeight+getPositionY() + tileHeight / 2, c->getPositionX()*tileWidth+getPositionX() + tileWidth / 2, c->getPositionY()*tileHeight+getPositionY() + tileHeight / 2);
+				Renderer::setColor(255, 255 - wiz->getSpellProgress() * 2.5, 255 - wiz->getSpellProgress() * 2.5,255);
+				
+				int x1 = wiz->getPositionX()*tileWidth + getPositionX() + tileWidth / 2;
+				int y1 = wiz->getPositionY()*tileHeight + getPositionY() + tileHeight / 2;
+				int x2 = c->getPositionX()*tileWidth + getPositionX() + tileWidth / 2;
+				int y2 = c->getPositionY()*tileHeight + getPositionY() + tileHeight / 2;
+				Renderer::drawLine(x1-2,y1,x2,y2);
+				Renderer::drawLine(x1+2,y1,x2,y2);
+				Renderer::drawLine(x1,y1-2,x2,y2);
+				Renderer::drawLine(x1,y1+2,x2,y2);
+				Renderer::drawLine(x1,y1,x2,y2);
 			}
 		}
 	}
