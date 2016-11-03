@@ -58,7 +58,7 @@ void MapComponent::render() {
 					Renderer::setColor(255, 0, 0, 255);
 					double healthBar = (static_cast<double>(le->getHealth()) / static_cast<double>(le->getMaxHealth()));
 					
-					Renderer::RenderRect(x, y, healthBar*tileWidth,5);
+					Renderer::RenderRect(x, y, healthBar*(tileWidth-5)+5,5);
 				}
 			}
 			
@@ -73,6 +73,16 @@ void MapComponent::tick() {
 
 void MapComponent::renderDebug() {
 	Style::renderDebug();
+}
+
+void MapComponent::addOnTileClickedCallback(std::function<void(Map*, int, int)> func)
+{
+	onTileClick_callbacks.push_back(func);
+}
+
+void MapComponent::setPreviewMode(bool previewMode)
+{
+	this->previewMode = previewMode;
 }
 
 
