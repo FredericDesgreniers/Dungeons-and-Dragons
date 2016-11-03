@@ -23,7 +23,7 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 		Character* chara = this->character;
 		Entity* entity = map->getEntity(x, y);
 		if (entity != nullptr) {
-			if (abs(x - chara->getPositionX()) + abs(y - chara->getPositionY()) <= 1)
+			if (chara->distanceTo(entity) <= 1)
 			{
 				if(entity->interact(map, chara))
 				{
