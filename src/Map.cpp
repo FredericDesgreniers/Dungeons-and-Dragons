@@ -1,5 +1,7 @@
 #include "map.h"
 #include <algorithm>
+
+
 Map::Map(int width, int height): height(height), width(width)
 {
 	tileGrid = new MapTile**[width];
@@ -96,3 +98,22 @@ bool Map::spawnEntity(Entity* entity, int x, int y)
 	return true;
 }
 
+void Map::simulateMapTick()
+{
+	Pathfinder* pathfinder = new Pathfinder(this, character->getPositionX(), character->getPositionY());
+
+	for (Entity* entity:entities)
+	{
+		entity->simulate(this, pathfinder);
+		pathfinder->createNodeGrid();
+
+	}
+	delete pathfinder;
+}
+
+bool Map::spawnCharacter(Character* character)
+{
+	this->character = character;
+
+	return (spawnEntity(character, spawnX, spawnY));
+}

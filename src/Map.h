@@ -3,10 +3,15 @@
 #include "map_tile.h"
 #include "Entity.h"
 #include <vector>
+#include "GUI/Components/CharacterComponent.h"
 #define TILE_EMPTY 0
 #define TILE_WALL 1
 #define SPAWNTILE 2
 #define ENDTILE 3
+#include "Pathfinder.h"
+
+class PathFinder;
+class Entity;
 
 class Map 
 {
@@ -15,6 +20,10 @@ private:
 	Entity ***entityGrid;
 
 	std::vector<Entity*> entities;
+
+	Character* character;
+
+	int spawnX = 0, spawnY = 0;
 
 	int width;
 	int height;
@@ -35,6 +44,8 @@ public:
 
 	bool spawnEntity(Entity* entity, int x, int y);
 
+	bool spawnCharacter(Character* character);
+
 	int getWidth()
 	{
 		return width;
@@ -44,5 +55,5 @@ public:
 		return height;
 	}
 
-
+	void simulateMapTick();
 };
