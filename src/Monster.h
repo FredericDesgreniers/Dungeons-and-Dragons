@@ -7,4 +7,5 @@ public:
 	Monster();
 	void simulate(Map* map, Pathfinder* pathfinder) override;
 
+	bool interact(Map* map, Entity* entity) override;
 };
