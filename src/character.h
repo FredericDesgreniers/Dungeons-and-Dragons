@@ -3,6 +3,7 @@
 #include <string>
 
 #include "LivingEntity.h"
+#include "dice.h"
 
 /**
  * Character class that extends LivingEntity. Should only be used to the playable character

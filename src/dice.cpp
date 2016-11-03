@@ -52,6 +52,24 @@ int Dice::roll(string diceInput) {
 		cout << "Invalid input string '" << diceInput << "': input must be in the form xdy or xdy+z" << endl << endl;
 		return -1;
 	}
+
+}
+
+int Dice::rollStat() {
+	int rolls[4] = { 0,0,0,0 };
+	int sum = 0;
+	for (int i = 0; i < 4; i++) {
+		sum += rolls[i] = roll("1d6");
+	}
+	int smallest = rolls[0];
+	for (int i = 1; i < 4; i++) {
+		if (rolls[i] < smallest)
+			smallest = rolls[i];
+	}
+	sum -= smallest;
+
+	return sum;
+
 }
 
 

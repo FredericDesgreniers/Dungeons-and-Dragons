@@ -8,12 +8,12 @@ Character::Character(int level):LivingEntity('C')
 
 	this->level = level;
 
-	abilityscores[0] = rand() %16+3;
-	abilityscores[1] = rand() % 16 + 3;
-	abilityscores[2] = rand() % 16 + 3;
-	abilityscores[3] = rand() % 16 + 3;
-	abilityscores[4] = rand() % 16 + 3;
-	abilityscores[5] = rand() % 16 + 3;
+	abilityscores[0] = Dice::rollStat();
+	abilityscores[1] = Dice::rollStat();
+	abilityscores[2] = Dice::rollStat();
+	abilityscores[3] = Dice::rollStat();
+	abilityscores[4] = Dice::rollStat();
+	abilityscores[5] = Dice::rollStat();
 
 	hitpoints = 10;
 
