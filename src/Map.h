@@ -23,8 +23,6 @@ private:
 
 	Character* character;
 
-
-
 	int spawnX = 0, spawnY = 0;
 
 	int width;
@@ -47,11 +45,6 @@ public:
 	bool spawnEntity(Entity* entity, int x, int y);
 
 	bool spawnCharacter(Character* character);
-
-	Character* getCharacter()
-	{
-		return character;
-	}
 
 	int getWidth()
 	{
