@@ -7,7 +7,10 @@
 #include "Label.h"
 
 class Font;
-
+/*
+ * Button class is the same as a label but with a default style that implies it's a button. 
+ * Same funcitonality as a button
+ */
 class Button : public Label
 {
 public:

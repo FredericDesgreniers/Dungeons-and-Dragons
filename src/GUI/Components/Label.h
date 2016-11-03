@@ -5,6 +5,9 @@
 #include <SDL/SDL_ttf.h>
 #include "../Font.h"
 
+/**
+ * Label is used to display static text on the screen
+ */
 class Label : public Style
 {
 public:
@@ -25,13 +28,29 @@ public:
 	*/
 	void setFontColor(int r, int g, int b, int a) override;
 
+	/*
+	 * Set the font size for the label
+	 */
 	Label* setFontSize(int size) override;
 
+	/**
+	 * relaod font texture
+	 */
 	void reloadTexture();
 
+	/**
+	 * Set label text. 
+	 * Will reload texture
+	 */
 	void setText(std::string text);
+	/**
+	 * returns the label text
+	 */
 	std::string getText();
 
+	/**
+	 * adjust width and height to match fonts size and text width
+	 */
 	Label* adjustDimensions();
 
 	~Label();

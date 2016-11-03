@@ -1,7 +1,9 @@
 #pragma once
 #include <SDL/SDL.h>
 #include "Component.h"
-
+/**
+ * Style is used to add different rendering and component options
+ */
 class Style : public Component
 {
 public:

@@ -5,7 +5,7 @@
 #include "LivingEntity.h"
 
 /**
- * Character class
+ * Character class that extends LivingEntity. Should only be used to the playable character
  */
 class Character:public LivingEntity
 {

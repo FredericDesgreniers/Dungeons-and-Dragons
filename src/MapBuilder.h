@@ -7,13 +7,32 @@
 class MapBuilder
 {
 public:
+	/**
+	 * Creates an empty map using width and height
+	 */
 	static MapBuilder* createEmptyMap(int width, int height);
+	/**
+	 * Uses an already loaded map
+	 */
 	static MapBuilder* loadMap(Map* map);
+	/**
+	 * Load a map from a file in maps/
+	 */
 	static MapBuilder* loadFromFile(std::string fileName);
+
+	/**
+	 * spawn the character on the map
+	 */
 	MapBuilder* spawnCharacter(Character* character);
 	
+	/**
+	 * Spawn random monsters on the map
+	 */
 	MapBuilder* spawnRandomMonsters();
 	
+	/**
+	 * Get the built map object
+	 */
 	Map* get();
 
 

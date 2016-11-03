@@ -13,6 +13,9 @@
 class PathFinder;
 class Entity;
 
+/**
+ * A map is a collection of tiles and entities placed in a grid pattern
+ */
 class Map 
 {
 private:
@@ -32,25 +35,56 @@ private:
 public:
 	Map(int width, int height);
 
+	/**
+	 * Get map tile at x,y
+	 */
 	MapTile* getTile(int x, int y);
-
+	/**
+	 * Set map tile at x,y
+	 */
 	void setTile(MapTile* tile, int x, int y);
 
+	/**
+	 * Get entity at x,y. returns a null pointer if no entity is there
+	 */
 	Entity* getEntity(int x, int y);
 
+	/**
+	 * Move entity at x1,y1 to x2,y2. returns entity if successfull and null pointer if not 
+	 */
 	Entity* moveEntity(int x1, int y1, int x2, int y2);
-
+	/**
+	 * Calls moveEntity(int,int,int,int) using the entities position
+	 */
 	Entity* moveEntity(Entity* entity, int x, int y);
-
+	/**
+	 * remove entity from the map and return the entity instance.
+	 */
 	Entity* removeEntity(int x, int y);
 
+	/**
+	 * Add entity to map at x,y. Returns if spawn was succesfull or not
+	 */
 	bool spawnEntity(Entity* entity, int x, int y);
-
+	/**
+	 * Spawns the character player. Returns if successfull or not
+	 */
 	bool spawnCharacter(Character* character);
 
+	/**
+	 * Get the character. Returns null if not spawned yet
+	 */
 	Character* getCharacter();
-
+	/**
+	 * returns map width
+	 */
 	int getWidth();
+	/**
+	 * returns map height
+	 */
 	int getHeight();
+	/**
+	 * Simlutate a tick on the map
+	 */
 	void simulateMapTick();
 };

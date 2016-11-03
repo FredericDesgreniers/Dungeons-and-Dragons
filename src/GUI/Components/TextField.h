@@ -1,7 +1,9 @@
 #pragma once
 #include "Component.h"
 #include "Style.h"
-
+/**
+ * Textfield is used for text input
+ */
 class TextField: public Style
 {
 public:
@@ -10,6 +12,10 @@ public:
 	void render() override;
 	void keyPressed(SDL_Keycode) override;
 	void tick() override;
+
+	/**
+	 * returns current textfield text
+	 */
 	std::string getText();
 
 private:

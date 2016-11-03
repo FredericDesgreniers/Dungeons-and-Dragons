@@ -1,6 +1,8 @@
 #pragma once
 #include "Label.h"
-
+/**
+ * VariableComponent will display an int pointed too
+ */
 class VariableComponent : public Label
 {
 public:
