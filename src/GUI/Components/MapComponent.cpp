@@ -11,22 +11,31 @@ MapComponent::MapComponent(Map* map, int x, int y, int width, int height):map(ma
 void MapComponent::render() {
 	int mapWidth = map->getWidth();
 	int mapHeight = map->getHeight();
-
+	//calculate tile width
 	int tileWidth = getWidth() / mapWidth;
 	int tileHeight = getHeight() / mapHeight;
+
+	//get mosue position
 	int mx, my;
 	SDL_GetMouseState(&mx, &my);
+
+	//get character from maps
 	Character* c = map->getCharacter();
 
+	//go through map tiles
 	for (int i = 0; i < mapWidth; i++) {
 		for (int j = 0; j < mapHeight; j++) {
+			//get distance from character to tile
 			int distance = c->realDistanceTo(i,j);
-			if (distance > drawDistance) {
+			if (distance > drawDistance) {//determine if tile is close enough for render
 				continue;
 			}
+
+			// calculate x and y position relative to screen
 			int x= i*tileWidth + getPositionX();
 			int y = j*tileHeight + getPositionY();
 
+			//is mouse hovering a tile?
 			bool hover;
 			if (previewMode)
 				hover = false;
@@ -34,7 +43,9 @@ void MapComponent::render() {
 				hover = mx > x && mx < x + tileWidth && my>y && my < y + tileHeight;
 
 			MapTile* tile = map->getTile(i, j);
-
+			/**
+			 * Set color depending on tile ID
+			 */
 			switch(tile->getId())
 			{
 			case TILE_WALL:
@@ -49,23 +60,26 @@ void MapComponent::render() {
 			case ENDTILE:
 				Renderer::setColor(255, 0, 0, 255);
 			}
-
+			//Render tile
 			Renderer::RenderRect(x, y, tileWidth, tileHeight);
 
+			// render tile outline
 			Renderer::setColor(10, 10, 10, 255);
 			Renderer::RenderRectOutline(x,y,tileWidth,tileHeight);
 
+			//get entity at tile location
 			Entity* entity = map->getEntity(i,j);
 			if (entity != nullptr)
 			{
 
 				SDL_Color color;
+				//set Entity car chracter dependin on type of entity
 				if (dynamic_cast<Monster*>(entity)) {
-					if(dynamic_cast<Wizard*>(entity))
+					if(dynamic_cast<Wizard*>(entity)) 
 					{
 						color = { 0,0,255,255 };
 					}else{
-						color = { 255,200,0,255  };
+						color = { 255,200,0,255  }; 
 
 					}
 				}
@@ -76,8 +90,9 @@ void MapComponent::render() {
 					color = { 255,0,255,255 };
 				}
 				
-
+				//render entity chracter
 				Renderer::drawString(std::string(1, entity->getRenderChar()), Renderer::FONT_ROBOTO.get(tileHeight), x+2, y-3,1,color);
+				//if entity is living, render health bar
 				if(LivingEntity* le = dynamic_cast<LivingEntity*>(entity)){
 					Renderer::setColor(255, 0, 0, 255);
 					double healthBar = (static_cast<double>(le->getHealth()) / static_cast<double>(le->getMaxHealth()));
@@ -92,10 +107,11 @@ void MapComponent::render() {
 
 		}
 	}
-
+	//Go through all entities
 	for (int i = 0; i < map->getEntities()->size(); i++)
 	{
 		Entity* e = (*(map->getEntities()))[i];
+		//Draw wizard spell things
 		if(Wizard* wiz = dynamic_cast<Wizard*> (e))
 		{
 			if(wiz->getSpellProgress() > 0)
@@ -146,12 +162,15 @@ void MapComponent::click(int x, int y)
 
 	int tileWidth = getWidth() / mapWidth;
 	int tileHeight = getHeight() / mapHeight;
-
+	//get tile clicked
 	int tileX = x / tileWidth;
 	int tileY = y / tileHeight;
 
+
+	//make sure it's valid tile
 	if (tileX >= 0 && tileY >= 0 && tileX < mapWidth && tileY < mapHeight) {
 
+		//call backs
 		for (int i = 0; i < onTileClick_callbacks.size(); i++)
 		{
 			onTileClick_callbacks[i](map, tileX, tileY);
