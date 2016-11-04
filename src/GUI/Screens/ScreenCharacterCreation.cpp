@@ -18,13 +18,13 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	backBtn->setFontSize(30);
 	backBtn->adjustButtonDimensions();
 
-	Button* confirmBtn = new Button("Confirm", &Renderer::FONT_ROBOTO, 300, 600, 100, 30);
-	confirmBtn->setFontSize(30);
+	Button* confirmBtn = new Button("Save Character", &Renderer::FONT_ROBOTO, 300, 600, 100, 30);
+	confirmBtn->setFontSize(25);
 	confirmBtn->adjustButtonDimensions();
 
 
-	Button* loadBtn = new Button("Load Character", &Renderer::FONT_ROBOTO, 500, 600, 100, 30);
-	loadBtn->setFontSize(30);
+	Button* loadBtn = new Button("Load Test.chr", &Renderer::FONT_ROBOTO, 500, 600, 100, 30);
+	loadBtn->setFontSize(25);
 	loadBtn->adjustButtonDimensions();
 
 
@@ -195,7 +195,6 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	});
 
 	//This is a temporary button to test loading functionality.
-	//It wont change the display but will instantiate a character from the file test5.chr
 	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		Character *testCharacter;
@@ -212,6 +211,8 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 		else {
 			std::cout << "Load Failed" << endl;
 		}
+		delete(testCharacter);
+		testCharacter = nullptr;
 		
 		
 
