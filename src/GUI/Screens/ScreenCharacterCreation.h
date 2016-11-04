@@ -29,8 +29,5 @@ public:
 	void setRemaining(std::string value);
 	void increment(int stat);
 	void decrement(int stat);
-	string intToString(int n);
-
-
 
 };

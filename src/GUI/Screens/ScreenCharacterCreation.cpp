@@ -162,12 +162,12 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	rollBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		setStrength(intToString(Dice::rollStat()));
-		setConstitution(intToString(Dice::rollStat()));
-		setDexterity(intToString(Dice::rollStat()));
-		setIntelligence(intToString(Dice::rollStat()));
-		setWisdom(intToString(Dice::rollStat()));
-		setCharisma(intToString(Dice::rollStat()));
+		setStrength(to_string(Dice::rollStat()));
+		setConstitution(to_string(Dice::rollStat()));
+		setDexterity(to_string(Dice::rollStat()));
+		setIntelligence(to_string(Dice::rollStat()));
+		setWisdom(to_string(Dice::rollStat()));
+		setCharisma(to_string(Dice::rollStat()));
 		setRemaining("0");
 		std::cout << "Rolling stats!" << std::endl;
 	});
@@ -237,12 +237,6 @@ void ScreenCharacterCreation::render()
 	Screen::render();
 }
 
-string ScreenCharacterCreation::intToString(int n) {
-	ostringstream StrStream;
-	StrStream << n;
-	return StrStream.str();
-
-}
 
 void ScreenCharacterCreation::increment(int stat) {
 
@@ -250,37 +244,37 @@ void ScreenCharacterCreation::increment(int stat) {
 		std::cout << "Stat Increment failed" << endl;
 		return;
 	}
-
+	string test = to_string(6);
 	switch (stat) {
 	case 0:
-		setRemaining(intToString(stoi(abilityScores[6]) - 1));
-		setStrength(intToString(stoi(abilityScores[0]) + 1));
+		setRemaining(to_string((stoi(abilityScores[6])) - 1));
+		setStrength(to_string((stoi(abilityScores[0])) + 1));
 		break;
 
 	case 1:
-		setRemaining(intToString(stoi(abilityScores[6]) - 1));
-		setDexterity(intToString(stoi(abilityScores[1]) + 1));
+		setRemaining(to_string((stoi(abilityScores[6])) - 1));
+		setDexterity(to_string((stoi(abilityScores[1])) + 1));
 		break;
 
 	case 2:
 		
-		setRemaining(intToString(stoi(abilityScores[6]) - 1));
-		setConstitution(intToString(stoi(abilityScores[2]) + 1));
+		setRemaining(to_string((stoi(abilityScores[6])) - 1));
+		setConstitution(to_string((stoi(abilityScores[2])) + 1));
 		break;
 
 	case 3:
-		setRemaining(intToString(stoi(abilityScores[6]) - 1));
-		setIntelligence(intToString(stoi(abilityScores[3]) + 1));
+		setRemaining(to_string(stoi(abilityScores[6]) - 1));
+		setIntelligence(to_string(stoi(abilityScores[3]) + 1));
 		break;
 	case 4:
 		
-		setRemaining(intToString(stoi(abilityScores[6]) - 1));
-		setWisdom(intToString(stoi(abilityScores[4]) + 1));
+		setRemaining(to_string(stoi(abilityScores[6]) - 1));
+		setWisdom(to_string(stoi(abilityScores[4]) + 1));
 		break;
 
 	case 5:
-		setRemaining(intToString(stoi(abilityScores[6]) - 1));
-		setCharisma(intToString(stoi(abilityScores[5]) + 1));
+		setRemaining(to_string(stoi(abilityScores[6]) - 1));
+		setCharisma(to_string(stoi(abilityScores[5]) + 1));
 		break;
 
 	default:
@@ -298,33 +292,33 @@ void ScreenCharacterCreation::decrement(int stat) {
 
 	switch (stat) {
 	case 0:
-		setRemaining(intToString(stoi(abilityScores[6]) + 1));
-		setStrength(intToString(stoi(abilityScores[0]) - 1));
+		setRemaining(to_string(stoi(abilityScores[6]) + 1));
+		setStrength(to_string(stoi(abilityScores[0]) - 1));
 		break;
 	case 1:
-		setRemaining(intToString(stoi(abilityScores[6]) + 1));
-		setDexterity(intToString(stoi(abilityScores[1]) - 1));
+		setRemaining(to_string(stoi(abilityScores[6]) + 1));
+		setDexterity(to_string(stoi(abilityScores[1]) - 1));
 		break;
 
 	case 2:
-		setRemaining(intToString(stoi(abilityScores[6]) + 1));
-		setConstitution(intToString(stoi(abilityScores[2]) - 1));
+		setRemaining(to_string(stoi(abilityScores[6]) + 1));
+		setConstitution(to_string(stoi(abilityScores[2]) - 1));
 		break;
 
 	case 3:
-		setRemaining(intToString(stoi(abilityScores[6]) + 1));
-		setIntelligence(intToString(stoi(abilityScores[3]) - 1));
+		setRemaining(to_string(stoi(abilityScores[6]) + 1));
+		setIntelligence(to_string(stoi(abilityScores[3]) - 1));
 		break;
 
 	 case 4:
-		setRemaining(intToString(stoi(abilityScores[6]) + 1));
-		setWisdom(intToString(stoi(abilityScores[4]) - 1));
+		setRemaining(to_string(stoi(abilityScores[6]) + 1));
+		setWisdom(to_string(stoi(abilityScores[4]) - 1));
 		break;
 	
 
 	 case 5:
-		setRemaining(intToString(stoi(abilityScores[6]) + 1));
-		setCharisma(intToString(stoi(abilityScores[5]) - 1));
+		setRemaining(to_string(stoi(abilityScores[6]) + 1));
+		setCharisma(to_string(stoi(abilityScores[5]) - 1));
 		break;
 	default:
 		break;
@@ -363,7 +357,7 @@ void ScreenCharacterCreation::setRemaining(std::string value) {
 }
 
 void ScreenCharacterCreation::createCharacter() {
-	character = new Character(stoi(abilityScores[0]), stoi(abilityScores[1]), stoi(abilityScores[2]), stoi(abilityScores[3]), stoi(abilityScores[4]), stoi(abilityScores[5]));
+	character = new Character(stoi(abilityScores[0]), stoi(abilityScores[1]), stoi(abilityScores[2]), stoi(abilityScores[3]), stoi(abilityScores[4]), stoi(abilityScores[5]),1);
 	std::string name = nameInput->getText();
 
 	std::cout << character->toString();
