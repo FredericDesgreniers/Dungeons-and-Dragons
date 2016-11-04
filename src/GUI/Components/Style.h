@@ -177,6 +177,7 @@ public:
 		copyTo.setFontColor(copyFrom.fontColor.r, copyFrom.fontColor.g, copyFrom.fontColor.b, copyFrom.fontColor.a);
 		copyTo.backgroundColor = copyFrom.backgroundColor;
 		copyTo.backgroundColor_hover = copyFrom.backgroundColor_hover;
+		copyTo.fontSize = copyFrom.fontSize;
 
 		copyTo.borderSize = copyFrom.borderSize;
 		copyTo.borderSize_hover = copyFrom.borderSize_hover;
