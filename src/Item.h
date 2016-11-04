@@ -61,6 +61,8 @@ public:
 
 	inline std::string toString();
 
+	inline std::string Item::displayType(Item::ItemType iType);
+
 private:
 
 

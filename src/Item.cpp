@@ -231,7 +231,7 @@ bool Item::checkValididty(int boost)
 }
 
 inline std::string Item::toString() {
-	std::string str = "\t" + getName() + "\nType: " + std::to_string(getItemType())
+	std::string str = "\t" + getName() + "\nType: " + displayType(getItemType())
 		+ "\nStr: " + std::to_string(getStrBoost())
 		+ "\nDex: " + std::to_string(getDexBoost())
 		+ "\nCon: " + std::to_string(getConBoost())
@@ -243,6 +243,29 @@ inline std::string Item::toString() {
 		+ "\nAtk: " + std::to_string(getAtkBoost());
 
 	return str;
+}
+
+inline std::string Item::displayType(Item::ItemType iType) {
+	
+	switch (iType)
+	{
+	case HELMET: return "Helmet"; 
+		break;
+	case ARMOR:  return "Armor";
+		break;
+	case SHIELD: return "Shield"; 
+		break;
+	case RING:   return "Ring";     
+		break;
+	case BOOTS:  return "Boots";   
+		break;
+	case BELT:   return "Belt";
+		break;
+	case WEAPON: return "Weapon";
+		break;
+	default: return "This item type is not allowed"; 
+		break;
+	}
 }
 
 
