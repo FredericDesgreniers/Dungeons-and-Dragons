@@ -269,7 +269,7 @@ inline std::string Item::displayType(Item::ItemType iType) {
 }
 
 
-int main()
+/**int main()
 {
 	// Item::ItemType n = Item::WEAPON;
 	std::string s = "Hi";
@@ -281,4 +281,4 @@ int main()
 
 	delete(it);
 	it = NULL;
-}
+}//*
