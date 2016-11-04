@@ -281,4 +281,4 @@ inline std::string Item::displayType(Item::ItemType iType) {
 
 	delete(it);
 	it = NULL;
-}//*
+}**/
