@@ -14,6 +14,7 @@ public:
 	 * Used to render the map
 	 */
 	void render() override;
+	void renderEmpty();
 	void tick() override;
 	void renderDebug() override;
 	/**

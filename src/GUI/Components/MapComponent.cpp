@@ -132,6 +132,102 @@ void MapComponent::render() {
 	}
 }
 
+void MapComponent::renderEmpty() {
+	int mapWidth = map->getWidth();
+	int mapHeight = map->getHeight();
+	//calculate tile width
+	int tileWidth = getWidth() / mapWidth;
+	int tileHeight = getHeight() / mapHeight;
+
+	//get mosue position
+	int mx, my;
+	SDL_GetMouseState(&mx, &my);
+
+	//get character from maps
+	Character* c = map->getCharacter();
+
+	//go through map tiles
+	for (int i = 0; i < mapWidth; i++) {
+		for (int j = 0; j < mapHeight; j++) {
+			
+			// calculate x and y position relative to screen
+			int x = i*tileWidth + getPositionX();
+			int y = j*tileHeight + getPositionY();
+
+			//is mouse hovering a tile?
+			bool hover;
+			if (previewMode)
+				hover = false;
+			else
+				hover = mx > x && mx < x + tileWidth && my>y && my < y + tileHeight;
+
+			MapTile* tile = map->getTile(i, j);
+			/**
+			* Set color depending on tile ID
+			*/
+			switch (tile->getId())
+			{
+			case TILE_WALL:
+				Renderer::setColor(20, 20, 20, 255);
+				break;
+			case TILE_EMPTY:
+				Renderer::setColor(150, 150, 150, 255);
+				break;
+			case SPAWNTILE:
+				Renderer::setColor(0, 255, 0, 255);
+				break;
+			case ENDTILE:
+				Renderer::setColor(255, 0, 0, 255);
+			}
+			//Render tile
+			Renderer::RenderRect(x, y, tileWidth, tileHeight);
+
+			// render tile outline
+			Renderer::setColor(10, 10, 10, 255);
+			Renderer::RenderRectOutline(x, y, tileWidth, tileHeight);
+
+			//get entity at tile location
+			Entity* entity = map->getEntity(i, j);
+			if (entity != nullptr)
+			{
+
+				SDL_Color color;
+				//set Entity car chracter dependin on type of entity
+				if (dynamic_cast<Monster*>(entity)) {
+					if (dynamic_cast<Wizard*>(entity))
+					{
+						color = { 0,0,255,255 };
+					}
+					else {
+						color = { 255,200,0,255 };
+
+					}
+				}
+				else if (dynamic_cast<Character*>(entity)) {
+					color = { 255,255,0,255 };
+				}
+				else {
+					color = { 255,0,255,255 };
+				}
+
+				//render entity chracter
+				Renderer::drawString(std::string(1, entity->getRenderChar()), Renderer::FONT_ROBOTO.get(tileHeight), x + 2, y - 3, 1, color);
+				//if entity is living, render health bar
+				if (LivingEntity* le = dynamic_cast<LivingEntity*>(entity)) {
+					Renderer::setColor(255, 0, 0, 255);
+					double healthBar = (static_cast<double>(le->getHealth()) / static_cast<double>(le->getMaxHealth()));
+
+					Renderer::RenderRect(x, y, healthBar*(tileWidth - 2) + 2, 5);
+					Renderer::setColor(0, 0, 0, 255);
+					Renderer::RenderRectOutline(x, y, tileWidth, 5);
+
+				}
+			}
+		}
+	}
+}
+
+
 void MapComponent::tick() {
 
 }

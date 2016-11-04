@@ -7,6 +7,7 @@
 #include "../Components/TextField.h"
 #include "../Renderer.h"
 #include "../../dice.h"
+#include "../Components/MapComponent.h"
 #include <string>
 
 class ScreenMapCreation : public Screen
@@ -26,6 +27,7 @@ public:
 
 	void render() override;
 	void createMap();
+	void saveMap();
 
 	void setHeight(int value);
 	void setWidth(int value);
