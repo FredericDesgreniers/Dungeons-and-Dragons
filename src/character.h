@@ -4,6 +4,8 @@
 
 #include "LivingEntity.h"
 #include "dice.h"
+#include <fstream>
+#include <iostream>
 
 /**
  * Character class that extends LivingEntity. Should only be used to the playable character
@@ -53,6 +55,10 @@ public:
 		return "str:" + std::to_string(getStrength()) + ", dex:" + std::to_string(getDexterity()) + ", cons:" + std::to_string(getConsitution()) + ", intel:" + std::to_string(getIntelligence()) + ", wisd:" + std::to_string(getWisdom()) + ", chari:" + std::to_string(getCharisma());
 
 	}
+
+	static Character* Character::loadCharacter(std::string name);
+
+	static bool saveCharacter(std::string name, Character * character);
 
 
 
