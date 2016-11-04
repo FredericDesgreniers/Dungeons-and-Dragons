@@ -48,8 +48,14 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	});
 
 	Button* dexPlus = new Button("+", &Renderer::FONT_ROBOTO, 220, i+35, 1, 1);
-	copyStyle(*strPlus, *dexPlus);
-	copySize(*strPlus, *dexPlus);
+	dexPlus->setFontSize(20)->setBackgroundColor_both(203, 203, 203, 100);
+	dexPlus->setFontColor(0, 0, 0, 100);
+	dexPlus->setBorderColor_hover(51, 153, 255, 100);
+	dexPlus->setBorderSize(3);
+	dexPlus->setBorderSize_hover(3);
+	dexPlus->setFontUnderline_both(0);
+	dexPlus->setPadding(1);
+	dexPlus->adjustButtonDimensions();
 	dexPlus->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		increment(1);
@@ -241,7 +247,7 @@ string ScreenCharacterCreation::intToString(int n) {
 void ScreenCharacterCreation::increment(int stat) {
 
 	if ((abilityScores[stat] == "18") || (abilityScores[6]=="0")) {
-		std::cout << "Stat Decrement failed" << endl;
+		std::cout << "Stat Increment failed" << endl;
 		return;
 	}
 
@@ -285,7 +291,7 @@ void ScreenCharacterCreation::increment(int stat) {
 
 
 void ScreenCharacterCreation::decrement(int stat) {
-	if (abilityScores[stat] == "3") {
+	if (stoi(abilityScores[stat]) <= 3) {
 		std::cout << "Stat Decrement failed" << endl;
 		return;
 	}
