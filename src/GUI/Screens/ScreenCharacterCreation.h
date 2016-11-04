@@ -12,8 +12,7 @@ class ScreenCharacterCreation : public Screen
 {
 
 private:
-	std::string strength, constitution, dexterity, intelligence, wisdom, charisma;
-	std::string rollStat();
+	std::string abilityScores[7];
 	Character* character;
 	TextField* nameInput;
 
@@ -27,6 +26,10 @@ public:
 	void setIntelligence(std::string value);
 	void setWisdom(std::string value);
 	void setCharisma(std::string value);
+	void setRemaining(std::string value);
+	void increment(int stat);
+	void decrement(int stat);
+	string intToString(int n);
 
 
 
