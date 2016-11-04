@@ -4,9 +4,9 @@
 Item::Item()
 {
 
-}
+};
 
-Item::Item(std::string name, ItemType iType, int str, int dex, int con, int intl, int wis, int cha, int atk, int dmg, int arm)
+Item::Item(std::string name, Item::ItemType iType, int str, int dex, int con, int intl, int wis, int cha, int atk, int dmg, int arm)
 {
 	this->itemName = name;
 
@@ -25,7 +25,7 @@ Item::Item(std::string name, ItemType iType, int str, int dex, int con, int intl
 		dmgBoost = 0;
 		break;
 
-	case ARMOR || SHIELD:
+	case (ARMOR || SHIELD):
 		type = iType;
 		setArmBoost(arm);
 		strBoost = 0;
@@ -78,6 +78,8 @@ Item::Item(std::string name, ItemType iType, int str, int dex, int con, int intl
 		armBoost = 0;
 		break;
 
+	default:
+		std::cout << "item should be of a certain type" << std::endl;
 	}
 }
 
@@ -93,35 +95,35 @@ Item::~Item()
 */
 
 std::string Item::getName() {
-  return this->itemName;
+	return this->itemName;
 }
 
 void Item::setName(std::string iName) {
-  this->itemName = iName;
+	this->itemName = iName;
 }
 
 Item::ItemType Item::getItemType() {
-  return this->type;
+	return this->type;
 }
 
 void Item::setItemType(ItemType iType) {
-  this->type = iType;
+	this->type = iType;
 }
 
 int Item::getStrBoost() {
-  return this->strBoost;
+	return this->strBoost;
 }
 
 void Item::setStrBoost(int strB) {
-	
-	if(checkValididty(strB)) 
-	{ 
+
+	if (checkValididty(strB))
+	{
 		this->strBoost = strB;
 	}
 }
 
 int Item::getDexBoost() {
-  return this->dexBoost;
+	return this->dexBoost;
 }
 
 void Item::setDexBoost(int dexB) {
@@ -133,7 +135,7 @@ void Item::setDexBoost(int dexB) {
 }
 
 int Item::getConBoost() {
-  return this->conBoost;
+	return this->conBoost;
 }
 
 void Item::setConBoost(int conB) {
@@ -145,7 +147,7 @@ void Item::setConBoost(int conB) {
 }
 
 int Item::getIntBoost() {
-  return this->intBoost;
+	return this->intBoost;
 }
 
 void Item::setIntBoost(int intB) {
@@ -157,11 +159,11 @@ void Item::setIntBoost(int intB) {
 }
 
 int Item::getWisBoost() {
-  return this->strBoost;
+	return this->strBoost;
 }
 
 void Item::setWisBoost(int wisB) {
-	
+
 	if (checkValididty(wisB))
 	{
 		this->wisBoost = wisB;
@@ -169,11 +171,11 @@ void Item::setWisBoost(int wisB) {
 }
 
 int Item::getChaBoost() {
-  return this->chaBoost;
+	return this->chaBoost;
 }
 
 void Item::setChaBoost(int chaB) {
-	
+
 	if (checkValididty(chaB))
 	{
 		this->chaBoost = chaB;
@@ -181,11 +183,11 @@ void Item::setChaBoost(int chaB) {
 }
 
 int Item::getAtkBoost() {
-  return this->atkBoost;
+	return this->atkBoost;
 }
 
 void Item::setAtkBoost(int atkB) {
-  
+
 	if (checkValididty(atkB))
 	{
 		this->atkBoost = atkB;
@@ -193,11 +195,11 @@ void Item::setAtkBoost(int atkB) {
 }
 
 int Item::getDmgBoost() {
-  return this->dmgBoost;
+	return this->dmgBoost;
 }
 
 void Item::setDmgBoost(int dmgB) {
-  
+
 	if (checkValididty(dmgB))
 	{
 		this->dmgBoost = dmgB;
@@ -206,7 +208,7 @@ void Item::setDmgBoost(int dmgB) {
 
 int Item::getArmBoost()
 {
-  return this->armBoost;
+	return this->armBoost;
 }
 
 void Item::setArmBoost(int armB) {
@@ -219,11 +221,41 @@ void Item::setArmBoost(int armB) {
 
 bool Item::checkValididty(int boost)
 {
-	if (0 < boost || boost > 5) {
+	if (boost < 0 || boost > 5) {
 		std::cout << "Item boost can only be 1-5, unallowed boost assignment" << std::endl;
 		return false;
 	}
 	else {
 		return true;
 	}
+}
+
+inline std::string Item::toString() {
+	std::string str = "\t" + getName() + "\nType: " + std::to_string(getItemType())
+		+ "\nStr: " + std::to_string(getStrBoost())
+		+ "\nDex: " + std::to_string(getDexBoost())
+		+ "\nCon: " + std::to_string(getConBoost())
+		+ "\nInt: " + std::to_string(getIntBoost())
+		+ "\nWis: " + std::to_string(getWisBoost())
+		+ "\nCha: " + std::to_string(getChaBoost())
+		+ "\nArm: " + std::to_string(getArmBoost())
+		+ "\nDmg: " + std::to_string(getDmgBoost())
+		+ "\nAtk: " + std::to_string(getAtkBoost());
+
+	return str;
+}
+
+
+int main()
+{
+	// Item::ItemType n = Item::WEAPON;
+	std::string s = "Hi";
+
+
+	Item* it = new Item(s, Item::HELMET, 3, 3, 3, 3, 3, 3, 3, 3, 3);
+
+	std::cout << it->toString() << std::endl;
+
+	delete(it);
+	it = NULL;
 }
