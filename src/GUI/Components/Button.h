@@ -18,6 +18,12 @@ public:
 
 	Button* adjustButtonDimensions();
 
+	friend void copySize(Button &copyFrom, Button &copyTo)
+	{
+		copyTo.setWidth(copyFrom.getWidth());
+		copyTo.setHeight(copyFrom.getHeight());
+	}
+
 
 
 
