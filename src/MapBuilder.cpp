@@ -19,6 +19,64 @@ MapBuilder* MapBuilder::loadMap(Map* map)
 	return builder;
 }
 
+MapBuilder* MapBuilder::saveToFile(std::string fileName, Map* map)
+{
+	MapBuilder* builder = new MapBuilder();
+	std::ofstream mapFile("maps/" + fileName + ".dnd");
+
+	if (mapFile.is_open())
+	{
+		int width = map->getWidth();
+		int height = map->getHeight();
+
+		mapFile << width << std::endl;
+		mapFile << height << std::endl;
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				int type = map->getTile(x, y)->getId();
+
+				switch (type)
+				{
+				case 0:
+					mapFile << '-';
+					break;
+				case 1:
+					mapFile << 'W';
+					break;
+				case 2:
+					mapFile << 'S';
+					break;
+				case 3:
+					mapFile << 'E';
+					break;
+				}
+
+				Entity* entity = map->getEntity(width, height);
+
+				if (entity == NULL)
+				{
+					mapFile << '\'';
+				}
+				else
+				{
+					mapFile << entity->getRenderChar();
+				}
+
+				delete entity;
+				entity = NULL;
+			}
+			mapFile << std::endl;
+		}
+		builder->map = map;
+		mapFile.flush();
+		mapFile.close();
+	}
+	return builder;
+}
+
 MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 {
 	MapBuilder* builder = new MapBuilder();

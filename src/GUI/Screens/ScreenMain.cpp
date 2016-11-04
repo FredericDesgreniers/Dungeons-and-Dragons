@@ -1,5 +1,6 @@
 #include "ScreenMain.h"
 #include "ScreenCharacterCreation.h"
+#include "ScreenMapCreation.h"
 
 #include "ScreenCampaignSelect.h"
 
@@ -24,9 +25,10 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 
 	createMapBtn->adjustButtonDimensions();
 
-	createMapBtn->addOnClick_callback([](Component* comp, int x, int y)
+	createMapBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		//TODO Create new screen to redirect to
+		Screen* screen = this->game->getGuiManager()->setScreen(new ScreenMapCreation(this->game));
+		Renderer::addVoidScreen(screen);
 		std::cout << "Go to Map Creation screen!" << std::endl;
 	});
 

@@ -19,6 +19,9 @@ class Entity;
 class Map 
 {
 private:
+
+	string name;
+
 	MapTile ***tileGrid;
 	Entity ***entityGrid;
 
@@ -32,8 +35,18 @@ private:
 
 	int width;
 	int height;
+
+	friend std::ostream& operator<<(std::ostream&, const Map&);
+
 public:
+
+	Map(string name, int width, int height);
 	Map(int width, int height);
+	Map(const Map &map);
+
+	string getName() { return name; }
+
+	void Map::generateMap(int width, int height);
 
 	/**
 	 * Get map tile at x,y

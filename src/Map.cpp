@@ -3,7 +3,29 @@
 #include <complex>
 
 
-Map::Map(int width, int height): height(height), width(width)
+Map::Map(string name, int width, int height): name(name), height(height), width(width)
+{
+	generateMap(width, height);
+}
+
+Map::Map(int width, int height) : height(height), width(width)
+{
+	generateMap(width, height);
+}
+
+Map::Map(const Map &map)
+{
+	name = map.name;
+	width = map.width;
+	height = map.height;
+}
+
+std::ostream& operator<<(std::ostream &stream, const Map &map)
+{
+	return stream << map.name << " (" << map.width << "x" << map.height << ")";
+}
+
+void Map::generateMap(int width, int height)
 {
 	tileGrid = new MapTile**[width];
 	for (int x = 0; x < width; x++)
@@ -142,6 +164,8 @@ std::vector<Entity*>* Map::getEntities()
 {
 	return &entities;
 }
+
+
 
 
 

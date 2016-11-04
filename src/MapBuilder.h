@@ -20,6 +20,8 @@ public:
 	 */
 	static MapBuilder* loadFromFile(std::string fileName);
 
+	static MapBuilder* saveToFile(std::string fileName, Map* map);
+
 	/**
 	 * spawn the character on the map
 	 */
