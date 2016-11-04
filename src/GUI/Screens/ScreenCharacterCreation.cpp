@@ -22,6 +22,12 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	confirmBtn->setFontSize(30);
 	confirmBtn->adjustButtonDimensions();
 
+
+	Button* loadBtn = new Button("Load Character", &Renderer::FONT_ROBOTO, 500, 600, 100, 30);
+	loadBtn->setFontSize(30);
+	loadBtn->adjustButtonDimensions();
+
+
 	Button* strPlus = new Button("+", &Renderer::FONT_ROBOTO, 220, i, 1, 1);
 	strPlus->setFontSize(20)->setBackgroundColor_both(203, 203, 203, 100);
 	strPlus->setFontColor(0, 0, 0, 100);
@@ -188,6 +194,29 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 		}
 	});
 
+	//This is a temporary button to test loading functionality.
+	//It wont change the display but will instantiate a character from the file test5.chr
+	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		Character *testCharacter;
+		if (testCharacter=Character::loadCharacter("Test")) {
+			int* loadAbilities = testCharacter->getAbilityScoreArray();
+			setStrength(to_string(loadAbilities[0]));
+			setDexterity(to_string(loadAbilities[1]));
+			setConstitution(to_string(loadAbilities[2]));
+			setIntelligence(to_string(loadAbilities[3]));
+			setWisdom(to_string(loadAbilities[4]));
+			setCharisma(to_string(loadAbilities[5]));
+			setRemaining("0");
+		}
+		else {
+			std::cout << "Load Failed" << endl;
+		}
+		
+		
+
+	});
+
 
 	addComponent(backBtn);
 	addComponent(rollBtn);
@@ -205,6 +234,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent(chaMinus);
 	addComponent(nameInput);
 	addComponent(confirmBtn);
+	addComponent(loadBtn);
 }
 
 void ScreenCharacterCreation::render()
@@ -358,11 +388,9 @@ void ScreenCharacterCreation::setRemaining(std::string value) {
 
 void ScreenCharacterCreation::createCharacter() {
 	character = new Character(stoi(abilityScores[0]), stoi(abilityScores[1]), stoi(abilityScores[2]), stoi(abilityScores[3]), stoi(abilityScores[4]), stoi(abilityScores[5]),1);
-	std::string name = nameInput->getText();
-
-	std::cout << character->toString();
-	//TODO: SAVE CHARACTER TO FILE HERE
-
+	std::cout << character->toString() << endl;
+	Character::saveCharacter(nameInput->getText(), character);
 	delete character;
+	character = nullptr;
 }
 
