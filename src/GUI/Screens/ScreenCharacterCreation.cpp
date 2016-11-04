@@ -168,13 +168,17 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{	
-		if (!(abilityScores[6]== "   -" || abilityScores[6]=="0")){
-		std::cout << "Character Instantiated:" << std::endl;
-		createCharacter();
-		}
-		else {
+		if (abilityScores[0] == "0") {
 			std::cout << "Cannot instantiate character: press roll" << std::endl;
+		}
 
+		else if ((stoi(abilityScores[6]) > 0)) {
+			std::cout << "Cannot instantiate character: points not spent" << std::endl;
+		}
+
+		else {
+			std::cout << "Character Instantiated:" << std::endl;
+			createCharacter();
 		}
 	});
 
