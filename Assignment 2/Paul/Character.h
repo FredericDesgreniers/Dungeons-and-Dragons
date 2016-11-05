@@ -48,7 +48,7 @@ public:
 	/**
 	* Hit character for x hp.
 	*
-	* Deduces the health
+	* Deduces the health and notify the observer that something has changed
 	*/
 	void hit(int);
 
@@ -63,7 +63,7 @@ public:
 	* Output string to ostream using <<
 	*/
 	inline std::string toString() {
-		return "str:" + std::to_string(getStrength()) + ", dex:" + std::to_string(getDexterity()) + ", cons:" + std::to_string(getConsitution()) + ", intel:" + std::to_string(getIntelligence()) + ", wisd:" + std::to_string(getWisdom()) + ", chari:" + std::to_string(getCharisma());
+		return "str:" + std::to_string(getStrength()) + ", dex:" + std::to_string(getDexterity()) + ", cons:" + std::to_string(getConsitution()) + ", intel:" + std::to_string(getIntelligence()) + ", wisd:" + std::to_string(getWisdom()) + ", chari:" + std::to_string(getCharisma()) + ", HP:" + std::to_string(getHitPoints());
 
 	}
 
@@ -124,42 +124,62 @@ public:
 	{
 		return abilityscores[5];
 	}
-
+	/**
+	* Get ability score array
+	*/
 	int* getAbilityScoreArray()
 	{
 		return abilityscores;
 	}
 
+	/**
+	* set strength and notify the observer that something has changed
+	*/
 	void setStrength(int str)
 	{
 		abilityscores[0] = str;
 		Notify();
 	}
 
+	/**
+	* set dexterity and notify the observer that something has changed
+	*/
 	void setDexterity(int dex)
 	{
 		abilityscores[1] = dex;
 		Notify();
 	}
 
+	/**
+	* set constitution and notify the observer that something has changed
+	*/
 	void setConsitution(int cons)
 	{
 		abilityscores[2] = cons;
 		Notify();
 	}
 
+	/**
+	* set intelligence and notify the observer that something has changed
+	*/
 	void setIntelligence(int intel)
 	{
 		abilityscores[3] = intel;
 		Notify();
 	}
 
+	/**
+	* set wisdom and notify the observer that something has changed
+	*/
 	void setWisdom(int wis)
 	{
 		abilityscores[4] = wis;
 		Notify();
 	}
 
+	/**
+	* set charisma and notify the observer that something has changed
+	*/
 	void setCharisma(int cha)
 	{
 		abilityscores[5] = cha;

@@ -11,6 +11,9 @@ public:
 	
 	void Update();
 	void display();
+	Character* getSubject();
+
+
 
 private:
 	Character *_subject;
