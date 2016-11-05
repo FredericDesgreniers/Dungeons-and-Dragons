@@ -16,6 +16,9 @@ class ScreenMapCreation : public Screen
 private:
 
 	Map* map;
+	Map* tileMap;
+	MapComponent* mapComp;
+	MapComponent* tileMapComp;
 	TextField* nameInput;
 
 	int height;

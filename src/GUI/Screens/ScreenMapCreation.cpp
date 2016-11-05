@@ -31,6 +31,8 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	
 	backBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
+		delete map;
+
 		Screen* screen = this->game->getGuiManager()->setScreen(new ScreenMain(this->game));
 		Renderer::addVoidScreen(screen);
 		std::cout << "Back to main menu!" << std::endl;
@@ -62,15 +64,26 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 
 	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{	
-		std::cout << "Map saved:" << std::endl;
+		std::cout << "Map saved" << std::endl;
 		saveMap();
 	});
 
 	generateBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		std::cout << "Map Instantiated:" << std::endl;
+		std::cout << "Map Instantiated" << std::endl;
 		createMap();
 	});
+
+	map = new Map("", 10, 10);
+	tileMap = MapBuilder::loadFromFile("tileSelection")->get();
+
+	mapComp = new MapComponent(map, 50, 160, 400, 400);
+	addComponent(mapComp);
+	mapComp->setVisible(false);
+
+	tileMapComp = new MapComponent(tileMap, 500, 160, 75, 400);
+	addComponent(tileMapComp);
+	tileMapComp->setVisible(false);
 
 	addComponent(backBtn);
 	addComponent(moreWidthBtn);
@@ -110,10 +123,10 @@ void ScreenMapCreation::createMap() {
 	}
 
 	map = new Map(nameInput->getText(), width, height);
-	cout << *map << endl;
 
-	MapComponent* mapComp = new MapComponent(map, 50, 150, map->getWidth(), map->getHeight());
-	addComponent(mapComp);
+	mapComp->setMap(map);
+	mapComp->setVisible(true);
+	tileMapComp->setVisible(true);
 }
 
 void ScreenMapCreation::saveMap() {
@@ -124,8 +137,6 @@ void ScreenMapCreation::saveMap() {
 	}
 
 	MapBuilder::saveToFile(map->getName(), map);
-
-	delete map;
 
 }
 

@@ -10,11 +10,13 @@ public:
 	 * Call with to display, the position and the dimensions
 	 */
 	MapComponent(Map* map, int x, int y, int width, int height);
+
+	void setMap(Map* map);
+
 	/**
 	 * Used to render the map
 	 */
 	void render() override;
-	void renderEmpty();
 	void tick() override;
 	void renderDebug() override;
 	/**
