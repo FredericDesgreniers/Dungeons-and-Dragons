@@ -16,6 +16,7 @@ Character::Character(int level)
 	abilityscores[5] = rand() % 16 + 3;
 
 	hitpoints = 10;
+	
 
 }
 
@@ -29,11 +30,15 @@ Character::Character(int str, int dex, int cons, int intel, int wisd, int chari)
 	abilityscores[5] = chari;
 
 	hitpoints = 10;
+
+
 }
 
 void Character::hit(int damage)
 {
 	hitpoints -= damage;
+	Character::Notify(); // calls notify()
+
 }
 
 int Character::getModifier(int score)

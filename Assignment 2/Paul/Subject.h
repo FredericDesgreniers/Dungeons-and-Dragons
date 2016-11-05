@@ -19,4 +19,5 @@ public:
 	virtual void Attach(Observer* obs);
 	virtual void Detach(Observer * obs);
 	virtual void Notify();
+
 };

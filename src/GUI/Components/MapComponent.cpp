@@ -8,6 +8,11 @@ MapComponent::MapComponent(Map* map, int x, int y, int width, int height):map(ma
 
 }
 
+void MapComponent::setMap(Map* map)
+{
+	this->map = map;
+}
+
 void MapComponent::render() {
 	int mapWidth = map->getWidth();
 	int mapHeight = map->getHeight();
@@ -25,12 +30,16 @@ void MapComponent::render() {
 	//go through map tiles
 	for (int i = 0; i < mapWidth; i++) {
 		for (int j = 0; j < mapHeight; j++) {
-			//get distance from character to tile
-			int distance = c->realDistanceTo(i,j);
-			if (distance > drawDistance) {//determine if tile is close enough for render
-				continue;
-			}
 
+			if (c != nullptr)
+			{
+				//get distance from character to tile
+				int distance = c->realDistanceTo(i, j);
+				if (distance > drawDistance) {//determine if tile is close enough for render
+					continue;
+				}
+			}
+			
 			// calculate x and y position relative to screen
 			int x= i*tileWidth + getPositionX();
 			int y = j*tileHeight + getPositionY();
@@ -40,8 +49,10 @@ void MapComponent::render() {
 			if (previewMode)
 				hover = false;
 			else
+			{
 				hover = mx > x && mx < x + tileWidth && my>y && my < y + tileHeight;
-
+			}
+				
 			MapTile* tile = map->getTile(i, j);
 			/**
 			 * Set color depending on tile ID
@@ -64,7 +75,15 @@ void MapComponent::render() {
 			Renderer::RenderRect(x, y, tileWidth, tileHeight);
 
 			// render tile outline
-			Renderer::setColor(10, 10, 10, 255);
+			if (hover)
+			{
+				Renderer::setColor(255, 255, 255, 255);
+			}
+			else
+			{
+				Renderer::setColor(10, 10, 10, 255);
+			}
+			
 			Renderer::RenderRectOutline(x,y,tileWidth,tileHeight);
 
 			//get entity at tile location
@@ -111,6 +130,12 @@ void MapComponent::render() {
 	for (int i = 0; i < map->getEntities()->size(); i++)
 	{
 		Entity* e = (*(map->getEntities()))[i];
+
+		if (e == nullptr)
+		{
+			continue;
+		}
+
 		//Draw wizard spell things
 		if(Wizard* wiz = dynamic_cast<Wizard*> (e))
 		{
@@ -131,6 +156,7 @@ void MapComponent::render() {
 		}
 	}
 }
+
 
 void MapComponent::tick() {
 
@@ -165,7 +191,6 @@ void MapComponent::click(int x, int y)
 	//get tile clicked
 	int tileX = x / tileWidth;
 	int tileY = y / tileHeight;
-
 
 	//make sure it's valid tile
 	if (tileX >= 0 && tileY >= 0 && tileX < mapWidth && tileY < mapHeight) {

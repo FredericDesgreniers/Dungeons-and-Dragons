@@ -57,7 +57,7 @@ public:
 	int getArmBoost();
 	void setArmBoost(int armB);
 
-	bool checkValididty(int boost);
+	int checkValididty(int boost);
 
 	inline std::string toString();
 

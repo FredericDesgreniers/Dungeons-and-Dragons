@@ -5,17 +5,20 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	height = 10;
 	width = 10;
 
-	nameInput = new TextField("TestMap", 250, 100, 100, 20);
+	nameInput = new TextField("TestMap", 125, 75, 100, 20);
 	nameInput->setFontSize(15);
 
-	Button* moreWidthBtn = new Button("Width+", &Renderer::FONT_ROBOTO, 400, 200, 100, 30);
+	Button* moreWidthBtn = new Button("+", &Renderer::FONT_ROBOTO, 425, 68, 30, 30);
 	moreWidthBtn->adjustButtonDimensions();
-	Button* lessWidthBtn = new Button("Width-", &Renderer::FONT_ROBOTO, 400, 250, 100, 30);
+	Button* lessWidthBtn = new Button("-", &Renderer::FONT_ROBOTO, 385, 68, 30, 30);
 	lessWidthBtn->adjustButtonDimensions();
-	Button* moreHeightBtn = new Button("Height+", &Renderer::FONT_ROBOTO, 400, 300, 100, 30);
+	Button* moreHeightBtn = new Button("+", &Renderer::FONT_ROBOTO, 625, 68, 30, 30);
 	moreHeightBtn->adjustButtonDimensions();
-	Button* lessHeightBtn = new Button("Height-", &Renderer::FONT_ROBOTO, 400, 350, 100, 30);
+	Button* lessHeightBtn = new Button("-", &Renderer::FONT_ROBOTO, 585, 68, 30, 30);
 	lessHeightBtn->adjustButtonDimensions();
+
+	Button* generateBtn = new Button("Generate", &Renderer::FONT_ROBOTO, 50, 125, 100, 30);
+	generateBtn->adjustButtonDimensions();
 
 	Button* backBtn = new Button("Back", &Renderer::FONT_ROBOTO, 100, 600, 100, 30);
 	backBtn->adjustButtonDimensions();
@@ -23,11 +26,13 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	Button* confirmBtn = new Button("Confirm", &Renderer::FONT_ROBOTO, 300, 600, 100, 30);
 	confirmBtn->adjustButtonDimensions();
 
-	addComponent((new Label("Width", &Renderer::FONT_ROBOTO, 100, 175, 1, 1))->setFontSize(15)->adjustDimensions());
-	addComponent((new Label("Height", &Renderer::FONT_ROBOTO, 100, 200, 1, 1))->setFontSize(15)->adjustDimensions());
+	addComponent((new Label("Width", &Renderer::FONT_ROBOTO, 300, 75, 1, 1))->setFontSize(15)->adjustDimensions());
+	addComponent((new Label("Height", &Renderer::FONT_ROBOTO, 500, 75, 1, 1))->setFontSize(15)->adjustDimensions());
 	
 	backBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
+		delete map;
+
 		Screen* screen = this->game->getGuiManager()->setScreen(new ScreenMain(this->game));
 		Renderer::addVoidScreen(screen);
 		std::cout << "Back to main menu!" << std::endl;
@@ -59,9 +64,26 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 
 	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{	
-		std::cout << "Map Instantiated:" << std::endl;
+		std::cout << "Map saved" << std::endl;
+		saveMap();
+	});
+
+	generateBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		std::cout << "Map Instantiated" << std::endl;
 		createMap();
 	});
+
+	map = new Map("", 10, 10);
+	tileMap = MapBuilder::loadFromFile("tileSelection")->get();
+
+	mapComp = new MapComponent(map, 50, 160, 400, 400);
+	addComponent(mapComp);
+	mapComp->setVisible(false);
+
+	tileMapComp = new MapComponent(tileMap, 500, 160, 75, 400);
+	addComponent(tileMapComp);
+	tileMapComp->setVisible(false);
 
 	addComponent(backBtn);
 	addComponent(moreWidthBtn);
@@ -70,17 +92,17 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	addComponent(lessHeightBtn);
 	addComponent(nameInput);
 	addComponent(confirmBtn);
-
+	addComponent(generateBtn);
 }
 
 void ScreenMapCreation::render()
 {
-	Renderer::drawString("Map Editor", Renderer::FONT_ROBOTO.get(24), 250, 0, 1, { 255,255,255,255 });
+	Renderer::drawString("Map Editor", Renderer::FONT_ROBOTO.get(24), 250, 20, 1, { 255,255,255,255 });
 
-	Renderer::drawString("Name", Renderer::FONT_ROBOTO.get(16), 100, 100, 1, { 255,255,255,255 });
+	Renderer::drawString("Name", Renderer::FONT_ROBOTO.get(16), 50, 75, 1, { 255,255,255,255 });
 
-	Renderer::drawString(std::to_string(height), Renderer::FONT_ROBOTO.get(16), 250, 175, 1, { 255,255,255,255 });
-	Renderer::drawString(std::to_string(width), Renderer::FONT_ROBOTO.get(16), 250, 200, 1, { 255,255,255,255 });
+	Renderer::drawString(std::to_string(height), Renderer::FONT_ROBOTO.get(16), 600, 75, 1, { 255,255,255,255 });
+	Renderer::drawString(std::to_string(width), Renderer::FONT_ROBOTO.get(16), 400, 75, 1, { 255,255,255,255 });
 
 	Screen::render();
 }
@@ -95,12 +117,26 @@ void ScreenMapCreation::setHeight(int value) {
 
 void ScreenMapCreation::createMap() {
 
+	if (map != NULL)
+	{
+		delete map;
+	}
+
 	map = new Map(nameInput->getText(), width, height);
 
-	MapBuilder::saveToFile(map->getName(), map);
-	cout << *map << endl;
+	mapComp->setMap(map);
+	mapComp->setVisible(true);
+	tileMapComp->setVisible(true);
+}
 
-	delete map;
+void ScreenMapCreation::saveMap() {
+
+	if (map == NULL)
+	{
+		return;
+	}
+
+	MapBuilder::saveToFile(map->getName(), map);
 
 }
 

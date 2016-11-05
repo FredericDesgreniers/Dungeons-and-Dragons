@@ -1,4 +1,5 @@
 #include "CharacterObserver.h"
+#include "Character.h"
 #include <iostream>
 using namespace std;
 
@@ -22,6 +23,10 @@ void CharacterObserver::Update()
 
 void CharacterObserver::display()
 {
-	cout << _subject->toString() << endl;
+	cout << "Update from Observer pattern: " << _subject->toString() << endl;
 }
 
+Character* CharacterObserver::getSubject()
+{
+	return _subject;
+}
