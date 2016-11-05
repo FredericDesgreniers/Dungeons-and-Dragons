@@ -115,11 +115,7 @@ int Item::getStrBoost() {
 }
 
 void Item::setStrBoost(int strB) {
-
-	if (checkValididty(strB))
-	{
-		this->strBoost = strB;
-	}
+		this->strBoost = checkValididty(strB);
 }
 
 int Item::getDexBoost() {
@@ -127,11 +123,8 @@ int Item::getDexBoost() {
 }
 
 void Item::setDexBoost(int dexB) {
-
-	if (checkValididty(dexB))
-	{
-		this->dexBoost = dexB;
-	}
+	this->dexBoost = checkValididty(dexB);
+	
 }
 
 int Item::getConBoost() {
@@ -139,11 +132,7 @@ int Item::getConBoost() {
 }
 
 void Item::setConBoost(int conB) {
-
-	if (checkValididty(conB))
-	{
-		this->conBoost = conB;
-	}
+	this->conBoost = checkValididty(conB);
 }
 
 int Item::getIntBoost() {
@@ -151,11 +140,7 @@ int Item::getIntBoost() {
 }
 
 void Item::setIntBoost(int intB) {
-
-	if (checkValididty(intB))
-	{
-		this->intBoost = intB;
-	}
+	this->intBoost = checkValididty(intB);
 }
 
 int Item::getWisBoost() {
@@ -163,11 +148,7 @@ int Item::getWisBoost() {
 }
 
 void Item::setWisBoost(int wisB) {
-
-	if (checkValididty(wisB))
-	{
-		this->wisBoost = wisB;
-	}
+	this->wisBoost = checkValididty(wisB);
 }
 
 int Item::getChaBoost() {
@@ -175,11 +156,7 @@ int Item::getChaBoost() {
 }
 
 void Item::setChaBoost(int chaB) {
-
-	if (checkValididty(chaB))
-	{
-		this->chaBoost = chaB;
-	}
+	this->chaBoost = checkValididty(chaB);
 }
 
 int Item::getAtkBoost() {
@@ -187,11 +164,7 @@ int Item::getAtkBoost() {
 }
 
 void Item::setAtkBoost(int atkB) {
-
-	if (checkValididty(atkB))
-	{
-		this->atkBoost = atkB;
-	}
+	this->atkBoost = checkValididty(atkB);
 }
 
 int Item::getDmgBoost() {
@@ -199,86 +172,87 @@ int Item::getDmgBoost() {
 }
 
 void Item::setDmgBoost(int dmgB) {
-
-	if (checkValididty(dmgB))
-	{
-		this->dmgBoost = dmgB;
-	}
+	this->dmgBoost = checkValididty(dmgB);
 }
 
-int Item::getArmBoost()
-{
+int Item::getArmBoost() {
 	return this->armBoost;
 }
 
 void Item::setArmBoost(int armB) {
-
-	if (checkValididty(armB))
-	{
-		this->armBoost = armB;
-	}
+	this->armBoost = checkValididty(armB);
 }
 
-bool Item::checkValididty(int boost)
+
+// checkValidity()
+//
+// checks if item is valid
+// returns 0 if not between bounds
+// else returns value passed
+int Item::checkValididty(int boost)
 {
 	if (boost < 0 || boost > 5) {
-		std::cout << "Item boost can only be 1-5, unallowed boost assignment" << std::endl;
-		return false;
+		std::cout << "Item boost can only be 1-5, unallowed boost assignment, value will be set to 0" << std::endl;
+		return 0;
 	}
 	else {
-		return true;
+		return boost;
 	}
 }
 
-inline std::string Item::toString() {
-	std::string str = "\t" + getName() + "\nType: " + displayType(getItemType())
-		+ "\nStr: " + std::to_string(getStrBoost())
-		+ "\nDex: " + std::to_string(getDexBoost())
-		+ "\nCon: " + std::to_string(getConBoost())
-		+ "\nInt: " + std::to_string(getIntBoost())
-		+ "\nWis: " + std::to_string(getWisBoost())
-		+ "\nCha: " + std::to_string(getChaBoost())
-		+ "\nArm: " + std::to_string(getArmBoost())
-		+ "\nDmg: " + std::to_string(getDmgBoost())
-		+ "\nAtk: " + std::to_string(getAtkBoost());
+// displays the item name, type and scores
+inline std::string Item::toString() 
+{
+	std::string str = getName() + "\nType: " + displayType(getItemType())
+		+ "\nStrength:      +" + std::to_string(getStrBoost())
+		+ "\nDexterity:     +" + std::to_string(getDexBoost())
+		+ "\nConstitution:  +" + std::to_string(getConBoost())
+		+ "\nIntelligence:  +" + std::to_string(getIntBoost())
+		+ "\nWisdom:        +" + std::to_string(getWisBoost())
+		+ "\nCharisma:      +" + std::to_string(getChaBoost())
+		+ "\nArmor class:   +" + std::to_string(getArmBoost())
+		+ "\nDamage:        +" + std::to_string(getDmgBoost())
+		+ "\nAttack:        +" + std::to_string(getAtkBoost());
 
 	return str;
 }
 
+// C++ does not allow to print enums
+// This method takes an ItemType enum and returns a string to display it
 inline std::string Item::displayType(Item::ItemType iType) {
 	
 	switch (iType)
 	{
-	case HELMET: return "Helmet"; 
+	case HELMET: 
+		return "Helmet"; 
 		break;
-	case ARMOR:  return "Armor";
+
+	case ARMOR:  
+		return "Armor";
 		break;
-	case SHIELD: return "Shield"; 
+
+	case SHIELD: 
+		return "Shield"; 
 		break;
-	case RING:   return "Ring";     
+
+	case RING:   
+		return "Ring";     
 		break;
-	case BOOTS:  return "Boots";   
+
+	case BOOTS:  
+		return "Boots";   
 		break;
-	case BELT:   return "Belt";
+
+	case BELT:   
+		return "Belt";
 		break;
-	case WEAPON: return "Weapon";
+
+	case WEAPON: 
+		return "Weapon";
 		break;
-	default: return "This item type is not allowed"; 
+
+	default: 
+		return "This item type is not allowed"; 
 		break;
 	}
 }
-
-
-/**int main()
-{
-	// Item::ItemType n = Item::WEAPON;
-	std::string s = "Hi";
-
-
-	Item* it = new Item(s, Item::HELMET, 3, 3, 3, 3, 3, 3, 3, 3, 3);
-
-	std::cout << it->toString() << std::endl;
-
-	delete(it);
-	it = NULL;
-}**/
