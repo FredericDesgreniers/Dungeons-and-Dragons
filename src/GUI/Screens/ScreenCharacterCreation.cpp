@@ -6,13 +6,15 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	for (int i = 0; i < 7; i++) {
 		abilityScores[i] = "0";
 	}
-	nameInput = new TextField("Test", 250, 100, 100, 20);
-	nameInput->setFontSize(15);
+	nameInput = new TextField("Test", 125, 100, 150, 25);
+	nameInput->setFontSize(20);
 	int i = 220;
 
-	Button* rollBtn = new Button("Roll!", &Renderer::FONT_ROBOTO, 400, 300, 1, 1);
+	Button* rollBtn = new Button("Roll!", &Renderer::FONT_ROBOTO, 105, i+260, 1, 1);
 	rollBtn->setFontSize(30);
 	rollBtn->adjustButtonDimensions();
+
+
 
 	Button* backBtn = new Button("Back", &Renderer::FONT_ROBOTO, 100, 600, 1, 1);
 	backBtn->setFontSize(30);
@@ -150,6 +152,12 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	});
 
 
+	addComponent((new Label("Race", &Renderer::FONT_ROBOTO, 20, 135, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Human", &Renderer::FONT_ROBOTO, 140, 135, 1, 1))->setFontSize(20)->adjustDimensions());
+
+	addComponent((new Label("Class", &Renderer::FONT_ROBOTO, 20, 170, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Warrior", &Renderer::FONT_ROBOTO, 140, 170, 1, 1))->setFontSize(20)->adjustDimensions());
+
 	addComponent((new Label("Strength", &Renderer::FONT_ROBOTO, 20, i, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Dexterity", &Renderer::FONT_ROBOTO, 20, i+35, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Constitution", &Renderer::FONT_ROBOTO, 20, i+70, 1, 1))->setFontSize(20)->adjustDimensions());
@@ -245,11 +253,9 @@ void ScreenCharacterCreation::render()
 
 	Renderer::drawString("Name", Renderer::FONT_ROBOTO.get(20), 20, 100, 1, { 255,255,255,255 });
 
-	Renderer::drawString("Race", Renderer::FONT_ROBOTO.get(20), 20, 135, 1, { 255,255,255,255 });
-	Renderer::drawString("Human", Renderer::FONT_ROBOTO.get(20), 250, 135, 1, { 255,255,255,255 });
+	
 
-	Renderer::drawString("Class", Renderer::FONT_ROBOTO.get(20), 20, 170, 1, { 255,255,255,255 });
-	Renderer::drawString("Warrior", Renderer::FONT_ROBOTO.get(20), 250, 170, 1, { 255,255,255,255 });
+
 
 	Renderer::drawString(abilityScores[0], Renderer::FONT_ROBOTO.get(20), 175, 220, 1, { 255,255,255,255 });
 
