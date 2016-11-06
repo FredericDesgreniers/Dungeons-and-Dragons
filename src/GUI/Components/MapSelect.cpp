@@ -34,13 +34,12 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 	});
 	currentMap->addOnClick_callback([this](Component*, int, int)
 	{
-		if (this->mapIndex>0)
-		{
+
 			for (std::function<void(Map*map)> func:onMapClick_callback)
 			{
 				func(maps[mapIndex]);
 			}
-		}
+		
 	});
 	nextMap->addOnClick_callback([this](Component*, int, int)
 	{
