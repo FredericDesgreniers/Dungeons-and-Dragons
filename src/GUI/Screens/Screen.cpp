@@ -43,6 +43,7 @@ void Screen::reInitialize()
 void Screen::click(int x, int y)
 {
 	for (Component* c : components) {
+		if(c->isVisible())
 		c->click(x - c->getPositionX(), y - c->getPositionY());
 	}
 		
