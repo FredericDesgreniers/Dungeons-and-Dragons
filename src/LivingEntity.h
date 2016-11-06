@@ -1,14 +1,15 @@
 #pragma once
 #include "entity.h"
 #include "dice.h"
+#include "Item.h"
 /**
  * Extends entity, meant for anything that has health and is "living"
  */
 class LivingEntity :public Entity {
 public:
 	LivingEntity(char c);
-
 	LivingEntity(char c, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int lvl);
+
 
 	/**
 	* Gets max entity health
@@ -83,16 +84,46 @@ public:
 	*/
 	void setCharisma(int value);
 
+
+
+	int* getEffectiveAbilityScoreArray();
 	/**
 	* Return array holding entity's ability scores
 	*/
 	int* getAbilityScoreArray();
 
 
+	Item* equip(Item* toEquip);
+
+	void outputEquipped();
+	Item* unequip(int itemSlot);
+
+	std::string toString() {
+	
+		return "STR:" + std::to_string(getStrength()) + ", DEX:" + std::to_string(getDexterity()) + ", CON:" + std::to_string(getConsitution()) +
+			", INT:" + std::to_string(getIntelligence()) + ", WIS:" + std::to_string(getWisdom()) + ", CHA:" + std::to_string(getCharisma()) +
+			"\nEffective:\n" + "STR:" + std::to_string(effectiveAbilityScores[0]) + ", DEX:" + std::to_string(effectiveAbilityScores[1]) +
+			", CON:" + std::to_string(effectiveAbilityScores[2]) + ", INT:" + std::to_string(effectiveAbilityScores[3]) + ", WIS:" +
+			std::to_string(effectiveAbilityScores[4]) + ", CHA:" + std::to_string(effectiveAbilityScores[5]) + "\nAC:" + std::to_string(armorClass) +
+			", Damage Bonus:" + to_string(damageBonus) + ", Attack bonus:" + to_string(attackBonus) + "\n";
+
+		}
+	
+
+
+
 private:
 	int maxHealth;
+	int effectiveMaxHealth;
 	int health;
+	int damageBonus;
+	int attackBonus;
+	string damage;
+	Item* equipped[7];
 
+
+	bool updateStats();
+	
 	/**
 	* Entity's level
 	*/
@@ -103,4 +134,6 @@ private:
 	* Entity's ability scores (str,dex,cons,intel,wisd,chari)
 	*/
 	int abilityscores[6];
+	int effectiveAbilityScores[6];
+	int armorClass;
 };
