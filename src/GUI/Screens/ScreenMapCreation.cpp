@@ -2,6 +2,8 @@
 
 ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 {
+	map = new Map("", 10, 10);
+
 	height = 10;
 	width = 10;
 
@@ -20,8 +22,11 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	Button* lessHeightBtn = new Button("-", &Renderer::FONT_ROBOTO, 585, 68, 30, 30);
 	lessHeightBtn->adjustButtonDimensions();
 
-	Button* generateBtn = new Button("Generate", &Renderer::FONT_ROBOTO, 50, 125, 100, 30);
+	Button* generateBtn = new Button("Generate new", &Renderer::FONT_ROBOTO, 50, 125, 100, 30);
 	generateBtn->adjustButtonDimensions();
+
+	Button* loadBtn = new Button("Load map", &Renderer::FONT_ROBOTO, 250, 125, 100, 30);
+	loadBtn->adjustButtonDimensions();
 
 	Button* backBtn = new Button("Back", &Renderer::FONT_ROBOTO, 100, 600, 100, 30);
 	backBtn->adjustButtonDimensions();
@@ -76,19 +81,47 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 		createMap();
 	});
 
-	map = new Map("", 10, 10);
+	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		Map* newMap = MapBuilder::loadFromFile(nameInput->getText())->get();
+
+		if (newMap == nullptr)
+		{
+			cout << "no such file" << endl;
+			mapComp->setVisible(false);
+			tileMapComp->setVisible(false);
+			entityMapComp->setVisible(false);
+			return;
+		}
+
+		delete map;
+		setMap(newMap);
+
+		setHeight(map->getHeight());
+		setWidth(map->getWidth());
+		nameInput->setText(map->getName());
+
+		mapComp->setMap(map);
+		if (!mapComp->isVisible())
+		{
+			mapComp->setVisible(true);
+			tileMapComp->setVisible(true);
+			entityMapComp->setVisible(true);
+		}
+	});
+
 	tileMap = MapBuilder::loadFromFile("tileSelection")->get();
 	entityMap = MapBuilder::loadFromFile("entitySelection")->get();
 
-	mapComp = new MapComponent(map, 50, 160, 400, 400);
+	mapComp = new MapComponent(map, 50, 170, 400, 400);
 	addComponent(mapComp);
 	mapComp->setVisible(false);
 
-	tileMapComp = new MapComponent(tileMap, 500, 160, 40, 400);
+	tileMapComp = new MapComponent(tileMap, 500, 170, 40, 400);
 	addComponent(tileMapComp);
 	tileMapComp->setVisible(false);
 
-	entityMapComp = new MapComponent(entityMap, 600, 160, 40, 400);
+	entityMapComp = new MapComponent(entityMap, 600, 170, 40, 400);
 	addComponent(entityMapComp);
 	entityMapComp->setVisible(false);
 
@@ -113,14 +146,12 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	tileMapComp->addOnTileClickedCallback([this](Map* map, int x, int y)
 	{
 		storedEntity = nullptr;
-
 		storedTile = map->getTile(x, y);
 	});
 
 	entityMapComp->addOnTileClickedCallback([this](Map* map, int x, int y)
 	{
 		storedTile = nullptr;
-
 		storedEntity = map->getEntity(x, y);
 	});
 
@@ -132,6 +163,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	addComponent(nameInput);
 	addComponent(confirmBtn);
 	addComponent(generateBtn);
+	addComponent(loadBtn);
 }
 
 void ScreenMapCreation::render()
@@ -144,6 +176,11 @@ void ScreenMapCreation::render()
 	Renderer::drawString(std::to_string(width), Renderer::FONT_ROBOTO.get(16), 400, 75, 1, { 255,255,255,255 });
 
 	Screen::render();
+}
+
+void ScreenMapCreation::setMap(Map* newMap)
+{
+	map = newMap;
 }
 
 void ScreenMapCreation::setWidth(int value) {
@@ -176,7 +213,7 @@ void ScreenMapCreation::saveMap() {
 		return;
 	}
 
-	MapBuilder::saveToFile(map->getName(), map);
+	MapBuilder::saveToFile(nameInput->getText(), map);
 	std::cout << "Map saved" << std::endl;
 }
 

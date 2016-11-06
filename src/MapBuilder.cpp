@@ -28,7 +28,9 @@ MapBuilder* MapBuilder::saveToFile(std::string fileName, Map* map)
 	{
 		int width = map->getWidth();
 		int height = map->getHeight();
+		string name = fileName;
 
+		mapFile << name << std::endl;
 		mapFile << width << std::endl;
 		mapFile << height << std::endl;
 
@@ -84,13 +86,16 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 	if(mapFile.is_open())
 	{
 		int width=20, height=20;
+		string name = "";
 		std::string line;
+		std::getline(mapFile, line);
+		name = line;
 		std::getline(mapFile, line);
 		width = std::stoi(line);
 		std::getline(mapFile, line);
 		height = std::stoi(line);
 
-		Map* map = new Map(width, height);
+		Map* map = new Map(name, width, height);
 		int y = 0;
 		while(std::getline(mapFile, line))
 		{	

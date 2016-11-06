@@ -18,9 +18,6 @@ private:
 	Map* map;
 	Map* tileMap;
 	Map* entityMap;
-	MapComponent* mapComp;
-	MapComponent* tileMapComp;
-	MapComponent* entityMapComp;
 	TextField* nameInput;
 
 	MapTile* storedTile;
@@ -33,11 +30,16 @@ public:
 
 	ScreenMapCreation(Game* game);
 
+	MapComponent* mapComp;
+	MapComponent* tileMapComp;
+	MapComponent* entityMapComp;
+
 	void render() override;
 	void createMap();
 	void saveMap();
 	bool validateMap();
 
+	void setMap(Map* map);
 	void setHeight(int value);
 	void setWidth(int value);
 
