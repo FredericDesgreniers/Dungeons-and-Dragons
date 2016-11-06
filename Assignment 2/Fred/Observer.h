@@ -1,13 +1,13 @@
 #pragma once
 
 /**
- * Observer gets notified when subject changes
+ * \brief Observer gets notified when subject changes
  */
 class Observer
 {
 public:
 	/**
-	 * Trigger when subject changed
+	 * \brief Trigger when subject changed
 	 */
 	virtual void notify();
 };

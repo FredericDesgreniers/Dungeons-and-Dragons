@@ -4,7 +4,9 @@
 #include <cppunit/ui/text/TestRunner.h>
 #include "Observer.h"
 #include "character.h"
-
+/**
+ * \brief Test observer calss
+ */
 class ObserverTest1 :public Observer
 {
 public:
