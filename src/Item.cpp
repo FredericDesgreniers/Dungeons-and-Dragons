@@ -37,7 +37,8 @@ Item::Item(std::string name, Item::ItemType iType, int str, int dex, int con, in
 		dmgBoost = 0;
 		break;
 
-	case (ARMOR || SHIELD):
+	case (ARMOR):
+	case (SHIELD):
 		type = iType;
 		setArmBoost(arm);
 		strBoost = 0;
@@ -88,6 +89,19 @@ Item::Item(std::string name, Item::ItemType iType, int str, int dex, int con, in
 		wisBoost = 0;
 		chaBoost = 0;
 		armBoost = 0;
+		break;
+
+	case BOOTS:
+		type = iType;
+		setDexBoost(dex);
+		setArmBoost(arm);
+		atkBoost = 0;
+		dmgBoost = 0;
+		strBoost = 0;
+		conBoost = 0;
+		intBoost = 0;
+		wisBoost = 0;
+		chaBoost = 0;
 		break;
 
 	default:
