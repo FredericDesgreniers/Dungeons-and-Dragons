@@ -1,6 +1,7 @@
 #include "MapSelect.h"
 #include <Windows.h>
 #include <fileapi.h>
+#include <map>
 
 MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, height), previousMap(MapBuilder::createEmptyMap(10, 10)->get(), 100, 0,300,200), currentMap(MapBuilder::createEmptyMap(10, 10)->get(), 100, 220, 300, 200), nextMap(MapBuilder::createEmptyMap(10, 10)->get(), 100, 440, 300, 200)
 {
@@ -49,7 +50,10 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 	{
 		if (this->mapIndex>0)
 		{
-			//TODO add map to campaign
+			for (std::function<void(Map*map)> func:onMapClick_callback)
+			{
+				func(maps[mapIndex]);
+			}
 		}
 	});
 	nextMap.addOnClick_callback([this](Component*, int, int)
@@ -82,4 +86,9 @@ void MapSelect::setMaps()
 	{
 		nextMap.setVisible(false);
 	}
+}
+
+void MapSelect::addOnMapClick_callback(std::function<void(Map* map)> func)
+{
+	onMapClick_callback.push_back(func);
 }
