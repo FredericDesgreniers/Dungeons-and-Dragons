@@ -1,5 +1,6 @@
 #include "Item.h"
-
+#include <iostream>
+#include <fstream>
 
 Item::Item()
 {
@@ -114,6 +115,70 @@ Item::~Item()
 {
 
 }
+
+// loading works
+Item* Item::loadItem(std::string name)
+{
+	Item* it;
+	std::fstream itemFile("items/" + name + ".it");
+
+	if (itemFile.is_open())
+	{
+		std::string readArray[11] = {"", "", "", "", "", "", "", "", "", "", ""};
+		std::string line = "";
+
+		int i = 0;
+		while (std::getline(itemFile, line))
+		{
+			readArray[i] = line;
+			i++;
+		}
+
+		Item::ItemType type = stringToType(readArray[1]);
+
+	
+		it = new Item(readArray[0], type, std::stoi(readArray[2]), std::stoi(readArray[3]), std::stoi(readArray[4]), std::stoi(readArray[5]), std::stoi(readArray[6]),
+			std::stoi(readArray[7]), std::stoi(readArray[8]), std::stoi(readArray[9]), std::stoi(readArray[10]));
+
+		std::cout << "load item from " << name << ".it" << std::endl;
+		std::cout << it->toString() << std::endl;
+	}
+	else
+	{
+		std::cout << "Unable to read item file, returning default item";
+		it = new Item();
+	}
+	return it;
+}
+
+// saving works
+bool Item::saveItem(std::string name, Item* item)
+{
+	std::fstream itemFile;
+	itemFile.open("items/" + name + ".it", std::ios::out);
+
+	if (itemFile.is_open())
+	{
+		itemFile << item->getName() << std::endl << item->displayType(item->getItemType()) << std::endl << item->getStrBoost() << std::endl
+			<< item->getDexBoost() << std::endl << item->getConBoost() << std::endl << item->getIntBoost() << std::endl
+			<< item->getWisBoost() << std::endl << item->getChaBoost() << std::endl << item->getAtkBoost() << std::endl
+			<< item->getDmgBoost() << std::endl << item->getArmBoost();
+
+		itemFile.flush();
+		itemFile.close();
+	}
+	else
+	{
+		std::cout << "Unable to open file for writing" << std::endl;
+		return false;
+	}
+
+	std::cout << "Item saved to " + name + ".it" << std::endl;
+	return true;
+}
+
+
+
 
 
 /*
@@ -282,3 +347,27 @@ std::string Item::displayType(Item::ItemType iType) {
 		break;
 	}
 }
+
+Item::ItemType Item::stringToType(std::string type)
+{
+	if (type.compare("Helmet") == 0) {
+		return HELMET;
+	} else if (type.compare("Armor") == 0) {
+		return ARMOR;
+	} else if (type.compare("Shield") == 0) {
+		return SHIELD;
+	} else if (type.compare("Ring") == 0) {
+		return RING;
+	} else if (type.compare("Belt") == 0) {
+		return BELT;
+	} else if (type.compare("Boots") == 0) {
+		return BOOTS;
+	} else if (type.compare("WEAPON") == 0) {
+		return WEAPON;
+	}
+	else
+	{
+		
+	}
+}
+

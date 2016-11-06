@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <iostream>
 
@@ -22,7 +24,9 @@ public:
 
 
 	~Item();
-
+	
+	static Item* loadItem(std::string name);
+	static bool saveItem(std::string name, Item* item);
 
 	std::string getName();
 	void setName(std::string iName);
@@ -61,7 +65,9 @@ public:
 
 	std::string toString();
 
-	static std::string Item::displayType(Item::ItemType iType);
+	static std::string displayType(Item::ItemType iType);
+
+	static Item::ItemType stringToType(std::string type);
 
 private:
 
@@ -87,4 +93,3 @@ private:
 
 
 };
-#pragma once
