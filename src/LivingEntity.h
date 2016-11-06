@@ -81,7 +81,7 @@ public:
 	/**
 	* Set constitution as int
 	*/
-	void setConsitution(int value);
+	void setConstitution(int value);
 	/**
 	* Set inteligence as int
 	*/

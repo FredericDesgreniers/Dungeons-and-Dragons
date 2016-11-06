@@ -277,7 +277,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		abilityscores[1] = value;
 	}
 
-	void LivingEntity::setConsitution(int value)
+	void LivingEntity::setConstitution(int value)
 	{
 		abilityscores[2] = value;
 	}
