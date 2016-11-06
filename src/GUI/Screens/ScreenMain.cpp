@@ -48,33 +48,18 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	Button* campEditorBtn = new Button("Campaign Editor", &Renderer::FONT_ROBOTO, 100, 280, 100, 30);
 
 	campEditorBtn->adjustButtonDimensions();
-
 	campEditorBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		Screen* screen = this->game->getGuiManager()->setScreen(new ScreenCampaignCreation(this->game));
-		Renderer::addVoidScreen(screen);
+		Screen* campaignEditorScreen = new ScreenCampaignCreation(this->game);
+		Screen* screen = this->game->getGuiManager()->setScreen(campaignEditorScreen);
+		campaignEditorScreen->setBackButton(this);
 
 		std::cout << "Go to Character Editor!" << std::endl;
 	});
-	TextField* textfield = new TextField("", 10, 300, 400, 40);
-	/*
-	Map* map = new Map(25, 25);
-	MapComponent* mapComp = new MapComponent(map, 15, 250, 400, 400);
 
-	mapComp->addOnTileClickedCallback([this](Map* map, int x, int y)
-	{
-		MapTile* tile = map->getTile(x,y);
-		tile->setId(tile->getId() == TILE_EMPTY ? TILE_WALL : TILE_EMPTY);
-
-	});
-	
-	mapComp->setPadding(10, 10, 10, 10);
-	addComponent(mapComp);
-	*/
 	addComponent(playBtn);
 	addComponent(createMapBtn);
 	addComponent(charEditorBtn);
-	addComponent(textfield);
 	addComponent(campEditorBtn);
 }
 
