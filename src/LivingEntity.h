@@ -8,7 +8,8 @@
 class LivingEntity :public Entity {
 public:
 	LivingEntity(char c);
-	LivingEntity(char c, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int lvl);
+	LivingEntity(char c, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int level);
+	LivingEntity(char c, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int level, std::string cname);
 
 
 	/**
@@ -21,10 +22,14 @@ public:
 	 */
 	int getHealth();
 
+	std::string getName();
+
+
 	/**
 	 * Hit entity for some damage 
 	 */
 	bool hit(int damage);
+
 
 	/**
 	* Get level as int
@@ -54,6 +59,12 @@ public:
 	* Get charisma as int
 	*/
 	int getCharisma();
+
+
+	/**
+	*  Set entity name
+	*/
+	void setName(std::string cname);
 
 	/**
 	* Set level as int
@@ -92,7 +103,9 @@ public:
 	*/
 	int* getAbilityScoreArray();
 
-
+	/**
+	* Equip an item. Returns previously equipped item if one exists, nullptr otherwise
+	*/
 	Item* equip(Item* toEquip);
 
 	void outputEquipped();
@@ -100,7 +113,7 @@ public:
 
 	std::string toString() {
 	
-		return "STR:" + std::to_string(getStrength()) + ", DEX:" + std::to_string(getDexterity()) + ", CON:" + std::to_string(getConsitution()) +
+		return "Name: " + name + "\nSTR:" + std::to_string(getStrength()) + ", DEX:" + std::to_string(getDexterity()) + ", CON:" + std::to_string(getConsitution()) +
 			", INT:" + std::to_string(getIntelligence()) + ", WIS:" + std::to_string(getWisdom()) + ", CHA:" + std::to_string(getCharisma()) +
 			"\nEffective:\n" + "STR:" + std::to_string(effectiveAbilityScores[0]) + ", DEX:" + std::to_string(effectiveAbilityScores[1]) +
 			", CON:" + std::to_string(effectiveAbilityScores[2]) + ", INT:" + std::to_string(effectiveAbilityScores[3]) + ", WIS:" +
@@ -116,6 +129,7 @@ private:
 	int maxHealth;
 	int effectiveMaxHealth;
 	int health;
+	std::string name;
 	int damageBonus;
 	int attackBonus;
 	string damage;

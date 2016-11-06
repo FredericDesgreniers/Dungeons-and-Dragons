@@ -30,6 +30,9 @@ public:
 	 * As per the game rules, each ability is generated in the [3-18] range
 	 */
 	Character(int str, int dex, int cons, int intel, int wisd, int chari, int lvl);
+
+
+	Character(int str, int dex, int cons, int intel, int wisd, int chari, int lvl, std::string cname);
 	/**
 	 * Get modifer from ability score.
 	 * 

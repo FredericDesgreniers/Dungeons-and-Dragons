@@ -9,6 +9,10 @@ Character::Character(int str, int dex, int cons, int intel, int wisd, int chari,
 {
 }
 
+Character::Character(int str, int dex, int cons, int intel, int wisd, int chari, int lvl, std::string cname) : LivingEntity('C', str, dex, cons, intel, wisd, chari, lvl, cname)
+{
+}
+
 int Character::getModifier(int score)
 {
 	return (score - 10) / 2;
@@ -21,12 +25,13 @@ Character* Character::loadCharacter(std::string name) {
 	if (charFile.is_open()) {
 		int abilities[6] = { 0,0,0,0,0,0 };
 		std::string line = "";
+
 		for (int i = 0; i < 6; i++)
 		{
 			std::getline(charFile, line);
 			abilities[i] = stoi(line);
 		}
-		loadedCharacter = new Character(abilities[0], abilities[1], abilities[2], abilities[3], abilities[4], abilities[5], abilities[6]);
+		loadedCharacter = new Character(abilities[0], abilities[1], abilities[2], abilities[3], abilities[4], abilities[5], abilities[6], name);
 		std::cout << "Successfully loaded character from " << name << ".chr" << endl;
 		std::cout << loadedCharacter->toString() << endl;
 

@@ -194,6 +194,10 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 			std::cout << "Cannot instantiate character: points not spent" << std::endl;
 		}
 
+		else if (nameInput->getText() == "") {
+			std::cout << "Cannot instantiate character: enter a name" << std::endl;
+		}
+
 		else {
 			std::cout << "Character Instantiated:" << std::endl;
 			createCharacter();
@@ -204,7 +208,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		Character *testCharacter;
-		if (testCharacter=Character::loadCharacter("Test")) {
+		if (testCharacter=Character::loadCharacter("test")) {
 			int* loadAbilities = testCharacter->getAbilityScoreArray();
 			setStrength(to_string(loadAbilities[0]));
 			setDexterity(to_string(loadAbilities[1]));
@@ -212,6 +216,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 			setIntelligence(to_string(loadAbilities[3]));
 			setWisdom(to_string(loadAbilities[4]));
 			setCharisma(to_string(loadAbilities[5]));
+			nameInput->setText(testCharacter->getName());
 			setRemaining("0");
 		}
 		else {
@@ -392,12 +397,11 @@ void ScreenCharacterCreation::setRemaining(std::string value) {
 }
 
 void ScreenCharacterCreation::createCharacter() {
-	character = new Character(stoi(abilityScores[0]), stoi(abilityScores[1]), stoi(abilityScores[2]), stoi(abilityScores[3]), stoi(abilityScores[4]), stoi(abilityScores[5]),1);
+
+	character = new Character(stoi(abilityScores[0]), stoi(abilityScores[1]), stoi(abilityScores[2]), stoi(abilityScores[3]), stoi(abilityScores[4]), stoi(abilityScores[5]),1, nameInput->getText());
 	std::cout << character->toString() << endl;
 	character->outputEquipped();
 	Character::saveCharacter(nameInput->getText(), character);
-
-
 	std::cout << "Adding basic equipment:" << endl;
 	character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
 	character->equip(new Item("Helm of Smartmaking+4", Item::ItemType::HELMET, 0, 0, 0, 4, 0, 0, 0, 0, 0));
