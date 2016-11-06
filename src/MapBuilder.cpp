@@ -52,21 +52,21 @@ MapBuilder* MapBuilder::saveToFile(std::string fileName, Map* map)
 				case 3:
 					mapFile << 'E';
 					break;
+				default:
+					mapFile << ' ';
+					break;
 				}
 
-				Entity* entity = map->getEntity(width, height);
-
-				if (entity == NULL)
-				{
-					mapFile << '\'';
-				}
-				else
+				Entity* entity = map->getEntity(x, y);
+				
+				if (entity != nullptr)
 				{
 					mapFile << entity->getRenderChar();
 				}
-
-				delete entity;
-				entity = NULL;
+				else
+				{
+					mapFile << '\'';
+				}
 			}
 			mapFile << std::endl;
 		}

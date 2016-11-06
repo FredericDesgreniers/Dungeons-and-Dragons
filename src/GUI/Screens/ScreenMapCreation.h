@@ -17,9 +17,14 @@ private:
 
 	Map* map;
 	Map* tileMap;
+	Map* entityMap;
 	MapComponent* mapComp;
 	MapComponent* tileMapComp;
+	MapComponent* entityMapComp;
 	TextField* nameInput;
+
+	MapTile* storedTile;
+	Entity* storedEntity;
 
 	int height;
 	int width;
@@ -31,6 +36,7 @@ public:
 	void render() override;
 	void createMap();
 	void saveMap();
+	bool validateMap();
 
 	void setHeight(int value);
 	void setWidth(int value);

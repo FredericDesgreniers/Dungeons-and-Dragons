@@ -123,7 +123,6 @@ void MapComponent::render() {
 				}
 			}
 			
-
 		}
 	}
 	//Go through all entities
