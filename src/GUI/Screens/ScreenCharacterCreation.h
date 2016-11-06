@@ -4,6 +4,7 @@
 #include "../../character.h"
 #include <sstream>
 #include "../Components/TextField.h"
+#include "../Components/EquipedItemComponent.h"
 #include "../Renderer.h"
 #include "../../dice.h"
 #include <string>
@@ -20,6 +21,7 @@ public:
 	ScreenCharacterCreation(Game* game);
 	void render() override;
 	void createCharacter();
+	~ScreenCharacterCreation();
 	void setStrength(std::string value);
 	void setConstitution(std::string value);
 	void setDexterity(std::string value);
@@ -29,5 +31,7 @@ public:
 	void setRemaining(std::string value);
 	void increment(int stat);
 	void decrement(int stat);
+
+	void rollCharacter();
 
 };

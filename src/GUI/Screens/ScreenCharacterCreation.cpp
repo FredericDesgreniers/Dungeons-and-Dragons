@@ -3,6 +3,8 @@
 
 ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 {
+	character = new Character(1);
+
 	for (int i = 0; i < 7; i++) {
 		abilityScores[i] = "0";
 	}
@@ -164,6 +166,11 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent((new Label("Charisma", &Renderer::FONT_ROBOTO, 20, i+175, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Remaining", &Renderer::FONT_ROBOTO, 20, i+210, 1, 1))->setFontSize(20)->adjustDimensions());
 	
+	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 350, 100, 100, 100);
+	eiComp->setBorderColor_both(150, 150, 140, 255);
+	eiComp->setBorderSize(1);
+	eiComp->setPadding(10, 10, 10, 10);
+
 
 	backBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
@@ -174,14 +181,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	rollBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		setStrength(to_string(Dice::rollStat()));
-		setConstitution(to_string(Dice::rollStat()));
-		setDexterity(to_string(Dice::rollStat()));
-		setIntelligence(to_string(Dice::rollStat()));
-		setWisdom(to_string(Dice::rollStat()));
-		setCharisma(to_string(Dice::rollStat()));
-		setRemaining("0");
-		std::cout << "Rolling stats!" << std::endl;
+		rollCharacter();
 	});
 
 	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
@@ -207,26 +207,24 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	//This is a temporary button to test loading functionality.
 	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		Character *testCharacter;
-		if (testCharacter=Character::loadCharacter("Test")) {
-			int* loadAbilities = testCharacter->getAbilityScoreArray();
+		Character* temp;
+		if (temp=Character::loadCharacter("Test")) {
+			int* loadAbilities = temp->getAbilityScoreArray();
 			setStrength(to_string(loadAbilities[0]));
 			setDexterity(to_string(loadAbilities[1]));
 			setConstitution(to_string(loadAbilities[2]));
 			setIntelligence(to_string(loadAbilities[3]));
 			setWisdom(to_string(loadAbilities[4]));
 			setCharisma(to_string(loadAbilities[5]));
-			nameInput->setText(testCharacter->getName());
+			nameInput->setText(temp->getName());
 			setRemaining("0");
+			character = temp;
 		}
 		else {
 			std::cout << "Load Failed" << endl;
 		}
-		delete(testCharacter);
-		testCharacter = nullptr;
-		
-		
-
+		temp = nullptr;
+		character->outputEquipped();
 	});
 
 
@@ -247,6 +245,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent(nameInput);
 	addComponent(confirmBtn);
 	addComponent(loadBtn);
+	addComponent(eiComp);
 }
 
 void ScreenCharacterCreation::render()
@@ -366,6 +365,28 @@ void ScreenCharacterCreation::decrement(int stat) {
 
 }
 
+void ScreenCharacterCreation::rollCharacter() {
+	std::cout << "Rolling stats!" << std::endl;
+
+
+	setStrength(to_string(Dice::rollStat()));
+	setConstitution(to_string(Dice::rollStat()));
+	setDexterity(to_string(Dice::rollStat()));
+	setIntelligence(to_string(Dice::rollStat()));
+	setWisdom(to_string(Dice::rollStat()));
+	setCharisma(to_string(Dice::rollStat()));
+	setRemaining("0");
+
+	std::cout << "Adding test equipment:" << endl;
+	character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
+	character->equip(new Item("Helm of Smartmaking+4", Item::ItemType::HELMET, 0, 0, 0, 4, 0, 0, 0, 0, 0));
+	character->equip(new Item("Armor of Armorclass+5", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 5));
+	character->equip(new Item("Shield of No-effect-whatsoever", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+	character->equip(new Item("Ring of Smoothtalking +2", Item::ItemType::RING, 0, 0, 0, 0, 0, 2, 0, 0, 0));
+	character->equip(new Item("Boots of Dexterity+1", Item::ItemType::BOOTS, 0, 1, 0, 0, 0, 0, 0, 0, 0));
+	character->equip(new Item("Sword of Attack+1 and Damage+1", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 1, 0));
+
+}
 
 void ScreenCharacterCreation::setStrength(std::string value) {
 	abilityScores[0] = value;
@@ -398,28 +419,21 @@ void ScreenCharacterCreation::setRemaining(std::string value) {
 
 void ScreenCharacterCreation::createCharacter() {
 
-	character = new Character(stoi(abilityScores[0]), stoi(abilityScores[1]), stoi(abilityScores[2]), stoi(abilityScores[3]), stoi(abilityScores[4]), stoi(abilityScores[5]),1, nameInput->getText());
+	character->setLevel(1);
+	character->setStrength(stoi(abilityScores[0]));
+	character->setDexterity(stoi(abilityScores[1]));
+	character->setConstitution(stoi(abilityScores[3]));
+	character->setIntelligence(stoi(abilityScores[4]));
+	character->setWisdom(stoi(abilityScores[5]));
+	character->setCharisma(stoi(abilityScores[6]));
+	character->setName(nameInput->getText());
 	std::cout << character->toString() << endl;
-	character->outputEquipped();
 	Character::saveCharacter(nameInput->getText(), character);
-	std::cout << "Adding basic equipment:" << endl;
-	character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
-	character->equip(new Item("Helm of Smartmaking+4", Item::ItemType::HELMET, 0, 0, 0, 4, 0, 0, 0, 0, 0));
-	character->equip(new Item("Armor of Armorclass+5", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 5));
-	character->equip(new Item("Shield of No-effect-whatsoever", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-	character->equip(new Item("Ring of Smoothtalking +2", Item::ItemType::RING, 0, 0, 0, 0, 0, 2, 0, 0, 0));
-	character->equip(new Item("Boots of Dexterity+1", Item::ItemType::BOOTS, 0, 1, 0, 0, 0, 0, 0, 0, 0));
-	character->equip(new Item("Sword of Attack+1 and Damage+1", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 1, 0));
-	character->outputEquipped();
-	std::cout << character->toString() << endl;
-
-
-
 	
 
-
-
-	delete character;
-	character = nullptr;
+	std::cout << character->toString() << endl;
 }
 
+ScreenCharacterCreation::~ScreenCharacterCreation() {
+	delete character;
+}
