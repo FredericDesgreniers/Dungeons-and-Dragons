@@ -14,6 +14,8 @@ void MapComponent::setMap(Map* map)
 }
 
 void MapComponent::render() {
+	if (map == nullptr)
+		return;
 	int mapWidth = map->getWidth();
 	int mapHeight = map->getHeight();
 	//calculate tile width
@@ -158,10 +160,12 @@ void MapComponent::render() {
 
 
 void MapComponent::tick() {
-
+	if (map == nullptr)
+		return;
 }
 
 void MapComponent::renderDebug() {
+
 	Style::renderDebug();
 }
 
@@ -182,6 +186,9 @@ void MapComponent::setDrawDistance(double d) {
 
 void MapComponent::click(int x, int y)
 {
+	Style::click(x, y);
+	if (map == nullptr)
+		return;
 	int mapWidth = map->getWidth();
 	int mapHeight = map->getHeight();
 
@@ -201,5 +208,5 @@ void MapComponent::click(int x, int y)
 		}
 	}
 
-	Style::click(x,y);
+	
 }
