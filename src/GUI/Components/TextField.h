@@ -19,6 +19,7 @@ public:
 	std::string getText();
 
 	void setMaxLength(int length);
+	void setText(std::string text);
 	int getMaxLength();
 
 private:

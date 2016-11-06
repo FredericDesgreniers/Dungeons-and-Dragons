@@ -101,6 +101,10 @@ void TextField::setMaxLength(int length) {
 	this->maxLength = length;
 }
 
+void TextField::setText(std::string text) {
+	this->text = text;
+}
+
 int TextField::getMaxLength() {
 	return maxLength;
 }
