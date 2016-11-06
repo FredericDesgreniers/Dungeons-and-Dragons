@@ -10,9 +10,9 @@ class MapSelect:public Pane{
 		void addOnMapClick_callback(std::function<void(Map* map)>);
 private:
 	std::vector<Map*> maps;
-	MapComponent previousMap;
-	MapComponent currentMap;
-	MapComponent nextMap;
+	MapComponent* previousMap;
+	MapComponent* currentMap;
+	MapComponent* nextMap;
 	std::vector<std::function<void(Map* map)>> onMapClick_callback;
 	int mapIndex = 0;
 

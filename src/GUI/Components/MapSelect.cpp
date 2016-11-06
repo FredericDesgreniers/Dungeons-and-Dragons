@@ -3,10 +3,14 @@
 #include <fileapi.h>
 #include <map>
 
-MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, height), previousMap(MapBuilder::createEmptyMap(10, 10)->get(), 100, 0,300,200), currentMap(MapBuilder::createEmptyMap(10, 10)->get(), 100, 220, 300, 200), nextMap(MapBuilder::createEmptyMap(10, 10)->get(), 100, 440, 300, 200)
+MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, height)
 {
-	
-	previousMap.setVisible(false);
+	previousMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, 0, width, (height/3));
+	currentMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, height/3, width, (height / 3));
+	nextMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, height / 3 * 2,width , (height / 3));
+
+
+	previousMap->setVisible(false);
 
 
 
@@ -34,11 +38,11 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 		::FindClose(hFind);
 	}
 
-	addComponent(&previousMap);
-	addComponent(&currentMap);
-	addComponent(&nextMap);
+	addComponent(previousMap);
+	addComponent(currentMap);
+	addComponent(nextMap);
 
-	previousMap.addOnClick_callback([this](Component*,int,int)
+	previousMap->addOnClick_callback([this](Component*,int,int)
 	{
 		if(this->mapIndex>0)
 		{
@@ -46,7 +50,7 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 			setMaps();
 		}
 	});
-	currentMap.addOnClick_callback([this](Component*, int, int)
+	currentMap->addOnClick_callback([this](Component*, int, int)
 	{
 		if (this->mapIndex>0)
 		{
@@ -56,7 +60,7 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 			}
 		}
 	});
-	nextMap.addOnClick_callback([this](Component*, int, int)
+	nextMap->addOnClick_callback([this](Component*, int, int)
 	{
 		if (this->mapIndex<maps.size()-1)
 		{
@@ -69,22 +73,22 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 }
 void MapSelect::setMaps()
 {
-	currentMap.setMap(maps[mapIndex]);
+	currentMap->setMap(maps[mapIndex]);
 	if(mapIndex>0)
 	{
-		previousMap.setMap(maps[mapIndex-1]);
-		previousMap.setVisible(true);
+		previousMap->setMap(maps[mapIndex-1]);
+		previousMap->setVisible(true);
 	}else
 	{
-		previousMap.setVisible(false);
+		previousMap->setVisible(false);
 	}
 	if (mapIndex<maps.size()-1)
 	{
-		nextMap.setMap(maps[mapIndex + 1]);
-		nextMap.setVisible(true);
+		nextMap->setMap(maps[mapIndex + 1]);
+		nextMap->setVisible(true);
 	}else
 	{
-		nextMap.setVisible(false);
+		nextMap->setVisible(false);
 	}
 }
 
