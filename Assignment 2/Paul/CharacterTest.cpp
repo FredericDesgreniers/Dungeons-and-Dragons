@@ -38,7 +38,9 @@ CPPUNIT_TEST_SUITE_REGISTRATION(CharacterTest);
 //! Assertion: the CharacterObserver's subject is the Character
 void CharacterTest::testAttach()
 {
+	// new character obj
 	Character* goku = new Character(1, 1, 1, 1, 1, 1);
+	// new observer
 	CharacterObserver* o = new CharacterObserver(goku);
 
 	CPPUNIT_ASSERT(o->getSubject() == goku);
