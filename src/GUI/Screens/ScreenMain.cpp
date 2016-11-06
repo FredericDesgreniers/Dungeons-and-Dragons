@@ -6,6 +6,7 @@
 
 #include "../Components/TextField.h"
 #include "../Renderer.h"
+#include "ScreenCampaignCreation.h"
 
 
 ScreenMain::ScreenMain(Game* game) : Screen(game)
@@ -44,7 +45,17 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 		std::cout << "Go to Character Editor!" << std::endl;
 	});
 
+	Button* campEditorBtn = new Button("Campaign Editor", &Renderer::FONT_ROBOTO, 100, 280, 100, 30);
 
+	campEditorBtn->adjustButtonDimensions();
+
+	campEditorBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		Screen* screen = this->game->getGuiManager()->setScreen(new ScreenCampaignCreation(this->game));
+		Renderer::addVoidScreen(screen);
+
+		std::cout << "Go to Character Editor!" << std::endl;
+	});
 	TextField* textfield = new TextField("", 10, 300, 400, 40);
 	/*
 	Map* map = new Map(25, 25);
@@ -64,6 +75,7 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	addComponent(createMapBtn);
 	addComponent(charEditorBtn);
 	addComponent(textfield);
+	addComponent(campEditorBtn);
 }
 
 void ScreenMain::render()
