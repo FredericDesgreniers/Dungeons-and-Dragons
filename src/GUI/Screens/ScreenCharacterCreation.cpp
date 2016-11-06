@@ -14,8 +14,6 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	rollBtn->setFontSize(30);
 	rollBtn->adjustButtonDimensions();
 
-
-
 	Button* backBtn = new Button("Back", &Renderer::FONT_ROBOTO, 100, 600, 1, 1);
 	backBtn->setFontSize(30);
 	backBtn->adjustButtonDimensions();
@@ -396,7 +394,27 @@ void ScreenCharacterCreation::setRemaining(std::string value) {
 void ScreenCharacterCreation::createCharacter() {
 	character = new Character(stoi(abilityScores[0]), stoi(abilityScores[1]), stoi(abilityScores[2]), stoi(abilityScores[3]), stoi(abilityScores[4]), stoi(abilityScores[5]),1);
 	std::cout << character->toString() << endl;
+	character->outputEquipped();
 	Character::saveCharacter(nameInput->getText(), character);
+
+
+	std::cout << "Adding basic equipment:" << endl;
+	character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
+	character->equip(new Item("Helm of Smartmaking+4", Item::ItemType::HELMET, 0, 0, 0, 4, 0, 0, 0, 0, 0));
+	character->equip(new Item("Armor of Armorclass+5", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 5));
+	character->equip(new Item("Shield of No-effect-whatsoever", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+	character->equip(new Item("Ring of Smoothtalking +2", Item::ItemType::RING, 0, 0, 0, 0, 0, 2, 0, 0, 0));
+	character->equip(new Item("Boots of Dexterity+1", Item::ItemType::BOOTS, 0, 1, 0, 0, 0, 0, 0, 0, 0));
+	character->equip(new Item("Sword of Attack+1 and Damage+1", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 1, 0));
+	character->outputEquipped();
+	std::cout << character->toString() << endl;
+
+
+
+	
+
+
+
 	delete character;
 	character = nullptr;
 }
