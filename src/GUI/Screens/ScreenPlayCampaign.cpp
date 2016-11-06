@@ -20,7 +20,9 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 	addComponent(character_component);
 	
 	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 500, 300, 200, 500);
-
+	eiComp->setBorderColor_both(150, 150, 140, 255);
+	eiComp->setBorderSize(1);
+	eiComp->setPadding(10, 10, 10, 10);
 	addComponent(eiComp);
 
 	map_component->addOnTileClickedCallback([this](Map* map, int x, int y)
