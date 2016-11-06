@@ -4,7 +4,7 @@
 EquipedItemComponent::EquipedItemComponent(Item** items, int x, int y, int width, int height):Pane(x,y,width,height)
 {
 	this->items = items;
-	setFontSize(18);
+	setFontSize(15);
 	for (int i = Item::ItemType::HELMET; i != Item::ItemType::WEAPON; i++)
 	{
 
@@ -17,7 +17,7 @@ EquipedItemComponent::EquipedItemComponent(Item** items, int x, int y, int width
 void EquipedItemComponent::render()
 {
 	Pane::render();
-
+	drawDefaultStyle();
 	for (int i = Item::ItemType::HELMET; i != Item::ItemType::WEAPON; i++)
 	{
 		if(items[i]!=nullptr)
