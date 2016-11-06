@@ -5,9 +5,9 @@
 
 MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, height)
 {
-	previousMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, 0, width, (height/3));
-	currentMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, height/3, width, (height / 3));
-	nextMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, height / 3 * 2,width , (height / 3));
+	previousMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, 0, width, (height/3)-10);
+	currentMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, height/3, width, (height / 3)-10);
+	nextMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, height / 3 * 2,width , (height / 3)-10);
 
 
 	previousMap->setVisible(false);
@@ -95,4 +95,9 @@ void MapSelect::setMaps()
 void MapSelect::addOnMapClick_callback(std::function<void(Map* map)> func)
 {
 	onMapClick_callback.push_back(func);
+}
+void MapSelect::render()
+{
+	drawDefaultStyle();
+	Pane::render();
 }
