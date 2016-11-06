@@ -1,8 +1,10 @@
 #include "ScreenCampaignCreation.h"
 #include "../Components/MapSelect.h"
-
+#include "../Renderer.h"
 ScreenCampaignCreation::ScreenCampaignCreation(Game* game):Screen(game)
 {
-	MapSelect* ms = new MapSelect(0,0,300,500);
+	int wx, wy;
+	SDL_GetWindowSize(Renderer::window, &wx, &wy);
+	MapSelect* ms = new MapSelect(50,50,wx/2,wy-100);
 	addComponent(ms);
 }
