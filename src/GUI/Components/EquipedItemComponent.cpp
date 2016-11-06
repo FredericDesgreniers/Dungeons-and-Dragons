@@ -21,7 +21,9 @@ void EquipedItemComponent::render()
 	for (int i = Item::ItemType::HELMET; i != Item::ItemType::WEAPON; i++)
 	{
 		if(items[i]!=nullptr)
-			Renderer::drawString(items[i]->getName(), Renderer::FONT_ROBOTO.get(15), 150, i*(fontSize+20),1,{255,255,255,255});
+			Renderer::drawString(items[i]->getName(), Renderer::FONT_ROBOTO.get(15), getPositionX()+60, getPositionY()+i*(fontSize+20),1,{255,255,255,255});
+		else
+			Renderer::drawString("None", Renderer::FONT_ROBOTO.get(15), getPositionX() + 60, getPositionY() + i*(fontSize + 20), 1, { 255,255,255,255 });
 	}
 
 }
