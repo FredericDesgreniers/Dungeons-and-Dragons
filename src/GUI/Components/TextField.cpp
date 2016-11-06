@@ -12,6 +12,10 @@ TextField::TextField(std::string text, int x, int y, int width, int height):Styl
 	{
 		whiteList.push_back(std::string(1,c));
 	}
+	for (char c = '0'; c <= '9'; c++)
+	{
+		whiteList.push_back(std::string(1, c));
+	}
 	maxLength = 100;
 
 	this->setBackgroundColor_both(100, 100, 100, 255);
