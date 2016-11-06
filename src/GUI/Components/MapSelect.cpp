@@ -17,30 +17,8 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 	previousMap->setVisible(false);
 
 
-
-	char search_path[200];
-	sprintf_s(search_path, "%s*.*", "maps/");
-	WIN32_FIND_DATA fd;
-	HANDLE hFind = ::FindFirstFile(search_path, &fd);
-	if (hFind != INVALID_HANDLE_VALUE)
-	{
-		int y = 0;
-		do
-		{
-			// read all (real) files in current folder, delete '!' read other 2 default folder . and ..
-			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-			{
-
-				const std::string name = std::string(fd.cFileName).substr(0, strlen(fd.cFileName) - 4);
-				
-				maps.push_back(MapBuilder::loadFromFile(name)->get());
-
-				y += fontSize + 10;
-
-			}
-		} while (::FindNextFile(hFind, &fd));
-		::FindClose(hFind);
-	}
+	reloadMaps();
+	
 
 	addComponent(previousMap);
 	addComponent(currentMap);
@@ -75,6 +53,7 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 		setMaps();
 
 }
+
 void MapSelect::setMaps()
 {
 	currentMap->setMap(maps[mapIndex]);
@@ -104,4 +83,32 @@ void MapSelect::render()
 {
 	drawDefaultStyle();
 	Pane::render();
+}
+
+void MapSelect::reloadMaps()
+{
+	maps.clear();
+	char search_path[200];
+	sprintf_s(search_path, "%s*.*", "maps/");
+	WIN32_FIND_DATA fd;
+	HANDLE hFind = ::FindFirstFile(search_path, &fd);
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		int y = 0;
+		do
+		{
+			// read all (real) files in current folder, delete '!' read other 2 default folder . and ..
+			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+
+				const std::string name = std::string(fd.cFileName).substr(0, strlen(fd.cFileName) - 4);
+
+				maps.push_back(MapBuilder::loadFromFile(name)->get());
+
+				y += fontSize + 10;
+
+			}
+		} while (::FindNextFile(hFind, &fd));
+		::FindClose(hFind);
+	}
 }

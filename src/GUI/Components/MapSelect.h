@@ -6,6 +6,7 @@ class MapSelect:public Pane{
 	public:
 		MapSelect(int x, int y, int width, int height);
 		void setMaps();
+		void reloadMaps();
 		virtual void render();
 		void addOnMapClick_callback(std::function<void(Map* map)>);
 private:
