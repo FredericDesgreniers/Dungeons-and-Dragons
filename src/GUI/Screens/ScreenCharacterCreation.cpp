@@ -208,7 +208,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		Character *testCharacter;
-		if (testCharacter=Character::loadCharacter("test")) {
+		if (testCharacter=Character::loadCharacter("Test")) {
 			int* loadAbilities = testCharacter->getAbilityScoreArray();
 			setStrength(to_string(loadAbilities[0]));
 			setDexterity(to_string(loadAbilities[1]));
