@@ -9,6 +9,10 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 	currentMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, height/3, width, (height / 3)-10);
 	nextMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, height / 3 * 2,width , (height / 3)-10);
 
+	currentMap->setBorderColor(200, 0, 0, 255);
+	currentMap->setBorderColor_hover(255, 0, 0, 255);
+
+	currentMap->setBorderSize(3);
 
 	previousMap->setVisible(false);
 

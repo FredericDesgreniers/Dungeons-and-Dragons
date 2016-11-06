@@ -14,6 +14,7 @@ void MapComponent::setMap(Map* map)
 }
 
 void MapComponent::render() {
+	drawDefaultStyle();
 	if (map == nullptr)
 		return;
 	int mapWidth = map->getWidth();
