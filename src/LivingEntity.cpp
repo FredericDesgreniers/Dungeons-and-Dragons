@@ -299,3 +299,7 @@ int * LivingEntity::getEffectiveAbilityScoreArray()
 	return effectiveAbilityScores;
 }
 
+Item** LivingEntity::getEquippedItems()
+{
+	return equipped;
+}

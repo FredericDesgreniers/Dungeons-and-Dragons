@@ -109,7 +109,7 @@ public:
 
 		}
 	
-
+	Item** getEquippedItems();
 
 
 private:
