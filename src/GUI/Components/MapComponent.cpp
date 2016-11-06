@@ -22,6 +22,10 @@ void MapComponent::render() {
 	//calculate tile width
 	int tileWidth = getWidth() / mapWidth;
 	int tileHeight = getHeight() / mapHeight;
+	
+	//calculate leftover space
+	int offsetWidth = getWidth() - (tileWidth*map->getWidth());
+	int offsetHeight = getHeight() - (tileHeight*map->getHeight());
 
 	//get mosue position
 	int mx, my;
@@ -44,8 +48,8 @@ void MapComponent::render() {
 			}
 			
 			// calculate x and y position relative to screen
-			int x= i*tileWidth + getPositionX();
-			int y = j*tileHeight + getPositionY();
+			int x= i*tileWidth + getPositionX()+offsetWidth/2;
+			int y = j*tileHeight + getPositionY()+offsetHeight/2;
 
 			//is mouse hovering a tile?
 			bool hover;
@@ -195,9 +199,13 @@ void MapComponent::click(int x, int y)
 
 	int tileWidth = getWidth() / mapWidth;
 	int tileHeight = getHeight() / mapHeight;
+	//calculate leftover space
+	int offsetWidth = getWidth() - (tileWidth*map->getWidth());
+	int offsetHeight = getWidth() - (tileHeight*map->getHeight());
+
 	//get tile clicked
-	int tileX = x / tileWidth;
-	int tileY = y / tileHeight;
+	int tileX = (x-offsetWidth/2) / tileWidth;
+	int tileY = (y-offsetHeight/2) / tileHeight;
 
 	//make sure it's valid tile
 	if (tileX >= 0 && tileY >= 0 && tileX < mapWidth && tileY < mapHeight) {
