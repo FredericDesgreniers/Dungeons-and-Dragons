@@ -3,6 +3,18 @@
 
 Item::Item()
 {
+	itemName = "default";
+	type = WEAPON;
+	strBoost = 0;
+	dexBoost = 0;
+	conBoost = 0;
+	chaBoost = 0;
+	atkBoost = 0;
+	dmgBoost = 0;
+
+	intBoost = 0;
+	wisBoost = 0;
+	armBoost = 0;
 
 };
 
@@ -201,9 +213,9 @@ int Item::checkValididty(int boost)
 }
 
 // displays the item name, type and scores
-inline std::string Item::toString() 
+std::string Item::toString() 
 {
-	std::string str = getName() + "\nType: " + displayType(getItemType())
+	std::string str = "\t" + getName() + "\nType: " + displayType(getItemType())
 		+ "\nStrength:      +" + std::to_string(getStrBoost())
 		+ "\nDexterity:     +" + std::to_string(getDexBoost())
 		+ "\nConstitution:  +" + std::to_string(getConBoost())
@@ -219,7 +231,7 @@ inline std::string Item::toString()
 
 // C++ does not allow to print enums
 // This method takes an ItemType enum and returns a string to display it
-inline std::string Item::displayType(Item::ItemType iType) {
+std::string Item::displayType(Item::ItemType iType) {
 	
 	switch (iType)
 	{

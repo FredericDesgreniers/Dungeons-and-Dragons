@@ -59,9 +59,9 @@ public:
 
 	int checkValididty(int boost);
 
-	inline std::string toString();
+	std::string toString();
 
-	inline std::string Item::displayType(Item::ItemType iType);
+	std::string Item::displayType(Item::ItemType iType);
 
 private:
 
