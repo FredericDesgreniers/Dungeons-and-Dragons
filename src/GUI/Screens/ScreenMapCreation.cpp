@@ -13,6 +13,9 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	nameInput = new TextField("TestMap", 125, 75, 100, 20);
 	nameInput->setFontSize(15);
 
+	mapSelect = new MapSelect(40, 170, 200, 400);
+	mapSelect->setVisible(true);
+
 	Button* moreWidthBtn = new Button("+", &Renderer::FONT_ROBOTO, 425, 68, 30, 30);
 	moreWidthBtn->adjustButtonDimensions();
 	Button* lessWidthBtn = new Button("-", &Renderer::FONT_ROBOTO, 385, 68, 30, 30);
@@ -79,12 +82,10 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	{
 		std::cout << "Map Instantiated" << std::endl;
 		createMap();
+		mapSelect->setVisible(false);
 	});
-
-	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	mapSelect->addOnMapClick_callback([this](Map* newMap)
 	{
-		Map* newMap = MapBuilder::loadFromFile(nameInput->getText())->get();
-
 		if (newMap == nullptr)
 		{
 			cout << "no such file" << endl;
@@ -93,21 +94,33 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 			entityMapComp->setVisible(false);
 			return;
 		}
-
+		this->mapSelect->setVisible(false);
 		delete map;
+		this->nameInput->setText(newMap->getName());
 		setMap(newMap);
 
-		setHeight(map->getHeight());
-		setWidth(map->getWidth());
-		nameInput->setText(map->getName());
+		setHeight(newMap->getHeight());
+		setWidth(newMap->getWidth());
 
-		mapComp->setMap(map);
+
+		mapComp->setMap(newMap);
 		if (!mapComp->isVisible())
 		{
 			mapComp->setVisible(true);
 			tileMapComp->setVisible(true);
 			entityMapComp->setVisible(true);
 		}
+	});
+	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		Map* newMap = MapBuilder::loadFromFile(nameInput->getText())->get();
+		mapSelect->setVisible(true);
+		mapSelect->reloadMaps();
+		mapComp->setVisible(false);
+		tileMapComp->setVisible(false);
+		entityMapComp->setVisible(false);
+
+
 	});
 
 	tileMap = MapBuilder::loadFromFile("tileSelection")->get();
@@ -154,7 +167,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 		storedTile = nullptr;
 		storedEntity = map->getEntity(x, y);
 	});
-
+	addComponent(mapSelect);
 	addComponent(backBtn);
 	addComponent(moreWidthBtn);
 	addComponent(lessWidthBtn);

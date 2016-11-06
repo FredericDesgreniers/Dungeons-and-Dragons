@@ -9,6 +9,7 @@
 #include "../../dice.h"
 #include "../Components/MapComponent.h"
 #include <string>
+#include "../Components/MapSelect.h"
 
 class ScreenMapCreation : public Screen
 {
@@ -33,6 +34,8 @@ public:
 	MapComponent* mapComp;
 	MapComponent* tileMapComp;
 	MapComponent* entityMapComp;
+
+	MapSelect* mapSelect;
 
 	void render() override;
 	void createMap();
