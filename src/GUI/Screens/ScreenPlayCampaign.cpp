@@ -1,5 +1,6 @@
 #include "ScreenPlayCampaign.h"
 #include "../../MapBuilder.h"
+#include "../Components/EquipedItemComponent.h"
 
 
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
@@ -18,6 +19,10 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 	character_component->setPadding(10, 10, 10, 10);
 	addComponent(character_component);
 	
+	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 500, 300, 200, 500);
+
+	addComponent(eiComp);
+
 	map_component->addOnTileClickedCallback([this](Map* map, int x, int y)
 	{
 		Character* chara = this->character;
