@@ -1,0 +1,17 @@
+/**
+\mainpage Assignment 2: Character Observer
+
+
+COMP 345 Section D
+Professor Joey Paquet
+
+Tim Gottschalk (25595282)
+
+By default, the program is configured to run several CPPUnit tests. In order to run a driver 
+that will run additional tests as outlined in the assignment instructions, simply comment out the statement
+"#define TEST" found on line 30 of runApp.cpp and recompile the application. It is assumed the 
+CPPUnit libraries and includes are installed and properly configured in the project being used for 
+testing (as discussed with Dr Paquet in lecture). Please see CharacterObserver class for main 
+documentation
+
+*/
