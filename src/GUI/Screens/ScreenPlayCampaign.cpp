@@ -88,6 +88,10 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 		break;
 	}
 	}
+	if(currentmap->getTile(character->getPositionX(), character->getPositionY())->getId() == ENDTILE)
+	{
+		std::cout << "Map Finished" << std::endl;
+	}
 }
 
 
