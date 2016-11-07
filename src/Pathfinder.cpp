@@ -21,7 +21,7 @@ void Pathfinder::createNodeGrid()
 	if (nodeGrid != nullptr)
 		for (int i = 0; i < width; i++)
 		{
-			for (int j = 0; j < width; j++)
+			for (int j = 0; j < height; j++)
 			{
 				if (nodeGrid[i][j] != nullptr)
 					delete nodeGrid[i][j];
@@ -245,7 +245,7 @@ Pathfinder::~Pathfinder()
 	if (nodeGrid != nullptr)
 		for (int i = 0; i < width; i++)
 		{
-			for (int j = 0; j < width; j++)
+			for (int j = 0; j < height; j++)
 			{
 				if (nodeGrid[i][j] != nullptr)
 					delete nodeGrid[i][j];
