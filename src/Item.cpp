@@ -362,7 +362,7 @@ Item::ItemType Item::stringToType(std::string type)
 		return BELT;
 	} else if (type.compare("Boots") == 0) {
 		return BOOTS;
-	} else if (type.compare("WEAPON") == 0) {
+	} else if (type.compare("Weapon") == 0) {
 		return WEAPON;
 	}
 	else
