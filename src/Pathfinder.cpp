@@ -39,12 +39,13 @@ void Pathfinder::createNodeGrid()
 			MapTile* tile = map->getTile(x, y);
 			bool entityThere = map->getEntity(x, y) != nullptr && !(x==destinationX && y==destinationY);
 			Node* node = new Node(x, y, tile->getMovementCost(), !entityThere && tile->getWalkable());
-
+	
 			//calculate the distance to destination from tile
 			node->calculateHeuristic(destinationX, destinationY);
 			nodeGrid[x][y] = node;
 		}
 	}
+
 }
 void Pathfinder::setDestination(int dx, int dy)
 {
@@ -114,8 +115,6 @@ std::vector<Node*>* Pathfinder::getPath(int x1, int y1)
 				//check if node is the destination node. If so, exit loop
 				if (node == nodeGrid[destinationX][destinationY])
 				{
-					node->parent = current;
-					current = node;
 					found = true;
 					break;
 				}
