@@ -55,7 +55,15 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 
 void MapSelect::setMaps()
 {
-	currentMap->setMap(maps[mapIndex]);
+	int rSize = maps.size() - 1;
+	if (mapIndex < maps.size()) {
+		currentMap->setMap(maps[mapIndex]);
+		currentMap->setVisible(true);
+	}
+	else
+	{
+		currentMap->setVisible(false);
+	}
 	if(mapIndex>0)
 	{
 		previousMap->setMap(maps[mapIndex-1]);
@@ -64,7 +72,7 @@ void MapSelect::setMaps()
 	{
 		previousMap->setVisible(false);
 	}
-	if (mapIndex<maps.size()-1)
+	if (mapIndex<rSize)
 	{
 		nextMap->setMap(maps[mapIndex + 1]);
 		nextMap->setVisible(true);
@@ -110,4 +118,6 @@ void MapSelect::reloadMaps()
 		} while (::FindNextFile(hFind, &fd));
 		::FindClose(hFind);
 	}
+
+	setMaps();
 }
