@@ -1,4 +1,7 @@
 #include "ScreenMapCreation.h"
+#include "../../Monster.h"
+#include "../../Wizard.h"
+#include "../../EntityChest.h"
 
 ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 {
@@ -123,8 +126,17 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 
 	});
 
-	tileMap = MapBuilder::loadFromFile("tileSelection")->get();
-	entityMap = MapBuilder::loadFromFile("entitySelection")->get();
+	tileMap = new Map(1, 10);
+	entityMap = new Map(1, 10);
+
+	tileMap->setTile(new MapTile(TILE_WALL), 0, 2);
+	tileMap->setTile(new MapTile(SPAWNTILE), 0, 0);
+	tileMap->setTile(new MapTile(ENDTILE), 0, 1);
+
+	entityMap->spawnEntity(new Monster(), 0, 0);
+	entityMap->spawnEntity(new Wizard(), 0, 1);
+	entityMap->spawnEntity(new EntityChest(), 0, 2);
+
 
 	mapComp = new MapComponent(map, 50, 170, 400, 400);
 	addComponent(mapComp);
