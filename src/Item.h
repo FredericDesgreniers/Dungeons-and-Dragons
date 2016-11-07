@@ -70,6 +70,8 @@ public:
 
 	static Item::ItemType stringToType(std::string type);
 
+	Item* generateRandomItem(int level);
+
 private:
 
 

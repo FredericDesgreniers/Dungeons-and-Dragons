@@ -67,7 +67,7 @@ void Pathfinder::refreshHeuristics()
 /**
 * Get a path from x1, y1 to the destination
 */
-std::vector<Node*> Pathfinder::getPath(int x1, int y1)
+std::vector<Node*>* Pathfinder::getPath(int x1, int y1)
 {
 	//open nodes list
 	std::vector<Node*> openNodes;
@@ -114,6 +114,8 @@ std::vector<Node*> Pathfinder::getPath(int x1, int y1)
 				//check if node is the destination node. If so, exit loop
 				if (node == nodeGrid[destinationX][destinationY])
 				{
+					node->parent = current;
+					current = node;
 					found = true;
 					break;
 				}
@@ -175,15 +177,14 @@ std::vector<Node*> Pathfinder::getPath(int x1, int y1)
 		//std::cout << std::endl;
 
 	}
-	std::vector<Node*> path;
+	std::vector<Node*>* path = new vector<Node*>();
 	//trace back path from destination to start using parents
-
 	while (current->parent != nullptr)
 	{
-		path.push_back(current);
+		path->push_back(current);
 		current = current->parent;
 	}
-	path.push_back(current);
+	path->push_back(current);
 	return path;
 
 
