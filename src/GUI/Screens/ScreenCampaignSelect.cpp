@@ -2,23 +2,26 @@
 
 #include "ScreenCharacterSelect.h"
 #include "../Renderer.h"
+#include "../Components/MapSelect.h"
 
 
 ScreenCampaignSelect::ScreenCampaignSelect(Game* game) : Screen(game)
 {
-	Button* defaultCampaignButton = new Button("Default Campaign",&Renderer::FONT_ROBOTO, 100,300,0,0);
-	defaultCampaignButton->setFontColor(255, 255, 255, 255);
-	defaultCampaignButton->adjustButtonDimensions();
-	defaultCampaignButton->addOnClick_callback([this](Component* comp, int x, int y)
-	{
-		Campaign* campaign = new Campaign("Default");
 
+
+	MapSelect* mapSelect = new MapSelect(200, 0, 300, 800);
+	mapSelect->addOnMapClick_callback([this](Map* map)
+	{
+		Campaign* campaign = new Campaign(map->getName());
+		campaign->addMap(map);
 		Screen* screen = new ScreenCharacterSelect(this->game, campaign);
 		screen->setBackButton(this);
 		this->game->getGuiManager()->setScreen(screen);
 	});
 
-	addComponent(defaultCampaignButton);
+	addComponent(mapSelect);
+
+
 }
 
 void ScreenCampaignSelect::render()
