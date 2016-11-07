@@ -141,8 +141,18 @@ void Map::simulateMapTick()
 bool Map::spawnCharacter(Character* character)
 {
 	this->character = character;
-
-	return (spawnEntity(character, spawnX, spawnY));
+	for (int x = 0; x < getWidth(); x++)
+	{
+		for (int y = 0; y < getHeight(); y++)
+		{
+			if(getTile(x,y)->getId()==SPAWNTILE)
+			{
+				return (spawnEntity(character, x, y));
+			}
+		}
+	}
+	return false;
+	
 }
 
 Character* Map::getCharacter()
