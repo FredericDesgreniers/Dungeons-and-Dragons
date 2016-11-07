@@ -38,7 +38,7 @@ public:
 	 * 
 	 * The modifier is calculated as per game rules using (score-10)/2
 	 */
-	int getModifier(int);
+	int getModifier(int stat);
 
 
 
