@@ -47,13 +47,10 @@ public:
 	 * 
 	 * The character is validated if the ability scores are all within the range of [3-18]s
 	 */
-	//Temporarily commented out to not implement this now
-	 /**
+
 	bool validateNewCharacter();
-	**/
-	/**
-	* Output string to ostream using <<
-	*/
+
+
 
 	static Character* Character::loadCharacter(std::string name);
 

@@ -94,17 +94,18 @@ bool Character::saveCharacter(std::string name, Character* character) {
 	return true;
 }
 
-// I temporarily removed this since there is no real need to validate characters after creation 
-/**
+
+bool Character::validateNewCharacter()
 {
-	for (int i = 0; i < (sizeof(getAbilityScoreArray) / sizeof(int)); i++){
-		if (abilityScores[i] < 3 || abilityscores[i] > 18)
+	
+	int* abilities = getAbilityScoreArray();
+	for (int i = 0; i < 7; i++){
+		if (abilities[i] < 3 || abilities[i] > 18)
 			return false;
 
 	}
 	return true;
 }
-*/
 
 
 
