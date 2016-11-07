@@ -1,13 +1,14 @@
 #pragma once
 #include <valarray>
 #include <math.h>
+#include "Subject.h"
 class Pathfinder;
 class Map;
 
 /**
  * Entity is a class to represent something that sits on a map tile like a monster, a chess, ...
  */
-class Entity
+class Entity : public Subject
 {
 public:
 	Entity(char renderChar);

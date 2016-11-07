@@ -7,9 +7,10 @@
 #include "../Components/EquipedItemComponent.h"
 #include "../Renderer.h"
 #include "../../dice.h"
+#include "../../Observer.h"
 #include <string>
 
-class ScreenCharacterCreation : public Screen
+class ScreenCharacterCreation : public Screen, public Observer
 {
 
 private:
@@ -31,6 +32,7 @@ public:
 	void setRemaining(std::string value);
 	void increment(int stat);
 	void decrement(int stat);
+	void Update();
 
 	void rollCharacter();
 

@@ -4,6 +4,7 @@
 ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 {
 	character = new Character(1);
+	character->Attach(this);
 
 	for (int i = 0; i < 7; i++) {
 		abilityScores[i] = "0";
@@ -199,7 +200,6 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 		}
 
 		else {
-			std::cout << "Character Instantiated:" << std::endl;
 			createCharacter();
 		}
 	});
@@ -289,33 +289,33 @@ void ScreenCharacterCreation::increment(int stat) {
 	switch (stat) {
 	case 0:
 		setRemaining(to_string((stoi(abilityScores[6])) - 1));
-		setStrength(to_string((stoi(abilityScores[0])) + 1));
+		character->setStrength(character->getStrength() + 1);
 		break;
 
 	case 1:
 		setRemaining(to_string((stoi(abilityScores[6])) - 1));
-		setDexterity(to_string((stoi(abilityScores[1])) + 1));
+		character->setDexterity(character->getDexterity() + 1);
 		break;
 
 	case 2:
 		
 		setRemaining(to_string((stoi(abilityScores[6])) - 1));
-		setConstitution(to_string((stoi(abilityScores[2])) + 1));
+		character->setConstitution(character->getConstitution() + 1);
 		break;
 
 	case 3:
 		setRemaining(to_string(stoi(abilityScores[6]) - 1));
-		setIntelligence(to_string(stoi(abilityScores[3]) + 1));
+		character->setIntelligence(character->getIntelligence() + 1);
 		break;
 	case 4:
 		
 		setRemaining(to_string(stoi(abilityScores[6]) - 1));
-		setWisdom(to_string(stoi(abilityScores[4]) + 1));
+		character->setWisdom(character->getWisdom() + 1);
 		break;
 
 	case 5:
 		setRemaining(to_string(stoi(abilityScores[6]) - 1));
-		setCharisma(to_string(stoi(abilityScores[5]) + 1));
+		character->setCharisma(character->getCharisma() + 1);
 		break;
 
 	default:
@@ -334,32 +334,32 @@ void ScreenCharacterCreation::decrement(int stat) {
 	switch (stat) {
 	case 0:
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
-		setStrength(to_string(stoi(abilityScores[0]) - 1));
+		character->setStrength(character->getStrength()-1);
 		break;
 	case 1:
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
-		setDexterity(to_string(stoi(abilityScores[1]) - 1));
+		character->setDexterity(character->getDexterity() - 1);
 		break;
 
 	case 2:
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
-		setConstitution(to_string(stoi(abilityScores[2]) - 1));
+		character->setConstitution(character->getConstitution() - 1);
 		break;
 
 	case 3:
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
-		setIntelligence(to_string(stoi(abilityScores[3]) - 1));
+		character->setIntelligence(character->getIntelligence() - 1);
 		break;
 
 	 case 4:
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
-		setWisdom(to_string(stoi(abilityScores[4]) - 1));
+		character->setWisdom(character->getWisdom() - 1);
 		break;
 	
 
 	 case 5:
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
-		setCharisma(to_string(stoi(abilityScores[5]) - 1));
+		character->setCharisma(character->getCharisma() - 1);
 		break;
 	default:
 		break;
@@ -371,19 +371,25 @@ void ScreenCharacterCreation::rollCharacter() {
 	std::cout << "Rolling stats!" << std::endl;
 
 
-	setStrength(to_string(Dice::rollStat()));
-	setConstitution(to_string(Dice::rollStat()));
-	setDexterity(to_string(Dice::rollStat()));
-	setIntelligence(to_string(Dice::rollStat()));
-	setWisdom(to_string(Dice::rollStat()));
-	setCharisma(to_string(Dice::rollStat()));
+	character->setStrength(Dice::rollStat());
+	character->setDexterity(Dice::rollStat());
+	character->setConstitution(Dice::rollStat());
+	character->setIntelligence(Dice::rollStat());
+	character->setWisdom(Dice::rollStat());
+	character->setCharisma(Dice::rollStat());
+	character->setLevel(1);
+
+	for (int i = 0; i < 7; i++) {
+		character->unequip(i);
+	}
+
 	setRemaining("0");
 
 	//std::cout << "Adding test equipment:" << endl;
 	//character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
 	//character->equip(new Item("Helm of Smartmaking+4", Item::ItemType::HELMET, 0, 0, 0, 4, 0, 0, 0, 0, 0));
 	//character->equip(new Item("Armor of Armorclass+5", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 5));
-	///character->equip(new Item("Shield of No-effect-whatsoever", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+	//character->equip(new Item("Shield of No-effect-whatsoever", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 	//character->equip(new Item("Ring of Smoothtalking +2", Item::ItemType::RING, 0, 0, 0, 0, 0, 2, 0, 0, 0));
 	//character->equip(new Item("Boots of Dexterity+1", Item::ItemType::BOOTS, 0, 1, 0, 0, 0, 0, 0, 0, 0));
 	//character->equip(new Item("Sword of Attack+1", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 1, 0));
@@ -421,26 +427,23 @@ void ScreenCharacterCreation::setRemaining(std::string value) {
 
 void ScreenCharacterCreation::createCharacter() {
 
-	character->setLevel(1);
-	character->setStrength(stoi(abilityScores[0]));
-	character->setDexterity(stoi(abilityScores[1]));
-	character->setConstitution(stoi(abilityScores[2]));
-	character->setIntelligence(stoi(abilityScores[3]));
-	character->setWisdom(stoi(abilityScores[4]));
-	character->setCharisma(stoi(abilityScores[5]));
 	character->setName(nameInput->getText());
-	std::cout << character->toString() << endl;
 
 	character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
 	Character::saveCharacter(nameInput->getText(), character);
 
-
-
-	//Item::saveItem("Belt of Testing", new Item("Belt of Testing", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
-	//Item::loadItem("Belt of Testing");
-
 	std::cout << character->toString() << endl;
 }
+
+void ScreenCharacterCreation::Update() {
+	setStrength(to_string(character->getStrength()));
+	setDexterity(to_string(character->getDexterity()));
+	setConstitution(to_string(character->getConstitution()));
+	setIntelligence(to_string(character->getIntelligence()));
+	setWisdom(to_string(character->getWisdom()));
+	setCharisma(to_string(character->getCharisma()));
+}
+
 
 ScreenCharacterCreation::~ScreenCharacterCreation() {
 	delete character;

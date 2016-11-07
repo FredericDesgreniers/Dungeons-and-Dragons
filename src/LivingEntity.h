@@ -46,7 +46,7 @@ public:
 	/**
 	* Get constitution as int
 	*/
-	int getConsitution();
+	int getConstitution();
 	/**
 	* Get inteligence as int
 	*/
@@ -113,7 +113,7 @@ public:
 
 	std::string toString() {
 	
-		return "Name: " + name + "\nSTR:" + std::to_string(getStrength()) + ", DEX:" + std::to_string(getDexterity()) + ", CON:" + std::to_string(getConsitution()) +
+		return "Name: " + name + "\nSTR:" + std::to_string(getStrength()) + ", DEX:" + std::to_string(getDexterity()) + ", CON:" + std::to_string(getConstitution()) +
 			", INT:" + std::to_string(getIntelligence()) + ", WIS:" + std::to_string(getWisdom()) + ", CHA:" + std::to_string(getCharisma()) +
 			"\nEffective:\n" + "STR:" + std::to_string(effectiveAbilityScores[0]) + ", DEX:" + std::to_string(effectiveAbilityScores[1]) +
 			", CON:" + std::to_string(effectiveAbilityScores[2]) + ", INT:" + std::to_string(effectiveAbilityScores[3]) + ", WIS:" +

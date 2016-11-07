@@ -36,12 +36,14 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		health -= damage;
 		if (health > maxHealth)
 			health = maxHealth;
+		Notify();
 		return health <= 0;
 	}
 
 	void LivingEntity::setName(std::string cname)
 	{
 		name = cname;
+		Notify();
 	}
 
 	int LivingEntity::getHealth()
@@ -148,6 +150,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		}
 		std::cout << "Equipped " << toEquip->getName() << endl;
 		updateStats();
+		Notify();
 		return wasEquipped;
 	}
 
@@ -158,6 +161,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		}
 		Item* removed = equipped[itemSlot];
 		equipped[itemSlot] = nullptr;
+		Notify();
 		return removed;
 	}
 
@@ -221,8 +225,13 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 					damageBonus = equipped[i]->getDmgBoost();
 					// Add attack bonus
 					attackBonus = equipped[i]->getAtkBoost();
+				default:
+					break;
+					
 				}
+				
 			}
+
 		}
 
 
@@ -240,7 +249,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		return abilityscores[1];
 	}
 
-	int LivingEntity::getConsitution()
+	int LivingEntity::getConstitution()
 	{
 		return abilityscores[2];
 	}
@@ -263,38 +272,45 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	void LivingEntity::setLevel(int value)
 	{
 		level = value;
+		Notify();
 	}
 
 
 	void LivingEntity::setStrength(int value)
 	{
 		abilityscores[0] = value;
+		Notify();
 	}
 
 
 	void LivingEntity::setDexterity(int value)
 	{
 		abilityscores[1] = value;
+		Notify();
 	}
 
 	void LivingEntity::setConstitution(int value)
 	{
 		abilityscores[2] = value;
+		Notify();
 	}
 
 	void LivingEntity::setIntelligence(int value)
 	{
 		abilityscores[3] = value;
+		Notify();
 	}
 
 	void LivingEntity::setWisdom(int value)
 	{
 		abilityscores[4] = value;
+		Notify();
 	}
 
 	void LivingEntity::setCharisma(int value)
 	{
 		abilityscores[5] = value;
+		Notify();
 	}
 
 	int * LivingEntity::getEffectiveAbilityScoreArray()
