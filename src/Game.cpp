@@ -17,6 +17,7 @@ bool Game::ini()
 {
 	_mkdir("maps/");
 	_mkdir("characters/");
+	_mkdir("items/");
 
 	if (!Renderer::init())
 		return false;
