@@ -145,8 +145,8 @@ Item* Item::loadItem(std::string name)
 	}
 	else
 	{
-		std::cout << "Unable to read item file, returning default item";
-		it = new Item();
+		std::cout << "Unable to read item file, returning nullptr" << std::endl;
+		it = nullptr;
 	}
 	return it;
 }
@@ -235,7 +235,7 @@ void Item::setIntBoost(int intB) {
 }
 
 int Item::getWisBoost() {
-	return this->strBoost;
+	return this->wisBoost;
 }
 
 void Item::setWisBoost(int wisB) {
@@ -294,16 +294,36 @@ int Item::checkValididty(int boost)
 // displays the item name, type and scores
 std::string Item::toString() 
 {
-	std::string str = "\t" + getName() + "\nType: " + displayType(getItemType())
-		+ "\nStrength:      +" + std::to_string(getStrBoost())
-		+ "\nDexterity:     +" + std::to_string(getDexBoost())
-		+ "\nConstitution:  +" + std::to_string(getConBoost())
-		+ "\nIntelligence:  +" + std::to_string(getIntBoost())
-		+ "\nWisdom:        +" + std::to_string(getWisBoost())
-		+ "\nCharisma:      +" + std::to_string(getChaBoost())
-		+ "\nArmor class:   +" + std::to_string(getArmBoost())
-		+ "\nDamage:        +" + std::to_string(getDmgBoost())
-		+ "\nAttack:        +" + std::to_string(getAtkBoost());
+	std::string str = "\t" + getName() + "\nType: " + displayType(getItemType());
+	int boost=0;
+	
+	boost = getStrBoost();
+	if (boost > 0)
+		str += "\nStrength:      +" + std::to_string(boost);
+	boost = getDexBoost();
+	if (boost > 0)
+		str += "\nDexterity:     +" + std::to_string(boost);
+	boost = getConBoost();
+	if (boost > 0)
+		str += "\nConstitution:  +" + std::to_string(boost);
+	boost = getIntBoost();
+	if (boost > 0)
+		str += "\nIntelligence:  +" + std::to_string(boost);
+	boost = getWisBoost();
+	if (boost > 0)
+		str += "\nWisdom:        +" + std::to_string(boost);
+	boost = getChaBoost();
+	if (boost > 0)
+		str += "\nCharisma:      +" + std::to_string(boost);
+	boost = getArmBoost();
+	if (boost > 0)
+		str += "\nArmor class:   +" + std::to_string(boost);
+	boost = getDmgBoost();
+	if (boost > 0)
+		str += "\nDamage:        +" + std::to_string(boost);
+	boost = getAtkBoost();
+	if (boost > 0)
+		str += "\nAttack:        +" + std::to_string(boost);
 
 	return str;
 }
