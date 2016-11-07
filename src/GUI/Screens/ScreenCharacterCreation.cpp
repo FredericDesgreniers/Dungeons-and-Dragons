@@ -218,7 +218,9 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 			setCharisma(to_string(loadAbilities[5]));
 			nameInput->setText(temp->getName());
 			setRemaining("0");
+			
 			character = temp;
+			
 		}
 		else {
 			std::cout << "Load Failed" << endl;
@@ -377,14 +379,14 @@ void ScreenCharacterCreation::rollCharacter() {
 	setCharisma(to_string(Dice::rollStat()));
 	setRemaining("0");
 
-	std::cout << "Adding test equipment:" << endl;
-	character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
-	character->equip(new Item("Helm of Smartmaking+4", Item::ItemType::HELMET, 0, 0, 0, 4, 0, 0, 0, 0, 0));
-	character->equip(new Item("Armor of Armorclass+5", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 5));
-	character->equip(new Item("Shield of No-effect-whatsoever", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-	character->equip(new Item("Ring of Smoothtalking +2", Item::ItemType::RING, 0, 0, 0, 0, 0, 2, 0, 0, 0));
-	character->equip(new Item("Boots of Dexterity+1", Item::ItemType::BOOTS, 0, 1, 0, 0, 0, 0, 0, 0, 0));
-	character->equip(new Item("Sword of Attack+1 and Damage+1", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 1, 0));
+	//std::cout << "Adding test equipment:" << endl;
+	//character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
+	//character->equip(new Item("Helm of Smartmaking+4", Item::ItemType::HELMET, 0, 0, 0, 4, 0, 0, 0, 0, 0));
+	//character->equip(new Item("Armor of Armorclass+5", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 5));
+	///character->equip(new Item("Shield of No-effect-whatsoever", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+	//character->equip(new Item("Ring of Smoothtalking +2", Item::ItemType::RING, 0, 0, 0, 0, 0, 2, 0, 0, 0));
+	//character->equip(new Item("Boots of Dexterity+1", Item::ItemType::BOOTS, 0, 1, 0, 0, 0, 0, 0, 0, 0));
+	//character->equip(new Item("Sword of Attack+1", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 1, 0));
 
 }
 
@@ -422,14 +424,20 @@ void ScreenCharacterCreation::createCharacter() {
 	character->setLevel(1);
 	character->setStrength(stoi(abilityScores[0]));
 	character->setDexterity(stoi(abilityScores[1]));
-	character->setConstitution(stoi(abilityScores[3]));
-	character->setIntelligence(stoi(abilityScores[4]));
-	character->setWisdom(stoi(abilityScores[5]));
-	character->setCharisma(stoi(abilityScores[6]));
+	character->setConstitution(stoi(abilityScores[2]));
+	character->setIntelligence(stoi(abilityScores[3]));
+	character->setWisdom(stoi(abilityScores[4]));
+	character->setCharisma(stoi(abilityScores[5]));
 	character->setName(nameInput->getText());
 	std::cout << character->toString() << endl;
+
+	character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
 	Character::saveCharacter(nameInput->getText(), character);
-	
+
+
+
+	//Item::saveItem("Belt of Testing", new Item("Belt of Testing", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
+	//Item::loadItem("Belt of Testing");
 
 	std::cout << character->toString() << endl;
 }
