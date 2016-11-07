@@ -2,6 +2,8 @@
 #include "../../MapBuilder.h"
 #include "../Components/EquipedItemComponent.h"
 #include "../../EntityChest.h"
+#include "ScreenCampaignSelect.h"
+#include "../Renderer.h"
 
 
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
@@ -91,6 +93,10 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 	if(currentmap->getTile(character->getPositionX(), character->getPositionY())->getId() == ENDTILE)
 	{
 		std::cout << "Map Finished" << std::endl;
+		character->setLevel(character->getLevel() + 1);
+		character->saveCharacter(character->getName(), character);
+		Renderer::addVoidScreen(game->getGuiManager()->setScreen(new ScreenCampaignSelect(game)));
+		
 	}
 }
 
