@@ -24,9 +24,11 @@ Character* Character::loadCharacter(std::string name) {
 	std::fstream charFile("characters/" + name + ".chr");
 	if (charFile.is_open()) {
 		int abilities[6] = { 0,0,0,0,0,0 };
+		int loadLevel = 1;
 		std::string equipped[7] = { "","","","","","","" };
 		std::string line = "";
-
+		std::getline(charFile, line);
+		loadLevel = stoi(line);
 		for (int i = 0; i < 6; i++)
 		{
 			std::getline(charFile, line);
@@ -37,16 +39,17 @@ Character* Character::loadCharacter(std::string name) {
 			equipped[i] = line;
 		}
 
-		loadedCharacter = new Character(abilities[0], abilities[1], abilities[2], abilities[3], abilities[4], abilities[5], abilities[6], name);
+		loadedCharacter = new Character(abilities[0], abilities[1], abilities[2], abilities[3], abilities[4], abilities[5], loadLevel, name);
 		Item* loadedItem;
 		for (int i = 0; i < 7; i++) {
-			if (equipped[i] != "") {
+			if (equipped[i] != "None") {
 				loadedItem = Item::loadItem(equipped[i]);
 				if (loadedItem != nullptr) {
 					loadedCharacter->equip(Item::loadItem(equipped[i]));
 				}
 			}
 		}
+
 
 		std::cout << "Successfully loaded character from " << name << ".chr" << endl;
 		std::cout << loadedCharacter->toString() << endl;
@@ -63,6 +66,7 @@ bool Character::saveCharacter(std::string name, Character* character) {
 	std::fstream charFile;
 	charFile.open("characters/" + name + ".chr", std::ios::out);
 	if (charFile.is_open()) {
+		charFile << character->getLevel() << endl;;
 		int *abilities = (character->getAbilityScoreArray());
 		for (int i = 0; i < 6; i++) {
 			charFile << abilities[i] << endl;
@@ -73,6 +77,9 @@ bool Character::saveCharacter(std::string name, Character* character) {
 			if (equipped[i] != nullptr) {
 				Item::saveItem(equipped[i]->getName(), equipped[i]);
 				charFile << equipped[i]->getName() << endl;
+			}
+			else {
+				charFile << "None" << endl;
 			}
 		}
 
