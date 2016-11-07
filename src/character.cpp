@@ -31,6 +31,7 @@ Character* Character::loadCharacter(std::string name) {
 			std::getline(charFile, line);
 			abilities[i] = stoi(line);
 		}
+		//TODO LOAD LEVEL
 		loadedCharacter = new Character(abilities[0], abilities[1], abilities[2], abilities[3], abilities[4], abilities[5], abilities[6], name);
 		std::cout << "Successfully loaded character from " << name << ".chr" << endl;
 		std::cout << loadedCharacter->toString() << endl;
@@ -51,6 +52,7 @@ bool Character::saveCharacter(std::string name, Character* character) {
 		for (int i = 0; i < 6; i++) {
 			charFile << abilities[i] << endl;
 		}
+		//TODO SAVE LEVEL
 		charFile.flush();
 		charFile.close();
 	}
