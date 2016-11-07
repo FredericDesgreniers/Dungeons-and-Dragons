@@ -19,6 +19,11 @@ void Campaign::addMap(std::string map)
 	maps.push_back(map);
 }
 
+void Campaign::addMap(Map* map)
+{
+	maps.push_back(map->getName());
+}
+
 
 std::vector<std::string>* Campaign::getMaps()
 {

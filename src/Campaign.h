@@ -17,6 +17,11 @@ public:
 	void addMap(std::string map);
 
 	/**
+	 * Add map instance to camapign
+	 */
+	void addMap(Map* map);
+
+	/**
 	 * Get the list of maps in playable order
 	 */
 	std::vector<std::string>* getMaps();
