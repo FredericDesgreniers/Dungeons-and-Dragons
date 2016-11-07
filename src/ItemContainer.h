@@ -7,7 +7,7 @@ class ItemContainer
 {
 public:
 	ItemContainer();
-	ItemContainer(std::string name);
+	ItemContainer(std::string name, int max);
 	~ItemContainer();
 
 	Item getItemAtIndex(int i);
@@ -29,4 +29,5 @@ public:
 private:
 	std::vector<Item> container;
 	std::string name;
+	int maxSize;
 };

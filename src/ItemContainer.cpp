@@ -6,9 +6,10 @@ ItemContainer::ItemContainer()
 	this->name = "Default Container";
 }
 
-ItemContainer::ItemContainer(std::string name)
+ItemContainer::ItemContainer(std::string name, int max)
 {
 	this->name = name;
+	this->maxSize = max;
 }
 
 //! Destructor
@@ -20,25 +21,48 @@ ItemContainer::~ItemContainer()
 // returns an Item at index i
 Item ItemContainer::getItemAtIndex(int i)
 {
-	return container[i];
+	if (i <= (maxSize - 1))
+	{
+		return container[i];
+	}
+	else 
+	{
+		std::cout << "No items here, limited size." << std::endl;
+	}
 }
 
 // adds an Item to the end of the container
 void ItemContainer::addItem(Item& it)
 {
-	container.push_back(it);
+	if(container.size() < maxSize )
+	{
+		container.push_back(it);
+	}
+	else
+	{
+		std::cout << "Cannot add an item here, no more space" << std::endl;
+	}
 }
 
 // removes an Item at index i from the container
 void ItemContainer::removeItemAtIndex(int i) 
 {
 	container.erase(container.begin() + i);
+	//delete container[i];
+	//container[i] = null;
 }
 
 // adds an item at index i to the container
 void ItemContainer::addItemAtIndex(Item& it, int i)
 {
-	container.insert(container.begin() + i, it);
+	if (i <= (maxSize - 1))
+	{
+		container.insert(container.begin() + i, it);
+	}
+	else
+	{
+		std::cout << "Cannot add an item here." << std::endl;
+	}
 }
 
 // returns the name of the container

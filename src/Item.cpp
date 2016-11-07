@@ -439,8 +439,6 @@ Item* Item::generateRandomItem(int level)
 
 	it = new Item(name, type, scores[0], scores[1], scores[2], scores[3], scores[4], scores[5], scores[6], scores[7], scores[8]);
 	return it;
-	
-
 }
 
 
