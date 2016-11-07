@@ -157,7 +157,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	{
 		if (storedEntity != nullptr)
 		{
-			map->getTile(x, y)->setId(0);
+			map->setTile(new MapTile(0), x, y);
 			map->spawnEntity(storedEntity, x, y);
 		}
 		
@@ -167,7 +167,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 			{
 				map->removeEntity(x, y);
 			}
-			map->getTile(x, y)->setId(storedTile->getId());
+			map->setTile(new MapTile(storedTile->getId()),x,y);
 		}
 	});
 
@@ -293,16 +293,16 @@ bool ScreenMapCreation::validateMap()
 		return false;
 	}
 
-	Pathfinder* pathfinder = new Pathfinder(map, endX, endY);
+	Pathfinder pathfinder(map, endX, endY);
 
-	std::vector<Node*>* path = pathfinder->getPath(entryX, entryY);
-	if( abs((*path)[path->size()-1]->x - entryY)<=1 && (abs((*path)[path->size() - 1]->y-entryX) <=1))
+	std::vector<Node*>* path = pathfinder.getPath(entryX, entryY);
+	if( abs((*path)[0]->x - endX)<=1 && (abs((*path)[0]->y-endY) <=1))
 	{
-		delete pathfinder, path;
+		delete path;
 		return true;
 	}else
 	{
-		delete pathfinder, path;
+		delete path;
 		return false;
 	}
 
