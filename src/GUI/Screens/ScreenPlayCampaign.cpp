@@ -1,6 +1,7 @@
 #include "ScreenPlayCampaign.h"
 #include "../../MapBuilder.h"
 #include "../Components/EquipedItemComponent.h"
+#include "../../EntityChest.h"
 
 
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
@@ -32,6 +33,9 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 		if (entity != nullptr) {
 			if (chara->distanceTo(entity) <= 1)
 			{
+
+				displayEntityInfo(entity);
+
 				if(entity->interact(map, chara))
 				{
 					map->simulateMapTick();
@@ -40,6 +44,18 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 		}
 	});
 
+}
+void ScreenPlayCampaign::displayEntityInfo(Entity* entity)
+{
+	if(LivingEntity* living = dynamic_cast<LivingEntity*>(entity))
+	{
+		
+		//TODO display living entity info
+
+	}else if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
+	{
+		//TODO display chest contents
+	}
 }
 
 void ScreenPlayCampaign::keyPressed(SDL_Keycode code)

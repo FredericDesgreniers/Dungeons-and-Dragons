@@ -12,6 +12,9 @@ public:
 	ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character);
 	void render() override;
 	void keyPressed(SDL_Keycode code) override;
+
+	void displayEntityInfo(Entity* entity);
+
 private:
 
 	Campaign* campaign;
