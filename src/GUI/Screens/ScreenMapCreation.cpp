@@ -118,11 +118,12 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	{
 		Map* newMap = MapBuilder::loadFromFile(nameInput->getText())->get();
 		mapSelect->setVisible(true);
-		mapSelect->reloadMaps();
+		
 		mapComp->setVisible(false);
 		tileMapComp->setVisible(false);
 		entityMapComp->setVisible(false);
 
+		mapSelect->reloadMaps();
 
 	});
 
