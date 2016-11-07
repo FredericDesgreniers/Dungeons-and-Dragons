@@ -4,6 +4,7 @@
 #include "../../EntityChest.h"
 #include "ScreenCampaignSelect.h"
 #include "../Renderer.h"
+#include "screenMain.h"
 
 
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
@@ -95,7 +96,9 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 		std::cout << "Map Finished" << std::endl;
 		character->setLevel(character->getLevel() + 1);
 		character->saveCharacter(character->getName(), character);
-		Renderer::addVoidScreen(game->getGuiManager()->setScreen(new ScreenCampaignSelect(game)));
+		Screen* campaignSelect = new ScreenCampaignSelect(game);
+		campaignSelect->setBackButton(new ScreenMain(game));
+		Renderer::addVoidScreen(game->getGuiManager()->setScreen(campaignSelect));
 		
 	}
 }
