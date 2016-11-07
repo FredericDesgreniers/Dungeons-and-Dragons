@@ -238,6 +238,22 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		return false;
 	}
 
+	bool LivingEntity::copyStats(LivingEntity * from, LivingEntity * to)
+	{
+		if (from == nullptr || to == nullptr) {
+			return false;
+		}
+		to->setStrength(from->getStrength());
+		to->setDexterity(from->getDexterity());
+		to->setConstitution(from->getConstitution());
+		to->setIntelligence(from->getIntelligence());
+		to->setWisdom(from->getWisdom());
+		to->setCharisma(from->getCharisma());
+		to->setLevel(from->getLevel());
+		to->setName(from->getName());
+		return true;
+	}
+
 	int LivingEntity::getStrength()
 	{
 		return abilityscores[0];

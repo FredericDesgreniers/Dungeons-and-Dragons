@@ -209,24 +209,13 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	{
 		Character* temp;
 		if (temp=Character::loadCharacter("Test")) {
-			int* loadAbilities = temp->getAbilityScoreArray();
-			setStrength(to_string(loadAbilities[0]));
-			setDexterity(to_string(loadAbilities[1]));
-			setConstitution(to_string(loadAbilities[2]));
-			setIntelligence(to_string(loadAbilities[3]));
-			setWisdom(to_string(loadAbilities[4]));
-			setCharisma(to_string(loadAbilities[5]));
-			nameInput->setText(temp->getName());
+			Character::copyStats(temp, character);
 			setRemaining("0");
-			
-			character = temp;
-			
 		}
 		else {
 			std::cout << "Load Failed" << endl;
 		}
 		temp = nullptr;
-		character->outputEquipped();
 	});
 
 
@@ -442,6 +431,7 @@ void ScreenCharacterCreation::Update() {
 	setIntelligence(to_string(character->getIntelligence()));
 	setWisdom(to_string(character->getWisdom()));
 	setCharisma(to_string(character->getCharisma()));
+	nameInput->setText(character->getName());
 }
 
 

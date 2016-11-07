@@ -123,6 +123,7 @@ public:
 		}
 	
 	Item** getEquippedItems();
+	static bool copyStats(LivingEntity* from, LivingEntity* to);
 
 
 private:
