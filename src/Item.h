@@ -19,6 +19,7 @@ public:
 	};
 
 	Item();
+	Item(Item * item);
 	// Item with all member variables.
 	Item(std::string name, ItemType iType, int str, int dex, int con, int intl, int wis, int cha, int atk, int dmg, int arm);
 

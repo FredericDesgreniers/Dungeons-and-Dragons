@@ -19,6 +19,22 @@ Item::Item()
 
 };
 
+Item::Item(Item* item)
+{
+	itemName = item->getName();
+	type = item->getItemType();
+	strBoost = item->getStrBoost();
+	dexBoost = item->getDexBoost();
+	conBoost = item->getConBoost();
+	chaBoost = item->getChaBoost();
+	atkBoost = item->getAtkBoost();
+	dmgBoost = item->getDmgBoost();
+	intBoost = item->getIntBoost();
+	wisBoost = item->getWisBoost();
+	armBoost = item->getArmBoost();
+
+};
+
 Item::Item(std::string name, Item::ItemType iType, int str, int dex, int con, int intl, int wis, int cha, int atk, int dmg, int arm)
 {
 	this->itemName = name;
