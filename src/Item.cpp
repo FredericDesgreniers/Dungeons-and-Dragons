@@ -1,6 +1,7 @@
 #include "Item.h"
 #include <iostream>
 #include <fstream>
+#include <time.h>
 
 Item::Item()
 {
@@ -390,4 +391,57 @@ Item::ItemType Item::stringToType(std::string type)
 		
 	}
 }
+
+Item* Item::generateRandomItem(int level)
+{
+	Item* it;
+	srand(time(NULL));
+
+	int scores[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+	ItemType type = static_cast<ItemType>(rand() % 6 + 1);
+	
+
+	for (int i = 0; i < 9; i++)
+	{
+		if (level >= 1 && level <= 2)
+		{
+			scores[i] = 1;
+		}
+		else if (level >= 3 && level <= 6)
+		{
+			scores[i] = rand() % 2 + 1;
+		}
+		else if (level >= 7 && level <= 10)
+		{
+			scores[i] = rand() % 3 + 1;
+		}
+		else if (level >= 11 && level <= 14)
+		{
+			scores[i] = rand() % 4 + 1;
+		}
+		else if (level >= 15 && level <= 18)
+		{
+			scores[i] = rand() % 5 + 1;
+		}
+		else if (level > 18)
+		{
+			scores[i] = 5;
+		}
+		else
+		{
+			std::cout << "Invalid level provided for random item creation" << std::endl;
+			return it = new Item();
+		}
+	}
+
+	std::string name = displayType(type);
+
+	it = new Item(name, type, scores[0], scores[1], scores[2], scores[3], scores[4], scores[5], scores[6], scores[7], scores[8]);
+	return it;
+	
+
+}
+
+
 
