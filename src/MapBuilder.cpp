@@ -5,6 +5,7 @@
 #include <direct.h>
 #include <iostream>
 #include "Wizard.h"
+#include "EntityChest.h"
 
 MapBuilder* MapBuilder::createEmptyMap(int w, int h)
 {
@@ -130,6 +131,10 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 					break;
 				case 'W':
 					map->spawnEntity(new Wizard(), x, y);
+					break;
+				case 'B':
+					map->spawnEntity(new EntityChest(), x, y);
+					break;
 				}
 
 				x++;
