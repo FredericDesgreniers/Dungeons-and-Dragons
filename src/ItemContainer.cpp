@@ -11,6 +11,9 @@ ItemContainer::ItemContainer(std::string name, int max)
 	this->name = name;
 	this->maxSize = max;
 	arrayPtr = new Item *[maxSize];
+	for (int i = 0; i < maxSize; i++) {
+		arrayPtr[i] = nullptr;
+	}
 }
 
 //! Destructor
@@ -90,6 +93,10 @@ void ItemContainer::printContainer()
 {
 	for (int i = 0; i < maxSize; ++i)
 	{
+		if (arrayPtr[i] == nullptr) {
+			std::cout << "Empty slot" << std::endl;
+ 		}
+		else
 		std::cout << arrayPtr[i]->toString() << std::endl;
 	}
 }
