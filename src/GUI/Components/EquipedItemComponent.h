@@ -9,12 +9,12 @@ public:
 	EquipedItemComponent(Item** items,int x, int y, int width, int height);
 	void render() override;
 	void click(int x, int y) override;
-	void addOnItemClick_callback(std::function<void(Item*)>);
+	void addOnItemClick_callback(std::function<void(Item*, int)>);
 
 	void Update() override;
 private:
 	Item** items;
 	std::vector<Button*> itemButtons;
 
-	std::vector<std::function<void(Item*)>> onItemClickCallback;
+	std::vector<std::function<void(Item*,int)>> onItemClickCallback;
 };
