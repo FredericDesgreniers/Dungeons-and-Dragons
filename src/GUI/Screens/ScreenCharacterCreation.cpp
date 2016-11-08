@@ -19,10 +19,6 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	rollBtn->setFontSize(30);
 	rollBtn->adjustButtonDimensions();
 
-	Button* backBtn = new Button("Back", &Renderer::FONT_ROBOTO, 100, 600, 1, 1);
-	backBtn->setFontSize(30);
-	backBtn->adjustButtonDimensions();
-
 	Button* confirmBtn = new Button("Save Character", &Renderer::FONT_ROBOTO, 300, 600, 100, 30);
 	confirmBtn->setFontSize(25);
 	confirmBtn->adjustButtonDimensions();
@@ -161,18 +157,16 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent((new Label("Name", &Renderer::FONT_ROBOTO, 20, 65, 1, 1))->setFontSize(20)->adjustDimensions());
 	
 	addComponent((new Label("Level", &Renderer::FONT_ROBOTO, 20, 100, 1, 1))->setFontSize(20)->adjustDimensions());
-
-
+	
 	addComponent((new Label("Race", &Renderer::FONT_ROBOTO, 20, 135, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Human", &Renderer::FONT_ROBOTO, 140, 135, 1, 1))->setFontSize(20)->adjustDimensions());
 
 	addComponent((new Label("Class", &Renderer::FONT_ROBOTO, 20, 170, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Warrior", &Renderer::FONT_ROBOTO, 140, 170, 1, 1))->setFontSize(20)->adjustDimensions());
+	
 	addComponent((new Label("Mod", &Renderer::FONT_ROBOTO, 267, 190, 1, 1))->setFontSize(20)->adjustDimensions());
 
 	addComponent((new Label("Strength", &Renderer::FONT_ROBOTO, 20, i, 1, 1))->setFontSize(20)->adjustDimensions());
-	
-
 	addComponent((new Label("Dexterity", &Renderer::FONT_ROBOTO, 20, i+35, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Constitution", &Renderer::FONT_ROBOTO, 20, i+70, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Intelligence", &Renderer::FONT_ROBOTO, 20, i+105, 1, 1))->setFontSize(20)->adjustDimensions());
@@ -186,13 +180,6 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	eiComp->setPadding(10, 10, 10, 10);
 
 
-	backBtn->addOnClick_callback([this](Component* comp, int x, int y)
-	{
-		Screen* screen = this->game->getGuiManager()->setScreen(new ScreenMain(this->game));
-		Renderer::addVoidScreen(screen);
-		std::cout << "Back to main menu!" << std::endl;
-	});
-
 	rollBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		rollCharacter();
@@ -205,11 +192,11 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 		}
 
 		else if ((stoi(abilityScores[6]) > 0)) {
-			std::cout << "Cannot instantiate character: points not spent" << std::endl;
+			std::cout << "Cannot save character: points not spent" << std::endl;
 		}
 
 		else if (nameInput->getText() == "") {
-			std::cout << "Cannot instantiate character: enter a name" << std::endl;
+			std::cout << "Cannot save character: enter a name" << std::endl;
 		}
 
 		else {
@@ -232,7 +219,6 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	});
 
 
-	addComponent(backBtn);
 	addComponent(rollBtn);
 	addComponent(strPlus);
 	addComponent(strMinus);
@@ -391,8 +377,6 @@ void ScreenCharacterCreation::rollCharacter() {
 	for (int i = 0; i < 10; i++) {
 		character->getBackpack()->removeItemAtIndex(i);
 	}
-	std::cout << "Character Backpack After Removal:" << endl;
-	character->getBackpack()->printContainer();
 	character->equipBasic();
 	setRemaining("0");
 }

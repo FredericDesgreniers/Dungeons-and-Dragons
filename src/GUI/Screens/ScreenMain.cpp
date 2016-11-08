@@ -40,8 +40,10 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 
 	charEditorBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		Screen* screen = this->game->getGuiManager()->setScreen(new ScreenCharacterCreation(this->game));
-		Renderer::addVoidScreen(screen);
+		
+		Screen* screen_character_creation = new ScreenCharacterCreation(this->game);
+		screen_character_creation->setBackButton(this);
+		this->game->getGuiManager()->setScreen(screen_character_creation);
 		
 		std::cout << "Go to Character Editor!" << std::endl;
 	});
