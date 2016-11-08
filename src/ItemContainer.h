@@ -10,10 +10,10 @@ public:
 	ItemContainer(std::string name, int max);
 	~ItemContainer();
 
-	Item getItemAtIndex(int i);
+	Item* getItemAtIndex(int i);
 	void removeItemAtIndex(int i);
-	void addItemAtIndex(Item& it, int i);
-	void addItem(Item& it);
+	void addItemAtIndex(Item* it, int i);
+	void addItem(Item* it);
 
 	void printContainer();
 
@@ -27,7 +27,9 @@ public:
 
 	
 private:
-	std::vector<Item> container;
+
+
+	std::vector<Item*> container;
 	std::string name;
 	int maxSize;
 };

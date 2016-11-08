@@ -19,7 +19,7 @@ ItemContainer::~ItemContainer()
 }
 
 // returns an Item at index i
-Item ItemContainer::getItemAtIndex(int i)
+Item* ItemContainer::getItemAtIndex(int i)
 {
 	if (i <= (maxSize - 1))
 	{
@@ -28,11 +28,12 @@ Item ItemContainer::getItemAtIndex(int i)
 	else 
 	{
 		std::cout << "No items here, limited size." << std::endl;
+		return nullptr;
 	}
 }
 
 // adds an Item to the end of the container
-void ItemContainer::addItem(Item& it)
+void ItemContainer::addItem(Item* it)
 {
 	if(container.size() < maxSize )
 	{
@@ -47,13 +48,13 @@ void ItemContainer::addItem(Item& it)
 // removes an Item at index i from the container
 void ItemContainer::removeItemAtIndex(int i) 
 {
-	container.erase(container.begin() + i);
-	//delete container[i];
-	//container[i] = null;
+	delete container[i];
+	container[i] = nullptr;
+
 }
 
 // adds an item at index i to the container
-void ItemContainer::addItemAtIndex(Item& it, int i)
+void ItemContainer::addItemAtIndex(Item* it, int i)
 {
 	if (i <= (maxSize - 1))
 	{
@@ -96,26 +97,29 @@ void ItemContainer::printContainer()
 
 	for (int i = 0; i < size; ++i)
 	{
-		std::cout << container[i].toString() << std::endl;
+		std::cout << container[i]->toString() << std::endl;
 	}
 }
 
 // Example code for Container creation
 
-	//ItemContainer* i = new ItemContainer("Test");
+	//ItemContainer* i = new ItemContainer("Test", 10);
 
-	//Item* it = new Item("Hi", Item::HELMET, 1, 2, 2, 3, 3, 2, 1, 2 ,3);
+	//Item* it = new Item("Hi", Item::HELMET, 1, 2, 2, 3, 3, 2, 1, 2, 3);
 	//Item* it2 = new Item("someSword", Item::WEAPON, 1, 2, 3, 4, 5, 4, 5, 3, 2);
 	//Item* it3 = new Item();
 	//Item* it4 = new Item();
 
-	//Item* insert = new Item("WWWWWWWWW", Item::ARMOR, 1, 1, 1, 1, 1, 1, 1, 1, 1 );
+	//Item* insert = new Item("WWWWWWWWW", Item::ARMOR, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 	//// adds an item to the container
-	//i->addItem(*it);
-	//i->addItem(*it2);
-	//i->addItem(*it3);
-	//i->addItem(*it4);
-	//i->addItemAtIndex(*insert, 0);
-	//i->removeItemAtIndex(0);
+	//i->addItem(it);
+	//i->addItem(it2);
+	//i->addItem(it3);
+	//i->addItem(it4);
+	//i->addItemAtIndex(insert, 4);
+	////i->removeItemAtIndex(1);
+	//// removeItem doesnt work
 
 	//i->printContainer();
+
+
