@@ -55,10 +55,8 @@ void ItemContainer::removeItemAtIndex(int i)
 {
 	if (arrayPtr[i] != nullptr)
 	{
-		arrayPtr[i] == nullptr;
+		arrayPtr[i] = nullptr;
 		Notify();
-
-
 	}
 
 
