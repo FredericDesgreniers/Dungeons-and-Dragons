@@ -30,11 +30,27 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 	eiComp->setPadding(10, 10, 10, 10);
 	character->Attach(eiComp);
 	addComponent(eiComp);
-
+	eiComp->addOnItemClick_callback([this](Item*, int i)
+	{
+		Item* item = this->character->unequip(i);
+			if(item!=nullptr)
+			{
+				this->character->getBackpack()->addItem(item);
+			}
+	});
 	ItemContainerComponent* bagDisplay = new ItemContainerComponent(character->getBackpack(),0,475,200,400);
 	bagDisplay->setBorderColor_both(150, 150, 140, 255);
 	bagDisplay->setBorderSize(1);
 	bagDisplay->setPadding(10, 10, 10, 10);
+	bagDisplay->addOnItemClick_callback([this](Item* itm, int i)
+	{
+		Item* item = this->character->getBackpack()->getItemAtIndex(i);
+			if(item!=nullptr)
+			{
+				this->character->equip(item);
+				this->character->getBackpack()->removeItemAtIndex(i);
+			}
+	});
 	addComponent(bagDisplay);
 
 	map_component->addOnTileClickedCallback([this](Map* map, int x, int y)
