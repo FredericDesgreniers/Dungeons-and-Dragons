@@ -3,12 +3,14 @@
 
 ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 {
-	character = new Character(1);
-	character->Attach(this);
-
 	for (int i = 0; i < 7; i++) {
 		abilityScores[i] = "0";
 	}
+	character = new Character(1);
+	character->Attach(this);
+
+
+	
 	nameInput = new TextField("Test", 125, 100, 150, 25);
 	nameInput->setFontSize(20);
 	int i = 220;
@@ -158,6 +160,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	addComponent((new Label("Class", &Renderer::FONT_ROBOTO, 20, 170, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Warrior", &Renderer::FONT_ROBOTO, 140, 170, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Mod", &Renderer::FONT_ROBOTO, 267, 190, 1, 1))->setFontSize(20)->adjustDimensions());
 
 	addComponent((new Label("Strength", &Renderer::FONT_ROBOTO, 20, i, 1, 1))->setFontSize(20)->adjustDimensions());
 	
@@ -190,7 +193,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{	
 		if (abilityScores[0] == "0") {
-			std::cout << "Cannot instantiate character: press roll" << std::endl;
+			std::cout << "Cannot save character, press roll" << std::endl;
 		}
 
 		else if ((stoi(abilityScores[6]) > 0)) {

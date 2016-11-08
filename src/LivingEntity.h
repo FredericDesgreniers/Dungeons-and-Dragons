@@ -96,7 +96,9 @@ public:
 	void setCharisma(int value);
 
 
-
+	/**
+	* Return the array holding antity's ability scores after item modifications
+	*/
 	int* getEffectiveAbilityScoreArray();
 	/**
 	* Return array holding entity's ability scores
@@ -113,11 +115,11 @@ public:
 
 	std::string toString() {
 	
-		return "Name: " + name + ", Level:" + to_string(level) + "\nSTR:" + std::to_string(getStrength()) + ", DEX:" + std::to_string(getDexterity()) + ", CON:" + std::to_string(getConstitution()) +
-			", INT:" + std::to_string(getIntelligence()) + ", WIS:" + std::to_string(getWisdom()) + ", CHA:" + std::to_string(getCharisma()) +
-			"\nEffective:\n" + "STR:" + std::to_string(effectiveAbilityScores[0]) + ", DEX:" + std::to_string(effectiveAbilityScores[1]) +
-			", CON:" + std::to_string(effectiveAbilityScores[2]) + ", INT:" + std::to_string(effectiveAbilityScores[3]) + ", WIS:" +
-			std::to_string(effectiveAbilityScores[4]) + ", CHA:" + std::to_string(effectiveAbilityScores[5]) + "\nAC:" + std::to_string(armorClass) +
+		return "Name: " + name + "\nLevel: " + to_string(level) +"\nBase:\nSTR: " + std::to_string(getStrength()) + ", DEX: " + std::to_string(getDexterity()) + ", CON: " + std::to_string(getConstitution()) +
+			"\nINT: " + std::to_string(getIntelligence()) + ", WIS: " + std::to_string(getWisdom()) + ", CHA: " + std::to_string(getCharisma()) +
+			"\nEffective:\nSTR: " + std::to_string(effectiveAbilityScores[0]) + ", DEX: " + std::to_string(effectiveAbilityScores[1]) +
+			", CON: " + std::to_string(effectiveAbilityScores[2]) + "\nINT: " + std::to_string(effectiveAbilityScores[3]) + ", WIS: " +
+			std::to_string(effectiveAbilityScores[4]) + ", CHA: " + std::to_string(effectiveAbilityScores[5]) + "\nAC: " + std::to_string(armorClass) +
 			", Damage Bonus:" + to_string(damageBonus) + ", Attack bonus:" + to_string(attackBonus) + "\n";
 		}
 	

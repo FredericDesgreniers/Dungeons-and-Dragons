@@ -251,6 +251,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		to->setCharisma(from->getCharisma());
 		to->setLevel(from->getLevel());
 		to->setName(from->getName());
+		//Doesn't yet load items properly
 		return true;
 	}
 
