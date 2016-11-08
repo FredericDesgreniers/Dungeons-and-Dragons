@@ -27,6 +27,10 @@ void Component::tick()
 {
 	
 }
+void Component::clearCallbacks()
+{
+	onClick_callbacks.clear();
+}
 
 void Component::renderDebug()
 {

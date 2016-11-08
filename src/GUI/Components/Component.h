@@ -80,6 +80,9 @@ public:
 	 * Add function to callback list. Called when component is clicked. positions are relative
 	 */
 	void addOnClick_callback(std::function<void(Component*, int, int)> func);
+
+	void clearCallbacks();
+
 	virtual void render();
 	virtual void renderDebug();
 	
