@@ -15,6 +15,10 @@ void Pane::click(int x, int y)
 	}
 }
 
+void Pane::clearComponents()
+{
+	subComponents.clear();
+}
 
 void Pane::keyPressed(SDL_Keycode keycode)
 {

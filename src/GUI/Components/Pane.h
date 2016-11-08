@@ -15,6 +15,7 @@ public:
 	 * So create the component with an x,y relative to this pane
 	 */
 	void addComponent(Component* comp);
+	void clearComponents();
 	
 	void render() override;
 	void tick() override;
