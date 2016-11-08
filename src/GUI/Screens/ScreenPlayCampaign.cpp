@@ -5,6 +5,7 @@
 #include "ScreenCampaignSelect.h"
 #include "../Renderer.h"
 #include "screenMain.h"
+#include "../Components/ItemContainerComponent.h"
 
 
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
@@ -27,7 +28,14 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 	eiComp->setBorderColor_both(150, 150, 140, 255);
 	eiComp->setBorderSize(1);
 	eiComp->setPadding(10, 10, 10, 10);
+	character->Attach(eiComp);
 	addComponent(eiComp);
+
+	ItemContainerComponent* bagDisplay = new ItemContainerComponent(character->getBackpack(),0,475,200,400);
+	bagDisplay->setBorderColor_both(150, 150, 140, 255);
+	bagDisplay->setBorderSize(1);
+	bagDisplay->setPadding(10, 10, 10, 10);
+	addComponent(bagDisplay);
 
 	map_component->addOnTileClickedCallback([this](Map* map, int x, int y)
 	{
