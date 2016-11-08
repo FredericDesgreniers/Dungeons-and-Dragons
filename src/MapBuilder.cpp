@@ -196,7 +196,7 @@ int MapBuilder::getMapLevel()
 
 MapBuilder* MapBuilder::spawnScaledContent()
 {
-	srand(time(NULL));
+
 
 	int level = character == nullptr ? 1 : character->getLevel();
 	for (int x = 0; x < map->getWidth(); x++)
@@ -214,12 +214,15 @@ MapBuilder* MapBuilder::spawnScaledContent()
 				if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
 				{
 					
-					int num = rand() % 5;
+					int num = (rand()) % 5;
 					for (int i = 0; i < num; i++)
 					{
 						Item* item = Item::generateRandomItem(level);
 						chest->getContainer()->addItem(item);
+						
 					}
+					std::cout << "CHEST RANDOM SPAWN" << num<< std::endl;
+					chest->getContainer()->printContainer();
 				}else if(Monster* monster = dynamic_cast<Monster*>(entity))
 				{
 					monster->setLevel(level);
