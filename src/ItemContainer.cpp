@@ -10,6 +10,7 @@ ItemContainer::ItemContainer(std::string name, int max)
 {
 	this->name = name;
 	this->maxSize = max;
+	arrayPtr = new Item *[maxSize];
 }
 
 //! Destructor
@@ -21,9 +22,9 @@ ItemContainer::~ItemContainer()
 // returns an Item at index i
 Item* ItemContainer::getItemAtIndex(int i)
 {
-	if (i <= (maxSize - 1))
+	if (i < maxSize)
 	{
-		return container[i];
+		return arrayPtr[i];
 	}
 	else 
 	{
@@ -35,34 +36,31 @@ Item* ItemContainer::getItemAtIndex(int i)
 // adds an Item to the end of the container
 void ItemContainer::addItem(Item* it)
 {
-	if(container.size() < maxSize )
+	for (int i = 0; i < maxSize; i++)
 	{
-		container.push_back(it);
-	}
-	else
-	{
-		std::cout << "Cannot add an item here, no more space" << std::endl;
+		if (arrayPtr[i] == nullptr)
+		{
+			arrayPtr[i] = it;
+			break;
+		}
 	}
 }
 
 // removes an Item at index i from the container
-void ItemContainer::removeItemAtIndex(int i) 
+void ItemContainer::removeItemAtIndex(int i)
 {
-	delete container[i];
-	container[i] = nullptr;
-
+	if (arrayPtr[i] != nullptr)
+	{
+		arrayPtr[i] == nullptr;
+	}
 }
 
 // adds an item at index i to the container
 void ItemContainer::addItemAtIndex(Item* it, int i)
 {
-	if (i <= (maxSize - 1))
+	if (arrayPtr[i] == nullptr)
 	{
-		container.insert(container.begin() + i, it);
-	}
-	else
-	{
-		std::cout << "Cannot add an item here." << std::endl;
+		arrayPtr[i] = it;
 	}
 }
 
@@ -81,23 +79,16 @@ void ItemContainer::setName(std::string s)
 // returns size of container
 int ItemContainer::getSize()
 {
-	return container.size();
+	return maxSize;
 }
 
-// returns capacity of container
-int ItemContainer::getCapacity()
-{
-	return container.capacity();
-}
 
 // prints every items in the container
 void ItemContainer::printContainer()
 {
-	int size = container.size();
-
-	for (int i = 0; i < size; ++i)
+	for (int i = 0; i < maxSize; ++i)
 	{
-		std::cout << container[i]->toString() << std::endl;
+		std::cout << arrayPtr[i]->toString() << std::endl;
 	}
 }
 
@@ -112,13 +103,12 @@ void ItemContainer::printContainer()
 
 	//Item* insert = new Item("WWWWWWWWW", Item::ARMOR, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 	//// adds an item to the container
-	//i->addItem(it);
-	//i->addItem(it2);
-	//i->addItem(it3);
-	//i->addItem(it4);
-	//i->addItemAtIndex(insert, 4);
+	////i->addItem(it);
+	////i->addItem(it2);
+	////i->addItem(it3);
+	////i->addItem(it4);
+	////i->addItemAtIndex(insert, 4);
 	////i->removeItemAtIndex(1);
-	//// removeItem doesnt work
 
 	//i->printContainer();
 

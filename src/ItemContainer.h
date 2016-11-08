@@ -22,14 +22,12 @@ public:
 
 	int getSize();
 
-	int getCapacity();
 
 
 	
 private:
 
-
-	std::vector<Item*> container;
+	Item **arrayPtr;
 	std::string name;
 	int maxSize;
 };

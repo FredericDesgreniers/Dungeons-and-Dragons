@@ -211,7 +211,7 @@ void Item::setName(std::string iName) {
 }
 
 Item::ItemType Item::getItemType() {
-	return this->type;
+	return type;
 }
 
 void Item::setItemType(ItemType iType) {
