@@ -223,8 +223,24 @@ MapBuilder* MapBuilder::spawnScaledContent()
 				}else if(Monster* monster = dynamic_cast<Monster*>(entity))
 				{
 					monster->setLevel(level);
+					if(rand() % 2 == 0)
+						monster->equip(Item::generateRandomItem(Item::ItemType::WEAPON));
+					if(rand() % 2 == 0)
+						monster->equip(Item::generateRandomItem(Item::ItemType::ARMOR));
+					if(rand() % 2 == 0)
+						monster->equip(Item::generateRandomItem(Item::ItemType::BELT));
+					if(rand() % 2 == 0)
+						monster->equip(Item::generateRandomItem(Item::ItemType::BOOTS));
+					if(rand() % 2 == 0)
+						monster->equip(Item::generateRandomItem(Item::ItemType::HELMET));
+					if(rand() % 2 == 0)
+						monster->equip(Item::generateRandomItem(Item::ItemType::RING));
+					if(rand() % 2 == 0)
+						monster->equip(Item::generateRandomItem(Item::ItemType::SHIELD));
+
 				}
 			}
 		}
 	}
+	return this;
 }
