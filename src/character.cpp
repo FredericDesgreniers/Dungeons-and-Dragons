@@ -59,7 +59,7 @@ Character* Character::loadCharacter(std::string name) {
 			if (equipped[i] != "None") {
 				loadedItem = Item::loadItem(equipped[i]);
 				if (loadedItem != nullptr) {
-					loadedCharacter->equip(Item::loadItem(equipped[i]));
+					loadedCharacter->equip(loadedItem);
 				}
 			}
 		}
