@@ -4,6 +4,8 @@
 #include "../../character.h"
 #include "../Components/MapComponent.h"
 #include "../Components/CharacterComponent.h"
+#include "../Components/ItemContainerComponent.h"
+#include "../Components/EquipedItemComponent.h"
 
 
 class ScreenPlayCampaign: public Screen
@@ -23,6 +25,11 @@ private:
 	Map* currentmap;
 
 	MapComponent* map_component;
+
+	CharacterComponent* otherLivingEntityDisplay;
+	EquipedItemComponent* otherLivingEntityDisplay_equipped;
+
+	ItemContainerComponent* chestDisplay;
 
 	CharacterComponent* character_component;
 };

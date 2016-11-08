@@ -18,16 +18,37 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 	map_component = new MapComponent(currentmap, 0, 0, 450, 450);
 	addComponent(map_component);
 
-	character_component = new CharacterComponent(character, 500, 30, 200, 500);
+	character_component = new CharacterComponent(character, 500, 0, 200, 500);
 	character_component->setBorderSize(1);
 	character_component->setBorderColor_both(150, 150, 140, 255);
-	character_component->setPadding(10, 10, 10, 10);
+
 	addComponent(character_component);
-	
-	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 500, 300, 200, 500);
+
+	otherLivingEntityDisplay = new CharacterComponent(character,300,500,200,500);
+	otherLivingEntityDisplay->setBorderSize(1);
+	otherLivingEntityDisplay->setBorderColor_both(150, 150, 140, 255);
+
+	addComponent(otherLivingEntityDisplay);
+	otherLivingEntityDisplay->setVisible(false);
+
+	otherLivingEntityDisplay_equipped = new EquipedItemComponent(character->getEquippedItems(), 520, 500, 200, 500);
+	otherLivingEntityDisplay_equipped->setBorderSize(1);
+	otherLivingEntityDisplay_equipped->setBorderColor_both(150, 150, 140, 255);
+
+	otherLivingEntityDisplay_equipped->setVisible(false);
+	addComponent(otherLivingEntityDisplay_equipped);
+
+	chestDisplay = new ItemContainerComponent(character->getBackpack(), 300, 500, 200, 500);
+	chestDisplay->setBorderSize(1);
+	chestDisplay->setBorderColor_both(150, 150, 140, 255);
+
+	chestDisplay->setVisible(false);
+	addComponent(chestDisplay);
+
+	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 500, 220, 200, 500);
 	eiComp->setBorderColor_both(150, 150, 140, 255);
 	eiComp->setBorderSize(1);
-	eiComp->setPadding(10, 10, 10, 10);
+
 	character->Attach(eiComp);
 	addComponent(eiComp);
 	eiComp->addOnItemClick_callback([this](Item*, int i)
@@ -55,9 +76,26 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 
 	map_component->addOnTileClickedCallback([this](Map* map, int x, int y)
 	{
+		otherLivingEntityDisplay->setVisible(false);
+		otherLivingEntityDisplay_equipped->setVisible(false);
+		chestDisplay->setVisible(false);
+
 		Character* chara = this->character;
 		Entity* entity = map->getEntity(x, y);
 		if (entity != nullptr) {
+			if(LivingEntity* livingEntity = dynamic_cast<LivingEntity*>(entity))
+			{
+					otherLivingEntityDisplay->setLivingEntity(livingEntity);
+					otherLivingEntityDisplay->setVisible(true);
+
+					otherLivingEntityDisplay_equipped->setItems(livingEntity->getEquippedItems());
+					otherLivingEntityDisplay_equipped->setVisible(true);
+			}
+			if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
+			{
+				chestDisplay->setItemContainer(chest->getContainer());
+				chestDisplay->setVisible(true);
+			}
 			if (chara->distanceTo(entity) <= 1)
 			{
 
