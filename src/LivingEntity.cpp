@@ -256,10 +256,19 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		to->setCharisma(from->getCharisma());
 		to->setLevel(from->getLevel());
 		to->setName(from->getName());
-		Item** toCopy = from->getEquippedItems();
+		Item** toEquip = from->getEquippedItems();
 		for (int i = 0; i < 7; i++) {
-			if (toCopy[i]!=nullptr)
-			to->equip(new Item(toCopy[i]));
+			if (toEquip[i]!=nullptr)
+			to->equip(new Item(toEquip[i]));
+		}
+		Item* toBackpack = nullptr;
+		for (int i = 0; i < 10; i++) {
+			to->getBackpack()->removeItemAtIndex(i);
+			toBackpack = from->getBackpack()->getItemAtIndex(i);
+			if (toBackpack != nullptr) {
+				to->getBackpack()->addItem(new Item(toBackpack));
+			}
+
 		}
 		// Test item
 		//to->equip(new Item("Helmetfury, Blessed Hat of the Windseeker", Item::ItemType::HELMET, 0, 0, 0, 5, 5, 0, 0, 0, 5)); 
@@ -362,6 +371,9 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	LivingEntity::~LivingEntity()
 	{
+		for (int i = 0; i < 7; i++) {
+			delete equipped[i];
+		}
 		delete backpack;
 		backpack = nullptr;
 	}

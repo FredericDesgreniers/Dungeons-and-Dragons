@@ -228,6 +228,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 		else {
 			std::cout << "Load Failed" << endl;
 		}
+		character->getBackpack()->printContainer();
 		temp = nullptr;
 	});
 
@@ -387,13 +388,7 @@ void ScreenCharacterCreation::rollCharacter() {
 	for (int i = 0; i < 7; i++) {
 		character->unequip(i);
 	}
-
-	std::cout << "Adding basic equipment:" << endl;
-	character->equip(new Item("Crude Helmet", Item::ItemType::HELMET, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-	character->equip(new Item("Leather Armor", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-	character->equip(new Item("Wooden Buckler", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-	character->equip(new Item("Leather Boots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-	character->equip(new Item("Dagger", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 0, 0));
+	character->equipBasic();
 	setRemaining("0");
 }
 
@@ -430,8 +425,9 @@ void ScreenCharacterCreation::createCharacter() {
 
 	character->setName(nameInput->getText());
 	Character::saveCharacter(nameInput->getText(), character);
-
 	std::cout << character->toString() << endl;
+
+
 }
 
 void ScreenCharacterCreation::Update() {

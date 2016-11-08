@@ -13,7 +13,7 @@ class Observer;
 
 //!  Subject prototype class
 /*!
-Prototype for Character class subject functionality. Ensures compatibility with CharacterObserver class.
+Prototype for Character class subject functionality. 
 */
 class Subject {
   public:

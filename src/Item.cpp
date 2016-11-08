@@ -20,6 +20,9 @@ Item::Item()
 
 };
 
+/**
+* Copy constructor for item class
+*/
 Item::Item(Item* item)
 {
 	itemName = item->getName();

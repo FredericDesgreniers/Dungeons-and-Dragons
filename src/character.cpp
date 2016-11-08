@@ -41,6 +41,7 @@ Character* Character::loadCharacter(std::string name) {
 		int abilities[6] = { 0,0,0,0,0,0 };
 		int loadLevel = 1;
 		std::string equipped[7] = { "","","","","","","" };
+		std::string backpack[10] = { "","","","","","","","","","" };
 		std::string line = "";
 		std::getline(charFile, line);
 		loadLevel = stoi(line);
@@ -52,6 +53,10 @@ Character* Character::loadCharacter(std::string name) {
 		for (int i = 0; i < 7; i++) {
 			std::getline(charFile, line);
 			equipped[i] = line;
+		}
+		for (int i = 0; i < 10; i++) {
+			std::getline(charFile, line);
+			backpack[i] = line;
 		}
 
 		loadedCharacter = new Character(abilities[0], abilities[1], abilities[2], abilities[3], abilities[4], abilities[5], loadLevel, name);
@@ -65,6 +70,15 @@ Character* Character::loadCharacter(std::string name) {
 			}
 		}
 
+		for (int i = 0; i < 10; i++) {
+			if (backpack[i] != "None") {
+				loadedItem = Item::loadItem(backpack[i]);
+				if (loadedItem != nullptr) {
+					loadedCharacter->getBackpack()->addItem(loadedItem);
+				}
+			}
+		}
+		//character->getBackpack()->addItem(new Item("Stale Bread", Item::ItemType::BELT, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 
 		std::cout << "Successfully loaded character from " << name << ".chr" << endl;
 		std::cout << loadedCharacter->toString() << endl;
@@ -92,6 +106,20 @@ bool Character::saveCharacter(std::string name, Character* character) {
 			if (equipped[i] != nullptr) {
 				Item::saveItem(equipped[i]->getName(), equipped[i]);
 				charFile << equipped[i]->getName() << endl;
+			}
+			else {
+				charFile << "None" << endl;
+			}
+		}
+		charFile.flush();
+
+		ItemContainer* backpack = (character->getBackpack());
+		Item* item;
+		for (int i = 0; i < 10; i++) {
+			item = backpack->getItemAtIndex(i);
+			if (item != nullptr) {
+				Item::saveItem(item->getName(),item);
+				charFile << item->getName() << endl;
 			}
 			else {
 				charFile << "None" << endl;
