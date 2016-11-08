@@ -3,7 +3,7 @@
 #include "Item.h"
 
 
-class ItemContainer
+class ItemContainer:public Subject
 {
 public:
 	ItemContainer();

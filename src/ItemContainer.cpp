@@ -44,6 +44,7 @@ void ItemContainer::addItem(Item* it)
 		if (arrayPtr[i] == nullptr)
 		{
 			arrayPtr[i] = it;
+			Notify();
 			break;
 		}
 	}
@@ -55,6 +56,7 @@ void ItemContainer::removeItemAtIndex(int i)
 	if (arrayPtr[i] != nullptr)
 	{
 		arrayPtr[i] == nullptr;
+		Notify();
 	}
 
 
@@ -66,6 +68,7 @@ void ItemContainer::addItemAtIndex(Item* it, int i)
 	if (arrayPtr[i] == nullptr)
 	{
 		arrayPtr[i] = it;
+		Notify();
 	}
 }
 
@@ -79,6 +82,7 @@ std::string ItemContainer::getName()
 void ItemContainer::setName(std::string s)
 {
 	name = s;
+	Notify();
 }
 
 // returns size of container
