@@ -72,6 +72,7 @@ public:
 
 	static Item* generateRandomItem(int level);
 
+	static Item* generateRandomItem(ItemType type, int level);
 private:
 
 
