@@ -228,7 +228,6 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 		else {
 			std::cout << "Load Failed" << endl;
 		}
-		character->getBackpack()->printContainer();
 		temp = nullptr;
 	});
 
@@ -388,6 +387,12 @@ void ScreenCharacterCreation::rollCharacter() {
 	for (int i = 0; i < 7; i++) {
 		character->unequip(i);
 	}
+
+	for (int i = 0; i < 10; i++) {
+		character->getBackpack()->removeItemAtIndex(i);
+	}
+	std::cout << "Character Backpack After Removal:" << endl;
+	character->getBackpack()->printContainer();
 	character->equipBasic();
 	setRemaining("0");
 }
