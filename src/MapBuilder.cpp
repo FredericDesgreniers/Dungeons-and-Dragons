@@ -194,3 +194,37 @@ int MapBuilder::getMapLevel()
 		return character->getLevel();
 }
 
+MapBuilder* MapBuilder::spawnScaledContent()
+{
+	srand(time(NULL));
+
+	int level = character == nullptr ? 1 : character->getLevel();
+	for (int x = 0; x < map->getWidth(); x++)
+	{
+		for (int y = 0; y < map->getHeight(); y++)
+		{
+
+			Entity* entity = map->getEntity(x, y);
+			if(entity!=nullptr)
+			{
+				int range = rand() % 2-1;
+				level += range;
+				if (level < 1)
+					level = 1;
+				if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
+				{
+					
+					int num = rand() % 5;
+					for (int i = 0; i < num; i++)
+					{
+						Item* item = Item::generateRandomItem(level);
+						chest->getContainer()->addItem(item);
+					}
+				}else if(Monster* monster = dynamic_cast<Monster*>(entity))
+				{
+					monster->setLevel(level);
+				}
+			}
+		}
+	}
+}
