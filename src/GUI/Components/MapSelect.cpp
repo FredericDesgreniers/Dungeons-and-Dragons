@@ -107,13 +107,12 @@ void MapSelect::reloadMaps()
 			// read all (real) files in current folder, delete '!' read other 2 default folder . and ..
 			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
-
 				const std::string name = std::string(fd.cFileName).substr(0, strlen(fd.cFileName) - 4);
-
-				maps.push_back(MapBuilder::loadFromFile(name)->get());
-
-				y += fontSize + 10;
-
+				if (name.find("Selection") == string::npos)
+				{
+					maps.push_back(MapBuilder::loadFromFile(name)->get());
+					y += fontSize + 10;
+				}
 			}
 		} while (::FindNextFile(hFind, &fd));
 		::FindClose(hFind);
