@@ -17,6 +17,7 @@ private:
 	std::string abilityScores[7];
 	Character* character;
 	TextField* nameInput;
+	int mods[6];
 
 public:
 	ScreenCharacterCreation(Game* game);

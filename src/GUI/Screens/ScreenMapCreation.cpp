@@ -2,6 +2,7 @@
 #include "../../Monster.h"
 #include "../../Wizard.h"
 #include "../../EntityChest.h"
+#include "../../Pathfinder.h"
 
 ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 {
@@ -78,6 +79,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 
 	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{	
+		
 		saveMap();
 	});
 
@@ -155,7 +157,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	{
 		if (storedEntity != nullptr)
 		{
-			map->getTile(x, y)->setId(0);
+			map->setTile(new MapTile(0), x, y);
 			map->spawnEntity(storedEntity, x, y);
 		}
 		
@@ -165,7 +167,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 			{
 				map->removeEntity(x, y);
 			}
-			map->getTile(x, y)->setId(storedTile->getId());
+			map->setTile(new MapTile(storedTile->getId()),x,y);
 		}
 	});
 
@@ -247,6 +249,8 @@ bool ScreenMapCreation::validateMap()
 {
 	bool entryPoint = false;
 	bool exitPoint = false;
+	int entryX, entryY;
+	int endX, endY;
 
 	for (int i = 0; i < map->getWidth(); i++) {
 		for (int j = 0; j < map->getHeight(); j++) {
@@ -256,6 +260,8 @@ bool ScreenMapCreation::validateMap()
 				if (!entryPoint)
 				{
 					entryPoint = true;
+					entryX = i;
+					entryY = j;
 					continue;
 				}
 				else
@@ -268,6 +274,8 @@ bool ScreenMapCreation::validateMap()
 			if (!exitPoint && map->getTile(i, j)->getId() == 3)
 			{
 				exitPoint = true;
+				endX = i;
+				endY = j;
 				continue;
 			}
 		}
@@ -285,5 +293,18 @@ bool ScreenMapCreation::validateMap()
 		return false;
 	}
 
-	return true;
+	Pathfinder pathfinder(map, endX, endY);
+
+	std::vector<Node*>* path = pathfinder.getPath(entryX, entryY);
+	if( abs((*path)[0]->x - endX)<=1 && (abs((*path)[0]->y-endY) <=1))
+	{
+		delete path;
+		return true;
+	}else
+	{
+		delete path;
+		return false;
+	}
+
+	
 }

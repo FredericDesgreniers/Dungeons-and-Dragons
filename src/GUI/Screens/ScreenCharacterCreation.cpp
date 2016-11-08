@@ -160,6 +160,8 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent((new Label("Warrior", &Renderer::FONT_ROBOTO, 140, 170, 1, 1))->setFontSize(20)->adjustDimensions());
 
 	addComponent((new Label("Strength", &Renderer::FONT_ROBOTO, 20, i, 1, 1))->setFontSize(20)->adjustDimensions());
+	
+
 	addComponent((new Label("Dexterity", &Renderer::FONT_ROBOTO, 20, i+35, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Constitution", &Renderer::FONT_ROBOTO, 20, i+70, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Intelligence", &Renderer::FONT_ROBOTO, 20, i+105, 1, 1))->setFontSize(20)->adjustDimensions());
@@ -246,23 +248,26 @@ void ScreenCharacterCreation::render()
 
 	Renderer::drawString("Name", Renderer::FONT_ROBOTO.get(20), 20, 100, 1, { 255,255,255,255 });
 
-	
-
-
-
 	Renderer::drawString(abilityScores[0], Renderer::FONT_ROBOTO.get(20), 175, 220, 1, { 255,255,255,255 });
+	Renderer::drawString((mods[0]>-1 ? "+" : "") + to_string(mods[0]), Renderer::FONT_ROBOTO.get(20), 275, 220, 1, { 255,255,255,255 });
 
 	Renderer::drawString(abilityScores[1], Renderer::FONT_ROBOTO.get(20), 175, 255, 1, { 255,255,255,255 });
-
+	Renderer::drawString((mods[1]>-1 ? "+" : "") + to_string(mods[1]), Renderer::FONT_ROBOTO.get(20), 275, 255, 1, { 255,255,255,255 });
+	
 	Renderer::drawString(abilityScores[2], Renderer::FONT_ROBOTO.get(20), 175, 290, 1, { 255,255,255,255 });
+	Renderer::drawString((mods[2]>-1 ? "+" : "") + to_string(mods[2]), Renderer::FONT_ROBOTO.get(20), 275, 290, 1, { 255,255,255,255 });
 
 	Renderer::drawString(abilityScores[3], Renderer::FONT_ROBOTO.get(20), 175, 325, 1, { 255,255,255,255 });
+	Renderer::drawString((mods[3]>-1 ? "+" : "") + to_string(mods[3]), Renderer::FONT_ROBOTO.get(20), 275, 325, 1, { 255,255,255,255 });
 
 	Renderer::drawString(abilityScores[4], Renderer::FONT_ROBOTO.get(20), 175, 360, 1, { 255,255,255,255 });
+	Renderer::drawString((mods[4]>-1 ? "+" : "") + to_string(mods[4]), Renderer::FONT_ROBOTO.get(20), 275, 360, 1, { 255,255,255,255 });
 
 	Renderer::drawString(abilityScores[5], Renderer::FONT_ROBOTO.get(20), 175, 395, 1, { 255,255,255,255 });
+	Renderer::drawString((mods[5]>-1 ? "+" : "") + to_string(mods[5]), Renderer::FONT_ROBOTO.get(20), 275, 395, 1, { 255,255,255,255 });
 
 	Renderer::drawString(abilityScores[6], Renderer::FONT_ROBOTO.get(20), 175, 430, 1, { 255,255,255,255 });
+
 
 	Screen::render();
 }
@@ -432,6 +437,12 @@ void ScreenCharacterCreation::Update() {
 	setWisdom(to_string(character->getWisdom()));
 	setCharisma(to_string(character->getCharisma()));
 	nameInput->setText(character->getName());
+	for (int i = 0; i < 6; i++)
+	{
+		mods[i] = character->getModifier(i);
+	}
+	
+	
 }
 
 

@@ -39,12 +39,13 @@ void Pathfinder::createNodeGrid()
 			MapTile* tile = map->getTile(x, y);
 			bool entityThere = map->getEntity(x, y) != nullptr && !(x==destinationX && y==destinationY);
 			Node* node = new Node(x, y, tile->getMovementCost(), !entityThere && tile->getWalkable());
-
+	
 			//calculate the distance to destination from tile
 			node->calculateHeuristic(destinationX, destinationY);
 			nodeGrid[x][y] = node;
 		}
 	}
+
 }
 void Pathfinder::setDestination(int dx, int dy)
 {
@@ -67,7 +68,7 @@ void Pathfinder::refreshHeuristics()
 /**
 * Get a path from x1, y1 to the destination
 */
-std::vector<Node*> Pathfinder::getPath(int x1, int y1)
+std::vector<Node*>* Pathfinder::getPath(int x1, int y1)
 {
 	//open nodes list
 	std::vector<Node*> openNodes;
@@ -175,15 +176,14 @@ std::vector<Node*> Pathfinder::getPath(int x1, int y1)
 		//std::cout << std::endl;
 
 	}
-	std::vector<Node*> path;
+	std::vector<Node*>* path = new vector<Node*>();
 	//trace back path from destination to start using parents
-
 	while (current->parent != nullptr)
 	{
-		path.push_back(current);
+		path->push_back(current);
 		current = current->parent;
 	}
-	path.push_back(current);
+	path->push_back(current);
 	return path;
 
 

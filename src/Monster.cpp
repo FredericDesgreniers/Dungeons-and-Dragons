@@ -33,16 +33,16 @@ void Monster::simulate(Map* map, Pathfinder* pathfinder)
 
 		return;
 	}
-	std::vector<Node*> path = pathfinder->getPath(getPositionX(), getPositionY());
+	std::vector<Node*>* path = pathfinder->getPath(getPositionX(), getPositionY());
 	Character* c = map->getCharacter();
 	if(c->distanceTo(this) <= 1){
 		
 		if (c->hit(5))
 			map->removeEntity(c->getPositionX(), c->getPositionY());
 	}
-	if (path.size() > 0 && path.size() < getPathfinderDistance())
+	if (path->size() > 0 && path->size() < getPathfinderDistance())
 	{
-		Node* nextNode = path[path.size()-1];
+		Node* nextNode = (*path)[path->size()-1];
 		map->moveEntity(this, nextNode->x, nextNode->y);
 	}
 

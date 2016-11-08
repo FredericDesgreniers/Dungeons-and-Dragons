@@ -33,7 +33,7 @@ public:
 	/**
 	 * Get apth from destination to x,y
 	 */
-	std::vector<Node*> getPath(int x1, int y1);
+	std::vector<Node*>* getPath(int x1, int y1);
 
 	/**
 	 * Print heuristics grid in console

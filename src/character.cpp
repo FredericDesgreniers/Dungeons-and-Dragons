@@ -15,7 +15,21 @@ Character::Character(int str, int dex, int cons, int intel, int wisd, int chari,
 
 int Character::getModifier(int score)
 {
-	return (score - 10) / 2;
+	switch (score) {
+	case 0:
+		return (getStrength() - 10) / 2;
+	case 1:
+		return (getDexterity() - 10) / 2;
+	case 2:
+		return (getConstitution() - 10) / 2;
+	case 3:
+		return (getIntelligence() - 10) / 2;
+	case 4:
+		return (getWisdom() - 10) / 2;
+	case 5:
+		return (getCharisma() - 10) / 2;
+	}
+	return 0;
 }
 
 
@@ -94,17 +108,18 @@ bool Character::saveCharacter(std::string name, Character* character) {
 	return true;
 }
 
-// I temporarily removed this since there is no real need to validate characters after creation 
-/**
+
+bool Character::validateNewCharacter()
 {
-	for (int i = 0; i < (sizeof(getAbilityScoreArray) / sizeof(int)); i++){
-		if (abilityScores[i] < 3 || abilityscores[i] > 18)
+	
+	int* abilities = getAbilityScoreArray();
+	for (int i = 0; i < 7; i++){
+		if (abilities[i] < 3 || abilities[i] > 18)
 			return false;
 
 	}
 	return true;
 }
-*/
 
 
 
