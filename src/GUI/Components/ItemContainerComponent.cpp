@@ -22,7 +22,7 @@ void ItemContainerComponent::setItemContainer(ItemContainer* container)
 		container->Detach(this);
 	}
 	
-	this->container = container;
+	
 
 	container->Attach(this);
 	nameLabel->setText(container->getName());
@@ -38,8 +38,28 @@ void ItemContainerComponent::setItemContainer(ItemContainer* container)
 			addComponent(itemLabels[i]);
 		}
 		
-	}
+	}else
+	{
+		Label** oldItemLabels = itemLabels;
+		int oldSize = this->container->getSize();
+		itemLabels = new Label*[container->getSize()];
+		for (int i = 0; i < container->getSize(); i++)
+		{
+			if(i < oldSize)
+			{
+				itemLabels[i] = oldItemLabels[i];
+			}else
+			{
+				itemLabels[i] = new Button("Empty", &Renderer::FONT_ROBOTO, 0, 0, 0, 0);
+				itemLabels[i]->setPadding(0, 0, 0, 0);
+				itemLabels[i]->setVisible(false);
 
+				addComponent(itemLabels[i]);
+			}
+		}
+		delete oldItemLabels;
+	}
+	this->container = container;
 	Update();
 }
 void ItemContainerComponent::addOnItemClick_callback(std::function<void(Item*, int)> func)
