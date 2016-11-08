@@ -22,10 +22,12 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	effectiveAbilityScores[5] = abilityscores[5] = charisma;
 	// TODO: Proper HP calculations
 	health = maxHealth = 100;
-	attackBonus = damageBonus = armorClass = 0;
+	attackBonus = damageBonus = 0;
+	armorClass = 10;
 	for (int i = 0; i < 7; i++) {
 		equipped[i] = nullptr;
 	}
+	backpack = new ItemContainer("Backpack", 10);
 }
 
 
@@ -69,6 +71,11 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	{
 		return abilityscores;
 	}
+
+	ItemContainer* LivingEntity::getBackpack() {
+		return backpack;
+	}
+
 
 	void LivingEntity::outputEquipped()
 	{
@@ -172,7 +179,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		for (int i = 0; i < 7; i++) {
 			effectiveAbilityScores[i] = abilityscores[i];
 		}
-		armorClass = 0;
+		armorClass = 10;
 
 		for (int i = 0; i < 7; i++) {
 			if (equipped[i] != nullptr) {
@@ -259,6 +266,15 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		return true;
 	}
 
+	void LivingEntity::equipBasic() {
+		std::cout << "Adding basic equipment:" << endl;
+		equip(new Item("Crude Helmet", Item::ItemType::HELMET, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+		equip(new Item("Leather Armor", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+		equip(new Item("Wooden Buckler", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+		equip(new Item("Leather Boots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+		equip(new Item("Dagger", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 0, 0));
+	}
+
 	int LivingEntity::getStrength()
 	{
 		return abilityscores[0];
@@ -342,4 +358,10 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	Item** LivingEntity::getEquippedItems()
 	{
 		return equipped;
+	}
+
+	LivingEntity::~LivingEntity()
+	{
+		delete backpack;
+		backpack = nullptr;
 	}

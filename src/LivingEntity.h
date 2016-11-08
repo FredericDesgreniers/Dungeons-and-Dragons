@@ -107,11 +107,14 @@ public:
 	*/
 	int* getAbilityScoreArray();
 
+	ItemContainer* getBackpack();
+
+
 	/**
 	* Equip an item. Returns previously equipped item if one exists, nullptr otherwise
 	*/
 	Item* equip(Item* toEquip);
-
+	void equipBasic();
 	void outputEquipped();
 	Item* unequip(int itemSlot);
 	/**
@@ -136,6 +139,9 @@ public:
 	* Copy the stats and items from one LivingEntity to another. Used mainly for loading characters in the character creation screen
 	*/
 	static bool copyStats(LivingEntity* from, LivingEntity* to);
+	
+	
+	~LivingEntity();
 
 
 private:
@@ -173,7 +179,7 @@ private:
 	* The backpack ItemContainer containing items which are not equipped.
 	* A container storing items the Entity is carrying but which are not equipped.
 	*/
-	ItemContainer backpack;
+	ItemContainer* backpack;
 
 	/**
 	* Update the Entity's efffective stats and ability scores.
@@ -204,3 +210,5 @@ private:
 	*/
 	int armorClass;
 };
+
+
