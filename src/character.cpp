@@ -3,6 +3,7 @@
 Character::Character(int level) :LivingEntity('C')
 {
 	setLevel(level);
+	equipBasic();
 }
 
 Character::Character(int str, int dex, int cons, int intel, int wisd, int chari, int lvl) : LivingEntity('C', str, dex, cons, intel, wisd, chari, lvl)
