@@ -2,9 +2,10 @@
 
 #include <string>
 #include <iostream>
+#include "Subject.h"
 
 
-class Item
+class Item : public Subject
 {
 
 public:

@@ -1,6 +1,7 @@
 #include "ScreenMain.h"
 #include "ScreenCharacterCreation.h"
 #include "ScreenMapCreation.h"
+#include "ScreenItemCreation.h"
 
 #include "ScreenCampaignSelect.h"
 
@@ -54,13 +55,31 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 		Screen* screen = this->game->getGuiManager()->setScreen(campaignEditorScreen);
 		campaignEditorScreen->setBackButton(this);
 
-		std::cout << "Go to Character Editor!" << std::endl;
+		std::cout << "Go to Campaign Editor!" << std::endl;
+	});
+
+	// Item Editor
+	Button* itemEditorBtn = new Button("Item Editor", &Renderer::FONT_ROBOTO, 100, 340, 100, 30);
+
+	itemEditorBtn->adjustButtonDimensions();
+
+	itemEditorBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		// new screen item creation obj
+		ScreenItemCreation* screen_item_creation = new ScreenItemCreation(this->game);
+
+		// back btn
+		screen_item_creation->setBackButton(this);
+
+
+		this->game->getGuiManager()->setScreen(screen_item_creation);
 	});
 
 	addComponent(playBtn);
 	addComponent(createMapBtn);
 	addComponent(charEditorBtn);
 	addComponent(campEditorBtn);
+	addComponent(itemEditorBtn);
 }
 
 void ScreenMain::render()

@@ -211,6 +211,7 @@ std::string Item::getName() {
 
 void Item::setName(std::string iName) {
 	this->itemName = iName;
+	Notify();
 }
 
 Item::ItemType Item::getItemType() {
@@ -219,6 +220,7 @@ Item::ItemType Item::getItemType() {
 
 void Item::setItemType(ItemType iType) {
 	this->type = iType;
+	Notify();
 }
 
 int Item::getStrBoost() {
@@ -227,6 +229,7 @@ int Item::getStrBoost() {
 
 void Item::setStrBoost(int strB) {
 		this->strBoost = checkValididty(strB);
+		Notify();
 }
 
 int Item::getDexBoost() {
@@ -235,7 +238,8 @@ int Item::getDexBoost() {
 
 void Item::setDexBoost(int dexB) {
 	this->dexBoost = checkValididty(dexB);
-	
+	Notify();
+
 }
 
 int Item::getConBoost() {
@@ -244,6 +248,8 @@ int Item::getConBoost() {
 
 void Item::setConBoost(int conB) {
 	this->conBoost = checkValididty(conB);
+	Notify();
+
 }
 
 int Item::getIntBoost() {
@@ -251,7 +257,10 @@ int Item::getIntBoost() {
 }
 
 void Item::setIntBoost(int intB) {
+
 	this->intBoost = checkValididty(intB);
+	Notify();
+
 }
 
 int Item::getWisBoost() {
@@ -260,6 +269,7 @@ int Item::getWisBoost() {
 
 void Item::setWisBoost(int wisB) {
 	this->wisBoost = checkValididty(wisB);
+	Notify();
 }
 
 int Item::getChaBoost() {
@@ -268,6 +278,7 @@ int Item::getChaBoost() {
 
 void Item::setChaBoost(int chaB) {
 	this->chaBoost = checkValididty(chaB);
+	Notify();
 }
 
 int Item::getAtkBoost() {
@@ -276,6 +287,7 @@ int Item::getAtkBoost() {
 
 void Item::setAtkBoost(int atkB) {
 	this->atkBoost = checkValididty(atkB);
+	Notify();
 }
 
 int Item::getDmgBoost() {
@@ -284,6 +296,7 @@ int Item::getDmgBoost() {
 
 void Item::setDmgBoost(int dmgB) {
 	this->dmgBoost = checkValididty(dmgB);
+	Notify();
 }
 
 int Item::getArmBoost() {
@@ -292,6 +305,7 @@ int Item::getArmBoost() {
 
 void Item::setArmBoost(int armB) {
 	this->armBoost = checkValididty(armB);
+	Notify();
 }
 
 
