@@ -9,9 +9,10 @@
 class CharacterComponent:public Pane
 {
 public:
-	CharacterComponent(Character* character, int x, int y, int width, int height);
+	CharacterComponent(LivingEntity* character, int x, int y, int width, int height);
 
-	
+	void setLivingEntity(LivingEntity*);
+
 	void render() override;
 
 	void tick() override;
@@ -19,7 +20,7 @@ public:
 
 	~CharacterComponent();
 private:
-	Character* character;
+	LivingEntity* character;
 
 
 };
