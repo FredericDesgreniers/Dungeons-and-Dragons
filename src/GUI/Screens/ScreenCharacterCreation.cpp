@@ -11,7 +11,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 
 	
-	nameInput = new TextField("Test", 125, 100, 150, 25);
+	nameInput = new TextField("Test", 125, 65, 150, 25);
 	nameInput->setFontSize(20);
 	int i = 220;
 
@@ -155,6 +155,14 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	});
 
 
+
+	
+
+	addComponent((new Label("Name", &Renderer::FONT_ROBOTO, 20, 65, 1, 1))->setFontSize(20)->adjustDimensions());
+	
+	addComponent((new Label("Level", &Renderer::FONT_ROBOTO, 20, 100, 1, 1))->setFontSize(20)->adjustDimensions());
+
+
 	addComponent((new Label("Race", &Renderer::FONT_ROBOTO, 20, 135, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Human", &Renderer::FONT_ROBOTO, 140, 135, 1, 1))->setFontSize(20)->adjustDimensions());
 
@@ -249,7 +257,7 @@ void ScreenCharacterCreation::render()
 
 	Renderer::drawString("Character Editor", Renderer::FONT_ROBOTO.get(24), 250, 0, 1, { 255,255,255,255 });
 
-	Renderer::drawString("Name", Renderer::FONT_ROBOTO.get(20), 20, 100, 1, { 255,255,255,255 });
+	Renderer::drawString(std::to_string(character->getLevel()), Renderer::FONT_ROBOTO.get(20), 140, 100, 1, { 255,255,255,255 });
 
 	Renderer::drawString(abilityScores[0], Renderer::FONT_ROBOTO.get(20), 175, 220, 1, { 255,255,255,255 });
 	Renderer::drawString((mods[0]>-1 ? "+" : "") + to_string(mods[0]), Renderer::FONT_ROBOTO.get(20), 275, 220, 1, { 255,255,255,255 });
