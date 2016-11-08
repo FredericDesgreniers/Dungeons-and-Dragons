@@ -19,9 +19,13 @@ public:
 
 	void render() override;
 
+	void addOnItemClick_callback(std::function<void(Item*, int)>);
+
 	void Update() override;
 private:
 	ItemContainer* container;
 	Label** itemLabels;
 	Label* nameLabel;
+	
+	std::vector<std::function<void(Item*, int)>> onItemClick_callback;
 };

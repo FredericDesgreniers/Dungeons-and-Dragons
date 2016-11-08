@@ -31,8 +31,10 @@ void ItemContainerComponent::setItemContainer(ItemContainer* container)
 		itemLabels = new Label*[container->getSize()];
 		for (int i = 0; i < container->getSize(); i++)
 		{
-			itemLabels[i] = new Label("Empty", &Renderer::FONT_ROBOTO, 0, 0, 0, 0);
+			itemLabels[i] = new Button("Empty", &Renderer::FONT_ROBOTO, 0, 0, 0, 0);
+			itemLabels[i]->setPadding(0, 0, 0, 0);
 			itemLabels[i]->setVisible(false);
+
 			addComponent(itemLabels[i]);
 		}
 		
@@ -40,26 +42,42 @@ void ItemContainerComponent::setItemContainer(ItemContainer* container)
 
 	Update();
 }
+void ItemContainerComponent::addOnItemClick_callback(std::function<void(Item*, int)> func)
+{
+	onItemClick_callback.push_back(func);
+}
 
 void ItemContainerComponent::Update()
 {
-	int yPos = 0;
+
+	int yPos = 40;
 	for (int i = 0; i < container->getSize(); i++)
 	{
 		Item* item = container->getItemAtIndex(i);
 		if(item!=nullptr)
 		{
-			itemLabels[i]->setText(itemLabels[i]->getText());
-			itemLabels[i]->setPositionX(0);
-			itemLabels[i]->setPositionY(yPos);
-			itemLabels[i]->adjustDimensions();
-			itemLabels[i]->setVisible(true);
-			yPos += 20;
+			Label* label = itemLabels[i];
+			label->setText(item->getName());
+			label->setPositionX(getPositionX()+ 20);
+			label->setPositionY(getPositionY()+yPos);
+			label->adjustDimensions();
+			label->setVisible(true);
+			label->clearCallbacks();
+
+			label->addOnClick_callback([this,  i](Component*, int, int)
+			{
+				for (std::function<void(Item*, int)> func : onItemClick_callback)
+				{
+					func(this->container->getItemAtIndex(i), i);
+				}
+				
+			});
+			
 		}else
 		{
 			itemLabels[i]->setVisible(false);
 		}
+		yPos += 40;
 	}
 }
-
 
