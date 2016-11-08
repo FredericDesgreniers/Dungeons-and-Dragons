@@ -21,11 +21,10 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	effectiveAbilityScores[4] = abilityscores[4] = wisdom;
 	effectiveAbilityScores[5] = abilityscores[5] = charisma;
 	// TODO: Proper HP calculations
-	effectiveMaxHealth = health = maxHealth = 100;
+	health = maxHealth = 100;
 	attackBonus = damageBonus = armorClass = 0;
 	for (int i = 0; i < 7; i++) {
 		equipped[i] = nullptr;
-
 	}
 }
 
@@ -173,7 +172,6 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		for (int i = 0; i < 7; i++) {
 			effectiveAbilityScores[i] = abilityscores[i];
 		}
-		effectiveMaxHealth = maxHealth;
 		armorClass = 0;
 
 		for (int i = 0; i < 7; i++) {
@@ -251,7 +249,13 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		to->setCharisma(from->getCharisma());
 		to->setLevel(from->getLevel());
 		to->setName(from->getName());
-		//Doesn't yet load items properly
+		Item** toCopy = from->getEquippedItems();
+		for (int i = 0; i < 7; i++) {
+			if (toCopy[i]!=nullptr)
+			to->equip(new Item(toCopy[i]));
+		}
+		// Test item
+		//to->equip(new Item("Helmetfury, Blessed Hat of the Windseeker", Item::ItemType::HELMET, 0, 0, 0, 5, 5, 0, 0, 0, 5)); 
 		return true;
 	}
 
