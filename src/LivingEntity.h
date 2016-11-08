@@ -2,6 +2,7 @@
 #include "entity.h"
 #include "dice.h"
 #include "Item.h"
+#include "ItemContainer.h"
 /**
  * Extends entity, meant for anything that has health and is "living"
  */
@@ -63,6 +64,7 @@ public:
 
 	/**
 	*  Set entity name
+	* @param 
 	*/
 	void setName(std::string cname);
 
@@ -112,7 +114,9 @@ public:
 
 	void outputEquipped();
 	Item* unequip(int itemSlot);
-
+	/**
+	* Output a description of the Entity's ability scores and other statistics, both base and effective. 
+	*/
 	std::string toString() {
 	
 		return "Name: " + name + "\nLevel: " + to_string(level) +"\nBase:\nSTR: " + std::to_string(getStrength()) + ", DEX: " + std::to_string(getDexterity()) + ", CON: " + std::to_string(getConstitution()) +
@@ -123,21 +127,59 @@ public:
 			", Damage Bonus:" + to_string(damageBonus) + ", Attack bonus:" + to_string(attackBonus) + "\n";
 		}
 	
+	/**
+	* Return an array of pointers to the Entity's equipped Items
+	*/
 	Item** getEquippedItems();
+
+	/**
+	* Copy the stats and items from one LivingEntity to another. Used mainly for loading characters in the character creation screen
+	*/
 	static bool copyStats(LivingEntity* from, LivingEntity* to);
 
 
 private:
+	/**
+	* The Entity's max Hit Points
+	*/
 	int maxHealth;
-	int effectiveMaxHealth;
+	/**
+	* The Entity's current Hit Points. 
+	*/
 	int health;
+	/**
+	* The Entity's name. Also used in the filename when saving a Entity.
+	*/
 	std::string name;
+	
+	/**
+	* The Entity's attack bonus which is added to the total after damage rolls
+	*/
 	int damageBonus;
+	/**
+	* The Entity's attack bonus which is added to attack rules to determine if hits are successful.
+	*/
 	int attackBonus;
+	/**
+	* The Entity's effective damage in dice notation.
+	*/
 	string damage;
+	/**
+	* An array holding pointers to an Entitys equipped items.
+	* Contains one slot for each item type. Items are added/removed using the equip and unequip functions
+	*/
 	Item* equipped[7];
+	/**
+	* The backpack ItemContainer containing items which are not equipped.
+	* A container storing items the Entity is carrying but which are not equipped.
+	*/
+	ItemContainer backpack;
 
-
+	/**
+	* Update the Entity's efffective stats and ability scores.
+	* This includes the effectiveAbilityScores array as well as damage bonus,
+	* attack bonus, armor class
+	*/
 	bool updateStats();
 	
 	/**
@@ -150,6 +192,15 @@ private:
 	* Entity's ability scores (str,dex,cons,intel,wisd,chari)
 	*/
 	int abilityscores[6];
+
+	/**
+	* Entity's ability scores after item bonuses. Updated whenever the entity's stats change or 
+	* when items are equipped/unequipped
+	*/
 	int effectiveAbilityScores[6];
+
+	/**
+	* Armor class calculated from the total armor on equipped items. Updated on equip/unequip
+	*/
 	int armorClass;
 };
