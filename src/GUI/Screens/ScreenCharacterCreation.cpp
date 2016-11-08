@@ -3,12 +3,14 @@
 
 ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 {
-	character = new Character(1);
-	character->Attach(this);
-
 	for (int i = 0; i < 7; i++) {
 		abilityScores[i] = "0";
 	}
+	character = new Character(1);
+	character->Attach(this);
+
+
+	
 	nameInput = new TextField("Test", 125, 100, 150, 25);
 	nameInput->setFontSize(20);
 	int i = 220;
@@ -158,6 +160,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	addComponent((new Label("Class", &Renderer::FONT_ROBOTO, 20, 170, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Warrior", &Renderer::FONT_ROBOTO, 140, 170, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Mod", &Renderer::FONT_ROBOTO, 267, 190, 1, 1))->setFontSize(20)->adjustDimensions());
 
 	addComponent((new Label("Strength", &Renderer::FONT_ROBOTO, 20, i, 1, 1))->setFontSize(20)->adjustDimensions());
 	
@@ -190,7 +193,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{	
 		if (abilityScores[0] == "0") {
-			std::cout << "Cannot instantiate character: press roll" << std::endl;
+			std::cout << "Cannot save character, press roll" << std::endl;
 		}
 
 		else if ((stoi(abilityScores[6]) > 0)) {
@@ -377,17 +380,13 @@ void ScreenCharacterCreation::rollCharacter() {
 		character->unequip(i);
 	}
 
+	std::cout << "Adding basic equipment:" << endl;
+	character->equip(new Item("Crude Helmet", Item::ItemType::HELMET, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+	character->equip(new Item("Leather Armor", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+	character->equip(new Item("Wooden Buckler", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+	character->equip(new Item("Leather Boots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+	character->equip(new Item("Dagger", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 0, 0));
 	setRemaining("0");
-
-	//std::cout << "Adding test equipment:" << endl;
-	//character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
-	//character->equip(new Item("Helm of Smartmaking+4", Item::ItemType::HELMET, 0, 0, 0, 4, 0, 0, 0, 0, 0));
-	//character->equip(new Item("Armor of Armorclass+5", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 5));
-	//character->equip(new Item("Shield of No-effect-whatsoever", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-	//character->equip(new Item("Ring of Smoothtalking +2", Item::ItemType::RING, 0, 0, 0, 0, 0, 2, 0, 0, 0));
-	//character->equip(new Item("Boots of Dexterity+1", Item::ItemType::BOOTS, 0, 1, 0, 0, 0, 0, 0, 0, 0));
-	//character->equip(new Item("Sword of Attack+1", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 1, 0));
-
 }
 
 void ScreenCharacterCreation::setStrength(std::string value) {
@@ -422,8 +421,6 @@ void ScreenCharacterCreation::setRemaining(std::string value) {
 void ScreenCharacterCreation::createCharacter() {
 
 	character->setName(nameInput->getText());
-
-	character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
 	Character::saveCharacter(nameInput->getText(), character);
 
 	std::cout << character->toString() << endl;
@@ -441,8 +438,6 @@ void ScreenCharacterCreation::Update() {
 	{
 		mods[i] = character->getModifier(i);
 	}
-	
-	
 }
 
 

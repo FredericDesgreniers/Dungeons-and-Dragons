@@ -407,16 +407,12 @@ Item::ItemType Item::stringToType(std::string type)
 		
 	}
 }
-
-Item* Item::generateRandomItem(int level)
+Item* Item::generateRandomItem(ItemType type, int level)
 {
 	Item* it;
 	srand(time(NULL));
 
-	int scores[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-	ItemType type = static_cast<ItemType>(rand() % 6 + 1);
-	
+	int scores[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 	for (int i = 0; i < 9; i++)
 	{
@@ -455,6 +451,12 @@ Item* Item::generateRandomItem(int level)
 
 	it = new Item(name, type, scores[0], scores[1], scores[2], scores[3], scores[4], scores[5], scores[6], scores[7], scores[8]);
 	return it;
+}
+
+Item* Item::generateRandomItem(int level)
+{
+	ItemType type = static_cast<ItemType>(rand() % 6 + 1);
+	return generateRandomItem(type, level);
 }
 
 

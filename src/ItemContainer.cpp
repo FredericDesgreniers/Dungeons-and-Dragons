@@ -49,10 +49,19 @@ void ItemContainer::addItem(Item* it)
 // removes an Item at index i from the container
 void ItemContainer::removeItemAtIndex(int i)
 {
+<<<<<<< HEAD
 	if (arrayPtr[i] != nullptr)
 	{
 		arrayPtr[i] == nullptr;
 	}
+=======
+	if (container[i] != nullptr) {
+		delete container[i];
+
+		container[i] = nullptr;
+	}
+
+>>>>>>> 11d55d070fef56b002313bf096a38366e761229f
 }
 
 // adds an item at index i to the container

@@ -12,7 +12,7 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 
 
 	
-	currentmap = MapBuilder::loadFromFile(campaign->getFirstMap())->spawnCharacter(character)->get();
+	currentmap = MapBuilder::loadFromFile(campaign->getFirstMap())->spawnCharacter(character)->spawnScaledContent()->get();
 
 	map_component = new MapComponent(currentmap, 0, 0, 450, 450);
 	addComponent(map_component);

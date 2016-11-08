@@ -37,6 +37,11 @@ public:
 	 */
 	Map* get();
 
+	/**
+	 * Spawn content relative to character level.
+	 * If no character has been spawned, default to lvl 1
+	 */
+	MapBuilder* spawnScaledContent();
 
 private:
 	int getMapLevel();
