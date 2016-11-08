@@ -10,5 +10,5 @@ public:
 
 	ItemContainer* getContainer();
 private:
-	ItemContainer container;
+	ItemContainer* container;
 };
