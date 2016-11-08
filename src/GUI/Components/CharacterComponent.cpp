@@ -36,6 +36,7 @@ void CharacterComponent::setLivingEntity(LivingEntity* entity)
 	clearComponents();
 	character = entity;
 	int i = 10;
+	addComponent((new Label(character->getName(), &Renderer::FONT_ROBOTO, 10, 0, 0, 0))->setFontSize(15)->adjustDimensions());
 	addComponent((new Label("Lvl  - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->setFontSize(15)->adjustDimensions());
 	addComponent((new Label("Str  - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->setFontSize(15)->adjustDimensions());
 	addComponent((new VariableComponent(&character->getAbilityScoreArray()[0], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
