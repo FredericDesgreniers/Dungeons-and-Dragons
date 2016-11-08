@@ -377,17 +377,13 @@ void ScreenCharacterCreation::rollCharacter() {
 		character->unequip(i);
 	}
 
+	std::cout << "Adding basic equipment:" << endl;
+	character->equip(new Item("Crude Helmet", Item::ItemType::HELMET, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+	character->equip(new Item("Leather Armor", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+	character->equip(new Item("Wooden Buckler", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+	character->equip(new Item("Leather Boots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+	character->equip(new Item("Dagger", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 0, 0));
 	setRemaining("0");
-
-	//std::cout << "Adding test equipment:" << endl;
-	//character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
-	//character->equip(new Item("Helm of Smartmaking+4", Item::ItemType::HELMET, 0, 0, 0, 4, 0, 0, 0, 0, 0));
-	//character->equip(new Item("Armor of Armorclass+5", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 5));
-	//character->equip(new Item("Shield of No-effect-whatsoever", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-	//character->equip(new Item("Ring of Smoothtalking +2", Item::ItemType::RING, 0, 0, 0, 0, 0, 2, 0, 0, 0));
-	//character->equip(new Item("Boots of Dexterity+1", Item::ItemType::BOOTS, 0, 1, 0, 0, 0, 0, 0, 0, 0));
-	//character->equip(new Item("Sword of Attack+1", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 1, 0));
-
 }
 
 void ScreenCharacterCreation::setStrength(std::string value) {
@@ -422,8 +418,6 @@ void ScreenCharacterCreation::setRemaining(std::string value) {
 void ScreenCharacterCreation::createCharacter() {
 
 	character->setName(nameInput->getText());
-
-	character->equip(new Item("Belt of Strength+3", Item::ItemType::BELT, 3, 0, 0, 0, 0, 0, 0, 0, 0));
 	Character::saveCharacter(nameInput->getText(), character);
 
 	std::cout << character->toString() << endl;
@@ -441,8 +435,6 @@ void ScreenCharacterCreation::Update() {
 	{
 		mods[i] = character->getModifier(i);
 	}
-	
-	
 }
 
 
