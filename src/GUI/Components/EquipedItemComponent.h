@@ -10,6 +10,8 @@ public:
 	void render() override;
 	void click(int x, int y) override;
 	void addOnItemClick_callback(std::function<void(Item*, int)>);
+	
+	void setItems(Item** itms);
 
 	void Update() override;
 private:

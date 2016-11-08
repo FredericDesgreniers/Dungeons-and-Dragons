@@ -27,6 +27,11 @@ EquipedItemComponent::EquipedItemComponent(Item** items, int x, int y, int width
 	this->setHeight(Item::ItemType::WEAPON * (fontSize+20) + 30);
 
 }
+void EquipedItemComponent::setItems(Item** itms)
+{
+	items = itms;
+	Update();
+}
 
 void EquipedItemComponent::render()
 {
