@@ -5,6 +5,7 @@ Wizard::Wizard():Monster('W')
 {
 	spellProgress = 0;
 	setPathfinderDistance(15);
+	setName("Wizard");
 }
 
 void Wizard::simulate(Map* map, Pathfinder* pathfinder)

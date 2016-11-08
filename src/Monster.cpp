@@ -5,6 +5,7 @@
 Monster::Monster():LivingEntity('M')
 {
 	setPathfinderDistance(8);
+	setName("Monster");
 }
 Monster::Monster(char c):LivingEntity(c)
 {
