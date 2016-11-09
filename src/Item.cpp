@@ -476,5 +476,81 @@ Item* Item::generateRandomItem(int level)
 	return generateRandomItem(type, level);
 }
 
+void Item::validateItem(Item* it)
+{
+	switch (it->getItemType())
+	{
+
+	case HELMET:
+
+		strBoost = 0;
+		dexBoost = 0;
+		conBoost = 0;
+		chaBoost = 0;
+		atkBoost = 0;
+		dmgBoost = 0;
+		break;
+
+	case (ARMOR):
+	case (SHIELD):
+		
+		strBoost = 0;
+		dexBoost = 0;
+		conBoost = 0;
+		intBoost = 0;
+		wisBoost = 0;
+		chaBoost = 0;
+		atkBoost = 0;
+		dmgBoost = 0;
+
+		break;
+
+	case RING:
+
+		dexBoost = 0;
+		intBoost = 0;
+		atkBoost = 0;
+		dmgBoost = 0;
+		break;
+
+	case BELT:
+
+		dexBoost = 0;
+		intBoost = 0;
+		wisBoost = 0;
+		chaBoost = 0;
+		atkBoost = 0;
+		dmgBoost = 0;
+		armBoost = 0;
+		break;
+
+	case WEAPON:
+
+		strBoost = 0;
+		dexBoost = 0;
+		conBoost = 0;
+		intBoost = 0;
+		wisBoost = 0;
+		chaBoost = 0;
+		armBoost = 0;
+		break;
+
+	case BOOTS:
+		atkBoost = 0;
+		dmgBoost = 0;
+		strBoost = 0;
+		conBoost = 0;
+		intBoost = 0;
+		wisBoost = 0;
+		chaBoost = 0;
+		break;
+
+	default:
+		std::cout << "This item type is not allowed" << std::endl;
+		break;
+	}
+	
+}
+
 
 

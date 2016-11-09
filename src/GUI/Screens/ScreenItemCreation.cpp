@@ -449,6 +449,9 @@ void ScreenItemCreation::createItem()
 // UPDATE OBS PATTERN
 void ScreenItemCreation::Update()
 {
+	
+	it->validateItem(it);
+
 	setStrength(to_string(it->getStrBoost()));
 	setDexterity(to_string(it->getDexBoost()));
 	setConstitution(to_string(it->getConBoost()));
@@ -462,6 +465,8 @@ void ScreenItemCreation::Update()
 	setType(Item::displayType(it->getItemType()));
 
 	itemName->setText(it->getName());
+
+
 }
 
 
