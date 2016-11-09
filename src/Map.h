@@ -39,11 +39,22 @@ private:
 	friend std::ostream& operator<<(std::ostream&, const Map&);
 
 public:
-
+	/**
+	 * Create a map with a name, width and height
+	 */
 	Map(string name, int width, int height);
+	/**
+	 * Create a map with a width, height
+	 */
 	Map(int width, int height);
+	/**
+	 * Copy a map
+	 */
 	Map(const Map &map);
 
+	/**
+	 * Get map name
+	 */
 	string getName() { return name; }
 
 	void Map::generateMap(int width, int height);
@@ -101,5 +112,8 @@ public:
 	 */
 	void simulateMapTick();
 
+	/**
+	 * Get entities on map
+	 */
 	std::vector<Entity*>* getEntities();
 };

@@ -8,8 +8,17 @@
  */
 class LivingEntity :public Entity {
 public:
+	/**
+	 * Create default LivingEntity given a char to display
+	 */
 	LivingEntity(char c);
+	/**
+	 * Create a living entity with attributes but non name
+	 */
 	LivingEntity(char c, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int level);
+	/**
+	 * Create a living entity given attributes and name
+	 */
 	LivingEntity(char c, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int level, std::string cname);
 
 
@@ -114,8 +123,17 @@ public:
 	* Equip an item. Returns previously equipped item if one exists, nullptr otherwise
 	*/
 	Item* equip(Item* toEquip);
+	/**
+	 * Equip a series of basic items
+	 */
 	void equipBasic();
+	/**
+	 * Output equiped items to console
+	 */
 	void outputEquipped();
+	/**
+	 * Unequip an item at a certain slot. Returns the item located there. 
+	 */
 	Item* unequip(int itemSlot);
 	/**
 	* Output a description of the Entity's ability scores and other statistics, both base and effective. 

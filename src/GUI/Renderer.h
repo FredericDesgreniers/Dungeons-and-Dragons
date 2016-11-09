@@ -84,16 +84,33 @@ public:
 	 * Destroy texture.
 	 */
 	static void destroyTexture(SDL_Texture* texture);
-
+	/**
+	 * Destroy renderer. Shoudl only be called when game has permanently finished rendering.
+	 */
 	static void destroyRenderer();
 
+	/**
+	 * SDL Game Window
+	 */
 	static SDL_Window *window;
+	/**
+	 * SDL renderer instance
+	 */
 	static SDL_Renderer *renderer;
 
+	/**
+	 * Get average time between frames
+	 */
 	static Uint32 getAverageFrameTime();
 
+	/**
+	 * Add screen to voided screens. This will delete the screen at the end of a game tick
+	 */
 	static void addVoidScreen(Screen* screen);
 
+	/**
+	 * Destroy voided screens. Should only be called at the end of  a game tick
+	 */
 	static void destroyVoidedScreens();
 
 private:

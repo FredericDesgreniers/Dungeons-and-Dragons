@@ -22,6 +22,9 @@ public:
 	 */
 	bool exit();
 
+	/**
+	 *	Get GUI manager instance
+	 */
 	GuiManager* getGuiManager();
 
 private:

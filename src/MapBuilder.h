@@ -20,6 +20,9 @@ public:
 	 */
 	static MapBuilder* loadFromFile(std::string fileName);
 
+	/**
+	 * Save map to file  given a file name and a map
+	 */
 	static MapBuilder* saveToFile(std::string fileName, Map* map);
 
 	/**

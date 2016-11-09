@@ -51,9 +51,14 @@ public:
 	bool validateNewCharacter();
 
 
-
+	/*
+	 * Loads a character from file given a name. (Do not suply an file extension with the name)
+	 */
 	static Character* Character::loadCharacter(std::string name);
 
+	/**
+	 * Save a chracter to file given a name and a character instance. Name  should be without file extension
+	 */
 	static bool saveCharacter(std::string name, Character * character);
 
 
