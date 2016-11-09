@@ -6,24 +6,26 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	for (int i = 0; i < 7; i++) {
 		abilityScores[i] = "0";
 	}
+	// Instantiate character and register as observer
 	character = new Character(1);
 	character->Attach(this);
 
-
-	
+	//Text field for name entry
 	nameInput = new TextField("Test", 125, 65, 150, 25);
 	nameInput->setFontSize(20);
 	int i = 220;
 
+	// Reroll character
 	Button* rollBtn = new Button("Roll!", &Renderer::FONT_ROBOTO, 105, i+260, 1, 1);
 	rollBtn->setFontSize(30);
 	rollBtn->adjustButtonDimensions();
 
+	// Save character to file
 	Button* confirmBtn = new Button("Save Character", &Renderer::FONT_ROBOTO, 300, 600, 100, 30);
 	confirmBtn->setFontSize(25);
 	confirmBtn->adjustButtonDimensions();
 
-
+	// Load Test.chr character
 	Button* loadBtn = new Button("Load Test.chr", &Renderer::FONT_ROBOTO, 500, 600, 100, 30);
 	loadBtn->setFontSize(25);
 	loadBtn->adjustButtonDimensions();
@@ -155,15 +157,12 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	
 
 	addComponent((new Label("Name", &Renderer::FONT_ROBOTO, 20, 65, 1, 1))->setFontSize(20)->adjustDimensions());
-	
 	addComponent((new Label("Level", &Renderer::FONT_ROBOTO, 20, 100, 1, 1))->setFontSize(20)->adjustDimensions());
-	
 	addComponent((new Label("Race", &Renderer::FONT_ROBOTO, 20, 135, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Human", &Renderer::FONT_ROBOTO, 140, 135, 1, 1))->setFontSize(20)->adjustDimensions());
-
 	addComponent((new Label("Class", &Renderer::FONT_ROBOTO, 20, 170, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Warrior", &Renderer::FONT_ROBOTO, 140, 170, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Human", &Renderer::FONT_ROBOTO, 140, 135, 1, 1))->setFontSize(20)->adjustDimensions());
 	
+	addComponent((new Label("Warrior", &Renderer::FONT_ROBOTO, 140, 170, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Mod", &Renderer::FONT_ROBOTO, 267, 190, 1, 1))->setFontSize(20)->adjustDimensions());
 
 	addComponent((new Label("Strength", &Renderer::FONT_ROBOTO, 20, i, 1, 1))->setFontSize(20)->adjustDimensions());
