@@ -1,6 +1,9 @@
 #pragma once
 #include "Monster.h"
 #include "Map.h"
+/**
+ * Wizard monster type
+ */
 class Wizard:public Monster
 {
 public:
