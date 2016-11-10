@@ -3,6 +3,7 @@
 #include "GUI/Screens/ScreenMain.h"
 #include "GUI/Renderer.h"
 #include <direct.h>
+#include "GUI/Screens/ScreenTitle.h"
 
 
 #undef main
@@ -26,7 +27,7 @@ bool Game::ini()
 
 
 
-	ScreenMain* titleScreen = new ScreenMain(this);
+	ScreenTitle* titleScreen = new ScreenTitle(this);
 
 	gui_manager->setScreen(titleScreen);
 	
