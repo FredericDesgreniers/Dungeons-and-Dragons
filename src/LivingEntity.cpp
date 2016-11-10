@@ -37,6 +37,10 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		health -= damage;
 		if (health > maxHealth)
 			health = maxHealth;
+		if(health<0)
+		{
+			health = 0;
+		}
 		Notify();
 		return health <= 0;
 	}
