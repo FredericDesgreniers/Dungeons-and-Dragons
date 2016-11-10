@@ -405,7 +405,7 @@ Item::ItemType Item::stringToType(std::string type)
 	else
 	{
 		std::cout << "Cannot convert this string to an item type" << std::endl;
-		return;
+		return ItemType::ARMOR;
 	}
 }
 Item* Item::generateRandomItem(ItemType type, int level)
