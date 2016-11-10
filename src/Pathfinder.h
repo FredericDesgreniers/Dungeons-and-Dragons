@@ -5,7 +5,7 @@
 
 class Node;
 class Map;
-/*
+/** Pathfinder class for AI and map validation.
  * Pathfinder goes creates a path from pointer A to point B on a map.
  */
 class Pathfinder
