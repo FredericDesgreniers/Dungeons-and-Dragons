@@ -3,34 +3,52 @@
 
 ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 {
+
+	// Set all ability score strings to 0 until character is rolled
 	for (int i = 0; i < 7; i++) {
 		abilityScores[i] = "0";
 	}
-	// Instantiate character and register as observer
+	// Instantiate character and register screen as observer
 	character = new Character(1);
 	character->Attach(this);
 
 	//Text field for name entry
-	nameInput = new TextField("Test", 125, 65, 150, 25);
+	nameInput = new TextField("Defaultname", 125, 65, 150, 25);
 	nameInput->setFontSize(20);
 	int i = 220;
+	addComponent(nameInput);
 
-	// Reroll character
+	// Button to reroll character
 	Button* rollBtn = new Button("Roll!", &Renderer::FONT_ROBOTO, 105, i+260, 1, 1);
 	rollBtn->setFontSize(30);
 	rollBtn->adjustButtonDimensions();
+	rollBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		rollCharacter();
+	});
+	addComponent(rollBtn);
 
-	// Save character to file
+	// Button to save character to file
 	Button* confirmBtn = new Button("Save Character", &Renderer::FONT_ROBOTO, 300, 600, 100, 30);
 	confirmBtn->setFontSize(25);
 	confirmBtn->adjustButtonDimensions();
+	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		saveCharacter();
+	});
+	addComponent(confirmBtn);
 
-	// Load Test.chr character
+	// Button to load character "Test.chr". For testing loading characters into editor
 	Button* loadBtn = new Button("Load Test.chr", &Renderer::FONT_ROBOTO, 500, 600, 100, 30);
 	loadBtn->setFontSize(25);
 	loadBtn->adjustButtonDimensions();
+	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		loadCharacter();
+	});
+	addComponent(loadBtn);
 
-
+	// Create stat allocation buttons
 	Button* strPlus = new Button("+", &Renderer::FONT_ROBOTO, 220, i, 1, 1);
 	strPlus->setFontSize(20)->setBackgroundColor_both(203, 203, 203, 100);
 	strPlus->setFontColor(0, 0, 0, 100);
@@ -58,13 +76,8 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	Button* dexPlus = new Button("+", &Renderer::FONT_ROBOTO, 220, i+35, 1, 1);
 	dexPlus->setFontSize(20)->setBackgroundColor_both(203, 203, 203, 100);
-	dexPlus->setFontColor(0, 0, 0, 100);
-	dexPlus->setBorderColor_hover(51, 153, 255, 100);
-	dexPlus->setBorderSize(3);
-	dexPlus->setBorderSize_hover(3);
-	dexPlus->setFontUnderline_both(0);
-	dexPlus->setPadding(1);
-	dexPlus->adjustButtonDimensions();
+	copyStyle(*strPlus, *dexPlus);
+	copySize(*strPlus, *dexPlus);
 	dexPlus->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		increment(1);
@@ -154,17 +167,21 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 
 
-	
-
+	// Add labels for Character traits
+	addComponent((new Label("Character Editor", &Renderer::FONT_ROBOTO,250, 0, 1, 1))->setFontSize(24)->adjustDimensions());
 	addComponent((new Label("Name", &Renderer::FONT_ROBOTO, 20, 65, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Level", &Renderer::FONT_ROBOTO, 20, 100, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Race", &Renderer::FONT_ROBOTO, 20, 135, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Class", &Renderer::FONT_ROBOTO, 20, 170, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Human", &Renderer::FONT_ROBOTO, 140, 135, 1, 1))->setFontSize(20)->adjustDimensions());
-	
-	addComponent((new Label("Warrior", &Renderer::FONT_ROBOTO, 140, 170, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Mod", &Renderer::FONT_ROBOTO, 267, 190, 1, 1))->setFontSize(20)->adjustDimensions());
 
+	// This is where race selection will occur if it is added in the future 
+	addComponent((new Label("Human", &Renderer::FONT_ROBOTO, 140, 135, 1, 1))->setFontSize(20)->adjustDimensions());
+
+	// This is where class selection will occur if it is added in the future
+	addComponent((new Label("Warrior", &Renderer::FONT_ROBOTO, 140, 170, 1, 1))->setFontSize(20)->adjustDimensions());
+
+	//Labels for ability scores and mods
+	addComponent((new Label("Mod", &Renderer::FONT_ROBOTO, 267, 190, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Strength", &Renderer::FONT_ROBOTO, 20, i, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Dexterity", &Renderer::FONT_ROBOTO, 20, i+35, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Constitution", &Renderer::FONT_ROBOTO, 20, i+70, 1, 1))->setFontSize(20)->adjustDimensions());
@@ -173,52 +190,18 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent((new Label("Charisma", &Renderer::FONT_ROBOTO, 20, i+175, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Remaining", &Renderer::FONT_ROBOTO, 20, i+210, 1, 1))->setFontSize(20)->adjustDimensions());
 	
+	//Inventory Display component
 	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 350, 100, 100, 100);
 	eiComp->setBorderColor_both(150, 150, 140, 255);
 	eiComp->setBorderSize(1);
 	eiComp->setPadding(10, 10, 10, 10);
+	addComponent(eiComp);
 
 
-	rollBtn->addOnClick_callback([this](Component* comp, int x, int y)
-	{
-		rollCharacter();
-	});
-
-	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
-	{	
-		if (abilityScores[0] == "0") {
-			std::cout << "Cannot save character, press roll" << std::endl;
-		}
-
-		else if ((stoi(abilityScores[6]) > 0)) {
-			std::cout << "Cannot save character: points not spent" << std::endl;
-		}
-
-		else if (nameInput->getText() == "") {
-			std::cout << "Cannot save character: enter a name" << std::endl;
-		}
-
-		else {
-			createCharacter();
-		}
-	});
-
-	//This is a temporary button to test loading functionality.
-	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
-	{
-		Character* temp;
-		if (temp=Character::loadCharacter("Test")) {
-			Character::copyStats(temp, character);
-			setRemaining("0");
-		}
-		else {
-			std::cout << "Load Failed" << endl;
-		}
-		temp = nullptr;
-	});
 
 
-	addComponent(rollBtn);
+
+	// Add Stat allocation buttons
 	addComponent(strPlus);
 	addComponent(strMinus);
 	addComponent(dexPlus);
@@ -231,40 +214,31 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent(wisMinus);
 	addComponent(chaPlus);
 	addComponent(chaMinus);
-	addComponent(nameInput);
-	addComponent(confirmBtn);
-	addComponent(loadBtn);
-	addComponent(eiComp);
+
+
 }
 
 void ScreenCharacterCreation::render()
 {
-
-	Renderer::drawString("Character Editor", Renderer::FONT_ROBOTO.get(24), 250, 0, 1, { 255,255,255,255 });
-
+	// Draw character level
 	Renderer::drawString(std::to_string(character->getLevel()), Renderer::FONT_ROBOTO.get(20), 140, 100, 1, { 255,255,255,255 });
 
+	// Draw ability scores and modifiers
 	Renderer::drawString(abilityScores[0], Renderer::FONT_ROBOTO.get(20), 175, 220, 1, { 255,255,255,255 });
 	Renderer::drawString((mods[0]>-1 ? "+" : "") + to_string(mods[0]), Renderer::FONT_ROBOTO.get(20), 275, 220, 1, { 255,255,255,255 });
-
 	Renderer::drawString(abilityScores[1], Renderer::FONT_ROBOTO.get(20), 175, 255, 1, { 255,255,255,255 });
 	Renderer::drawString((mods[1]>-1 ? "+" : "") + to_string(mods[1]), Renderer::FONT_ROBOTO.get(20), 275, 255, 1, { 255,255,255,255 });
-	
 	Renderer::drawString(abilityScores[2], Renderer::FONT_ROBOTO.get(20), 175, 290, 1, { 255,255,255,255 });
 	Renderer::drawString((mods[2]>-1 ? "+" : "") + to_string(mods[2]), Renderer::FONT_ROBOTO.get(20), 275, 290, 1, { 255,255,255,255 });
-
 	Renderer::drawString(abilityScores[3], Renderer::FONT_ROBOTO.get(20), 175, 325, 1, { 255,255,255,255 });
 	Renderer::drawString((mods[3]>-1 ? "+" : "") + to_string(mods[3]), Renderer::FONT_ROBOTO.get(20), 275, 325, 1, { 255,255,255,255 });
-
 	Renderer::drawString(abilityScores[4], Renderer::FONT_ROBOTO.get(20), 175, 360, 1, { 255,255,255,255 });
 	Renderer::drawString((mods[4]>-1 ? "+" : "") + to_string(mods[4]), Renderer::FONT_ROBOTO.get(20), 275, 360, 1, { 255,255,255,255 });
-
 	Renderer::drawString(abilityScores[5], Renderer::FONT_ROBOTO.get(20), 175, 395, 1, { 255,255,255,255 });
 	Renderer::drawString((mods[5]>-1 ? "+" : "") + to_string(mods[5]), Renderer::FONT_ROBOTO.get(20), 275, 395, 1, { 255,255,255,255 });
-
 	Renderer::drawString(abilityScores[6], Renderer::FONT_ROBOTO.get(20), 175, 430, 1, { 255,255,255,255 });
 
-
+	
 	Screen::render();
 }
 
@@ -368,6 +342,7 @@ void ScreenCharacterCreation::rollCharacter() {
 	character->setWisdom(Dice::rollStat());
 	character->setCharisma(Dice::rollStat());
 	character->setLevel(1);
+	character->setName("Defaultname");
 
 	for (int i = 0; i < 7; i++) {
 		character->unequip(i);
@@ -409,13 +384,37 @@ void ScreenCharacterCreation::setRemaining(std::string value) {
 	abilityScores[6] = value;
 }
 
-void ScreenCharacterCreation::createCharacter() {
 
-	character->setName(nameInput->getText());
-	Character::saveCharacter(nameInput->getText(), character);
-	std::cout << character->toString() << endl;
+void ScreenCharacterCreation::saveCharacter() {
+	if (abilityScores[0] == "0") {
+		std::cout << "Cannot save character, press roll" << std::endl;
+	}
 
+	else if ((stoi(abilityScores[6]) > 0)) {
+		std::cout << "Cannot save character: points not spent" << std::endl;
+	}
 
+	else if (nameInput->getText() == "") {
+		std::cout << "Cannot save character: enter a name" << std::endl;
+	}
+
+	else {
+		character->setName(nameInput->getText());
+		Character::saveCharacter(nameInput->getText(), character);
+		std::cout << character->toString() << endl;
+	}
+
+}
+
+void ScreenCharacterCreation::loadCharacter() {
+	Character* temp;
+	if (temp = Character::loadCharacter("Test")) {
+		Character::copyStats(temp, character);
+		setRemaining("0");
+	}
+	else {
+		std::cout << "Load Failed" << endl;
+	}
 }
 
 void ScreenCharacterCreation::Update() {
