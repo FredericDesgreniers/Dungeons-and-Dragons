@@ -61,7 +61,7 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	});
 
 	// Item Editor
-	Button* itemEditorBtn = new Button("Item Editor", &Renderer::FONT_ROBOTO, 100, 340, 100, 30);
+	Button* itemEditorBtn = new Button("Item Editor", &Renderer::FONT_ROBOTO, 100, 280, 100, 30);
 
 	itemEditorBtn->adjustButtonDimensions();
 
@@ -80,7 +80,7 @@ ScreenMain::ScreenMain(Game* game) : Screen(game)
 	addComponent(playBtn);
 	addComponent(createMapBtn);
 	addComponent(charEditorBtn);
-	addComponent(campEditorBtn);
+	//addComponent(campEditorBtn);
 	addComponent(itemEditorBtn);
 }
 
