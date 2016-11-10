@@ -3,6 +3,9 @@
 #include "entity.h"
 #include "ItemContainer.h"
 
+/**
+* Chest entity with loot container.
+*/
 class EntityChest:public Entity
 {
 public:
