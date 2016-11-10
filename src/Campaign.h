@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <string>
 #include <vector>
 #include "Map.h"
@@ -9,22 +10,20 @@
 class Campaign
 {
 public:
-	Campaign(std::string name);
+	Campaign(std::string name, std::vector<Map*> mapList);
 
 	/**
 	 * Add a map to the end of the campaign
 	 */
-	void addMap(std::string map);
-
-	/**
-	 * Add map instance to camapign
-	 */
 	void addMap(Map* map);
+
+	
+	void removeMap(Map* map);
 
 	/**
 	 * Get the list of maps in playable order
 	 */
-	std::vector<std::string>* getMaps();
+	std::vector<Map*> getMaps() { return maps; }
 
 	/**
 	 * Get campaign name
@@ -34,10 +33,10 @@ public:
 	/**
 	 * Get the first map
 	 */
-	std::string getFirstMap();
+	Map* getFirstMap();
 
 
 private:
-	std::vector<std::string> maps;
+	std::vector<Map*> maps;
 	std::string name;
 };

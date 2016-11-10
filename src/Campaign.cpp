@@ -1,33 +1,26 @@
 #include "Campaign.h"
 
-Campaign::Campaign(std::string name): name(name)
+Campaign::Campaign(std::string name, std::vector<Map*> mapList): name(name)
 {
-	
+	this->maps = mapList;
 }
 
-
-std::string Campaign::getFirstMap()
+Map* Campaign::getFirstMap()
 {
 	if (maps.size() > 0)
 		return maps[0];
 	else
-		return "default";
-}
-
-void Campaign::addMap(std::string map)
-{
-	maps.push_back(map);
+		return nullptr;
 }
 
 void Campaign::addMap(Map* map)
 {
-	maps.push_back(map->getName());
+	maps.push_back(map);
 }
 
-
-std::vector<std::string>* Campaign::getMaps()
+void Campaign::removeMap(Map* map)
 {
-	return &maps;
+	
 }
 
 std::string Campaign::getName()

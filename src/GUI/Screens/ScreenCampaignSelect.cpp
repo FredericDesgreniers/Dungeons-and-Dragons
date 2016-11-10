@@ -7,13 +7,10 @@
 
 ScreenCampaignSelect::ScreenCampaignSelect(Game* game) : Screen(game)
 {
-
-
 	MapSelect* mapSelect = new MapSelect(200, 0, 300, 800);
 	mapSelect->addOnMapClick_callback([this](Map* map)
 	{
-		Campaign* campaign = new Campaign(map->getName());
-		campaign->addMap(map);
+		Campaign* campaign = new Campaign("test", std::vector<Map*>());
 		Screen* screen = new ScreenCharacterSelect(this->game, campaign);
 		screen->setBackButton(this);
 		this->game->getGuiManager()->setScreen(screen);

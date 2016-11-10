@@ -53,6 +53,56 @@ MapSelect::MapSelect(int x, int y, int width, int height) :Pane(x, y, width, hei
 
 }
 
+MapSelect::MapSelect(std::vector<Map*> mapList, int x, int y, int width, int height) :Pane(x, y, width, height)
+{
+	previousMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, 0, width, (height / 3) - 10);
+	currentMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, height / 3, width, (height / 3) - 10);
+	nextMap = new MapComponent(MapBuilder::createEmptyMap(10, 10)->get(), 0, height / 3 * 2, width, (height / 3) - 10);
+
+	currentMap->setBorderColor(200, 0, 0, 255);
+	currentMap->setBorderColor_hover(255, 0, 0, 255);
+
+	currentMap->setBorderSize(3);
+
+	previousMap->setVisible(false);
+
+
+	loadMaps(mapList);
+
+
+	addComponent(previousMap);
+	addComponent(currentMap);
+	addComponent(nextMap);
+
+	previousMap->addOnClick_callback([this](Component*, int, int)
+	{
+		if (this->mapIndex>0)
+		{
+			this->mapIndex--;
+			setMaps();
+		}
+	});
+	currentMap->addOnClick_callback([this](Component*, int, int)
+	{
+
+		for (std::function<void(Map*map)> func : onMapClick_callback)
+		{
+			func(maps[mapIndex]);
+		}
+
+	});
+	nextMap->addOnClick_callback([this](Component*, int, int)
+	{
+		if (this->mapIndex<maps.size() - 1)
+		{
+			this->mapIndex++;
+			setMaps();
+		}
+	});
+	setMaps();
+
+}
+
 void MapSelect::setMaps()
 {
 	int rSize = maps.size() - 1;
@@ -90,6 +140,12 @@ void MapSelect::render()
 {
 	drawDefaultStyle();
 	Pane::render();
+}
+
+void MapSelect::loadMaps(std::vector<Map*> mapList)
+{
+	maps = mapList;
+	setMaps();
 }
 
 void MapSelect::reloadMaps()

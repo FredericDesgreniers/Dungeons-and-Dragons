@@ -5,8 +5,10 @@
 class MapSelect:public Pane{
 	public:
 		MapSelect(int x, int y, int width, int height);
+		MapSelect(std::vector<Map*> mapList, int x, int y, int width, int height);
 		void setMaps();
 		void reloadMaps();
+		void loadMaps(std::vector<Map*> mapList);
 		virtual void render();
 		void addOnMapClick_callback(std::function<void(Map* map)>);
 private:
