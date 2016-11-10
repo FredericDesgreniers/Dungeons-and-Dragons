@@ -9,7 +9,9 @@
 
 
 
-
+/**
+ * Class used to display the item creation gui
+ */
 class ScreenItemCreation : public Screen, public Observer
 {
 private:
