@@ -70,6 +70,13 @@ public:
 	*/
 	int getCharisma();
 
+	/**
+	* Get attack bonus as an int
+	*/
+	int getAttackBonus();
+
+	int getAttacksPerTurn();
+
 
 	/**
 	*  Set entity name
@@ -118,6 +125,7 @@ public:
 
 	ItemContainer* getBackpack();
 
+	int getSavingThrow(int save);
 
 	/**
 	* Equip an item. Returns previously equipped item if one exists, nullptr otherwise
@@ -188,6 +196,12 @@ private:
 	* The Entity's effective damage in dice notation.
 	*/
 	string damage;
+	
+	/**
+	* The entity's attacks per turn, which is calculated based on level
+	*/
+	int attacksPerTurn;
+	
 	/**
 	* An array holding pointers to an Entitys equipped items.
 	* Contains one slot for each item type. Items are added/removed using the equip and unequip functions
@@ -222,6 +236,11 @@ private:
 	* when items are equipped/unequipped
 	*/
 	int effectiveAbilityScores[6];
+
+	/**
+	* Entity's saving throws, calculated based on level (possibly class in the future)
+	*/
+	int savingThrows[3];
 
 	/**
 	* Armor class calculated from the total armor on equipped items. Updated on equip/unequip

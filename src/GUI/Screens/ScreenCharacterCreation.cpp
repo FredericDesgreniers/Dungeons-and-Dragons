@@ -190,6 +190,13 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent((new Label("Charisma", &Renderer::FONT_ROBOTO, 20, i+175, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Remaining", &Renderer::FONT_ROBOTO, 20, i+210, 1, 1))->setFontSize(20)->adjustDimensions());
 	
+	addComponent((new Label("Attacks Per Round: ", &Renderer::FONT_ROBOTO, 350, 360, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Attack Bonus: ", &Renderer::FONT_ROBOTO, 350, 395, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Save vs. Fortitude: ", &Renderer::FONT_ROBOTO, 350, 430, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Save vs Reflex: ", &Renderer::FONT_ROBOTO, 350, 465, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Save vs Will: ", &Renderer::FONT_ROBOTO, 350, 500, 1, 1))->setFontSize(20)->adjustDimensions());
+
+
 	//Inventory Display component
 	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 350, 100, 100, 100);
 	eiComp->setBorderColor_both(150, 150, 140, 255);
@@ -238,7 +245,13 @@ void ScreenCharacterCreation::render()
 	Renderer::drawString((mods[5]>-1 ? "+" : "") + to_string(mods[5]), Renderer::FONT_ROBOTO.get(20), 275, 395, 1, { 255,255,255,255 });
 	Renderer::drawString(abilityScores[6], Renderer::FONT_ROBOTO.get(20), 175, 430, 1, { 255,255,255,255 });
 
-	
+	Renderer::drawString(to_string(attacksPerTurn), Renderer::FONT_ROBOTO.get(20), 530, 360, 1, { 255,255,255,255 });
+	Renderer::drawString(to_string(attackBonus), Renderer::FONT_ROBOTO.get(20), 530, 395, 1, { 255,255,255,255 });
+	Renderer::drawString(to_string(savingThrows[0]), Renderer::FONT_ROBOTO.get(20), 530, 430, 1, { 255,255,255,255 });
+	Renderer::drawString(to_string(savingThrows[1]), Renderer::FONT_ROBOTO.get(20), 530, 465, 1, { 255,255,255,255 });
+	Renderer::drawString(to_string(savingThrows[2]), Renderer::FONT_ROBOTO.get(20), 530, 500, 1, { 255,255,255,255 });
+
+	// Render
 	Screen::render();
 }
 
@@ -252,32 +265,36 @@ void ScreenCharacterCreation::increment(int stat) {
 	string test = to_string(6);
 	switch (stat) {
 	case 0:
+		//Increment strength and decrement remaining
 		setRemaining(to_string((stoi(abilityScores[6])) - 1));
 		character->setStrength(character->getStrength() + 1);
 		break;
 
 	case 1:
+		// Increment dex and decrement remaining
 		setRemaining(to_string((stoi(abilityScores[6])) - 1));
 		character->setDexterity(character->getDexterity() + 1);
 		break;
 
 	case 2:
-		
+		// Increment con and decrement remaining
 		setRemaining(to_string((stoi(abilityScores[6])) - 1));
 		character->setConstitution(character->getConstitution() + 1);
 		break;
 
 	case 3:
+		// Increment  int and decrement remaining
 		setRemaining(to_string(stoi(abilityScores[6]) - 1));
 		character->setIntelligence(character->getIntelligence() + 1);
 		break;
 	case 4:
-		
+		// Increment wis and decrement remaining
 		setRemaining(to_string(stoi(abilityScores[6]) - 1));
 		character->setWisdom(character->getWisdom() + 1);
 		break;
 
 	case 5:
+		// Increment cha and decrement remaining
 		setRemaining(to_string(stoi(abilityScores[6]) - 1));
 		character->setCharisma(character->getCharisma() + 1);
 		break;
@@ -297,31 +314,36 @@ void ScreenCharacterCreation::decrement(int stat) {
 
 	switch (stat) {
 	case 0:
+		// Decrement str and increment remaining
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
 		character->setStrength(character->getStrength()-1);
 		break;
 	case 1:
+		// Decrement dex and increment remaining
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
 		character->setDexterity(character->getDexterity() - 1);
 		break;
 
 	case 2:
+		// Decrement CON and increment remaining
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
 		character->setConstitution(character->getConstitution() - 1);
 		break;
 
 	case 3:
+		// Decrement INT and increment remaining
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
 		character->setIntelligence(character->getIntelligence() - 1);
 		break;
 
 	 case 4:
+		 // Decrement WIS and increment remaining
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
 		character->setWisdom(character->getWisdom() - 1);
 		break;
-	
 
 	 case 5:
+		 // Decrement CHA and increment remaining
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
 		character->setCharisma(character->getCharisma() - 1);
 		break;
@@ -334,24 +356,29 @@ void ScreenCharacterCreation::decrement(int stat) {
 void ScreenCharacterCreation::rollCharacter() {
 	std::cout << "Rolling stats!" << std::endl;
 
-
+	// Reroll all ability scores
 	character->setStrength(Dice::rollStat());
 	character->setDexterity(Dice::rollStat());
 	character->setConstitution(Dice::rollStat());
 	character->setIntelligence(Dice::rollStat());
 	character->setWisdom(Dice::rollStat());
 	character->setCharisma(Dice::rollStat());
+	//Set level to 1
 	character->setLevel(1);
+	// Set name to defaultname
 	character->setName("Defaultname");
 
+	// Unequip all items
 	for (int i = 0; i < 7; i++) {
 		character->unequip(i);
 	}
-
+	// Empty backpack
 	for (int i = 0; i < 10; i++) {
 		character->getBackpack()->removeItemAtIndex(i);
 	}
+	// Equip starter items
 	character->equipBasic();
+	// Set remaining ability points to 0
 	setRemaining("0");
 }
 
@@ -386,44 +413,56 @@ void ScreenCharacterCreation::setRemaining(std::string value) {
 
 
 void ScreenCharacterCreation::saveCharacter() {
+	// Ensure player has rolled stats before saving character
 	if (abilityScores[0] == "0") {
 		std::cout << "Cannot save character, press roll" << std::endl;
 	}
-
+	// Ensure player does not have unspent points before saving character
 	else if ((stoi(abilityScores[6]) > 0)) {
 		std::cout << "Cannot save character: points not spent" << std::endl;
 	}
-
+	// Ensure player has entered a name before saving character
 	else if (nameInput->getText() == "") {
 		std::cout << "Cannot save character: enter a name" << std::endl;
 	}
 
 	else {
+		// All conditions met. Save Character
 		character->setName(nameInput->getText());
 		Character::saveCharacter(nameInput->getText(), character);
 		std::cout << character->toString() << endl;
+
+
+		std::cout << to_string(character->getSavingThrow(0)) << endl;
+		std::cout << to_string(character->getSavingThrow(1)) << endl;
+		std::cout << to_string(character->getSavingThrow(2)) << endl;
 	}
 
 }
 
 void ScreenCharacterCreation::loadCharacter() {
+	// Instantiate a temp character in case load fails
 	Character* temp;
-	if (temp = Character::loadCharacter("Test")) {
-		Character::copyStats(temp, character);
-		setRemaining("0");
-	}
-	else {
-		std::cout << "Load Failed" << endl;
-	}
+	// Load temp character
+	temp = Character::loadCharacter("Test");
+	// Copy stats/items from temp to character
+	Character::copyStats(temp, character);
+	// Set remaining points to 0
+	setRemaining("0");
 }
 
 void ScreenCharacterCreation::Update() {
-	setStrength(to_string(character->getStrength()));
-	setDexterity(to_string(character->getDexterity()));
-	setConstitution(to_string(character->getConstitution()));
-	setIntelligence(to_string(character->getIntelligence()));
-	setWisdom(to_string(character->getWisdom()));
-	setCharisma(to_string(character->getCharisma()));
+	abilityScores[0]=to_string(character->getStrength());
+	abilityScores[1] = to_string(character->getDexterity());
+	abilityScores[2] = to_string(character->getConstitution());
+	abilityScores[3] = to_string(character->getIntelligence());
+	abilityScores[4] = to_string(character->getWisdom());
+	abilityScores[5] = to_string(character->getCharisma());
+	for (int i = 0; i < 3; i++) {
+		savingThrows[i] = character->getSavingThrow(i);
+}
+	attacksPerTurn = character->getAttacksPerTurn();
+	attackBonus = character->getAttackBonus();
 	nameInput->setText(character->getName());
 	for (int i = 0; i < 6; i++)
 	{

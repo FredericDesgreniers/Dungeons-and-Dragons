@@ -10,6 +10,10 @@
 #include "../../Observer.h"
 #include <string>
 
+/**
+* Character editor screen. Used to roll new characters or edit existing ones.
+* Currently supports only the fighter class. 
+*/
 class ScreenCharacterCreation : public Screen, public Observer
 {
 
@@ -34,6 +38,22 @@ private:
 	* An array which holds character ability score modifiers for display. Updated upon changes to character via observer
 	*/
 	int mods[6];
+
+	/**
+	* An array which holds character saving throws for display. Updated upon changes to character via observer
+	*/
+	int savingThrows[3];
+	/**
+	* The characters attacks per round for display
+	*/
+	int attacksPerTurn;
+
+	/**
+	* The character's attack bonus for display
+	*/
+	int attackBonus;
+
+	
 
 public:
 	ScreenCharacterCreation(Game* game);

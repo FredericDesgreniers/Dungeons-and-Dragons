@@ -12,7 +12,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 }
 
 LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int level, std::string cname) :
-	Entity(c), level(level), name(cname)
+	Entity(c), level(level), name(cname), attackBonus(level), damageBonus(0)
 {
 	effectiveAbilityScores[0] = abilityscores[0] = strength;
 	effectiveAbilityScores[1] = abilityscores[1] = dexterity;
@@ -20,14 +20,14 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	effectiveAbilityScores[3] = abilityscores[3] = intelligence;
 	effectiveAbilityScores[4] = abilityscores[4] = wisdom;
 	effectiveAbilityScores[5] = abilityscores[5] = charisma;
-	// TODO: Proper HP calculations
+	// TODO: Update HP calculation
 	health = maxHealth = 100;
-	attackBonus = damageBonus = 0;
-	armorClass = 10;
 	for (int i = 0; i < 7; i++) {
 		equipped[i] = nullptr;
 	}
+	// Instantiate backpack container;
 	backpack = new ItemContainer("Backpack", 10);
+	updateStats(); // Set secondary stats
 }
 
 
@@ -74,6 +74,16 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	ItemContainer* LivingEntity::getBackpack() {
 		return backpack;
+	}
+
+	int LivingEntity::getSavingThrow(int save)
+	{
+		if (save > -1 && save < 3)
+		{
+			return savingThrows[save];
+		}
+		else return 0;
+		
 	}
 
 
@@ -167,20 +177,30 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		}
 		Item* removed = equipped[itemSlot];
 		equipped[itemSlot] = nullptr;
+		updateStats();
 		Notify();
 		return removed;
 	}
 
 	bool LivingEntity::updateStats()
 	{
-		//TODO: Complete and test update stats method
-
-
+		// Set effective ability scores to base ability scores
 		for (int i = 0; i < 7; i++) {
 			effectiveAbilityScores[i] = abilityscores[i];
 		}
+		// Set base armor class
 		armorClass = 10;
 
+		// Set attacks per turn and attack bonus based on level
+		attacksPerTurn = 1 + (level / 6);
+		attackBonus = level;
+		
+		// Set save vs fortitude
+		savingThrows[0] = 2 + (level / 2);
+		// Set save vs reflex
+		savingThrows[1] = level / 3;
+		// Set save vs will
+		savingThrows[2] = level / 3;
 		for (int i = 0; i < 7; i++) {
 			if (equipped[i] != nullptr) {
 				switch (i) {
@@ -227,9 +247,9 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 					// Add damage
 					//TODO: Figure out damage + boost (4d6 etc)
 					// Add damage bonus
-					damageBonus = equipped[i]->getDmgBoost();
+					damageBonus += equipped[i]->getDmgBoost();
 					// Add attack bonus
-					attackBonus = equipped[i]->getAtkBoost();
+					attackBonus += equipped[i]->getAtkBoost();
 				default:
 					break;
 					
@@ -313,6 +333,14 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	int LivingEntity::getCharisma()
 	{
 		return abilityscores[5];
+	}
+
+	int LivingEntity::getAttackBonus() {
+		return attackBonus;
+	}
+
+	int LivingEntity::getAttacksPerTurn() {
+		return attacksPerTurn;
 	}
 
 	void LivingEntity::setLevel(int value)
