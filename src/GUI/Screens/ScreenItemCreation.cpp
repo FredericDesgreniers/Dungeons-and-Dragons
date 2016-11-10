@@ -17,8 +17,6 @@ ScreenItemCreation::ScreenItemCreation(Game* game) : Screen(game)
 	itemName = new TextField("Name here", 125, 100, 150, 25);
 	itemName->setFontSize(20);
 
-
-
 	int x = 220;
 
 
@@ -231,35 +229,11 @@ ScreenItemCreation::ScreenItemCreation(Game* game) : Screen(game)
 	});
 
 
-
-
+	// confirm button behavior
 	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 			createItem();
 	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	// Labels
 	addComponent((new Label("Type", &Renderer::FONT_ROBOTO, 20, 190, 1, 1))->setFontSize(20)->adjustDimensions());
@@ -273,7 +247,7 @@ ScreenItemCreation::ScreenItemCreation(Game* game) : Screen(game)
 	addComponent((new Label("Damage", &Renderer::FONT_ROBOTO, 20, 465, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Armor", &Renderer::FONT_ROBOTO, 20, 500, 1, 1))->setFontSize(20)->adjustDimensions());
 
-	// Add Component
+	// Add Components
 	addComponent(itemName);
 	addComponent(confirmBtn);
 	addComponent(typePlus);
@@ -329,8 +303,6 @@ void ScreenItemCreation::render()
 
 void ScreenItemCreation::increment(int stat)
 {
-	//add check here
-
 	switch (stat)
 	{
 	case 0:
@@ -368,8 +340,6 @@ void ScreenItemCreation::increment(int stat)
 
 void ScreenItemCreation::decrement(int stat)
 {
-	//add check here
-
 	switch (stat)
 	{
 	case 0:
@@ -409,7 +379,6 @@ void ScreenItemCreation::changeType(int stat)
 {
 	switch (stat)
 	{
-	
 	case 0:
 		it->setItemType(Item::ItemType::HELMET);
 		break;
@@ -432,11 +401,9 @@ void ScreenItemCreation::changeType(int stat)
 		it->setItemType(Item::ItemType::WEAPON);
 		break;
 	default:
-
 		break;
 	}
 }
-
 
 void ScreenItemCreation::createItem()
 {
@@ -446,7 +413,6 @@ void ScreenItemCreation::createItem()
 	std::cout << it->toString() << std::endl;
 }
 
-// UPDATE OBS PATTERN
 void ScreenItemCreation::Update()
 {
 	
@@ -469,8 +435,6 @@ void ScreenItemCreation::Update()
 
 }
 
-
-// SETTERS FOR STRINGS
 void ScreenItemCreation::setType(std::string value) {
 	type = value;
 }
@@ -511,7 +475,6 @@ void ScreenItemCreation::setArmor(std::string value) {
 	abilityScores[8] = value;
 }
 
-// DESTRUCTOR
 ScreenItemCreation::~ScreenItemCreation()
 {
 	delete it;

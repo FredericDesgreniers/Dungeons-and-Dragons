@@ -20,9 +20,7 @@ Item::Item()
 
 };
 
-/**
-* Copy constructor for item class
-*/
+
 Item::Item(Item* item)
 {
 	itemName = item->getName();
@@ -136,7 +134,6 @@ Item::~Item()
 
 }
 
-// loading works
 Item* Item::loadItem(std::string name)
 {
 	Item* it;
@@ -171,7 +168,6 @@ Item* Item::loadItem(std::string name)
 	return it;
 }
 
-// saving works
 bool Item::saveItem(std::string name, Item* item)
 {
 	std::fstream itemFile;
@@ -198,12 +194,6 @@ bool Item::saveItem(std::string name, Item* item)
 }
 
 
-
-
-
-/*
-* GETTERS AND SETTERS
-*/
 
 std::string Item::getName() {
 	return this->itemName;
@@ -309,11 +299,7 @@ void Item::setArmBoost(int armB) {
 }
 
 
-// checkValidity()
-//
-// checks if item is valid
-// returns 0 if not between bounds
-// else returns value passed
+
 int Item::checkValididty(int boost)
 {
 	if (boost < 0 || boost > 5) {
@@ -325,7 +311,6 @@ int Item::checkValididty(int boost)
 	}
 }
 
-// displays the item name, type and scores
 std::string Item::toString() 
 {
 	std::string str = "\t" + getName() + "\nType: " + displayType(getItemType());
@@ -362,8 +347,6 @@ std::string Item::toString()
 	return str;
 }
 
-// C++ does not allow to print enums
-// This method takes an ItemType enum and returns a string to display it
 std::string Item::displayType(Item::ItemType iType) {
 	
 	switch (iType)
@@ -421,7 +404,8 @@ Item::ItemType Item::stringToType(std::string type)
 	}
 	else
 	{
-		
+		std::cout << "Cannot convert this string to an item type" << std::endl;
+		return;
 	}
 }
 Item* Item::generateRandomItem(ItemType type, int level)
