@@ -11,6 +11,9 @@
 class Label : public Style
 {
 public:
+	/**
+	 * Label constructor given text, font, x, y, width, height
+	 */
 	Label(std::string text, Font* font, int x, int y, int width, int height);
 
 

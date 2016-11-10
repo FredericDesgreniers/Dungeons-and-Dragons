@@ -3,10 +3,15 @@
 
 class GuiManager;
 
-
+/**
+ * Class used for the main game flow. 
+ */
 class Game
 {
 public:
+	/**
+	 * Default constructor
+	 */
 	Game();
 	/**
 	 * Initilize game.

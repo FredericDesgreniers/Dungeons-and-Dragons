@@ -3,7 +3,9 @@
 #include <SDL/SDL.h>
 
 class Screen;
-
+/**
+ * Class used to control the gui
+ */
 class GuiManager
 {
 public:

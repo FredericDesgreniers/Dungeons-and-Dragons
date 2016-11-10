@@ -3,7 +3,9 @@
 #include "GUI/Components/MapComponent.h"
 #include "GUI/Components/CharacterComponent.h"
 
-
+/**
+ * Class used to build maps
+ */
 class MapBuilder
 {
 public:

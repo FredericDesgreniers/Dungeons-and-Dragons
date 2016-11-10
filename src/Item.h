@@ -4,7 +4,9 @@
 #include <iostream>
 #include "Subject.h"
 
-
+/**
+ * Class used for representing an item
+ */
 class Item : public Subject
 {
 

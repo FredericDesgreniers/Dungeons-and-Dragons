@@ -7,7 +7,13 @@
 class Style : public Component
 {
 public:
+	/**
+	 * Constructor given width and height
+	 */
 	Style(int width, int height);
+	/**
+	 * Constructor given x,y, width and height
+	 */
 	Style(int x, int y, int w, int h);
 	/**
 	 * Draw default style:

@@ -10,17 +10,26 @@
 class ItemContainerComponent:public Pane, Observer
 {
 public:
+	/**
+	 * Constructor given a container, x, y , width, height in int
+	 */
 	ItemContainerComponent(ItemContainer* container, int x, int y, int width, int height);
 
 	/**
 	 * \brief set the Item Container to display
 	 */
 	void setItemContainer(ItemContainer* container);
-
+	/**
+	 * Override render method
+	 */
 	void render() override;
-
+	/**
+	 * Add callback for when item is clicked
+	 */
 	void addOnItemClick_callback(std::function<void(Item*, int)>);
-
+	/**
+	 * Update when subject changes
+	 */
 	void Update() override;
 private:
 	ItemContainer* container;
