@@ -431,11 +431,6 @@ void ScreenCharacterCreation::saveCharacter() {
 		character->setName(nameInput->getText());
 		Character::saveCharacter(nameInput->getText(), character);
 		std::cout << character->toString() << endl;
-
-
-		std::cout << to_string(character->getSavingThrow(0)) << endl;
-		std::cout << to_string(character->getSavingThrow(1)) << endl;
-		std::cout << to_string(character->getSavingThrow(2)) << endl;
 	}
 
 }
