@@ -198,7 +198,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 
 	//Inventory Display component
-	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 350, 100, 100, 100);
+	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 350, 100, 200, 100);
 	eiComp->setBorderColor_both(150, 150, 140, 255);
 	eiComp->setBorderSize(1);
 	eiComp->setPadding(10, 10, 10, 10);
