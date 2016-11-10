@@ -39,7 +39,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent(confirmBtn);
 
 	// Button to load character "Test.chr". For testing loading characters into editor
-	Button* loadBtn = new Button("Load Test.chr", &Renderer::FONT_ROBOTO, 500, 600, 100, 30);
+	Button* loadBtn = new Button("Load By Name", &Renderer::FONT_ROBOTO, 500, 600, 100, 30);
 	loadBtn->setFontSize(25);
 	loadBtn->adjustButtonDimensions();
 	loadBtn->addOnClick_callback([this](Component* comp, int x, int y)
@@ -439,7 +439,7 @@ void ScreenCharacterCreation::loadCharacter() {
 	// Instantiate a temp character in case load fails
 	Character* temp;
 	// Load temp character
-	temp = Character::loadCharacter("Test");
+	temp = Character::loadCharacter(nameInput->getText());
 	// Copy stats/items from temp to character
 	Character::copyStats(temp, character);
 	// Set remaining points to 0
