@@ -19,7 +19,7 @@ void Wizard::simulate(Map* map, Pathfinder* pathfinder)
 			spellProgress = 0;
 			if(c->hit(20))
 			{
-				map->removeEntity(c->getPositionX(), c->getPositionY());
+				//map->removeEntity(c->getPositionX(), c->getPositionY());
 			}
 		}
 	}else

@@ -38,8 +38,9 @@ void Monster::simulate(Map* map, Pathfinder* pathfinder)
 	Character* c = map->getCharacter();
 	if(c->distanceTo(this) <= 1){
 		
-		if (c->hit(5))
-			map->removeEntity(c->getPositionX(), c->getPositionY());
+		if (c->hit(5)) {
+			//map->removeEntity(c->getPositionX(), c->getPositionY());
+		}
 	}
 	if (path->size() > 0 && path->size() < getPathfinderDistance())
 	{
