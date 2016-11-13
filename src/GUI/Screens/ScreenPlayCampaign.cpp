@@ -11,9 +11,7 @@
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
 {
 
-
-	
-	currentmap = MapBuilder::loadFromFile(campaign->getFirstMap())->spawnCharacter(character)->spawnScaledContent()->get();
+	currentmap = MapBuilder::loadFromFile(campaign->getMaps().at(campaign->getActiveMapIndex())->getName())->spawnCharacter(character)->spawnScaledContent()->get();
 
 	map_component = new MapComponent(currentmap, 0, 0, 450, 450);
 	addComponent(map_component);
@@ -158,10 +156,24 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 		std::cout << "Map Finished" << std::endl;
 		character->setLevel(character->getLevel() + 1);
 		character->saveCharacter(character->getName(), character);
-		Screen* campaignSelect = new ScreenCampaignSelect(game);
-		campaignSelect->setBackButton(new ScreenMain(game));
-		Renderer::addVoidScreen(game->getGuiManager()->setScreen(campaignSelect));
 		
+		campaign->setActiveMapIndex(campaign->getActiveMapIndex() + 1);
+
+		if (campaign->isCompleted())
+		{
+			std::cout << "Campaign Finished" << std::endl;
+			campaign->setActiveMapIndex(0);
+			Screen* campaignSelect = new ScreenCampaignSelect(game);
+			campaignSelect->setBackButton(new ScreenMain(game));
+			Renderer::addVoidScreen(game->getGuiManager()->setScreen(campaignSelect));
+		}
+		else
+		{
+			std::cout << "Move to next map" << std::endl;
+			ScreenPlayCampaign* screen_play_campaign = new ScreenPlayCampaign(game, campaign, character);
+			Renderer::addVoidScreen(this->game->getGuiManager()->setScreen(screen_play_campaign));
+		}
+
 	}
 }
 

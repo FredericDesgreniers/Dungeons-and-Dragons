@@ -1,37 +1,99 @@
 #include "Campaign.h"
 
-Campaign::Campaign(std::string name): name(name)
+Campaign::Campaign(std::string name, std::vector<Map*> mapList): name(name)
 {
-	
+	activeMapIndex = 0;
+	this->maps = mapList;
 }
 
-
-std::string Campaign::getFirstMap()
+Map* Campaign::getFirstMap()
 {
 	if (maps.size() > 0)
 		return maps[0];
 	else
-		return "default";
-}
-
-void Campaign::addMap(std::string map)
-{
-	maps.push_back(map);
+		return nullptr;
 }
 
 void Campaign::addMap(Map* map)
 {
-	maps.push_back(map->getName());
+	maps.push_back(map);
 }
 
-
-std::vector<std::string>* Campaign::getMaps()
+void Campaign::removeMap(Map* map)
 {
-	return &maps;
+	
+}
+
+void Campaign::setActiveMapIndex(int index)
+{
+	activeMapIndex = index;
+}
+
+int Campaign::getMapCount()
+{
+	int count = 0;
+	for each(Map* map in maps)
+	{
+		count++;
+	}
+	return count;
 }
 
 std::string Campaign::getName()
 {
 	return name;
+}
+
+void Campaign::setName(std::string newName)
+{
+	name = newName;
+}
+
+void Campaign::saveCampaign(Campaign* campaign)
+{
+	std::ofstream mapFile("campaigns/" + campaign->getName() + ".cam");
+
+	if (mapFile.is_open())
+	{
+		mapFile << campaign->getName() << std::endl;
+
+		for each (Map* map in campaign->getMaps())
+		{
+			mapFile << map->getName() << std::endl;
+		}
+
+		mapFile.flush();
+		mapFile.close();
+	}
+}
+
+Campaign* Campaign::loadCampaign(std::string fileName)
+{
+	std::fstream campaignFile("campaigns/" + fileName + ".cam");
+
+	Campaign* campaign = new Campaign(fileName, std::vector<Map*>());
+
+	if (campaignFile.is_open())
+	{
+		string name = "";
+		std::string line;
+		std::getline(campaignFile, line);
+		name = line;
+
+		while (std::getline(campaignFile, line))
+		{
+			Map* tempMap = MapBuilder::loadFromFile(line)->get();
+			campaign->addMap(tempMap);
+		}
+
+		if (campaign->getMapCount() == 0)
+		{
+			cout << "Campaign is empty" << endl;
+		}
+
+		campaignFile.close();
+	}
+
+	return campaign;
 }
 
