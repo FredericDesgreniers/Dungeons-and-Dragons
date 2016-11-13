@@ -29,7 +29,6 @@ class MapSelect:public Pane{
 		 * Add callback for when a map is clicked
 		 */
 		void loadMaps(std::vector<Map*> mapList);
-		virtual void render();
 		void addOnMapClick_callback(std::function<void(Map* map)>);
 private:
 	std::vector<Map*> maps;

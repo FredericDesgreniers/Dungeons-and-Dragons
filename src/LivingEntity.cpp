@@ -350,7 +350,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	void LivingEntity::setLevel(int value)
 	{
 		level = value;
-		Notify();
+		//Notify();
 	}
 
 
