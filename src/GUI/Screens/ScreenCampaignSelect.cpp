@@ -2,23 +2,20 @@
 
 #include "ScreenCharacterSelect.h"
 #include "../Renderer.h"
-#include "../Components/MapSelect.h"
+#include "../Components/ButtonList.h"
 
 
 ScreenCampaignSelect::ScreenCampaignSelect(Game* game) : Screen(game)
 {
-	MapSelect* mapSelect = new MapSelect(200, 0, 300, 800);
-	mapSelect->addOnMapClick_callback([this](Map* map)
+	campaignSelect = new ButtonList(200, 200, 300, 250);
+	addComponent(campaignSelect);
+
+	campaignSelect->getCurrentButton()->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		Campaign* campaign = new Campaign("test", std::vector<Map*>());
+		campaign = Campaign::loadCampaign(campaignSelect->getCurrentButton()->getText());
 		Screen* screen = new ScreenCharacterSelect(this->game, campaign);
-		screen->setBackButton(this);
 		this->game->getGuiManager()->setScreen(screen);
 	});
-
-	addComponent(mapSelect);
-
-
 }
 
 void ScreenCampaignSelect::render()

@@ -5,12 +5,12 @@
 
 ScreenCampaignCreation::ScreenCampaignCreation(Game* game):Screen(game)
 {
-	campaign = new Campaign("temp", std::vector<Map*>());
+	campaign = new Campaign("newCampaign", std::vector<Map*>());
 
 	int wx, wy;
 	SDL_GetWindowSize(Renderer::window, &wx, &wy);
 
-	TextField* nameField = new TextField("Campaign1", wx / 2, 5, wx / 2 - 50, 30);
+	nameField = new TextField("newCampaign", wx / 2, 5, wx / 2 - 50, 30);
 	nameField->setFontSize(20);
 	addComponent(nameField);
 
@@ -44,72 +44,27 @@ ScreenCampaignCreation::ScreenCampaignCreation(Game* game):Screen(game)
 	addComponent(saveButton);
 	saveButton->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		for each (Map* map in campaign->getMaps())
-		{
-			cout << map->getName() << endl;
-		}
+		campaign->setName(nameField->getText());
+		Campaign::saveCampaign(campaign);
+	});
+
+	Button* loadButton = new Button("Load", &Renderer::FONT_ROBOTO, 200, wy - 45, 100, 30);
+	loadButton->adjustButtonDimensions();
+	addComponent(loadButton);
+	loadButton->addOnClick_callback([this](Component* comp, int x, int y)
+	{
+		delete campaign;
+
+		Campaign* newCampaign = Campaign::loadCampaign(nameField->getText());
+		setCampaign(newCampaign);
+
+		campaignPreview->loadMaps(campaign->getMaps());
 	});
 }
 
-ScreenCampaignCreation::saveCampaign()
+void ScreenCampaignCreation::setCampaign(Campaign* newCampaign)
 {
-	std::ofstream mapFile("maps/" + fileName + ".dnd");
-
-	if (mapFile.is_open())
-	{
-		int width = map->getWidth();
-		int height = map->getHeight();
-		string name = fileName;
-
-		mapFile << name << std::endl;
-		mapFile << width << std::endl;
-		mapFile << height << std::endl;
-
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
-				int type = map->getTile(x, y)->getId();
-
-				switch (type)
-				{
-				case 0:
-					mapFile << '-';
-					break;
-				case 1:
-					mapFile << 'W';
-					break;
-				case 2:
-					mapFile << 'S';
-					break;
-				case 3:
-					mapFile << 'E';
-					break;
-				default:
-					mapFile << ' ';
-					break;
-				}
-
-				Entity* entity = map->getEntity(x, y);
-
-				if (entity != nullptr)
-				{
-					mapFile << entity->getRenderChar();
-				}
-				else
-				{
-					mapFile << '\'';
-				}
-			}
-			mapFile << std::endl;
-		}
-		builder->map = map;
-		mapFile.flush();
-		mapFile.close();
-	}
+	campaign = newCampaign;
 }
 
-ScreenCampaignCreation::loadCampaign()
-{
 
-}
