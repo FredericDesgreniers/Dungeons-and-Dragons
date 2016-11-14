@@ -31,6 +31,8 @@ public:
 	 * Update when subject changes
 	 */
 	void Update() override;
+
+	~ItemContainerComponent();
 private:
 	ItemContainer* container;
 	Label** itemLabels;

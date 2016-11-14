@@ -43,7 +43,7 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 	chestDisplay->setVisible(false);
 	addComponent(chestDisplay);
 
-	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 500, 220, 200, 500);
+	eiComp = new EquipedItemComponent(character->getEquippedItems(), 500, 220, 200, 500);
 	eiComp->setBorderColor_both(150, 150, 140, 255);
 	eiComp->setBorderSize(1);
 
@@ -165,11 +165,13 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 			campaign->setActiveMapIndex(0);
 			Screen* campaignSelect = new ScreenCampaignSelect(game);
 			campaignSelect->setBackButton(new ScreenMain(game));
+			character->Detach(eiComp);
 			Renderer::addVoidScreen(game->getGuiManager()->setScreen(campaignSelect));
 		}
 		else
 		{
 			std::cout << "Move to next map" << std::endl;
+			character->Detach(eiComp);
 			ScreenPlayCampaign* screen_play_campaign = new ScreenPlayCampaign(game, campaign, character);
 			Renderer::addVoidScreen(this->game->getGuiManager()->setScreen(screen_play_campaign));
 		}
@@ -184,3 +186,7 @@ void ScreenPlayCampaign::render()
 
 }
 
+ScreenPlayCampaign::~ScreenPlayCampaign()
+{
+	
+}

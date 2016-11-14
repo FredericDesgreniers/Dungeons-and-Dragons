@@ -32,6 +32,8 @@ public:
 	 * Called when subject is changed
 	 */
 	void Update() override;
+
+	~EquipedItemComponent();
 private:
 	Item** items;
 	std::vector<Button*> itemButtons;

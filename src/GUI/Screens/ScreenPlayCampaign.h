@@ -31,11 +31,12 @@ public:
 	 */
 	void displayEntityInfo(Entity* entity);
 
+	~ScreenPlayCampaign();
 private:
 
 	Campaign* campaign;
 	Character* character;
-
+	EquipedItemComponent* eiComp;
 	Map* currentmap;
 
 	MapComponent* map_component;

@@ -101,3 +101,8 @@ void ItemContainerComponent::Update()
 	}
 }
 
+ItemContainerComponent::~ItemContainerComponent()
+{
+	if(container != nullptr)
+		container->Detach(this);
+}

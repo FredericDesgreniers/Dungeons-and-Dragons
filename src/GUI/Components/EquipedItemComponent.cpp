@@ -57,3 +57,9 @@ void EquipedItemComponent::Update()
 		itemButtons[i]->adjustDimensions();
 	}
 }
+
+
+EquipedItemComponent::~EquipedItemComponent()
+{
+	
+}
