@@ -61,36 +61,6 @@ public:
 	~ScreenCharacterCreation();
 
 	/**
-	* Change the string version of Strength ability score
-	* Used for incrementing/decrementing STR
-	*/
-	void setStrength(std::string value);
-	/**
-	* Change the string version of Constitution ability score
-	* Used for incrementing/decrementing CON
-	*/
-	void setConstitution(std::string value);
-	/**
-	* Change the string version of Dexterity ability score
-	* Used for incrementing/decrementing DEX
-	*/
-	void setDexterity(std::string value);
-	/**
-	* Change the string version of Intelligence ability score
-	* Used for incrementing/decrementing INT
-	*/
-	void setIntelligence(std::string value);
-	/**
-	* Change the string version of Wisdom ability score
-	* Used for incrementing/decrementing WIS
-	*/
-	void setWisdom(std::string value);
-	/**
-	* Change the string version of Charisma ability score
-	* Used for incrementing/decrementing CHA
-	*/
-	void setCharisma(std::string value);
-	/**
 	* Change the string version of remaining ability points
 	* Used for incrementing/decrementing ability scores
 	*/
@@ -125,5 +95,6 @@ public:
 	* Clears equipped items and inventory, sets level to 1. 
 	*/
 	void rollCharacter();
+
 
 };

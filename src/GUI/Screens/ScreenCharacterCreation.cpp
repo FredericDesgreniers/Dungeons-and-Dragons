@@ -382,34 +382,6 @@ void ScreenCharacterCreation::rollCharacter() {
 	setRemaining("0");
 }
 
-void ScreenCharacterCreation::setStrength(std::string value) {
-	abilityScores[0] = value;
-}
-
-void ScreenCharacterCreation::setDexterity(std::string value) {
-	abilityScores[1] = value;
-}
-
-void ScreenCharacterCreation::setConstitution(std::string value) {
-	abilityScores[2] = value;
-}
-
-void ScreenCharacterCreation::setIntelligence(std::string value) {
-	abilityScores[3] = value;
-}
-
-void ScreenCharacterCreation::setWisdom(std::string value) {
-	abilityScores[4] = value;
-}
-
-void ScreenCharacterCreation::setCharisma(std::string value) {
-	abilityScores[5] = value;
-}
-
-
-void ScreenCharacterCreation::setRemaining(std::string value) {
-	abilityScores[6] = value;
-}
 
 
 void ScreenCharacterCreation::saveCharacter() {
@@ -467,5 +439,10 @@ void ScreenCharacterCreation::Update() {
 
 
 ScreenCharacterCreation::~ScreenCharacterCreation() {
+	character->Detach(this);
 	delete character;
+}
+
+void ScreenCharacterCreation::setRemaining(std::string value) {
+	abilityScores[6] = value;
 }
