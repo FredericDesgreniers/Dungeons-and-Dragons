@@ -21,7 +21,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	effectiveAbilityScores[4] = abilityscores[4] = wisdom;
 	effectiveAbilityScores[5] = abilityscores[5] = charisma;
 	// TODO: Update HP calculation
-	health = maxHealth = 100;
+	health = maxHealth = level*Dice::roll("1d10") + getModifier(2);
 	for (int i = 0; i < 7; i++) {
 		equipped[i] = nullptr;
 	}
@@ -186,17 +186,17 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		return removed;
 	}
 
-	bool LivingEntity::updateStats()
+	void LivingEntity::updateStats()
 	{
 		// Set effective ability scores to base ability scores
 		for (int i = 0; i < 7; i++) {
 			effectiveAbilityScores[i] = abilityscores[i];
 		}
-		// Set base armor class
-		armorClass = 10;
+		// Set base armor class and add dexterity modifier
+		armorClass = 10 + getModifier(1);
 
 		// Set attacks per turn and attack bonus based on level
-		attacksPerTurn = 1 + (level / 6);
+		attacksRemaining = attacksPerTurn = 1 + (level / 6);
 		attackBonus = level;
 		
 		// Set save vs fortitude
@@ -205,6 +205,8 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		savingThrows[1] = level / 3;
 		// Set save vs will
 		savingThrows[2] = level / 3;
+
+		// Add item bonuses to effective ability scores
 		for (int i = 0; i < 7; i++) {
 			if (equipped[i] != nullptr) {
 				switch (i) {
@@ -213,15 +215,15 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 					effectiveAbilityScores[3] += equipped[i]->getIntBoost();
 					// Add wis bonus
 					effectiveAbilityScores[4] += equipped[i]->getWisBoost();
-					// Add AC bonus 
+					// Add Armor bonus
 					armorClass += equipped[i]->getArmBoost();
 					break;
 				case 1: //Item is Armor
-					//Add AC bonus
+					//Add Armor Bonus
 					armorClass += equipped[i]->getArmBoost();
 					break;
 				case 2: // Item is Shield 
-					//Add AC bonus
+					//Add Shield bonus
 					armorClass += equipped[i]->getArmBoost();
 				case 3: // Item is Ring
 					//Add STR bonus
@@ -232,7 +234,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 					effectiveAbilityScores[4] += equipped[i]->getWisBoost();
 					//Add CHA bonus
 					effectiveAbilityScores[5] += equipped[i]->getChaBoost();
-					//Add AC bonus
+					//Add Armor Bonus
 					armorClass += equipped[i]->getArmBoost();
 					break;
 				case 4: // Item is belt
@@ -244,7 +246,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 				case 5: // Item is boots
 					// Add DEX bonus
 					effectiveAbilityScores[1] += equipped[i]->getDexBoost();
-					// Add AC bonus
+					// Add Armor Bonus
 					armorClass += equipped[i]->getArmBoost();
 					break;
 				case 6: //Item is Weapon
@@ -264,36 +266,39 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		}
 
 
-		return false;
+		return;
 	}
 
-	bool LivingEntity::copyStats(LivingEntity * from, LivingEntity * to)
+
+	bool LivingEntity::copyStats(LivingEntity * from)
 	{
-		if (from == nullptr || to == nullptr) {
-			return false;
+		
+		
+		int* toCopy = from->getAbilityScoreArray();
+		
+		// Copy ability scores
+		for (int i = 0; i < 6; i++) {
+			abilityscores[i] = toCopy[i];
 		}
-		to->setStrength(from->getStrength());
-		to->setDexterity(from->getDexterity());
-		to->setConstitution(from->getConstitution());
-		to->setIntelligence(from->getIntelligence());
-		to->setWisdom(from->getWisdom());
-		to->setCharisma(from->getCharisma());
-		to->setLevel(from->getLevel());
-		to->setName(from->getName());
+				
+		level = from->getLevel();
+		name = from->getName();
+		health=maxHealth=from->getMaxHealth();
 		Item** toEquip = from->getEquippedItems();
 		for (int i = 0; i < 7; i++) {
 			if (toEquip[i]!=nullptr)
-			to->equip(new Item(toEquip[i]));
+			equip(new Item(toEquip[i]));
 		}
 		Item* toBackpack = nullptr;
 		for (int i = 0; i < 10; i++) {
-			to->getBackpack()->removeItemAtIndex(i);
+			backpack->removeItemAtIndex(i);
 			toBackpack = from->getBackpack()->getItemAtIndex(i);
 			if (toBackpack != nullptr) {
-				to->getBackpack()->addItem(new Item(toBackpack));
+				backpack->addItem(new Item(toBackpack));
 			}
 
 		}
+		updateStats();
 		// Test item
 		//to->equip(new Item("Helmetfury, Blessed Hat of the Windseeker", Item::ItemType::HELMET, 0, 0, 0, 5, 5, 0, 0, 0, 5)); 
 		return true;
@@ -301,11 +306,12 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	void LivingEntity::equipBasic() {
 		std::cout << "Adding basic equipment:" << endl;
-		equip(new Item("Crude Helmet", Item::ItemType::HELMET, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-		equip(new Item("Leather Armor", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-		equip(new Item("Wooden Buckler", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-		equip(new Item("Leather Boots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-		equip(new Item("Dagger", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 0, 0));
+		equipped[0]=new Item("Crude Helmet", Item::ItemType::HELMET, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		equipped[1]=new Item("Leather Armor", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		equipped[2]=new Item("Wooden Buckler", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		equipped[5]=new Item("Leather Boots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		equipped[6]=new Item("Dagger", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+		updateStats();
 	}
 
 	int LivingEntity::getStrength()
@@ -350,6 +356,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	void LivingEntity::setLevel(int value)
 	{
 		level = value;
+		updateStats();
 		Notify();
 	}
 
@@ -385,6 +392,18 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		Notify();
 	}
 
+	void LivingEntity::setMaxHealth(int value)
+	{
+		maxHealth = value;
+		Notify();
+	}
+
+	void LivingEntity::setHealth(int value)
+	{
+		health = value;
+		Notify();
+	}
+
 	void LivingEntity::setCharisma(int value)
 	{
 		abilityscores[5] = value;
@@ -408,4 +427,54 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		}
 		delete backpack;
 		backpack = nullptr;
+	}
+
+
+	int LivingEntity::getModifier(int score)
+	{
+		switch (score) {
+		case 0:
+			return (getStrength() - 10) / 2;
+		case 1:
+			return (getDexterity() - 10) / 2;
+		case 2:
+			return (getConstitution() - 10) / 2;
+		case 3:
+			return (getIntelligence() - 10) / 2;
+		case 4:
+			return (getWisdom() - 10) / 2;
+		case 5:
+			return (getCharisma() - 10) / 2;
+		}
+		return 0;
+	}
+
+	void LivingEntity::levelUp() {
+		// Roll for health increase
+		maxHealth += Dice::roll("1d10") + getModifier(2);
+		// Setlevel calls updateStats which will update attacks per turn, saving throws, etc
+		setLevel(level + 1);
+	}
+
+	int LivingEntity::rollInitiative() {
+		return Dice::roll("1d20") + getModifier(1);
+	}
+
+	int LivingEntity::rollDamage() {
+		// TODO: Damage bonus should depend on weapon type
+		return Dice::roll("1d8") + getModifier(0);
+	}
+
+	int LivingEntity::rollAttack() {
+		int result = Dice::roll("1d20") + (attackBonus - 5 * (attacksPerTurn-attacksRemaining));
+		attacksRemaining--;
+		return result;
+	}
+
+	void LivingEntity::resetAttacks() {
+		attacksRemaining = attacksPerTurn;
+	}
+
+	int LivingEntity::getAttacksRemaining() {
+		return attacksRemaining;
 	}

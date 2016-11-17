@@ -108,6 +108,8 @@ public:
 	* Set wisdom as int
 	*/
 	void setWisdom(int value);
+	void setMaxHealth(int value);
+	void setHealth(int value);
 	/**
 	* Set charisma as int
 	*/
@@ -152,22 +154,43 @@ public:
 			"\nINT: " + std::to_string(getIntelligence()) + ", WIS: " + std::to_string(getWisdom()) + ", CHA: " + std::to_string(getCharisma()) +
 			"\nEffective:\nSTR: " + std::to_string(effectiveAbilityScores[0]) + ", DEX: " + std::to_string(effectiveAbilityScores[1]) +
 			", CON: " + std::to_string(effectiveAbilityScores[2]) + "\nINT: " + std::to_string(effectiveAbilityScores[3]) + ", WIS: " +
-			std::to_string(effectiveAbilityScores[4]) + ", CHA: " + std::to_string(effectiveAbilityScores[5]) + "\nAC: " + std::to_string(armorClass) +
-			", Damage Bonus:" + to_string(damageBonus) + ", Attack bonus:" + to_string(attackBonus) + "\n";
+			std::to_string(effectiveAbilityScores[4]) + ", CHA: " + std::to_string(effectiveAbilityScores[5]) + 
+			"\nAC: " + std::to_string(armorClass) + ", Max Health:" + to_string(maxHealth) + 
+			"\nDamage Bonus:" + to_string(damageBonus) + ", Attack bonus:" + to_string(attackBonus) + ", Attacks per turn:" + to_string(attacksPerTurn) +
+			"\nSave vs. Fortitude: " + to_string(savingThrows[0]) + ", Save vs Reflex: " + to_string(savingThrows[1]) + ", Save vs Will: " + to_string(savingThrows[2]) + "\n";
+			;
 		}
 	
 	/**
 	* Return an array of pointers to the Entity's equipped Items
 	*/
 	Item** getEquippedItems();
-
+	
 	/**
 	* Copy the stats and items from one LivingEntity to another. Used mainly for loading characters in the character creation screen
 	*/
-	static bool copyStats(LivingEntity* from, LivingEntity* to);
+	bool copyStats(LivingEntity* from);
 	
+	/**
+	* Get modifer from ability score.
+	*
+	* The modifier is calculated as per game rules using (score-10)/2
+	*/
+	int getModifier(int stat);
+
+	int getAttacksRemaining();
 	
 	~LivingEntity();
+
+	void levelUp();
+
+	int rollInitiative();
+
+	int rollDamage();
+
+	int rollAttack();
+
+	void resetAttacks();
 
 
 private:
@@ -218,7 +241,8 @@ private:
 	* This includes the effectiveAbilityScores array as well as damage bonus,
 	* attack bonus, armor class
 	*/
-	bool updateStats();
+	void updateStats();
+
 	
 	/**
 	* Entity's level
@@ -246,6 +270,8 @@ private:
 	* Armor class calculated from the total armor on equipped items. Updated on equip/unequip
 	*/
 	int armorClass;
+
+	int attacksRemaining;
 };
 
 

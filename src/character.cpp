@@ -12,25 +12,7 @@ Character::Character(int str, int dex, int cons, int intel, int wisd, int chari,
 
 Character::Character(int str, int dex, int cons, int intel, int wisd, int chari, int lvl, std::string cname) : LivingEntity('C', str, dex, cons, intel, wisd, chari, lvl, cname)
 {
-}
 
-int Character::getModifier(int score)
-{
-	switch (score) {
-	case 0:
-		return (getStrength() - 10) / 2;
-	case 1:
-		return (getDexterity() - 10) / 2;
-	case 2:
-		return (getConstitution() - 10) / 2;
-	case 3:
-		return (getIntelligence() - 10) / 2;
-	case 4:
-		return (getWisdom() - 10) / 2;
-	case 5:
-		return (getCharisma() - 10) / 2;
-	}
-	return 0;
 }
 
 

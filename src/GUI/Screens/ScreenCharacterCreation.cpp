@@ -413,9 +413,10 @@ void ScreenCharacterCreation::loadCharacter() {
 	// Load temp character
 	temp = Character::loadCharacter(nameInput->getText());
 	// Copy stats/items from temp to character
-	Character::copyStats(temp, character);
+	character->copyStats(temp);
 	// Set remaining points to 0
 	setRemaining("0");
+	delete temp;
 }
 
 void ScreenCharacterCreation::Update() {

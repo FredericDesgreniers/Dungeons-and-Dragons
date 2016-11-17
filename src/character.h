@@ -33,12 +33,7 @@ public:
 
 
 	Character(int str, int dex, int cons, int intel, int wisd, int chari, int lvl, std::string cname);
-	/**
-	 * Get modifer from ability score.
-	 * 
-	 * The modifier is calculated as per game rules using (score-10)/2
-	 */
-	int getModifier(int stat);
+
 
 
 
