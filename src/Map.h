@@ -9,6 +9,7 @@
 #define SPAWNTILE 2
 #define ENDTILE 3
 #include "Pathfinder.h"
+#include <queue>
 
 class PathFinder;
 class Entity;
@@ -116,4 +117,8 @@ public:
 	 * Get entities on map
 	 */
 	std::vector<Entity*>* getEntities();
+
+	std::function<bool(LivingEntity*, LivingEntity*)> cmp = [](LivingEntity* left, LivingEntity* right) { return left->getInitiative() < right->getInitiative(); };
+
+	std::priority_queue < LivingEntity*, std::vector<LivingEntity*>, decltype(cmp)>  turnQueue;
 };

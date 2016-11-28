@@ -124,6 +124,27 @@ bool Map::spawnEntity(Entity* entity, int x, int y)
 
 void Map::simulateMapTick()
 {
+
+	if(turnQueue.size() == 0)
+	{
+		for (int i = 0; i < getEntities()->size(); i++)
+		{
+			if(LivingEntity* le = dynamic_cast<LivingEntity*>(getEntities()->at(i)))
+			{
+				le->rollInitiative();
+				turnQueue.push(le);
+			}
+		}
+	}else
+	{
+		LivingEntity* le = turnQueue.top();
+
+		//TODO add strategy
+
+		if(le->getTurnFinished())
+			turnQueue.pop();
+	}
+
 	Pathfinder* pathfinder = new Pathfinder(this, character->getPositionX(), character->getPositionY());
 
 	for (Entity* entity:entities)
