@@ -168,6 +168,12 @@ MapBuilder* MapBuilder::spawnRandomMonsters()
 	for (int i = 0; i < monsternNum; i++)
 	{
 		Monster* m = new Monster();
+		bool hostile = rand() % 2 == 0;
+		m->setHostile(hostile);
+		if (hostile)
+			m->setStrategy(new HostileStrategy());
+		else
+			m->setStrategy(new FriendlyStrategy());
 		int x, y;
 		do
 		{

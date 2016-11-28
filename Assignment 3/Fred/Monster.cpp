@@ -18,9 +18,9 @@ bool Monster::interact(Map* map, Entity* entity)
 {
 	if(Character* c = dynamic_cast<Character*>(entity))
 	{
-		if(hit(c->getStrength()*2))
+		if(c->hit(getStrength()*2))
 		{
-			map->removeEntity(getPositionX(), getPositionY());
+			map->removeEntity(c->getPositionX(), c->getPositionY());
 		}
 		return true;
 	} 

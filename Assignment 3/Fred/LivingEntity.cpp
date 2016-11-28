@@ -302,3 +302,25 @@ LivingEntity::~LivingEntity()
 	int LivingEntity::getAttacksRemaining() {
 		return attacksRemaining;
 	}
+
+	bool LivingEntity::getHostile()
+	{
+		return hostile;
+	}
+
+void LivingEntity::setHostile(bool h)
+{
+	hostile = h;
+}
+
+bool LivingEntity::getTurnFinished()
+{
+	return turnFinished;
+}
+
+void LivingEntity::setTurnFinished(bool f)
+{
+	turnFinished = f;
+}
+
+

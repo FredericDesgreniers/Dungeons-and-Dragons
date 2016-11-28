@@ -182,7 +182,13 @@ public:
 
 	void resetAttacks();
 
+	void setHostile(bool h);
 
+	bool getHostile(); 
+
+	bool getTurnFinished();
+	
+	void setTurnFinished(bool f);
 private:
 	/**
 	* The Entity's max Hit Points
@@ -254,6 +260,8 @@ private:
 	int attacksRemaining;
 
 	bool hostile;
+
+	bool turnFinished;
 
 	Strategy* strategy;
 };
