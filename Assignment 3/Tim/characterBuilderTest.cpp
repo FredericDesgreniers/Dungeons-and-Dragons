@@ -86,7 +86,7 @@ void characterBuilderTest::testPriorities()
 		test = director->getLivingEntity();
 		CPPUNIT_ASSERT(test->getDexterity() >= test->getConstitution() &&
 			test->getConstitution() >= test->getStrength() &&
-			test->getDexterity() >= test->getIntelligence() &&
+			test->getStrength() >= test->getIntelligence() &&
 			test->getIntelligence() >= test->getCharisma() &&
 			test->getCharisma() >= test->getWisdom()
 		);

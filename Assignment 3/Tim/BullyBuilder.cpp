@@ -15,8 +15,7 @@ void BullyBuilder::buildAbilityScores() {
 	m_livingEntity->setIntelligence(abilityScores[2]); // Assign the 4th highest score to intelligence
 	m_livingEntity->setCharisma(abilityScores[1]); // Assign the 5th highest score to charisma
 	m_livingEntity->setWisdom(abilityScores[0]); // Assign the 6th highest score to wisdom
-	// The rationale for rolling the health for the specified level in this class rather than simply using the levelUp function
-	// on the character
+
 	int maxHealth = 0;
 	for (int i = 0; i < level; i++) {
 		maxHealth += (Dice::roll("1d10") + m_livingEntity->getModifier(2));
