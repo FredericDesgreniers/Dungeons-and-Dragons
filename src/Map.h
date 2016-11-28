@@ -118,7 +118,7 @@ public:
 	 */
 	std::vector<Entity*>* getEntities();
 
-	std::function<bool(LivingEntity*, LivingEntity*)> cmp = [](LivingEntity* left, LivingEntity* right) { return left->getInitiative() < right->getInitiative(); };
 
-	std::priority_queue < LivingEntity*, std::vector<LivingEntity*>, decltype(cmp)>  turnQueue;
+
+	std::priority_queue < LivingEntity*>  turnQueue;
 };

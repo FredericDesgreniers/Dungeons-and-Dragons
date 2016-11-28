@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <complex>
 
-
 Map::Map(string name, int width, int height): name(name), height(height), width(width)
 {
 	generateMap(width, height);
