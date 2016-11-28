@@ -192,6 +192,10 @@ public:
 
 	void resetAttacks();
 
+	int getInitiative();
+
+	bool getTurnFinished();
+	void setTurnFinished(bool tf);
 
 private:
 	/**
@@ -272,6 +276,10 @@ private:
 	int armorClass;
 
 	int attacksRemaining;
+
+	int initiative;
+
+	bool turnFinished;
 };
 
 

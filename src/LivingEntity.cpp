@@ -268,6 +268,10 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 		return;
 	}
+	int LivingEntity::getInitiative()
+	{
+		return initiative;
+	}
 
 
 	bool LivingEntity::copyStats(LivingEntity * from)
@@ -457,7 +461,8 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	}
 
 	int LivingEntity::rollInitiative() {
-		return Dice::roll("1d20") + getModifier(1);
+		initiative = Dice::roll("1d20") + getModifier(1);
+		return initiative;
 	}
 
 	int LivingEntity::rollDamage() {
@@ -478,3 +483,14 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	int LivingEntity::getAttacksRemaining() {
 		return attacksRemaining;
 	}
+
+	bool LivingEntity::getTurnFinished()
+	{
+		return turnFinished;
+	}
+
+	void LivingEntity::setTurnFinished(bool tf)
+	{
+		turnFinished = tf;
+	}
+
