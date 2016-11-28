@@ -1,3 +1,8 @@
+//! @file 
+//! @brief Header file for Shield class  
+//!
+//! Shield class implementation left in .h for simplicity
+//! Contains an armor class boost
 #pragma once
 
 #include "CharacterDecorator.h"

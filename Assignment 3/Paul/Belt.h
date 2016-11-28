@@ -1,3 +1,8 @@
+//! @file 
+//! @brief Header file for Belt class  
+//!
+//! Belt class implementation left in .h for simplicity
+//! Contains a constitution and strength boost
 #pragma once
 
 #include "CharacterDecorator.h"

@@ -1,3 +1,8 @@
+//! @file 
+//! @brief Header file for Boots class  
+//!
+//! Boots class implementation left in .h for simplicity
+//! Contains an armor class and dexterity boost
 #pragma once
 
 #include "CharacterDecorator.h"

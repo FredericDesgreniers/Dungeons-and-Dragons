@@ -160,7 +160,6 @@ void Character::setWisdom(int wis)
 	abilityscores[4] = wis;
 }
 
-
 void Character::setCharisma(int cha)
 {
 	abilityscores[5] = cha;
@@ -190,6 +189,11 @@ std::string Character::inventoryDisplay() {
 		"\nBelt: " + std::to_string(getEquipped()[5]) +
 		"\nRing: " + std::to_string(getEquipped()[6]) + "\n";
 }
+
+std::string Character::toString() {
+	return "";
+}
+
 
 
 

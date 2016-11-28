@@ -1,3 +1,8 @@
+//! @file 
+//! @brief Header file for Armor class  
+//!
+//! Armor class implementation left in .h for simplicity
+//! Contains an armor class boost
 #pragma once
 
 #include "CharacterDecorator.h"
@@ -24,5 +29,4 @@ public:
 	int getArmorClass() {
 		return CharacterDecorator::getArmorClass() + this->armorClass;
 	}
-
 };

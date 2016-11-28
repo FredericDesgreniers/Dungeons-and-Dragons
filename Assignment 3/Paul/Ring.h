@@ -1,3 +1,8 @@
+//! @file 
+//! @brief Header file for Ring class  
+//!
+//! Ring class implementation left in .h for simplicity
+//! Contains a wisdom, charisma, armor class, constitution and strength boost
 #pragma once
 
 #include "CharacterDecorator.h"
@@ -28,6 +33,7 @@ public:
 	}
 
 
+
 	int getStrength() {
 		return CharacterDecorator::getStrength() + this->strength;
 	}
@@ -46,4 +52,8 @@ public:
 	int getArmorClass() {
 		return CharacterDecorator::getArmorClass() + this->armorClass;
 	}
+
+
+
+
 };

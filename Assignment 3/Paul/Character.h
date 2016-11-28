@@ -1,7 +1,7 @@
 //! @file 
 //! @brief Header file for Character class  
 //!
-//! Character is the concrete subject
+//! Extends the abstract character class for Decorator pattern
 #pragma once
 #include "stdlib.h"
 #include "time.h"
@@ -26,7 +26,7 @@ private:
 	int hitpoints;
 
 	/**
-	* Characters ability scores     (str,dex,cons,intel,wisd,chari, armorclass, damage, attack)
+	* Characters ability scores (str,dex,cons,intel,wisd,chari, armorclass, damage, attack)
 	*/
 	int abilityscores[9];
 
@@ -56,7 +56,7 @@ public:
 	/**
 	* Hit character for x hp.
 	*
-	* Deduces the health and notify the observer that something has changed
+	* Deduces the health
 	*/
 	void hit(int);
 
@@ -68,21 +68,9 @@ public:
 	bool validateNewCharacter();
 
 	/**
-	* Output string to ostream using <<
+	* Output String
 	*/
-	inline std::string Character::toString() {
-		return "Character scores:\nStr:          "
-			+ std::to_string(getStrength()) + "\nDex:          "
-			+ std::to_string(getDexterity()) + "\nCons:         "
-			+ std::to_string(getConsitution()) + "\nIntel:        "
-			+ std::to_string(getIntelligence()) + "\nWisd:         "
-			+ std::to_string(getWisdom()) + "\nChari:        "
-			+ std::to_string(getCharisma()) + "\nArmor class:  "
-			+ std::to_string(getArmorClass()) + "\nDamage:       "
-			+ std::to_string(getDamage()) + "\nAttack:       "
-			+ std::to_string(getAttack()) + "\nHP:           "
-			+ std::to_string(getHitPoints()) + "\n";
-	}
+	std::string toString();
 
 	/**
 	* Get level as int
@@ -139,52 +127,68 @@ public:
 	*/
 	int getDamage();
 
-
 	/**
 	* Get attack as int
 	*/
 	int getAttack();
 
+	/**
+	* Get the equipped items as an array
+	*/
 	bool* getEquipped();
 	/**
-	* set strength and notify the observer that something has changed
+	* set strength
 	*/
 	void setStrength(int str);
 
 	/**
-	* set dexterity and notify the observer that something has changed
+	* set dexterity
 	*/
 	void setDexterity(int dex);
 
 	/**
-	* set constitution and notify the observer that something has changed
+	* set constitution 
 	*/
 	void setConsitution(int cons);
 
 	/**
-	* set intelligence and notify the observer that something has changed
+	* set intelligence
 	*/
 	void setIntelligence(int intel);
 
 	/**
-	* set wisdom and notify the observer that something has changed
+	* set wisdom
 	*/
 	void setWisdom(int wis);
 
 	/**
-	* set charisma and notify the observer that something has changed
+	* set charisma
 	*/
 	void setCharisma(int cha);
 
+	/**
+	* set armor
+	*/
 	void setArmorClass(int arm);
 
-
+	/**
+	* set damage
+	*/
 	void setDamage(int dmg);
-
-
+	
+	/**
+	* set attack
+	*/
 	void setAttack(int atk);
 
+	/**
+	* display inventory
+	*/
 	std::string inventoryDisplay();
 
+	/**
+	* bool array of equipped items
+	*/
 	bool equipped[7];
+
 };

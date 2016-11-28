@@ -1,3 +1,8 @@
+//! @file 
+//! @brief Helmet file for Belt class  
+//!
+//! Helmet class implementation left in .h for simplicity
+//! Contains a intelligence, wisdom and armor class boost
 #pragma once
 #include "CharacterDecorator.h"
 

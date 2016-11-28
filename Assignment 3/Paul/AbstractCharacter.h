@@ -1,8 +1,12 @@
+//! @file 
+//! @brief Header file for AbstractCharacter class 
+//!
+//! Abstract Character abstract class, defines all methods needed for Decorator Pattern
+
 #pragma once
 #include <string>
 class AbstractCharacter
 {
-
 public:
 
 	virtual int getLevel() = 0;
@@ -34,5 +38,4 @@ public:
 	virtual std::string inventoryDisplay() = 0;
 
 	virtual bool* getEquipped() = 0;
-
 };
