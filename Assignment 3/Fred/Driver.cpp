@@ -35,7 +35,7 @@ int main()
 	while(true)
 	{
 		//clear the screen
-		system("CLS");
+		std::cout << "\n\n";
 		printMap(map);
 
 		//Go through entities
@@ -47,7 +47,7 @@ int main()
 			{
 				//start turn
 				le->setTurnFinished(false);
-				//Do strategy until turn is ended
+				//Do actions until turn is ended
 				while(!le->getTurnFinished())
 					le->doStrategy(map);
 			}

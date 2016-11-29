@@ -52,7 +52,10 @@ void CharacterStrategy::doStrategy(Map* map,LivingEntity* le)
 		{
 			if (!entity->getHostile()) {
 				entity->setStrategy(new HostileStrategy());
-
+				std::cout << "Attacked friendly unit, it turned hostile!" << std::endl;
+			}else
+			{
+				std::cout << "Attacked hostile unit, it turned hostile!" << std::endl;
 			}
 			entity->hit(10);
 			if (entity->getHealth() <= 0)
@@ -75,6 +78,7 @@ void FriendlyStrategy::doStrategy(Map* map, LivingEntity* le)
 
 	Strategy::doStrategy(map,le);
 	le->setTurnFinished(true);
+	std::cout << "Friendly strategy excecuted for entity at " << le->getPositionX() << "," << le->getPositionY() << std::endl;
 }
 
 void HostileStrategy::doStrategy(Map* map, LivingEntity* le)
@@ -88,4 +92,5 @@ void HostileStrategy::doStrategy(Map* map, LivingEntity* le)
 		}
 	}
 	le->setTurnFinished(true);
+	std::cout << "Hostile strategy excecuted for " << (le->getHostile()?"hostile":"friendly") << " entity at position "<< le->getPositionX() << ","<< le->getPositionY() << std::endl;
 }
