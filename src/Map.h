@@ -118,7 +118,7 @@ public:
 	 */
 	std::vector<Entity*>* getEntities();
 
-
+	std::vector<std::string> itemList;
 
 	std::priority_queue < LivingEntity*>  turnQueue;
 };

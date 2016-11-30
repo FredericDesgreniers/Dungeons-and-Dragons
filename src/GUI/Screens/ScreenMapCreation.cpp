@@ -3,6 +3,8 @@
 #include "../../Wizard.h"
 #include "../../EntityChest.h"
 #include "../../Pathfinder.h"
+#include <Windows.h>
+#include <fileapi.h>
 
 ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 {
@@ -13,6 +15,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 
 	storedEntity = nullptr;
 	storedTile = nullptr;
+	storedItem = "";
 
 	nameInput = new TextField("TestMap", 125, 75, 100, 20);
 	nameInput->setFontSize(15);
@@ -140,6 +143,35 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	entityMap->spawnEntity(new Wizard(), 0, 1);
 	entityMap->spawnEntity(new EntityChest(), 0, 2);
 
+	char search_path[200];
+	sprintf_s(search_path, "%s*.*", "items/");
+	WIN32_FIND_DATA fd;
+	HANDLE hFind = ::FindFirstFile(search_path, &fd);
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		int y = 0;
+		do
+		{
+			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				const std::string name = std::string(fd.cFileName).substr(0, strlen(fd.cFileName) - 3);
+				
+				Button* itemButton = new Button(name, &Renderer::FONT_ROBOTO, 700, 170 + y, 200, 30);
+				itemButton->adjustButtonDimensions();
+				itemButton->addOnClick_callback([this](Component* comp, int x, int y)
+				{
+					storedEntity = nullptr;
+					storedTile = nullptr;
+					storedItem = ((Button*)comp)->getText();
+				});
+				addComponent(itemButton);
+
+				y += 60;
+
+			}
+		} while (::FindNextFile(hFind, &fd));
+		::FindClose(hFind);
+	}
 
 	mapComp = new MapComponent(map, 50, 170, 400, 400);
 	addComponent(mapComp);
@@ -169,16 +201,44 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 			}
 			map->setTile(new MapTile(storedTile->getId()),x,y);
 		}
+
+		if (storedItem != "")
+		{
+			if (map->getEntity(x, y) != nullptr && map->getEntity(x, y)->getRenderChar() == 'B')
+			{
+				for each(std::string item in map->itemList)
+				{
+					int itemX;
+					int itemY;
+					std::stringstream ss(item);
+					ss >> itemX >> itemY;
+
+					if (x == itemX && itemY == y)
+					{
+						cout << "box already contains an item" << endl;
+						return;
+					}
+				}
+				cout << "placed item in box" << endl;
+				map->itemList.push_back(std::to_string(x) + " " + std::to_string(y) + " " + storedItem);
+			}
+			else
+			{
+				cout << "not a box" << endl;
+			}
+		}
 	});
 
 	tileMapComp->addOnTileClickedCallback([this](Map* map, int x, int y)
 	{
+		storedItem = "";
 		storedEntity = nullptr;
 		storedTile = map->getTile(x, y);
 	});
 
 	entityMapComp->addOnTileClickedCallback([this](Map* map, int x, int y)
 	{
+		storedItem = "";
 		storedTile = nullptr;
 		storedEntity = map->getEntity(x, y);
 	});
@@ -212,11 +272,11 @@ void ScreenMapCreation::setMap(Map* newMap)
 }
 
 void ScreenMapCreation::setWidth(int value) {
-	width = std::max(10, std::min(value, 25));
+	width = max(10, min(value, 25));
 }
 
 void ScreenMapCreation::setHeight(int value) {
-	height = std::max(10, std::min(value, 25));
+	height = max(10, min(value, 25));
 }
 
 void ScreenMapCreation::createMap() {

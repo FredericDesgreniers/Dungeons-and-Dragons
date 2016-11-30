@@ -73,6 +73,12 @@ MapBuilder* MapBuilder::saveToFile(std::string fileName, Map* map)
 			}
 			mapFile << std::endl;
 		}
+
+		for each(std::string item in map->itemList)
+		{
+			mapFile << item << std::endl;
+		}
+
 		builder->map = map;
 		mapFile.flush();
 		mapFile.close();
@@ -98,8 +104,9 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 
 		Map* map = new Map(name, width, height);
 		int y = 0;
-		while(std::getline(mapFile, line))
+		while(y < height)
 		{	
+			std::getline(mapFile, line);
 			int x = 0;
 			for (int i= 0; i < line.size(); i++)
 			{
@@ -142,8 +149,18 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 			}
 			y++;
 		}
+		while (std::getline(mapFile, line))
+		{
+			int x;
+			int y;
+			std::string name;
+			std::stringstream ss(line);
+			ss >> x >> y >> name;
 
-		
+			((EntityChest*)map->getEntity(x, y))->getContainer()->addItem(Item::loadItem(name));
+			
+		}
+
 		builder->map = map;
 		mapFile.close();
 	}
@@ -211,7 +228,7 @@ MapBuilder* MapBuilder::spawnScaledContent()
 				level += range;
 				if (level < 1)
 					level = 1;
-				if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
+				/*if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
 				{
 					
 					int num = (rand()) % 5;
@@ -223,7 +240,7 @@ MapBuilder* MapBuilder::spawnScaledContent()
 					}
 					std::cout << "CHEST RANDOM SPAWN" << num<< std::endl;
 					chest->getContainer()->printContainer();
-				}else if(Monster* monster = dynamic_cast<Monster*>(entity))
+				}else */if(Monster* monster = dynamic_cast<Monster*>(entity))
 				{
 					monster->setLevel(level);
 					if(rand() % 2 == 0)
