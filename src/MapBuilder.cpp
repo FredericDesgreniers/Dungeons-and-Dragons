@@ -208,30 +208,6 @@ MapBuilder* MapBuilder::spawnCharacter(LivingEntity* character)
 	this->character = character;
 	return this;
 }
-MapBuilder* MapBuilder::spawnRandomMonsters()
-{
-	srand(time(NULL));
-	int monsternNum = rand() % 7 + 3;
-	for (int i = 0; i < monsternNum; i++)
-	{
-		Monster* m = new Monster();
-		bool hostile = rand() % 2 == 0;
-		m->setHostile(hostile);
-		if (hostile)
-			m->setStrategy(new HostileStrategy());
-		else
-			m->setStrategy(new FriendlyStrategy());
-		int x, y;
-		do
-		{
-			x = rand() % map->getWidth();
-			y = rand() % map->getHeight();
-		} while (!map->spawnEntity(m, x, y));
-
-
-	}
-	return this;
-}
 
 int MapBuilder::getMapLevel()
 {
@@ -259,7 +235,7 @@ MapBuilder* MapBuilder::spawnScaledContent()
 				if (level < 1)
 					level = 1;
 
-				if(Monster* monster = dynamic_cast<Monster*>(entity))
+				if(LivingEntity* monster = dynamic_cast<LivingEntity*>(entity))
 				{
 					monster->setLevel(level);
 
