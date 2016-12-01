@@ -8,7 +8,7 @@
 
 #undef main
 
-
+Game* Game::instance = nullptr;
 Game::Game()
 {
 	gui_manager = new GuiManager();
