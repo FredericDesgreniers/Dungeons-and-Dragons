@@ -155,7 +155,7 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 				break;
 				case 'H':
 				{
-					LivingEntity* ne = new LivingEntity('F');
+					LivingEntity* ne = new LivingEntity('H');
 					ne->setStrategy(new HostileStrategy());
 					map->spawnEntity(ne, x, y);
 				}
