@@ -310,10 +310,10 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	void LivingEntity::equipBasic() {
 		std::cout << "Adding basic equipment:" << endl;
-		equipped[0]=new Item("Crude Helmet", Item::ItemType::HELMET, 0, 0, 0, 0, 0, 0, 0, 0, 1);
-		equipped[1]=new Item("Leather Armor", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 1);
-		equipped[2]=new Item("Wooden Buckler", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 1);
-		equipped[5]=new Item("Leather Boots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		equipped[0]=new Item("CrudeHelmet", Item::ItemType::HELMET, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		equipped[1]=new Item("LeatherArmor", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		equipped[2]=new Item("WoodenBuckler", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		equipped[5]=new Item("LeatherBoots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 		equipped[6]=new Item("Dagger", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 0, 0);
 		updateStats();
 	}

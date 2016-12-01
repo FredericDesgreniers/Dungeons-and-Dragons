@@ -4,6 +4,7 @@
 #include <fstream>
 #include <direct.h>
 #include <iostream>
+#include "EntityChest.h"
 
 
 MapBuilder* MapBuilder::createEmptyMap(int w, int h)
@@ -72,6 +73,12 @@ MapBuilder* MapBuilder::saveToFile(std::string fileName, Map* map)
 			}
 			mapFile << std::endl;
 		}
+
+		for each(std::string item in map->itemList)
+		{
+			mapFile << item << std::endl;
+		}
+
 		builder->map = map;
 		mapFile.flush();
 		mapFile.close();
@@ -97,50 +104,67 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 
 		Map* map = new Map(name, width, height);
 		int y = 0;
+
 		while (std::getline(mapFile, line))
 		{
-			int x = 0;
-			for (int i = 0; i < line.size(); i++)
+
+			while (y < height)
 			{
-				char c = line[i];
-				int type;
-				switch (c)
+				std::getline(mapFile, line);
+
+				int x = 0;
+				for (int i = 0; i < line.size(); i++)
 				{
-				case 'W':
-					type = TILE_WALL;
-					break;
-				case 'S':
-					type = SPAWNTILE;
-					break;
-				case 'E':
-					type = ENDTILE;
-					break;
-				default:
-					type = TILE_EMPTY;
+					char c = line[i];
+					int type;
+					switch (c)
+					{
+					case 'W':
+						type = TILE_WALL;
+						break;
+					case 'S':
+						type = SPAWNTILE;
+						break;
+					case 'E':
+						type = ENDTILE;
+						break;
+					default:
+						type = TILE_EMPTY;
+
+					}
+					if (x >= 0 && x < width && y >= 0 && y < height)
+						map->setTile(new MapTile(type), x, y);
+					i++;
+					c = line[i];
+					switch (c)
+					{
+					case 'M':
+						Monster* m = new Monster();
+						m->setHostile(true);
+						m->setStrategy(new HostileStrategy());
+						map->spawnEntity(m, x, y);
+						break;
+
+					}
+
+					x++;
 
 				}
-				if (x >= 0 && x < width && y >= 0 && y < height)
-					map->setTile(new MapTile(type), x, y);
-				i++;
-				c = line[i];
-				switch (c)
-				{
-				case 'M':
-					Monster* m = new Monster();
-					m->setHostile(true);
-					m->setStrategy(new HostileStrategy());
-					map->spawnEntity(m, x, y);
-					break;
+				y++;
+			}
+			while (std::getline(mapFile, line))
+			{
+				int x;
+				int y;
+				std::string name;
+				std::stringstream ss(line);
+				ss >> x >> y >> name;
 
-				}
-
-				x++;
+				((EntityChest*)map->getEntity(x, y))->getContainer()->addItem(Item::loadItem(name));
 
 			}
-			y++;
+
 		}
-
-
 		builder->map = map;
 		mapFile.close();
 	}
@@ -214,7 +238,23 @@ MapBuilder* MapBuilder::spawnScaledContent()
 				level += range;
 				if (level < 1)
 					level = 1;
+
 				if (Monster* monster = dynamic_cast<Monster*>(entity))
+
+				/*if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
+				{
+					
+					int num = (rand()) % 5;
+					for (int i = 0; i < num; i++)
+					{
+						Item* item = Item::generateRandomItem(level);
+						chest->getContainer()->addItem(item);
+						
+					}
+					std::cout << "CHEST RANDOM SPAWN" << num<< std::endl;
+					chest->getContainer()->printContainer();
+				}else */if(Monster* monster = dynamic_cast<Monster*>(entity))
+
 				{
 					monster->setLevel(level);
 

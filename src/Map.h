@@ -118,7 +118,11 @@ public:
 	 */
 	std::vector<Entity*>* getEntities();
 
+
 	int ticksSinceLastSimulation = 0;
+
+	std::vector<std::string> itemList;
+
 
 	std::priority_queue < LivingEntity*>  turnQueue;
 };

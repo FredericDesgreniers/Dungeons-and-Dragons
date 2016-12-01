@@ -26,6 +26,7 @@ private:
 
 	MapTile* storedTile;
 	Entity* storedEntity;
+	std::string storedItem;
 
 	int height;
 	int width;
