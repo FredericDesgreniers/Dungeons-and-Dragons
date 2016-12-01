@@ -78,6 +78,9 @@ Entity* Map::moveEntity(int x1, int y1, int x2, int y2)
 		entityGrid[x1][y1] = nullptr;
 		entityGrid[x2][y2] = entity;
 		entity->setPosition(x2, y2);
+
+		Log::instance()->output(Log::map, "Moving entity at "+to_string(x1)+","+to_string(y1)+" to position " + to_string(x2) + "," + to_string(y2));
+
 		return entity;
 	}
 	return nullptr;
@@ -143,6 +146,7 @@ void Map::simulateMapTick()
 				}
 			}
 		}
+		Log::instance()->output(Log::game, "It is now " + turnQueue.top()->getName() + "'s turn to play!");
 		for(LivingEntity* e:dead)
 		{
 			this->removeEntity(e->getPositionX(), e->getPositionY());
@@ -162,6 +166,7 @@ void Map::simulateMapTick()
 		{
 			turnQueue.pop();
 			if (turnQueue.size() > 0) {
+				Log::instance()->output(Log::game, "It is now "+turnQueue.top()->getName()+"'s turn to play!");
 				turnQueue.top()->setTurnFinished(false);
 			}
 		}
