@@ -725,7 +725,3 @@ void LivingEntity::resetAttacks()
 	attacksRemaining = attacksPerTurn;
 }
 
-int LivingEntity::getArmorClass()
-{
-	return armorClass;
-}
