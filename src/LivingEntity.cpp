@@ -1,5 +1,7 @@
 #include "LivingEntity.h"
 #include "GUI/Components/CharacterComponent.h"
+#include "GUI/Screens/ScreenCharacterSelect.h"
+#include "GUI/Screens/ScreenLoot.h"
 
 LivingEntity::LivingEntity(char c):
 	LivingEntity(c, Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), 1)
@@ -522,7 +524,12 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 	{
 		if (le->hit(getStrength() * 2))
 		{
-			
+			if(Character* c = dynamic_cast<Character*>(le))
+			{
+				Game* game = Game::getInstance();
+				
+				ScreenLoot* lootScreen = new ScreenLoot(game, c->getBackpack(), le->getBackpack());
+			}
 		}
 		return true;
 	}
