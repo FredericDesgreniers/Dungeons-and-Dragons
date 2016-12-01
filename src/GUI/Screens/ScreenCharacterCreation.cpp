@@ -9,7 +9,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 		abilityScores[i] = "0";
 	}
 	// Instantiate character and register screen as observer
-	character = new LivingEntity(1);
+	character = new LivingEntity('c', 1, 1, 1, 1, 1, 1, 1);
 	character->Attach(this);
 
 	//Text field for name entry
@@ -193,9 +193,6 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent((new Label("Hit Points: ", &Renderer::FONT_ROBOTO, 350, 360, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Attacks Per Round: ", &Renderer::FONT_ROBOTO, 350, 395, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Attack Bonus: ", &Renderer::FONT_ROBOTO, 350, 430, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Save vs. Fortitude: ", &Renderer::FONT_ROBOTO, 350, 465, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Save vs Reflex: ", &Renderer::FONT_ROBOTO, 350, 500, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Save vs Will: ", &Renderer::FONT_ROBOTO, 350, 535, 1, 1))->setFontSize(20)->adjustDimensions());
 
 
 	//Inventory Display component
@@ -249,9 +246,7 @@ void ScreenCharacterCreation::render()
 	Renderer::drawString(to_string(maxHealth), Renderer::FONT_ROBOTO.get(20), 530, 360, 1, { 255,255,255,255 });
 	Renderer::drawString(to_string(attacksPerTurn), Renderer::FONT_ROBOTO.get(20), 530, 395, 1, { 255,255,255,255 });
 	Renderer::drawString(to_string(attackBonus), Renderer::FONT_ROBOTO.get(20), 530, 430, 1, { 255,255,255,255 });
-	Renderer::drawString(to_string(savingThrows[0]), Renderer::FONT_ROBOTO.get(20), 530, 465, 1, { 255,255,255,255 });
-	Renderer::drawString(to_string(savingThrows[1]), Renderer::FONT_ROBOTO.get(20), 530, 500, 1, { 255,255,255,255 });
-	Renderer::drawString(to_string(savingThrows[2]), Renderer::FONT_ROBOTO.get(20), 530, 535, 1, { 255,255,255,255 });
+
 
 	// Render
 	Screen::render();
@@ -364,8 +359,8 @@ void ScreenCharacterCreation::decrement(int stat) {
 }
 
 void ScreenCharacterCreation::rollCharacter() {
-	std::cout << "Rolling stats!" << std::endl;
-
+	std::cout << "Before reroll: "<< endl;
+	std::cout << character->toString() << endl;
 	// Reroll all ability scores
 	character->setStrength(Dice::rollStat());
 	character->setDexterity(Dice::rollStat());
@@ -373,12 +368,14 @@ void ScreenCharacterCreation::rollCharacter() {
 	character->setIntelligence(Dice::rollStat());
 	character->setWisdom(Dice::rollStat());
 	character->setCharisma(Dice::rollStat());
-
+	std::cout << "After reroll: " << endl;
+	std::cout << character->toString() << endl;
 	// Unequip all items
 	for (int i = 0; i < 7; i++) {
-		character->unequip(i);
+		delete(character->unequip(i));
 	}
-
+	std::cout << "After unequip: " << endl;
+	std::cout << character->toString() << endl;
 	// Equip starter items
 	character->equipBasic();
 
@@ -389,11 +386,21 @@ void ScreenCharacterCreation::rollCharacter() {
 
 	//Set level to 1
 	character->setLevel(1);
+
+	std::cout << "After setLevel: " << endl;
+	std::cout << character->toString() << endl;
+
 	// Set max health to 10+con modifier
 	character->setMaxHealth(10+character->getModifier(2));
-	newCharacter = true; //Set a flag to indicate that this is a newly rolled character, so con bonus can be added to HP
+
+	std::cout << "After setHealth: " << endl;
+	std::cout << character->toString() << endl;
+	
+	newCharacter = true; //Set a flag to indicate that this is a newly rolled character, so con bonus can be added to HP upon changes to con
 	// Set name to defaultname
 	character->setName("Artemis");
+	std::cout << "After setName: " << endl;
+	std::cout << character->toString() << endl;
 
 
 
@@ -441,15 +448,13 @@ void ScreenCharacterCreation::loadCharacter() {
 }
 
 void ScreenCharacterCreation::Update() {
-	abilityScores[0]=to_string(character->getStrength());
+	abilityScores[0] = to_string(character->getStrength());
 	abilityScores[1] = to_string(character->getDexterity());
 	abilityScores[2] = to_string(character->getConstitution());
 	abilityScores[3] = to_string(character->getIntelligence());
 	abilityScores[4] = to_string(character->getWisdom());
 	abilityScores[5] = to_string(character->getCharisma());
-	for (int i = 0; i < 3; i++) {
-		savingThrows[i] = character->getSavingThrow(i);
-}
+	
 	attacksPerTurn = character->getAttacksPerTurn();
 	attackBonus = character->getAttackBonus();
 	maxHealth = character->getMaxHealth();

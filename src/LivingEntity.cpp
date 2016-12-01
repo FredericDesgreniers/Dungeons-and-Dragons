@@ -32,7 +32,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	effectiveAbilityScores[5] = abilityscores[5] = charisma;
 
 	// TODO: Update HP calculation
-	health = maxHealth = level*Dice::roll("1d10") + getModifier(2);
+	health = maxHealth = 10+ getModifier(2) + (level-1)*(Dice::roll("1d10") + getModifier(2));
 	for (int i = 0; i < 7; i++) {
 		equipped[i] = nullptr;
 	}
@@ -40,12 +40,6 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	attacksRemaining = attacksPerTurn = 1 + (level / 6);
 	movementRemaining = movement = 5;
 
-	// Set save vs fortitude
-	savingThrows[0] = 2 + (level / 2);
-	// Set save vs reflex
-	savingThrows[1] = level / 3;
-	// Set save vs will
-	savingThrows[2] = level / 3;
 
 	// Instantiate backpack container;
 	backpack = new ItemContainer("Backpack", 10);
@@ -103,15 +97,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		return backpack;
 	}
 
-	int LivingEntity::getSavingThrow(int save)
-	{
-		if (save > -1 && save < 3)
-		{
-			return savingThrows[save];
-		}
-		else return 0;
-		
-	}
+
 
 
 	void LivingEntity::outputEquipped()
@@ -273,13 +259,12 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 					attackBonus += equipped[i]->getAtkBoost();
 				default:
 					break;
-					
+
 				}
-				
+
 			}
 
 		}
-
 
 		return;
 	}
@@ -324,13 +309,11 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	}
 
 	void LivingEntity::equipBasic() {
-		std::cout << "Adding basic equipment:" << endl;
 		equipped[0]=new Item("CrudeHelmet", Item::ItemType::HELMET, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 		equipped[1]=new Item("LeatherArmor", Item::ItemType::ARMOR, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 		equipped[2]=new Item("WoodenBuckler", Item::ItemType::SHIELD, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 		equipped[5]=new Item("LeatherBoots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 		equipped[6]=new Item("Dagger", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-		updateStats();
 	}
 
 	int LivingEntity::getStrength()
@@ -384,12 +367,6 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		health = maxHealth = 10 + getModifier(2) + ((level - 1)*(Dice::roll("1d10") + getModifier(2)));
 		attacksRemaining = attacksPerTurn = 1 + (level / 6);
 		movementRemaining = movement = 5;
-		// Set save vs fortitude
-		savingThrows[0] = 2 + (level / 2);
-		// Set save vs reflex
-		savingThrows[1] = level / 3;
-		// Set save vs will
-		savingThrows[2] = level / 3;
 		updateStats();
 		Notify();
 	}
@@ -493,15 +470,6 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		maxHealth += Dice::roll("1d10") + getModifier(2);
 		// Setlevel calls updateStats which will update attacks per turn, saving throws, etc
 		setLevel(level + 1);
-
-		attacksRemaining = attacksPerTurn = 1 + (level / 6);
-
-		// Set save vs fortitude
-		savingThrows[0] = 2 + (level / 2);
-		// Set save vs reflex
-		savingThrows[1] = level / 3;
-		// Set save vs will
-		savingThrows[2] = level / 3;
 	}
 
 	int LivingEntity::rollInitiative() {

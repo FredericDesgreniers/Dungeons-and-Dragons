@@ -39,10 +39,7 @@ private:
 	*/
 	int mods[6];
 
-	/**
-	* An array which holds character saving throws for display. Updated upon changes to character via observer
-	*/
-	int savingThrows[3];
+
 	/**
 	* The characters attacks per round for display
 	*/

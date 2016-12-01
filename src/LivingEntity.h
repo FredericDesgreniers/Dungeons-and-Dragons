@@ -146,8 +146,6 @@ public:
 
 	ItemContainer* getBackpack();
 
-	int getSavingThrow(int save);
-
 	/**
 	* Equip an item. Returns previously equipped item if one exists, nullptr otherwise
 	*/
@@ -176,7 +174,7 @@ public:
 			std::to_string(effectiveAbilityScores[4]) + ", CHA: " + std::to_string(effectiveAbilityScores[5]) + 
 			"\nAC: " + std::to_string(armorClass) + ", Max Health:" + to_string(maxHealth) + 
 			"\nDamage Bonus:" + to_string(damageBonus) + ", Attack bonus:" + to_string(attackBonus) + ", Attacks per turn:" + to_string(attacksPerTurn) +
-			"\nSave vs. Fortitude: " + to_string(savingThrows[0]) + ", Save vs Reflex: " + to_string(savingThrows[1]) + ", Save vs Will: " + to_string(savingThrows[2]) + "\n";
+			"\n";
 			;
 		}
 	
@@ -311,10 +309,6 @@ private:
 	*/
 	int effectiveAbilityScores[6];
 
-	/**
-	* Entity's saving throws, calculated based on level (possibly class in the future)
-	*/
-	int savingThrows[3];
 
 	/**
 	* Armor class calculated from the total armor on equipped items. Updated on equip/unequip
