@@ -5,6 +5,7 @@
 #include <direct.h>
 #include <iostream>
 #include "EntityChest.h"
+#include "Wizard.h"
 
 
 MapBuilder* MapBuilder::createEmptyMap(int w, int h)
@@ -136,12 +137,18 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 				switch (c)
 				{
 				case 'M':
-					Monster* m = new Monster();
-					m->setHostile(true);
-					m->setStrategy(new HostileStrategy());
-					map->spawnEntity(m, x, y);
-					break;
-
+				{Monster* m = new Monster();
+				m->setHostile(true);
+				m->setStrategy(new HostileStrategy());
+				map->spawnEntity(m, x, y);
+				break;
+				}
+				case 'W':
+						map->spawnEntity(new Wizard(), x, y);
+						break;
+				case 'B':
+						map->spawnEntity(new EntityChest(), x, y);
+						break;
 				}
 
 				x++;
@@ -236,8 +243,6 @@ MapBuilder* MapBuilder::spawnScaledContent()
 				level += range;
 				if (level < 1)
 					level = 1;
-
-				if (Monster* monster = dynamic_cast<Monster*>(entity))
 
 				/*if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
 				{
