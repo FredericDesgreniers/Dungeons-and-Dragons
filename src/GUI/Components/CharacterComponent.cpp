@@ -1,6 +1,6 @@
 #include "CharacterComponent.h"
 
-#include "../../character.h"
+#include "../../LivingEntity.h"
 
 #include "../Renderer.h"
 #include "VariableComponent.h"

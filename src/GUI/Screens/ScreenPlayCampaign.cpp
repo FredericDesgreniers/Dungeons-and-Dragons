@@ -9,7 +9,7 @@
 #include "ScreenVictory.h"
 
 
-ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character) :Screen(game), campaign(campaign), character(character)
+ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, LivingEntity* character) :Screen(game), campaign(campaign), character(character)
 {
 
 	currentmap = MapBuilder::loadFromFile(campaign->getMaps().at(campaign->getActiveMapIndex())->getName())->spawnCharacter(character)->spawnScaledContent()->get();
@@ -87,7 +87,7 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 		otherLivingEntityDisplay_equipped->setVisible(false);
 		chestDisplay->setVisible(false);
 
-		Character* chara = this->character;
+		LivingEntity* chara = this->character;
 		Entity* entity = map->getEntity(x, y);
 		if (entity != nullptr) {
 			if(LivingEntity* livingEntity = dynamic_cast<LivingEntity*>(entity))
@@ -166,7 +166,7 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 	{
 		std::cout << "Map Finished" << std::endl;
 		character->setLevel(character->getLevel() + 1);
-		character->saveCharacter(character->getName(), character);
+		character->saveLivingEntity();
 		
 		campaign->setActiveMapIndex(campaign->getActiveMapIndex() + 1);
 

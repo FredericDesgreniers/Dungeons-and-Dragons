@@ -28,7 +28,7 @@ private:
 
 	std::vector<Entity*> entities;
 
-	Character* character;
+	LivingEntity* character;
 
 
 
@@ -94,12 +94,12 @@ public:
 	/**
 	 * Spawns the character player. Returns if successfull or not
 	 */
-	bool spawnCharacter(Character* character);
+	bool spawnCharacter(LivingEntity* character);
 
 	/**
 	 * Get the character. Returns null if not spawned yet
 	 */
-	Character* getCharacter();
+	LivingEntity* getCharacter();
 	/**
 	 * returns map width
 	 */

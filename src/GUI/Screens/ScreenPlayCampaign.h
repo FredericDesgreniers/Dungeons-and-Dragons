@@ -1,7 +1,7 @@
 #pragma once
 #include "Screen.h"
 #include "../../Campaign.h"
-#include "../../character.h"
+#include "../../LivingEntity.h"
 #include "../Components/MapComponent.h"
 #include "../Components/CharacterComponent.h"
 #include "../Components/ItemContainerComponent.h"
@@ -16,7 +16,7 @@ public:
 	/**
 	 * Cosntructor to play a campaign given a game, campaign and character
 	 */
-	ScreenPlayCampaign(Game* game, Campaign* campaign, Character* character);
+	ScreenPlayCampaign(Game* game, Campaign* campaign, LivingEntity* character);
 
 	/**
 	 * Override screen render method
@@ -37,7 +37,7 @@ public:
 private:
 
 	Campaign* campaign;
-	Character* character;
+	LivingEntity* character;
 	EquipedItemComponent* eiComp;
 	Map* currentmap;
 

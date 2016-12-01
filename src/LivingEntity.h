@@ -4,6 +4,8 @@
 #include "Item.h"
 #include "ItemContainer.h"
 #include "Strategy.h"
+#include <fstream>
+#include <iostream>
 
 class Strategy;
 /**
@@ -122,6 +124,8 @@ public:
 	* Set charisma as int
 	*/
 	void setCharisma(int value);
+
+	void setPlayer(bool value);
 
 
 	/**

@@ -5,7 +5,7 @@
 
 void Strategy::doStrategy(Map* map, LivingEntity* le)
 {
-	Character* character = map->getCharacter();
+	LivingEntity* character = map->getCharacter();
 	Pathfinder* pathfinder = new Pathfinder(map, character->getPositionX(), character->getPositionY());
 
 	//get pathfinder path
@@ -56,7 +56,7 @@ void HostileStrategy::doStrategy(Map* map, LivingEntity* le)
 {
 	Strategy::doStrategy(map, le);
 	//attack character if possible
-	Character* character = map->getCharacter();
+	LivingEntity* character = map->getCharacter();
 	if (character->distanceTo(le) <= 1) {
 		if (le->interact(map, character)) {
 			//map->removeEntity(c->getPositionX(), c->getPositionY());

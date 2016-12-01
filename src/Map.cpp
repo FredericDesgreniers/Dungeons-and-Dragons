@@ -155,7 +155,7 @@ void Map::simulateMapTick()
 	}
 }
 
-bool Map::spawnCharacter(Character* character)
+bool Map::spawnCharacter(LivingEntity* character)
 {
 	this->character = character;
 	character->setStrategy(new CharacterStrategy());
@@ -173,7 +173,7 @@ bool Map::spawnCharacter(Character* character)
 	
 }
 
-Character* Map::getCharacter()
+LivingEntity* Map::getCharacter()
 {
 	return character;
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Pane.h"
-#include "../../character.h"
+#include "../../LivingEntity.h"
 
 /**
  * Used to display the character's stats on the screen as a component.

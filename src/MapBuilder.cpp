@@ -202,7 +202,7 @@ Map* MapBuilder::get()
 }
 
 
-MapBuilder* MapBuilder::spawnCharacter(Character* character)
+MapBuilder* MapBuilder::spawnCharacter(LivingEntity* character)
 {
 	map->spawnCharacter(character);
 	this->character = character;

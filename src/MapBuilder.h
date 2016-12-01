@@ -30,7 +30,7 @@ public:
 	/**
 	 * spawn the character on the map
 	 */
-	MapBuilder* spawnCharacter(Character* character);
+	MapBuilder* spawnCharacter(LivingEntity* character);
 	
 	/**
 	 * Spawn random monsters on the map
@@ -53,5 +53,5 @@ private:
 
 	MapBuilder();
 	Map* map;
-	Character* character;
+	LivingEntity* character;
 };

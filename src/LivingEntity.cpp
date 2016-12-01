@@ -420,6 +420,11 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		Notify();
 	}
 
+	void LivingEntity::setPlayer(bool value)
+	{
+		player = value;
+	}
+
 	int * LivingEntity::getEffectiveAbilityScoreArray()
 	{
 		return effectiveAbilityScores;
@@ -531,7 +536,7 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 	{
 		if (le->hit(getStrength() * 2))
 		{
-			if(Character* c = dynamic_cast<Character*>(this))
+			if(player)
 			{
 				Game* game = Game::getInstance();
 				
@@ -544,7 +549,7 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 					}
 				}
 
-				ScreenLoot* lootScreen = new ScreenLoot(game, c->getBackpack(), le->getBackpack());
+				ScreenLoot* lootScreen = new ScreenLoot(game, this->getBackpack(), le->getBackpack());
 				lootScreen->setBackButton(game->getGuiManager()->setScreen(lootScreen));
 			}
 		}

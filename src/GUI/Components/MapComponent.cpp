@@ -32,7 +32,7 @@ void MapComponent::render() {
 	SDL_GetMouseState(&mx, &my);
 
 	//get character from maps
-	Character* c = map->getCharacter();
+	LivingEntity* c = map->getCharacter();
 
 	//go through map tiles
 	for (int i = 0; i < mapWidth; i++) {
