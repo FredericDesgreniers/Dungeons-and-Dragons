@@ -4,6 +4,7 @@
 #include "GUI/Renderer.h"
 #include <direct.h>
 #include "GUI/Screens/ScreenTitle.h"
+#include "Log.h"
 
 
 #undef main
@@ -59,11 +60,29 @@ bool Game::run()
 				break;
 			case SDL_KEYDOWN:
 				gui_manager->keyPressed(event.key.keysym.sym);
-				switch(event.key.keysym.sym)
+				const Uint8 *state = SDL_GetKeyboardState(NULL);
+				if (state[SDL_SCANCODE_LALT])
 				{
-				case SDLK_z:
-					gui_manager->toggleDebug();
-					break;
+					switch (event.key.keysym.sym)
+					{
+					case SDLK_1:
+						Log::instance()->toggle_Character();
+						break;
+					case SDLK_2:
+						Log::instance()->toggle_Dice();
+						break;
+					case SDLK_3:
+						Log::instance()->toggle_Game();
+						break;
+					case SDLK_4:
+						Log::instance()->toggle_Map();
+						break;
+					case SDLK_z:
+						gui_manager->toggleDebug();
+						break;
+					}
+				
+			
 				}
 				break;
 
