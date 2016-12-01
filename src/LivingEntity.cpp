@@ -322,6 +322,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		equipped[5]=new Item("LeatherBoots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 		equipped[6]=new Item("Dagger", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 0, 0);
 		updateStats();
+		outputEquipped();
 	}
 
 	int LivingEntity::getStrength()
@@ -404,7 +405,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	void LivingEntity::setMaxHealth(int value)
 	{
-		maxHealth = value;
+		health = maxHealth = value;
 		Notify();
 	}
 
@@ -556,6 +557,11 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 		return true;
 	}
 	return false;
+}
+
+void LivingEntity::reset() {
+	attacksRemaining = attacksPerTurn;
+	health = maxHealth;
 }
 
 LivingEntity* LivingEntity::loadLivingEntity(std::string name) {

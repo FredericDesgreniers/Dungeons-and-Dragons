@@ -53,6 +53,8 @@ private:
 	*/
 	int attackBonus;
 
+	int maxHealth;
+
 	bool newCharacter;
 
 	

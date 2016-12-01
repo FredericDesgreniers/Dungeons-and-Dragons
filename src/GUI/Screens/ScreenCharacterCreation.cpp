@@ -190,11 +190,12 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent((new Label("Charisma", &Renderer::FONT_ROBOTO, 20, i+175, 1, 1))->setFontSize(20)->adjustDimensions());
 	addComponent((new Label("Remaining", &Renderer::FONT_ROBOTO, 20, i+210, 1, 1))->setFontSize(20)->adjustDimensions());
 	
-	addComponent((new Label("Attacks Per Round: ", &Renderer::FONT_ROBOTO, 350, 360, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Attack Bonus: ", &Renderer::FONT_ROBOTO, 350, 395, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Save vs. Fortitude: ", &Renderer::FONT_ROBOTO, 350, 430, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Save vs Reflex: ", &Renderer::FONT_ROBOTO, 350, 465, 1, 1))->setFontSize(20)->adjustDimensions());
-	addComponent((new Label("Save vs Will: ", &Renderer::FONT_ROBOTO, 350, 500, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Hit Points: ", &Renderer::FONT_ROBOTO, 350, 360, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Attacks Per Round: ", &Renderer::FONT_ROBOTO, 350, 395, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Attack Bonus: ", &Renderer::FONT_ROBOTO, 350, 430, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Save vs. Fortitude: ", &Renderer::FONT_ROBOTO, 350, 465, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Save vs Reflex: ", &Renderer::FONT_ROBOTO, 350, 500, 1, 1))->setFontSize(20)->adjustDimensions());
+	addComponent((new Label("Save vs Will: ", &Renderer::FONT_ROBOTO, 350, 535, 1, 1))->setFontSize(20)->adjustDimensions());
 
 
 	//Inventory Display component
@@ -245,11 +246,12 @@ void ScreenCharacterCreation::render()
 	Renderer::drawString((mods[5]>-1 ? "+" : "") + to_string(mods[5]), Renderer::FONT_ROBOTO.get(20), 275, 395, 1, { 255,255,255,255 });
 	Renderer::drawString(abilityScores[6], Renderer::FONT_ROBOTO.get(20), 175, 430, 1, { 255,255,255,255 });
 
-	Renderer::drawString(to_string(attacksPerTurn), Renderer::FONT_ROBOTO.get(20), 530, 360, 1, { 255,255,255,255 });
-	Renderer::drawString(to_string(attackBonus), Renderer::FONT_ROBOTO.get(20), 530, 395, 1, { 255,255,255,255 });
-	Renderer::drawString(to_string(savingThrows[0]), Renderer::FONT_ROBOTO.get(20), 530, 430, 1, { 255,255,255,255 });
-	Renderer::drawString(to_string(savingThrows[1]), Renderer::FONT_ROBOTO.get(20), 530, 465, 1, { 255,255,255,255 });
-	Renderer::drawString(to_string(savingThrows[2]), Renderer::FONT_ROBOTO.get(20), 530, 500, 1, { 255,255,255,255 });
+	Renderer::drawString(to_string(maxHealth), Renderer::FONT_ROBOTO.get(20), 530, 360, 1, { 255,255,255,255 });
+	Renderer::drawString(to_string(attacksPerTurn), Renderer::FONT_ROBOTO.get(20), 530, 395, 1, { 255,255,255,255 });
+	Renderer::drawString(to_string(attackBonus), Renderer::FONT_ROBOTO.get(20), 530, 430, 1, { 255,255,255,255 });
+	Renderer::drawString(to_string(savingThrows[0]), Renderer::FONT_ROBOTO.get(20), 530, 465, 1, { 255,255,255,255 });
+	Renderer::drawString(to_string(savingThrows[1]), Renderer::FONT_ROBOTO.get(20), 530, 500, 1, { 255,255,255,255 });
+	Renderer::drawString(to_string(savingThrows[2]), Renderer::FONT_ROBOTO.get(20), 530, 535, 1, { 255,255,255,255 });
 
 	// Render
 	Screen::render();
@@ -277,9 +279,12 @@ void ScreenCharacterCreation::increment(int stat) {
 		break;
 
 	case 2:
-		// Increment con and decrement remaining
+		// Increment con and decrement remaining, set health
 		setRemaining(to_string((stoi(abilityScores[6])) - 1));
 		character->setConstitution(character->getConstitution() + 1);
+		if (newCharacter) {
+			character->setMaxHealth(10 + character->getModifier(2));
+		}
 		break;
 
 	case 3:
@@ -325,9 +330,14 @@ void ScreenCharacterCreation::decrement(int stat) {
 		break;
 
 	case 2:
-		// Decrement CON and increment remaining
+		// Decrement CON and increment remaining, update health
+
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
 		character->setConstitution(character->getConstitution() - 1);
+		if (newCharacter) {
+			character->setMaxHealth(10 + character->getModifier(2));
+		}
+		
 		break;
 
 	case 3:
@@ -366,11 +376,11 @@ void ScreenCharacterCreation::rollCharacter() {
 
 	//Set level to 1
 	character->setLevel(1);
-	// Set max health to 10
-	character->setMaxHealth(10);
+	// Set max health to 10+con modifier
+	character->setMaxHealth(10+character->getModifier(2));
 	newCharacter = true; //Set a flag to indicate that this is a newly rolled character, so con bonus can be added to HP
 	// Set name to defaultname
-	character->setName("Defaultname");
+	character->setName("Artemis");
 
 	// Unequip all items
 	for (int i = 0; i < 7; i++) {
@@ -406,9 +416,6 @@ void ScreenCharacterCreation::saveCharacter() {
 		// All conditions met. Save Character
 		character->setName(nameInput->getText());
 		// Check if this is a newly rolled character to add con bonus to HP if so
-		if (newCharacter) {
-			character->setMaxHealth(character->getMaxHealth() + character->getModifier(2));
-		}
 		character->saveLivingEntity();
 		std::cout << character->toString() << endl;
 	}
@@ -440,6 +447,7 @@ void ScreenCharacterCreation::Update() {
 }
 	attacksPerTurn = character->getAttacksPerTurn();
 	attackBonus = character->getAttackBonus();
+	maxHealth = character->getMaxHealth();
 	nameInput->setText(character->getName());
 	for (int i = 0; i < 6; i++)
 	{

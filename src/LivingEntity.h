@@ -41,6 +41,8 @@ public:
 
 	bool interact(Map* map, Entity* entity) override;
 
+	void reset();
+
 	static LivingEntity * loadLivingEntity(std::string name);
 
 	bool saveLivingEntity();
