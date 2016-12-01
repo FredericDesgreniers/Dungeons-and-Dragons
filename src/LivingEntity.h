@@ -234,7 +234,7 @@ public:
 
 	bool isPlayer();
 
-	int getArmorClass();
+
 private:
 	/**
 	* The Entity's max Hit Points
