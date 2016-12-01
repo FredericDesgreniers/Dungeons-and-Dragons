@@ -155,9 +155,9 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
 				const std::string name = std::string(fd.cFileName).substr(0, strlen(fd.cFileName) - 3);
-				
-				Button* itemButton = new Button(name, &Renderer::FONT_ROBOTO, 700, 170 + y, 200, 30);
-				itemButton->adjustButtonDimensions();
+
+				Button* itemButton = new Button(name, &Renderer::FONT_ROBOTO, 550, 170 + y, 1, 1);
+				itemButton->setFontSize(15)->adjustDimensions();
 				itemButton->addOnClick_callback([this](Component* comp, int x, int y)
 				{
 					storedEntity = nullptr;
@@ -166,22 +166,22 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 				});
 				addComponent(itemButton);
 
-				y += 60;
+				y += 45;
 
 			}
 		} while (::FindNextFile(hFind, &fd));
 		::FindClose(hFind);
 	}
 
-	mapComp = new MapComponent(map, 50, 170, 400, 400);
+	mapComp = new MapComponent(map, 50, 170, 325, 325);
 	addComponent(mapComp);
 	mapComp->setVisible(false);
 
-	tileMapComp = new MapComponent(tileMap, 500, 170, 40, 400);
+	tileMapComp = new MapComponent(tileMap, 410, 170, 35, 325);
 	addComponent(tileMapComp);
 	tileMapComp->setVisible(false);
 
-	entityMapComp = new MapComponent(entityMap, 600, 170, 40, 400);
+	entityMapComp = new MapComponent(entityMap, 480, 170, 35, 325);
 	addComponent(entityMapComp);
 	entityMapComp->setVisible(false);
 
@@ -206,16 +206,27 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 		{
 			if (map->getEntity(x, y) != nullptr && map->getEntity(x, y)->getRenderChar() == 'B')
 			{
-				for each(std::string item in map->itemList)
+				for (int i = 0; i < map->itemList.size(); i++)
 				{
-					int itemX;
-					int itemY;
-					std::stringstream ss(item);
-					ss >> itemX >> itemY;
+					int boxX;
+					int boxY;
+					std::stringstream ss(map->itemList.at(i));
+					ss >> boxX >> boxY;
 
-					if (x == itemX && itemY == y)
+					if (x == boxX && boxY == y)
 					{
 						cout << "box already contains an item" << endl;
+						std::string test = map->itemList.at(i);
+						int count = std::count(test.begin(), test.end(), ' ');
+
+						if (count > ((EntityChest*)map->getEntity(x, y))->getContainer()->getSize())
+						{
+							cout << "box is full" << endl;
+							return;
+						}
+
+						map->itemList.at(i) += " " + storedItem;
+						cout << "item added to box" << endl;
 						return;
 					}
 				}

@@ -105,66 +105,64 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 		Map* map = new Map(name, width, height);
 		int y = 0;
 
-		while (std::getline(mapFile, line))
+		while (y < height)
 		{
+			std::getline(mapFile, line);
 
-			while (y < height)
+			int x = 0;
+			for (int i = 0; i < line.size(); i++)
 			{
-				std::getline(mapFile, line);
-
-				int x = 0;
-				for (int i = 0; i < line.size(); i++)
+				char c = line[i];
+				int type;
+				switch (c)
 				{
-					char c = line[i];
-					int type;
-					switch (c)
-					{
-					case 'W':
-						type = TILE_WALL;
-						break;
-					case 'S':
-						type = SPAWNTILE;
-						break;
-					case 'E':
-						type = ENDTILE;
-						break;
-					default:
-						type = TILE_EMPTY;
-
-					}
-					if (x >= 0 && x < width && y >= 0 && y < height)
-						map->setTile(new MapTile(type), x, y);
-					i++;
-					c = line[i];
-					switch (c)
-					{
-					case 'M':
-						Monster* m = new Monster();
-						m->setHostile(true);
-						m->setStrategy(new HostileStrategy());
-						map->spawnEntity(m, x, y);
-						break;
-
-					}
-
-					x++;
+				case 'W':
+					type = TILE_WALL;
+					break;
+				case 'S':
+					type = SPAWNTILE;
+					break;
+				case 'E':
+					type = ENDTILE;
+					break;
+				default:
+					type = TILE_EMPTY;
 
 				}
-				y++;
+				if (x >= 0 && x < width && y >= 0 && y < height)
+					map->setTile(new MapTile(type), x, y);
+				i++;
+				c = line[i];
+				switch (c)
+				{
+				case 'M':
+					Monster* m = new Monster();
+					m->setHostile(true);
+					m->setStrategy(new HostileStrategy());
+					map->spawnEntity(m, x, y);
+					break;
+
+				}
+
+				x++;
+
 			}
-			while (std::getline(mapFile, line))
-			{
-				int x;
-				int y;
-				std::string name;
-				std::stringstream ss(line);
-				ss >> x >> y >> name;
-
-				((EntityChest*)map->getEntity(x, y))->getContainer()->addItem(Item::loadItem(name));
-
-			}
-
+			y++;
 		}
+		while (std::getline(mapFile, line))
+		{
+			int x;
+			int y;
+			std::stringstream ss(line);
+			ss >> x >> y;
+
+			string itemName;
+			while (ss >> itemName) {
+				((EntityChest*)map->getEntity(x, y))->getContainer()->addItem(Item::loadItem(itemName));
+			}
+		}
+
+		
 		builder->map = map;
 		mapFile.close();
 	}
