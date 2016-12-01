@@ -483,13 +483,16 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	}
 
 	int LivingEntity::rollInitiative() {
-		initiative = Dice::roll("1d20") + getModifier(1);
-		Log::instance()->output(Log::component::character, name + " rolled initiative: " + to_string(initiative));
+		int roll = Dice::roll("1d20");
+		initiative = roll + getModifier(1);
+		Log::instance()->output(Log::component::character, name + ": rolls initiative :  " + 
+			to_string(roll) + " (+" + to_string(getModifier(1)) + ") = " + to_string(initiative) + "\n");
+		
 		return initiative;
 	}
 
 	int LivingEntity::rollDamage() {
-		int dmg=Dice::roll("1d8") + getModifier(0);
+		int dmg=Dice::roll("1d8") + getModifier(0)+ damageBonus;
 		return dmg;
 	}
 
@@ -565,12 +568,17 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 	{
 		if (this->attacksRemaining > 0) {
 			int attack = this->rollAttack();
+
 			if (attack >= le->getArmorClass()) {
 				Log::instance()->output(Log::component::character, name + 
-					"rolls " +to_string(attack) + " attack vs " + to_string(le->getArmorClass()) + " AC: hit!");
+					": rolls attack: " +to_string(attack-getAttackBonus()) + " (+" + to_string(getAttackBonus()) + ") = " + to_string(attack) + 
+					" vs. " + le->getName() + ": " + to_string(le->getArmorClass()) + " AC: hit!");
+				
 				int damage = rollDamage();
+
 				Log::instance()->output(Log::component::character, name +
-					"hits " + le->getName() + " for " + to_string(damage) + " damage!");
+					": rolls damage: " + to_string(damage - damageBonus - getModifier(0)) + " (+" + to_string(getModifier(0)) + ") + "
+					+ to_string(damageBonus) + " = " + to_string(damage));
 
 				if (le->hit(damage))
 				{
@@ -591,6 +599,11 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 						lootScreen->setBackButton(game->getGuiManager()->setScreen(lootScreen));
 					}
 				}
+			}
+			else {
+				Log::instance()->output(Log::component::character, name +
+					": rolls attack: " + to_string(attack - getAttackBonus()) + " (+" + to_string(getAttackBonus()) + ") = " + to_string(attack) +
+					" vs. " + le->getName() + ": " + to_string(le->getArmorClass()) + " AC: Miss!");
 			}
 			attacksRemaining--;
 		}
