@@ -244,23 +244,18 @@ MapBuilder* MapBuilder::spawnScaledContent()
 				if (level < 1)
 					level = 1;
 
-				/*if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
-				{
-					
-					int num = (rand()) % 5;
-					for (int i = 0; i < num; i++)
-					{
-						Item* item = Item::generateRandomItem(level);
-						chest->getContainer()->addItem(item);
-						
-					}
-					std::cout << "CHEST RANDOM SPAWN" << num<< std::endl;
-					chest->getContainer()->printContainer();
-				}else */if(Monster* monster = dynamic_cast<Monster*>(entity))
-
+				if(Monster* monster = dynamic_cast<Monster*>(entity))
 				{
 					monster->setLevel(level);
 
+				}else if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
+				{
+					ItemContainer* ic = chest->getContainer();
+					for (int i = 0; i < ic->getSize(); i++)
+					{
+						Item* item = ic->getItemAtIndex(i);
+						//TODO scale items
+					}
 				}
 			}
 		}
