@@ -19,6 +19,9 @@ public:
 	 * \brief set the Item Container to display
 	 */
 	void setItemContainer(ItemContainer* container);
+
+	void getItemContainer();
+
 	/**
 	 * Override render method
 	 */
