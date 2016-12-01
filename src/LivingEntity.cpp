@@ -204,6 +204,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		// Set attacks per turn and attack bonus based on level
 		attacksRemaining = attacksPerTurn = 1 + (level / 6);
 		attackBonus = level;
+		movementRemaining = movement = 5;
 		
 		// Set save vs fortitude
 		savingThrows[0] = 2 + (level / 2);
@@ -487,12 +488,29 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		return result;
 	}
 
-	void LivingEntity::resetAttacks() {
+	void LivingEntity::resetTurn() {
 		attacksRemaining = attacksPerTurn;
+		movementRemaining = movement;
 	}
 
 	int LivingEntity::getAttacksRemaining() {
 		return attacksRemaining;
+	}
+
+	int LivingEntity::getMovementRemaining() {
+		return movementRemaining;
+	}
+
+	int LivingEntity::getMovement() {
+		return movement;
+	}
+
+void LivingEntity::setMovementRemaining(int value) {
+	 movementRemaining = value;
+	}
+
+	int LivingEntity::setMovement(int value) {
+		movement = value;
 	}
 
 	bool LivingEntity::getTurnFinished()
@@ -560,6 +578,7 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 
 void LivingEntity::reset() {
 	attacksRemaining = attacksPerTurn;
+	movementRemaining = movement;
 	health = maxHealth;
 }
 

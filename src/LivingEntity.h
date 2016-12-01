@@ -193,6 +193,14 @@ public:
 	int getModifier(int stat);
 
 	int getAttacksRemaining();
+
+	int getMovementRemaining();
+
+	int getMovement();
+
+	void setMovementRemaining(int value);
+
+	int setMovement(int value);
 	
 	~LivingEntity();
 
@@ -203,6 +211,8 @@ public:
 	int rollDamage();
 
 	int rollAttack();
+
+	void resetTurn();
 
 	void resetAttacks();
 
@@ -252,6 +262,12 @@ private:
 	*/
 	int attacksPerTurn;
 	
+	int movement;
+	
+	int movementRemaining;
+
+
+
 	/**
 	* An array holding pointers to an Entitys equipped items.
 	* Contains one slot for each item type. Items are added/removed using the equip and unequip functions
