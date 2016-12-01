@@ -203,9 +203,6 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	addComponent(eiComp);
 
 
-
-
-
 	// Add Stat allocation buttons
 	addComponent(strPlus);
 	addComponent(strMinus);

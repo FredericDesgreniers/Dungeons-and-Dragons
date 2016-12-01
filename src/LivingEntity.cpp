@@ -466,20 +466,31 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	}
 
 	void LivingEntity::levelUp() {
+		level += 1;
+		Log::instance()->output(Log::component::character, name+" grew to level" + to_string(level));
+
 		// Roll for health increase
 		maxHealth += Dice::roll("1d10") + getModifier(2);
-		// Setlevel calls updateStats which will update attacks per turn, saving throws, etc
-		setLevel(level + 1);
+		Log::instance()->output(Log::component::character, "New Max HP: " +to_string(maxHealth));
+
+		attacksRemaining = attacksPerTurn = 1 + (level / 6);
+		Log::instance()->output(Log::component::character, "New Attacks Per Turn: " + to_string(attacksPerTurn));
+
+
+		movementRemaining = movement = 5;
+		updateStats();
+		Notify();
 	}
 
 	int LivingEntity::rollInitiative() {
 		initiative = Dice::roll("1d20") + getModifier(1);
+		Log::instance()->output(Log::component::character, name + " rolled initiative: " + to_string(initiative));
 		return initiative;
 	}
 
 	int LivingEntity::rollDamage() {
-		// TODO: Damage bonus should depend on weapon type
-		return Dice::roll("1d8") + getModifier(0);
+		int dmg=Dice::roll("1d8") + getModifier(0);
+		return dmg;
 	}
 
 	int LivingEntity::rollAttack() {
@@ -555,8 +566,11 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 		if (this->attacksRemaining > 0) {
 			int attack = this->rollAttack();
 			if (attack >= le->getArmorClass()) {
-
+				Log::instance()->output(Log::component::character, name + 
+					"rolls " +to_string(attack) + " attack vs " + to_string(le->getArmorClass()) + " AC: hit!");
 				int damage = rollDamage();
+				Log::instance()->output(Log::component::character, name +
+					"hits " + le->getName() + " for " + to_string(damage) + " damage!");
 
 				if (le->hit(damage))
 				{
