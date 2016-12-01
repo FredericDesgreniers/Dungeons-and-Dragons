@@ -36,6 +36,7 @@ void Strategy::doStrategy(Map* map, LivingEntity* le)
 			break;
 		}
 	}
+	le->setMovementRemaining(le->getMovementRemaining() - 1);
 	delete pathfinder;
 }
 
@@ -59,9 +60,16 @@ void HostileStrategy::doStrategy(Map* map, LivingEntity* le)
 	LivingEntity* character = map->getCharacter();
 	if (character->distanceTo(le) <= 1) {
 		if (le->interact(map, character)) {
-			//map->removeEntity(c->getPositionX(), c->getPositionY());
+			
 		}
+	}else
+	{
+		if(le->getMovementRemaining()==0)
+			le->setTurnFinished(true);
 	}
-	le->setTurnFinished(true);
+	if(le->getAttacksRemaining() == 0 && le->getMovementRemaining()==0)
+		le->setTurnFinished(true);
+
+
 	std::cout << "Hostile strategy excecuted for " << (le->getHostile()?"hostile":"friendly") << " entity at position "<< le->getPositionX() << ","<< le->getPositionY() << std::endl;
 }

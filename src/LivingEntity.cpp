@@ -511,6 +511,7 @@ void LivingEntity::setMovementRemaining(int value) {
 
 	int LivingEntity::setMovement(int value) {
 		movement = value;
+		return movement;
 	}
 
 	bool LivingEntity::getTurnFinished()
@@ -550,6 +551,7 @@ bool LivingEntity::isPlayer()
 }
 bool LivingEntity::interact(Map* map, Entity* entity)
 {
+	if(this->attacksRemaining>0)
 	if (LivingEntity* le = dynamic_cast<LivingEntity*>(entity))
 	{
 		if (le->hit(getStrength() * 2))
@@ -571,6 +573,7 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 				lootScreen->setBackButton(game->getGuiManager()->setScreen(lootScreen));
 			}
 		}
+		attacksRemaining--;
 		return true;
 	}
 	return false;
@@ -690,4 +693,9 @@ bool LivingEntity::saveLivingEntity() {
 	}
 	std::cout << "Character saved to " + name + ".chr" << endl;
 	return true;
+}
+
+void LivingEntity::resetAttacks()
+{
+	attacksRemaining = attacksPerTurn;
 }
