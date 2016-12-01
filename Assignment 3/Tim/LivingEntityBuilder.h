@@ -1,8 +1,8 @@
 //! @file 
 //! @brief Header file for LivingEntityBuilder class
 #pragma once
-#include "LivingEntity.h"
-#include "dice.h"
+#include "game/LivingEntity.h"
+#include "game/dice.h"
 #include <algorithm>
 
 /**

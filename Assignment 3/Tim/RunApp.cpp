@@ -23,14 +23,14 @@
 #include <cppunit/ui/text/TestRunner.h>
 #include <string>
 #include <iostream>
-#include "LivingEntity.h"
+#include "game/LivingEntity.h"
 #include "LivingEntityBuilder.h"
 #include "Director.h"
 #include "BullyBuilder.h"
 #include "NimbleBuilder.h"
 #include "TankBuilder.h"
 
- #define TEST
+#define TEST
 
 
 //! main() function. Entry point of the program
@@ -63,41 +63,55 @@ int main(int argc, char* argv[])
   return wasSucessful ? 0 : 1;
 
 #else
-	std::cout << "Begin Demonstration of Character Builder" << endl << endl;;
+	std::cout << "Begin Demonstration of Character Builder" << endl << endl
+		<< "Note that attack bonus values do not exactly match the values listed in Assignment 3" << endl
+		<< "This is due to STR modifier being added to the values per the game rules!" << endl << endl;
 	Director* director = new Director();
 	LivingEntityBuilder* bullyBuilder = new BullyBuilder;
 	LivingEntityBuilder* nimbleBuilder = new NimbleBuilder;
 	LivingEntityBuilder* tankBuilder = new TankBuilder;
 
-	// Create characters of each archetype (Bully, Nimble, Tank) using the appropriate concrete 
-	// builder and display information about the created character. 
-	// Cycles through each archetype for levels 1, 4, 7, 10, 13, 16
+	/**
+	
+	 Create characters of each archetype (Bully, Nimble, Tank) using the appropriate concrete 
+	 builder and display information about the created character. 
+	 Cycles through each archetype for levels 1, 4, 7, 10, 13, 16
+
+	 NOTE: Attack bonuses do not exactly match the ones given in the assignment handout because 
+	 they are enhanced by STR modifier per the game rules. 
+	**/
 	for (int i = 0; i <= 15; i+=3) {
 		std::cout << "Create Level "<< to_string(i+1) <<  " Bully fighter (Priority: STR>CON>DEX>INT>CHA>WIS):" << endl;
 		director->setLivingEntityBuilder(bullyBuilder);
 		director->setLevel(i+1);
 		director->constructLivingEntity();
 		LivingEntity* bully = director->getLivingEntity();
-		std::cout << bully->toString() << endl;
+		std::cout << bully->toString();
+		bully->outputEquipped();
+		std::cout << endl;
 		delete bully;
 
 		std::cout << "Create Level " << to_string(i+1) << " Nimble fighter (Priority: DEX>CON>STR>INT>CHA>WIS):" << endl;
 		director->setLivingEntityBuilder(nimbleBuilder);
-		if (i>0) director->setLevel(i+1);
+		director->setLevel(i+1);
 		director->constructLivingEntity();
 		LivingEntity* nimble = director->getLivingEntity();
-		std::cout << nimble->toString() << endl;
+		std::cout << nimble->toString();
+		nimble->outputEquipped();
+		std::cout << endl;
 		delete nimble;
 
 		std::cout << "Create Level " << to_string(i+1) << " Tank fighter (Priority: CON>DEX>STR>INT>CHA>WIS):" << endl;
 		director->setLivingEntityBuilder(tankBuilder);
-		if (i>0) director->setLevel(i+1);
+		director->setLevel(i+1);
 		director->constructLivingEntity();
 		LivingEntity* tank = director->getLivingEntity();
-		std::cout << tank->toString() << endl;
+		std::cout << tank->toString();
+		tank->outputEquipped();
+		std::cout << endl;
 		delete tank;
 
-		std::cout << endl << endl;
+		std::cout <<  "----------------" << endl << endl;
 	}
 
 

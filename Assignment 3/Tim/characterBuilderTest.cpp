@@ -15,7 +15,7 @@
 #include <cppunit/BriefTestProgressListener.h>
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/XmlOutputter.h>
-#include "LivingEntity.h"
+#include "game/LivingEntity.h"
 #include "LivingEntityBuilder.h"
 #include "Director.h"
 #include "BullyBuilder.h"
