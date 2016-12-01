@@ -49,4 +49,6 @@ private:
 	ItemContainerComponent* chestDisplay;
 
 	CharacterComponent* character_component;
+
+	ItemContainerComponent* bagDisplay;
 };

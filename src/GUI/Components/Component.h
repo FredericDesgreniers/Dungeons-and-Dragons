@@ -76,6 +76,11 @@ public:
 		dimensions.w *= s;
 	}
 
+	void toggleVisible()
+	{
+		visible = !visible;
+	}
+
 	/**
 	 * Add function to callback list. Called when component is clicked. positions are relative
 	 */

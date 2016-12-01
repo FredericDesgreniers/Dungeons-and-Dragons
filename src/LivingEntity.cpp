@@ -563,7 +563,8 @@ bool LivingEntity::isPlayer()
 }
 bool LivingEntity::interact(Map* map, Entity* entity)
 {
-	
+	if (entity == this)
+		return false;
 	if (LivingEntity* le = dynamic_cast<LivingEntity*>(entity))
 	{
 		if (this->attacksRemaining > 0) {
@@ -606,6 +607,9 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 					" vs. " + le->getName() + ": " + to_string(le->getArmorClass()) + " AC: Miss!");
 			}
 			attacksRemaining--;
+		}else
+		{
+			Log::instance()->output(Log::component::character, name + " could not interact with "+le->getName()+" due to "+to_string(getAttacksRemaining())+" attack remaining out of "+to_string(getAttacksPerTurn()));
 		}
 			
 			return true;

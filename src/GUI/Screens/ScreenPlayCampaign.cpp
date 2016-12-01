@@ -68,7 +68,7 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, LivingEnt
 				this->character->getBackpack()->addItem(item);
 			}
 	});
-	ItemContainerComponent* bagDisplay = new ItemContainerComponent(character->getBackpack(),0,475,200,400);
+	bagDisplay = new ItemContainerComponent(character->getBackpack(),0,475,200,400);
 	bagDisplay->setBorderColor_both(150, 150, 140, 255);
 	bagDisplay->setBorderSize(1);
 	bagDisplay->setPadding(10, 10, 10, 10);
@@ -117,7 +117,7 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, LivingEnt
 
 					if(chara->interact(map, entity))
 					{
-						this->character->setTurnFinished(true);
+						
 					}
 				}
 			}
@@ -140,6 +140,11 @@ void ScreenPlayCampaign::displayEntityInfo(Entity* entity)
 
 void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 {
+	if(code == SDLK_i)
+	{
+		eiComp->toggleVisible();
+		bagDisplay->toggleVisible();
+	}else
 	if (!character->getTurnFinished()) {
 		bool canMove = character->getMovementRemaining() > 0;
 		switch (code)
