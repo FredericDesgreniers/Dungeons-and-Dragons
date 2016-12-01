@@ -20,7 +20,7 @@ public:
 	 */
 	void setItemContainer(ItemContainer* container);
 
-	void getItemContainer();
+	ItemContainer* getItemContainer();
 
 	/**
 	 * Override render method

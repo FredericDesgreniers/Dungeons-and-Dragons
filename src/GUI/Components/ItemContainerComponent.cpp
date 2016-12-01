@@ -34,7 +34,14 @@ void ItemContainerComponent::setItemContainer(ItemContainer* container)
 			itemLabels[i] = new Button("Empty", &Renderer::FONT_ROBOTO, 0, 0, 0, 0);
 			itemLabels[i]->setPadding(0, 0, 0, 0);
 			itemLabels[i]->setVisible(false);
+			itemLabels[i]->addOnClick_callback([this, i](Component*, int, int)
+			{
+				for (std::function<void(Item*, int)> func : onItemClick_callback)
+				{
+					func(this->container->getItemAtIndex(i), i);
+				}
 
+			});
 			addComponent(itemLabels[i]);
 		}
 		
@@ -48,12 +55,27 @@ void ItemContainerComponent::setItemContainer(ItemContainer* container)
 			if(i < oldSize)
 			{
 				itemLabels[i] = oldItemLabels[i];
+				itemLabels[i]->addOnClick_callback([this, i](Component*, int, int)
+				{
+					for (std::function<void(Item*, int)> func : onItemClick_callback)
+					{
+						func(this->container->getItemAtIndex(i), i);
+					}
+
+				});
 			}else
 			{
 				itemLabels[i] = new Button("Empty", &Renderer::FONT_ROBOTO, 0, 0, 0, 0);
 				itemLabels[i]->setPadding(0, 0, 0, 0);
 				itemLabels[i]->setVisible(false);
+				itemLabels[i]->addOnClick_callback([this, i](Component*, int, int)
+				{
+					for (std::function<void(Item*, int)> func : onItemClick_callback)
+					{
+						func(this->container->getItemAtIndex(i), i);
+					}
 
+				});
 				addComponent(itemLabels[i]);
 			}
 		}
@@ -82,16 +104,6 @@ void ItemContainerComponent::Update()
 			label->setPositionY(getPositionY()+yPos);
 			label->adjustDimensions();
 			label->setVisible(true);
-			label->clearCallbacks();
-
-			label->addOnClick_callback([this,  i](Component*, int, int)
-			{
-				for (std::function<void(Item*, int)> func : onItemClick_callback)
-				{
-					func(this->container->getItemAtIndex(i), i);
-				}
-				
-			});
 			
 		}else
 		{
@@ -99,6 +111,11 @@ void ItemContainerComponent::Update()
 		}
 		yPos += 40;
 	}
+}
+
+ItemContainer* ItemContainerComponent::getItemContainer()
+{
+	return container;
 }
 
 ItemContainerComponent::~ItemContainerComponent()

@@ -41,7 +41,14 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 	chestDisplay = new ItemContainerComponent(character->getBackpack(), 300, 500, 200, 500);
 	chestDisplay->setBorderSize(1);
 	chestDisplay->setBorderColor_both(150, 150, 140, 255);
-
+	chestDisplay->addOnItemClick_callback([this](Item* item, int index)
+	{
+			if(item != nullptr)
+			{
+				this->character->getBackpack()->addItem(item);
+				this->chestDisplay->getItemContainer()->removeItemAtIndex(index);
+			}
+	});
 	chestDisplay->setVisible(false);
 	addComponent(chestDisplay);
 
