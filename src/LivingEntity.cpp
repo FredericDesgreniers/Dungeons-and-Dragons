@@ -672,7 +672,7 @@ LivingEntity* LivingEntity::loadLivingEntity(std::string name) {
 		}
 		//character->getBackpack()->addItem(new Item("Stale Bread", Item::ItemType::BELT, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 
-		std::cout << loadedCharacter->toString() << endl;
+		//std::cout << loadedCharacter->toString() << endl;
 
 	}
 	else {
