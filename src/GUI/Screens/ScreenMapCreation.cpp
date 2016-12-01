@@ -240,7 +240,40 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 		{
 			if (map->getEntity(x, y))
 			{
+				char testChar = map->getEntity(x, y)->getRenderChar();
 				map->removeEntity(x, y);
+
+				if (testChar == 'B')
+				{
+					for (int i = 0; i < map->itemList.size(); i++)
+					{
+						int boxX;
+						int boxY;
+						std::stringstream ss(map->itemList.at(i));
+						ss >> boxX >> boxY;
+						if (x == boxX && boxY == y)
+						{
+							map->itemList.erase(map->itemList.begin() + i);
+							break;
+						}
+					}
+				}
+				else if (testChar == 'F' || testChar == 'H')
+				{
+					for (int i = 0; i < map->charList.size(); i++)
+					{
+						int charX;
+						int charY;
+						std::stringstream ss(map->charList.at(i));
+						ss >> charX >> charY;
+						if (x == charX && charY == y)
+						{
+							map->charList.erase(map->charList.begin() + i);
+							break;
+						}
+					}
+				}
+
 			}
 			map->setTile(new MapTile(storedTile->getId()),x,y);
 		}
@@ -296,7 +329,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 					ss >> charX >> charY;
 					if (x == charX && charY == y)
 					{
-						map->charList.at(i) = storedCharacter;
+						map->charList.at(i) = std::to_string(x) + " " + std::to_string(y) + " " + storedCharacter;
 						cout << "character replaced" << endl;
 						return;
 					}

@@ -45,6 +45,12 @@ char Entity::getRenderChar()
 {
 	return renderChar;
 }
+
+void Entity::setRenderChar(char letter)
+{
+	renderChar = letter;;
+}
+
 int Entity::getPathfinderDistance()
 {
 	return pathfinderDistance;

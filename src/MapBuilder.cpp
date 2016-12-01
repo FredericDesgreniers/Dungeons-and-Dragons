@@ -147,22 +147,12 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 				{
 				case 'F':
 				{
-					/*LivingEntity* fe = new LivingEntity('F');
-					fe->setHostile(false);
-					fe->setStrategy(new FriendlyStrategy());
-					fe->setDisplayColor(255, 255, 0, 255);
-					fe->setPathfinderDistance(8);*/
 					map->spawnEntity(new LivingEntity('F'), x, y);
 
 				}
 				break;
 				case 'H':
 				{
-					/*LivingEntity* he = new LivingEntity('H');
-					he->setHostile(true);
-					he->setStrategy(new HostileStrategy());
-					he->setDisplayColor(255, 0, 255, 255);
-					he->setPathfinderDistance(8);*/
 					map->spawnEntity(new LivingEntity('H'), x, y);
 				}
 				break;
@@ -204,6 +194,8 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 			while (ss >> itemName) {
 				((EntityChest*)map->getEntity(x, y))->getContainer()->addItem(Item::loadItem(itemName));
 			}
+
+			map->itemList.push_back(line);
 		}
 
 		for (int i = 0; i < charCount; i++)
@@ -215,17 +207,19 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 			std::stringstream ss(line);
 			ss >> x >> y >> charName;
 
+			char test = map->getEntity(x, y)->getRenderChar();
+
 			LivingEntity* entity = LivingEntity::loadLivingEntity(charName);
 			entity->setPathfinderDistance(8);
 
-			if (map->getEntity(x, y)->getRenderChar() == 'F')
+			if (test == 'F')
 			{
 				entity->setHostile(false);
 				entity->setStrategy(new FriendlyStrategy());
 				entity->setDisplayColor(255, 255, 0, 255);
 				
 			}
-			else if (map->getEntity(x, y)->getRenderChar() == 'H')
+			else if (test == 'H')
 			{
 				entity->setHostile(true);
 				entity->setStrategy(new HostileStrategy());
@@ -234,6 +228,9 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 
 			map->removeEntity(x, y);
 			map->spawnEntity(entity, x, y);
+			map->getEntity(x, y)->setRenderChar(test);
+
+			map->charList.push_back(line);
 		}
 
 		

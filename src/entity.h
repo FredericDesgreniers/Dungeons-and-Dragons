@@ -36,7 +36,7 @@ public:
 	 * get the char that should be used to render the entity on the map
 	 */
 	char getRenderChar();
-
+	void setRenderChar(char letter);
 	/**
 	 * returns distance from here to other entity
 	 */
