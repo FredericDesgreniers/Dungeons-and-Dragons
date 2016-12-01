@@ -212,6 +212,8 @@ public:
 	bool getHostile();
 
 	void setHostile(bool hostile);
+
+	bool isPlayer();
 private:
 	/**
 	* The Entity's max Hit Points
@@ -297,6 +299,8 @@ private:
 	bool turnFinished;
 
 	bool hostile;
+
+	bool player;
 
 	Strategy* strategy;
 };

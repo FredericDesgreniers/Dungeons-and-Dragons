@@ -32,6 +32,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	}
 	// Instantiate backpack container;
 	backpack = new ItemContainer("Backpack", 10);
+	player = false;
 	updateStats(); // Set secondary stats
 }
 
@@ -519,6 +520,10 @@ bool LivingEntity::getHostile()
 void LivingEntity::setHostile(bool hostile)
 {
 	this->hostile = hostile;
+}
+bool LivingEntity::isPlayer()
+{
+	return player;
 }
 bool LivingEntity::interact(Map* map, Entity* entity)
 {
