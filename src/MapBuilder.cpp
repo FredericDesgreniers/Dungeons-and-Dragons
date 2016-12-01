@@ -310,7 +310,7 @@ MapBuilder* MapBuilder::spawnScaledContent()
 			if (entity != nullptr)
 			{
 				int range = rand() % 2 - 1;
-				level += range;
+				level += range-2;
 				if (level < 1)
 					level = 1;
 
