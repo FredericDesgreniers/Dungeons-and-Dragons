@@ -17,6 +17,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	storedEntity = nullptr;
 	storedTile = nullptr;
 	storedItem = "";
+	storedCharacter = "";
 
 	nameInput = new TextField("TestMap", 125, 75, 100, 20);
 	nameInput->setFontSize(15);
@@ -174,9 +175,39 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 				{
 					storedEntity = nullptr;
 					storedTile = nullptr;
+					storedCharacter = "";
 					storedItem = ((Button*)comp)->getText();
 				});
 				addComponent(itemButton);
+
+				y += 45;
+
+			}
+		} while (::FindNextFile(hFind, &fd));
+		::FindClose(hFind);
+	}
+
+	sprintf_s(search_path, "%s*.*", "characters/");
+	hFind = ::FindFirstFile(search_path, &fd);
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		int y = 0;
+		do
+		{
+			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				const std::string name = std::string(fd.cFileName).substr(0, strlen(fd.cFileName) - 4);
+
+				Button* characterButton = new Button(name, &Renderer::FONT_ROBOTO, 700, 170 + y, 1, 1);
+				characterButton->setFontSize(15)->adjustDimensions();
+				characterButton->addOnClick_callback([this](Component* comp, int x, int y)
+				{
+					storedEntity = nullptr;
+					storedTile = nullptr;
+					storedItem = "";
+					storedCharacter = ((Button*)comp)->getText();
+				});
+				addComponent(characterButton);
 
 				y += 45;
 
@@ -250,10 +281,39 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 				cout << "not a box" << endl;
 			}
 		}
+
+		if (storedCharacter != "")
+		{
+			if (map->getEntity(x, y) != nullptr 
+				&& map->getEntity(x, y)->getRenderChar() == 'H'
+				|| map->getEntity(x, y)->getRenderChar() == 'F')
+			{
+				for (int i = 0; i < map->charList.size(); i++)
+				{
+					int charX;
+					int charY;
+					std::stringstream ss(map->charList.at(i));
+					ss >> charX >> charY;
+					if (x == charX && charY == y)
+					{
+						map->charList.at(i) = storedCharacter;
+						cout << "character replaced" << endl;
+						return;
+					}
+				}
+				cout << "character assigned" << endl;
+				map->charList.push_back(std::to_string(x) + " " + std::to_string(y) + " " + storedCharacter);
+			}
+			else
+			{
+				cout << "not a character" << endl;
+			}
+		}
 	});
 
 	tileMapComp->addOnTileClickedCallback([this](Map* map, int x, int y)
 	{
+		storedCharacter = "";
 		storedItem = "";
 		storedEntity = nullptr;
 		storedTile = map->getTile(x, y);
@@ -261,6 +321,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 
 	entityMapComp->addOnTileClickedCallback([this](Map* map, int x, int y)
 	{
+		storedCharacter = "";
 		storedItem = "";
 		storedTile = nullptr;
 		storedEntity = map->getEntity(x, y);

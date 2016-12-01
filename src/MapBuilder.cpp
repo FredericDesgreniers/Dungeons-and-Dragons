@@ -75,9 +75,17 @@ MapBuilder* MapBuilder::saveToFile(std::string fileName, Map* map)
 			mapFile << std::endl;
 		}
 
+		mapFile << std::to_string(map->itemList.size()) << std::endl;
+		mapFile << std::to_string(map->charList.size()) << std::endl;
+
 		for each(std::string item in map->itemList)
 		{
 			mapFile << item << std::endl;
+		}
+
+		for each(std::string character in map->charList)
+		{
+			mapFile << character << std::endl;
 		}
 
 		builder->map = map;
@@ -139,22 +147,23 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 				{
 				case 'F':
 				{
-					LivingEntity* fe = new LivingEntity('F');
+					/*LivingEntity* fe = new LivingEntity('F');
 					fe->setHostile(false);
 					fe->setStrategy(new FriendlyStrategy());
 					fe->setDisplayColor(255, 255, 0, 255);
-					fe->setPathfinderDistance(8);
-					map->spawnEntity(fe, x, y);
+					fe->setPathfinderDistance(8);*/
+					map->spawnEntity(new LivingEntity('F'), x, y);
+
 				}
 				break;
 				case 'H':
 				{
-					LivingEntity* he = new LivingEntity('H');
+					/*LivingEntity* he = new LivingEntity('H');
 					he->setHostile(true);
 					he->setStrategy(new HostileStrategy());
 					he->setDisplayColor(255, 0, 255, 255);
-					he->setPathfinderDistance(8);
-					map->spawnEntity(he, x, y);
+					he->setPathfinderDistance(8);*/
+					map->spawnEntity(new LivingEntity('H'), x, y);
 				}
 				break;
 				case 'B':
@@ -171,8 +180,21 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 			}
 			y++;
 		}
-		while (std::getline(mapFile, line))
+
+		int itemCount = 0;
+		int charCount = 0;
+		if (std::getline(mapFile, line))
 		{
+			itemCount = std::stoi(line);
+		}
+		if (std::getline(mapFile, line))
+		{
+			charCount = std::stoi(line);
+		}
+
+		for(int i = 0; i < itemCount; i++)
+		{
+			std::getline(mapFile, line);
 			int x;
 			int y;
 			std::stringstream ss(line);
@@ -182,6 +204,36 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 			while (ss >> itemName) {
 				((EntityChest*)map->getEntity(x, y))->getContainer()->addItem(Item::loadItem(itemName));
 			}
+		}
+
+		for (int i = 0; i < charCount; i++)
+		{
+			std::getline(mapFile, line);
+			int x;
+			int y;
+			string charName;
+			std::stringstream ss(line);
+			ss >> x >> y >> charName;
+
+			LivingEntity* entity = LivingEntity::loadLivingEntity(charName);
+			entity->setPathfinderDistance(8);
+
+			if (map->getEntity(x, y)->getRenderChar() == 'F')
+			{
+				entity->setHostile(false);
+				entity->setStrategy(new FriendlyStrategy());
+				entity->setDisplayColor(255, 255, 0, 255);
+				
+			}
+			else if (map->getEntity(x, y)->getRenderChar() == 'H')
+			{
+				entity->setHostile(true);
+				entity->setStrategy(new HostileStrategy());
+				entity->setDisplayColor(255, 0, 255, 255);
+			}
+
+			map->removeEntity(x, y);
+			map->spawnEntity(entity, x, y);
 		}
 
 		
@@ -206,6 +258,30 @@ MapBuilder* MapBuilder::spawnCharacter(LivingEntity* character)
 {
 	map->spawnCharacter(character);
 	this->character = character;
+	return this;
+}
+MapBuilder* MapBuilder::spawnRandomMonsters()
+{
+	srand(time(NULL));
+	int monsternNum = rand() % 7 + 3;
+	for (int i = 0; i < monsternNum; i++)
+	{
+		Monster* m = new Monster();
+		bool hostile = rand() % 2 == 0;
+		m->setHostile(hostile);
+		if (hostile)
+			m->setStrategy(new HostileStrategy());
+		else
+			m->setStrategy(new FriendlyStrategy());
+		int x, y;
+		do
+		{
+			x = rand() % map->getWidth();
+			y = rand() % map->getHeight();
+		} while (!map->spawnEntity(m, x, y));
+
+
+	}
 	return this;
 }
 
@@ -235,10 +311,9 @@ MapBuilder* MapBuilder::spawnScaledContent()
 				if (level < 1)
 					level = 1;
 
-				if(LivingEntity* monster = dynamic_cast<LivingEntity*>(entity))
+				if(Monster* monster = dynamic_cast<Monster*>(entity))
 				{
-					if(!monster->isPlayer())
-						monster->setLevel(level);
+					monster->setLevel(level);
 
 				}else if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
 				{

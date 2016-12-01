@@ -122,7 +122,7 @@ public:
 	int ticksSinceLastSimulation = 0;
 
 	std::vector<std::string> itemList;
-
+	std::vector<std::string> charList;
 
 	std::priority_queue < LivingEntity*>  turnQueue;
 };
