@@ -11,9 +11,11 @@
 
 ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, LivingEntity* character) :Screen(game), campaign(campaign), character(character)
 {
-
+	
 	currentmap = MapBuilder::loadFromFile(campaign->getMaps().at(campaign->getActiveMapIndex())->getName())->spawnCharacter(character)->spawnScaledContent()->get();
 
+	Log::instance()->output(Log::game, "Now playing map "+currentmap->getName()+" in camapaign "+campaign->getName());
+	
 	map_component = new MapComponent(currentmap, 0, 0, 450, 450);
 	map_component->setDrawDistance(100);
 	addComponent(map_component);

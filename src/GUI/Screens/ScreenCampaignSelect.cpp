@@ -13,6 +13,7 @@ ScreenCampaignSelect::ScreenCampaignSelect(Game* game) : Screen(game)
 	campaignSelect->getCurrentButton()->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		campaign = Campaign::loadCampaign(campaignSelect->getCurrentButton()->getText());
+		Log::instance()->output(Log::game, "Capaign "+campaign->getName()+" has been loaded to play!");
 		Screen* screen = new ScreenCharacterSelect(this->game, campaign);
 		this->game->getGuiManager()->setScreen(screen);
 	});

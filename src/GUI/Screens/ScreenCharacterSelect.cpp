@@ -13,11 +13,13 @@ ScreenCharacterSelect::ScreenCharacterSelect(Game* game, Campaign* campaign):Scr
 	{
 		ScreenPlayCampaign* screen_play_campaign = new ScreenPlayCampaign(this->game, this->campaign, new LivingEntity(1));
 		Renderer::addVoidScreen(this->game->getGuiManager()->setScreen(screen_play_campaign));
+		Log::instance()->output(Log::game, "Default character selected to play");
 	});
 
 	CharacterSelect* cs = new CharacterSelect(10, 30, 200, 200);
 	cs->addOnCharacterClick_callback([this](std::string name)
 	{
+		Log::instance()->output(Log::game, "Character "+name+" selected to play!");
 		LivingEntity* c = LivingEntity::loadLivingEntity(name);
 		ScreenPlayCampaign* screen_play_campaign = new ScreenPlayCampaign(this->game, this->campaign, c);
 		Renderer::addVoidScreen(this->game->getGuiManager()->setScreen(screen_play_campaign));
