@@ -44,20 +44,20 @@ void Log::output(component comp, std::string text)
 	switch (comp) {
 	case Log::component::character:
 		if (l_character)
-			std::cout << text << std::endl;
+			std::cout <<"[character] "<< text << std::endl;
 		break;
 	case Log::component::dice:
 		if (l_dice)
-			std::cout << text << std::endl;
+			std::cout << "[dice] " << text << std::endl;
 		break;
 	case Log::component::game:
 		if (l_game)
-			std::cout << text << std::endl;
+			std::cout << "[game] " << text << std::endl;
 		break;
 
 	case Log::component::map:
 		if (l_map)
-			std::cout << text << std::endl;
+			std::cout << "[map] " << text << std::endl;
 		break;
 	default:
 		break;
