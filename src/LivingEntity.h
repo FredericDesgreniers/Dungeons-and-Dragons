@@ -37,6 +37,7 @@ public:
 
 	std::string getName();
 
+	bool interact(Map* map, Entity* entity) override;
 
 	/**
 	 * Hit entity for some damage 

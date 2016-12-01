@@ -14,12 +14,6 @@ class Entity : public Subject
 public:
 	Entity(char renderChar);
 
-	/**
-	 * Simluate a passage in time for the entity in the context of the map
-	 * pathfinder should be a path to whatever the entity is seeking, which is
-	 * always the character in this case. 
-	 */
-	virtual void simulate(Map* map, Pathfinder* pathfinder);
 
 	/**
 	 * Gets called when another entity interacts with this entity in context of the maps

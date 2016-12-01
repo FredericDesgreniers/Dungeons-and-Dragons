@@ -1,4 +1,5 @@
 #include "LivingEntity.h"
+#include "GUI/Components/CharacterComponent.h"
 
 LivingEntity::LivingEntity(char c):
 	LivingEntity(c, Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), 1)
@@ -514,4 +515,16 @@ bool LivingEntity::getHostile()
 void LivingEntity::setHostile(bool hostile)
 {
 	this->hostile = hostile;
+}
+bool LivingEntity::interact(Map* map, Entity* entity)
+{
+	if (LivingEntity* le = dynamic_cast<LivingEntity*>(entity))
+	{
+		if (le->hit(getStrength() * 2))
+		{
+			
+		}
+		return true;
+	}
+	return false;
 }
