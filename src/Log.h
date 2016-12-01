@@ -11,10 +11,10 @@ public:
 	enum component{ dice, map, character, game };
 	~Log();
 
-	void toggle_Dice(bool val);
-	void toggle_Map(bool val);
-	void toggle_Game(bool val);
-	void toggle_Character(bool val);
+	void toggle_Dice();
+	void toggle_Map();
+	void toggle_Game();
+	void toggle_Character();
 
 	void output(component comp, std::string output);
 

@@ -13,23 +13,23 @@ Log::~Log()
 }
 
 
-void Log::toggle_Dice(bool val)
+void Log::toggle_Dice()
 {
 	l_dice = !l_dice;
 }
 
-void Log::toggle_Map(bool val)
+void Log::toggle_Map()
 {
 	l_map = !l_map;
 }
 
-void Log::toggle_Character(bool val)
+void Log::toggle_Character()
 {
 	l_character = !l_character;
 }
 
 
-void Log::toggle_Game(bool val)
+void Log::toggle_Game()
 {
 	l_game = !l_game;
 }
