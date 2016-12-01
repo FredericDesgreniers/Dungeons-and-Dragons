@@ -123,6 +123,8 @@ bool Map::spawnEntity(Entity* entity, int x, int y)
 
 void Map::simulateMapTick()
 {
+	vector<LivingEntity*> dead;
+
 	ticksSinceLastSimulation++;
 	if(turnQueue.size() == 0)
 	{
@@ -130,9 +132,19 @@ void Map::simulateMapTick()
 		{
 			if(LivingEntity* le = dynamic_cast<LivingEntity*>(getEntities()->at(i)))
 			{
-				le->rollInitiative();
-				turnQueue.push(le);
+				if(le->getHealth()<=0 && !le->isPlayer())
+				{
+					dead.push_back(le);
+				}
+				else {
+					le->rollInitiative();
+					turnQueue.push(le);
+				}
 			}
+		}
+		for(LivingEntity* e:dead)
+		{
+			this->removeEntity(e->getPositionX(), e->getPositionY());
 		}
 		if(turnQueue.size() > 0)
 		{
@@ -158,6 +170,7 @@ void Map::simulateMapTick()
 bool Map::spawnCharacter(LivingEntity* character)
 {
 	this->character = character;
+	character->setPlayer(true);
 	character->setStrategy(new CharacterStrategy());
 	for (int x = 0; x < getWidth(); x++)
 	{
