@@ -308,9 +308,10 @@ MapBuilder* MapBuilder::spawnScaledContent()
 				if (level < 1)
 					level = 1;
 
-				if(Monster* monster = dynamic_cast<Monster*>(entity))
+				if(LivingEntity* le = dynamic_cast<LivingEntity*>(entity))
 				{
-					monster->setLevel(level);
+					if(!le->isPlayer())
+						le->setLevel(level);
 
 				}else if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
 				{
