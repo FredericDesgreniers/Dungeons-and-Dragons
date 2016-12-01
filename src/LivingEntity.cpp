@@ -23,6 +23,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	effectiveAbilityScores[3] = abilityscores[3] = intelligence;
 	effectiveAbilityScores[4] = abilityscores[4] = wisdom;
 	effectiveAbilityScores[5] = abilityscores[5] = charisma;
+
 	// TODO: Update HP calculation
 	health = maxHealth = level*Dice::roll("1d10") + getModifier(2);
 	for (int i = 0; i < 7; i++) {
@@ -524,11 +525,21 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 	{
 		if (le->hit(getStrength() * 2))
 		{
-			if(Character* c = dynamic_cast<Character*>(le))
+			if(Character* c = dynamic_cast<Character*>(this))
 			{
 				Game* game = Game::getInstance();
 				
+				for (int i = Item::ItemType::HELMET; i <= Item::ItemType::WEAPON; i++)
+				{
+					Item* item = le->getEquippedItems()[i];
+					if(item!=nullptr)
+					{
+						le->getBackpack()->addItem(item);
+					}
+				}
+
 				ScreenLoot* lootScreen = new ScreenLoot(game, c->getBackpack(), le->getBackpack());
+				lootScreen->setBackButton(game->getGuiManager()->setScreen(lootScreen));
 			}
 		}
 		return true;
