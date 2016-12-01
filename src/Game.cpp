@@ -101,16 +101,16 @@ GuiManager* Game::getGuiManager()
 
 int main()
 {
-	Game game;
-	if(!game.ini())
+	Game* game = Game::getInstance();
+	if(!game->ini())
 	{
 		std::cout << "Error initializing the game" << std::endl;
 	}
-	if(!game.run())
+	if(!game->run())
 	{
 		std::cout << "Error running the game" << std::endl;
 	}
-	if(!game.exit())
+	if(!game->exit())
 	{
 		std::cout << "Error exiting the game" << std::endl;
 	}
@@ -122,4 +122,12 @@ int main()
 	
 
 
+}
+
+Game* Game::getInstance()
+{
+	if (instance == nullptr)
+		instance = new Game();
+
+	return instance;
 }

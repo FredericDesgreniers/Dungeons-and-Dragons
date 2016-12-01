@@ -32,6 +32,12 @@ public:
 	 */
 	GuiManager* getGuiManager();
 
+	
+
+	static Game* getInstance();
+
 private:
 	GuiManager* gui_manager;
+
+	static Game* instance;
 };
