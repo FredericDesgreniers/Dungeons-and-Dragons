@@ -7,6 +7,7 @@
 #include <random>
 #include <sstream>
 #include <string>
+#include "Log.h"
 
 
 using namespace std;

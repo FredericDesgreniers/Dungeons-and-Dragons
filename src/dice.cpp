@@ -23,8 +23,6 @@ int Dice::roll(string diceInput) {
 		//Input is valid dice notation
 		//Store parsed data for x, y in integers, initialize variables
 		int diceNum = stoi(result[1]), diceVal = stoi(result[2]), diceMod = 0, rollSum = 0, currentRoll = 0;
-		//cout << "Rolling " << diceInput << endl;;
-		
 
 		//Define uniform distribution from 1 to diceVal
 		uniform_int_distribution<int> dist(1, diceVal);
@@ -45,11 +43,12 @@ int Dice::roll(string diceInput) {
 
 		// Output the final roll sum
 		//cout << "Total: " << rollSum << endl << endl; 
+		Log::instance()->output(Log::component::dice, "DICE: Rolling " + diceInput + ": " +to_string(rollSum)+"\n");
 		return rollSum;
 	}
 
 	else {
-		cout << "Invalid input string '" << diceInput << "': input must be in the form xdy or xdy+z" << endl << endl;
+		Log::instance()->output(Log::component::dice, "DICE: Invalid dice input: " + diceInput + ", input must be in valid dice notation!\n");
 		return -1;
 	}
 
