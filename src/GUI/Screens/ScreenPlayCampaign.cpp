@@ -75,8 +75,13 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, LivingEnt
 		Item* item = this->character->getBackpack()->getItemAtIndex(i);
 			if(item!=nullptr)
 			{
-				this->character->equip(item);
+				
+				Item* item1 = this->character->equip(item);
 				this->character->getBackpack()->removeItemAtIndex(i);
+					if(item1!=nullptr)
+					{
+						this->character->getBackpack()->addItem(item1);
+					}
 			}
 	});
 	addComponent(bagDisplay);
