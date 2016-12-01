@@ -13,7 +13,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	character->Attach(this);
 
 	//Text field for name entry
-	nameInput = new TextField("Defaultname", 125, 65, 150, 25);
+	nameInput = new TextField("Artemis", 125, 65, 150, 25);
 	nameInput->setFontSize(20);
 	int i = 220;
 	addComponent(nameInput);
@@ -199,7 +199,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 
 	//Inventory Display component
-	EquipedItemComponent* eiComp = new EquipedItemComponent(character->getEquippedItems(), 350, 100, 200, 100);
+	eiComp = new EquipedItemComponent(character->getEquippedItems(), 350, 100, 200, 100);
 	eiComp->setBorderColor_both(150, 150, 140, 255);
 	eiComp->setBorderSize(1);
 	eiComp->setPadding(10, 10, 10, 10);
@@ -374,6 +374,19 @@ void ScreenCharacterCreation::rollCharacter() {
 	character->setWisdom(Dice::rollStat());
 	character->setCharisma(Dice::rollStat());
 
+	// Unequip all items
+	for (int i = 0; i < 7; i++) {
+		character->unequip(i);
+	}
+
+	// Equip starter items
+	character->equipBasic();
+
+	// Empty backpack
+	for (int i = 0; i < 10; i++) {
+		character->getBackpack()->removeItemAtIndex(i);
+	}
+
 	//Set level to 1
 	character->setLevel(1);
 	// Set max health to 10+con modifier
@@ -382,16 +395,8 @@ void ScreenCharacterCreation::rollCharacter() {
 	// Set name to defaultname
 	character->setName("Artemis");
 
-	// Unequip all items
-	for (int i = 0; i < 7; i++) {
-		character->unequip(i);
-	}
-	// Empty backpack
-	for (int i = 0; i < 10; i++) {
-		character->getBackpack()->removeItemAtIndex(i);
-	}
-	// Equip starter items
-	character->equipBasic();
+
+
 	// Set remaining ability points to 0
 	setRemaining("0");
 }
@@ -453,6 +458,7 @@ void ScreenCharacterCreation::Update() {
 	{
 		mods[i] = character->getModifier(i);
 	}
+	eiComp->Update();
 }
 
 

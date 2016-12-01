@@ -322,7 +322,6 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		equipped[5]=new Item("LeatherBoots", Item::ItemType::BOOTS, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 		equipped[6]=new Item("Dagger", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 1, 0, 0);
 		updateStats();
-		outputEquipped();
 	}
 
 	int LivingEntity::getStrength()

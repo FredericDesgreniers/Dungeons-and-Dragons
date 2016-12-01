@@ -56,7 +56,7 @@ private:
 	int maxHealth;
 
 	bool newCharacter;
-
+	EquipedItemComponent* eiComp;
 	
 
 public:
