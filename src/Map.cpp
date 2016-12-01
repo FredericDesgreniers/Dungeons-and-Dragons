@@ -138,7 +138,7 @@ void Map::simulateMapTick()
 				}
 				else {
 					le->rollInitiative();
-					le->resetAttacks();
+					le->resetTurn();
 					turnQueue.push(le);
 				}
 			}

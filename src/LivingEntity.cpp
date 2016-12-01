@@ -501,7 +501,6 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	int LivingEntity::rollAttack() {
 		int result = Dice::roll("1d20") + (attackBonus - 5 * (attacksPerTurn-attacksRemaining));
-		attacksRemaining--;
 		return result;
 	}
 
@@ -567,30 +566,40 @@ bool LivingEntity::isPlayer()
 }
 bool LivingEntity::interact(Map* map, Entity* entity)
 {
-	if(this->attacksRemaining>0)
+	
 	if (LivingEntity* le = dynamic_cast<LivingEntity*>(entity))
 	{
-		if (le->hit(getStrength() * 2))
-		{
-			if(player)
-			{
-				Game* game = Game::getInstance();
-				
-				for (int i = Item::ItemType::HELMET; i <= Item::ItemType::WEAPON; i++)
+		if (this->attacksRemaining > 0) {
+			int attack = this->rollAttack();
+			if (attack >= le->getArmorClass()) {
+
+				int damage = rollDamage();
+
+				if (le->hit(damage))
 				{
-					Item* item = le->getEquippedItems()[i];
-					if(item!=nullptr)
+					if (player)
 					{
-						le->getBackpack()->addItem(item);
+						Game* game = Game::getInstance();
+
+						for (int i = Item::ItemType::HELMET; i <= Item::ItemType::WEAPON; i++)
+						{
+							Item* item = le->getEquippedItems()[i];
+							if (item != nullptr)
+							{
+								le->getBackpack()->addItem(item);
+							}
+						}
+
+						ScreenLoot* lootScreen = new ScreenLoot(game, this->getBackpack(), le->getBackpack());
+						lootScreen->setBackButton(game->getGuiManager()->setScreen(lootScreen));
 					}
 				}
-
-				ScreenLoot* lootScreen = new ScreenLoot(game, this->getBackpack(), le->getBackpack());
-				lootScreen->setBackButton(game->getGuiManager()->setScreen(lootScreen));
 			}
+			attacksRemaining--;
 		}
-		attacksRemaining--;
-		return true;
+			
+			return true;
+		
 	}
 	return false;
 }
@@ -714,4 +723,9 @@ bool LivingEntity::saveLivingEntity() {
 void LivingEntity::resetAttacks()
 {
 	attacksRemaining = attacksPerTurn;
+}
+
+int LivingEntity::getArmorClass()
+{
+	return armorClass;
 }

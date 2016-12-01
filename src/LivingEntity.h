@@ -233,6 +233,8 @@ public:
 	void setHostile(bool hostile);
 
 	bool isPlayer();
+
+	int getArmorClass();
 private:
 	/**
 	* The Entity's max Hit Points
