@@ -362,6 +362,12 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		return attackBonus;
 	}
 
+
+
+	int LivingEntity::getArmorClass() {
+		return armorClass;
+	}
+
 	int LivingEntity::getAttacksPerTurn() {
 		return attacksPerTurn;
 	}

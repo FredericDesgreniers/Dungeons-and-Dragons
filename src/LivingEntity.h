@@ -82,6 +82,9 @@ public:
 	*/
 	int getCharisma();
 
+
+	int getArmorClass();
+
 	/**
 	* Get attack bonus as an int
 	*/
