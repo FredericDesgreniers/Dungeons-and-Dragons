@@ -36,6 +36,7 @@ void Strategy::doStrategy(Map* map, LivingEntity* le)
 			break;
 		}
 	}
+	delete pathfinder;
 }
 
 void CharacterStrategy::doStrategy(Map* map,LivingEntity* le)
