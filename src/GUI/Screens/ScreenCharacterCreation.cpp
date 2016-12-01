@@ -356,8 +356,7 @@ void ScreenCharacterCreation::decrement(int stat) {
 }
 
 void ScreenCharacterCreation::rollCharacter() {
-	std::cout << "Before reroll: "<< endl;
-	std::cout << character->toString() << endl;
+
 	// Reroll all ability scores
 	character->setStrength(Dice::rollStat());
 	character->setDexterity(Dice::rollStat());
@@ -365,14 +364,10 @@ void ScreenCharacterCreation::rollCharacter() {
 	character->setIntelligence(Dice::rollStat());
 	character->setWisdom(Dice::rollStat());
 	character->setCharisma(Dice::rollStat());
-	std::cout << "After reroll: " << endl;
-	std::cout << character->toString() << endl;
 	// Unequip all items
 	for (int i = 0; i < 7; i++) {
 		delete(character->unequip(i));
 	}
-	std::cout << "After unequip: " << endl;
-	std::cout << character->toString() << endl;
 	// Equip starter items
 	character->equipBasic();
 
@@ -384,22 +379,15 @@ void ScreenCharacterCreation::rollCharacter() {
 	//Set level to 1
 	character->setLevel(1);
 
-	std::cout << "After setLevel: " << endl;
-	std::cout << character->toString() << endl;
+
 
 	// Set max health to 10+con modifier
 	character->setMaxHealth(10+character->getModifier(2));
 
-	std::cout << "After setHealth: " << endl;
-	std::cout << character->toString() << endl;
 	
 	newCharacter = true; //Set a flag to indicate that this is a newly rolled character, so con bonus can be added to HP upon changes to con
 	// Set name to defaultname
 	character->setName("Artemis");
-	std::cout << "After setName: " << endl;
-	std::cout << character->toString() << endl;
-
-
 
 	// Set remaining ability points to 0
 	setRemaining("0");

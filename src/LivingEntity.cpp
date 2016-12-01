@@ -177,6 +177,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		default:
 			break;
 		}
+
 		std::cout << "Equipped " << toEquip->getName() << endl;
 		updateStats();
 		Notify();
