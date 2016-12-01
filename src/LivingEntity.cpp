@@ -30,6 +30,17 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	for (int i = 0; i < 7; i++) {
 		equipped[i] = nullptr;
 	}
+	
+	attacksRemaining = attacksPerTurn = 1 + (level / 6);
+	movementRemaining = movement = 5;
+
+	// Set save vs fortitude
+	savingThrows[0] = 2 + (level / 2);
+	// Set save vs reflex
+	savingThrows[1] = level / 3;
+	// Set save vs will
+	savingThrows[2] = level / 3;
+
 	// Instantiate backpack container;
 	backpack = new ItemContainer("Backpack", 10);
 	player = false;
@@ -201,17 +212,8 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		// Set base armor class and add dexterity modifier
 		armorClass = 10 + getModifier(1);
 
-		// Set attacks per turn and attack bonus based on level
-		attacksRemaining = attacksPerTurn = 1 + (level / 6);
+		// Set attack bonus based on level
 		attackBonus = level;
-		movementRemaining = movement = 5;
-		
-		// Set save vs fortitude
-		savingThrows[0] = 2 + (level / 2);
-		// Set save vs reflex
-		savingThrows[1] = level / 3;
-		// Set save vs will
-		savingThrows[2] = level / 3;
 
 		// Add item bonuses to effective ability scores
 		for (int i = 0; i < 7; i++) {
@@ -470,6 +472,15 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		maxHealth += Dice::roll("1d10") + getModifier(2);
 		// Setlevel calls updateStats which will update attacks per turn, saving throws, etc
 		setLevel(level + 1);
+
+		attacksRemaining = attacksPerTurn = 1 + (level / 6);
+
+		// Set save vs fortitude
+		savingThrows[0] = 2 + (level / 2);
+		// Set save vs reflex
+		savingThrows[1] = level / 3;
+		// Set save vs will
+		savingThrows[2] = level / 3;
 	}
 
 	int LivingEntity::rollInitiative() {
