@@ -375,7 +375,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	void LivingEntity::setLevel(int value)
 	{
 		level = value;
-		health = maxHealth = 10 + getModifier(2) + ((level - 1)*(Dice::roll("1d10")) + getModifier(2));
+		health = maxHealth = 10 + getModifier(2) + ((level - 1)*(Dice::roll("1d10") + getModifier(2)));
 		attacksRemaining = attacksPerTurn = 1 + (level / 6);
 		movementRemaining = movement = 5;
 		// Set save vs fortitude
