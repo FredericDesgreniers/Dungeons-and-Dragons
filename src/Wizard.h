@@ -21,6 +21,8 @@ public:
 	 * Get progress of currently casting spell
 	 */
 	int getSpellProgress();
+
+	SDL_Color getDisplayColor();
 private:
 	int spellProgress;
 };

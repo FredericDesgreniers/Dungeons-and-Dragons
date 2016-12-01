@@ -132,6 +132,8 @@ bool Character::validateNewCharacter()
 	return true;
 }
 
-
-
+SDL_Color Character::getDisplayColor()
+{
+	return{ 255,255,0,255 };
+}
 

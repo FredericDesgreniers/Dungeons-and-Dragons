@@ -63,3 +63,7 @@ bool Monster::interact(Map* map, Entity* entity)
 	return false;
 }
 
+SDL_Color Monster::getDisplayColor()
+{
+	return{ 255,200,0,255 };
+}

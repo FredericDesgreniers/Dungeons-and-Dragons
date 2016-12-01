@@ -2,6 +2,7 @@
 #include <valarray>
 #include <math.h>
 #include "Subject.h"
+#include <SDL/SDL.h>
 class Pathfinder;
 class Map;
 
@@ -66,6 +67,9 @@ public:
 	 * Get maximum distance for pathfinding
 	 */
 	int getPathfinderDistance();
+
+	virtual SDL_Color getDisplayColor();
+	
 private:
 	int positionX, positionY;
 	char renderChar = ' ';

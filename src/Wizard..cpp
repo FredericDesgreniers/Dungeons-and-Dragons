@@ -28,6 +28,10 @@ void Wizard::simulate(Map* map, Pathfinder* pathfinder)
 		Monster::simulate(map, pathfinder);
 	}
 }
+SDL_Color Wizard::getDisplayColor()
+{
+	return{ 0,0,255,255 };
+}
 
 
 int Wizard::getSpellProgress()

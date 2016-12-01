@@ -21,6 +21,8 @@ public:
 	 */
 	bool interact(Map* map, Entity* entity) override;
 
+	SDL_Color getDisplayColor();
+
 protected:
 	Monster(char c);
 };

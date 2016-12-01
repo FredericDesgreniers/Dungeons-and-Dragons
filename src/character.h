@@ -56,7 +56,7 @@ public:
 	 */
 	static bool saveCharacter(std::string name, Character * character);
 
-
+	SDL_Color getDisplayColor();
 
 };
 

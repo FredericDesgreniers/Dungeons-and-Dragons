@@ -98,23 +98,7 @@ void MapComponent::render() {
 			if (entity != nullptr)
 			{
 
-				SDL_Color color;
-				//set Entity car chracter dependin on type of entity
-				if (dynamic_cast<Monster*>(entity)) {
-					if(dynamic_cast<Wizard*>(entity)) 
-					{
-						color = { 0,0,255,255 };
-					}else{
-						color = { 255,200,0,255  }; 
-
-					}
-				}
-				else if (dynamic_cast<Character*>(entity)) {
-					color = { 255,255,0,255 };
-				}
-				else {
-					color = { 255,0,255,255 };
-				}
+				SDL_Color color = entity->getDisplayColor();
 				
 				//render entity chracter
 				Renderer::drawString(std::string(1, entity->getRenderChar()), Renderer::FONT_ROBOTO.get(tileHeight), x+2, y-3,1,color);

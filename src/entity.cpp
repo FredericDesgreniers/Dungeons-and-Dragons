@@ -58,3 +58,7 @@ void Entity::setPathfinderDistance(int distance)
 	pathfinderDistance = distance;
 }
 
+SDL_Color Entity::getDisplayColor()
+{
+	return { 255,0,255,255 };
+}
