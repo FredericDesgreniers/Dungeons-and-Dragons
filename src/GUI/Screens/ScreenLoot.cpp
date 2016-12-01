@@ -15,7 +15,7 @@ ScreenLoot::ScreenLoot(Game* game, ItemContainer* to, ItemContainer* from):Scree
 	toContainer->setBorderColor_both(255, 255, 255, 255);
 	toContainer->setBorderSize(1);
 
-	ItemContainerComponent* fromContainer = new ItemContainerComponent(from, 1000, 0, 300, 900);
+	ItemContainerComponent* fromContainer = new ItemContainerComponent(from, 330, 0, 300, 900);
 	fromContainer->addOnItemClick_callback([this, to, from](Item* item, int index)
 	{
 		if (item != nullptr)
@@ -26,6 +26,7 @@ ScreenLoot::ScreenLoot(Game* game, ItemContainer* to, ItemContainer* from):Scree
 	});
 	fromContainer->setBorderColor_both(255, 255, 255, 255);
 	fromContainer->setBorderSize(1);
+
 	addComponent(toContainer);
 	addComponent(fromContainer);
 }
