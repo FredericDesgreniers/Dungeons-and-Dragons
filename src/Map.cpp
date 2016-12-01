@@ -123,7 +123,7 @@ bool Map::spawnEntity(Entity* entity, int x, int y)
 
 void Map::simulateMapTick()
 {
-
+	ticksSinceLastSimulation++;
 	if(turnQueue.size() == 0)
 	{
 		for (int i = 0; i < getEntities()->size(); i++)
@@ -134,33 +134,31 @@ void Map::simulateMapTick()
 				turnQueue.push(le);
 			}
 		}
-	}else
+		if(turnQueue.size() > 0)
+		{
+			turnQueue.top()->setTurnFinished(false);
+		}
+	}else if(ticksSinceLastSimulation > 5)
 	{
+		ticksSinceLastSimulation = 0;
 		LivingEntity* le = turnQueue.top();
+		
+		le->doStrategy(this);
 
-		//TODO add strategy
-
-		if(le->getTurnFinished())
+		if (le->getTurnFinished())
+		{
 			turnQueue.pop();
+			if (turnQueue.size() > 0) {
+				turnQueue.top()->setTurnFinished(false);
+			}
+		}
 	}
-
-	Pathfinder* pathfinder = new Pathfinder(this, character->getPositionX(), character->getPositionY());
-
-	for (Entity* entity:entities)
-	{
-		if(std::abs(entity->getPositionX()-character->getPositionX()) + std::abs(entity->getPositionY()-character->getPositionY()) <= entity->getPathfinderDistance()){
-			pathfinder->createNodeGrid();
-			entity->simulate(this, pathfinder);
-		}else
-		entity->simulate(this, nullptr);
-
-	}
-	delete pathfinder;
 }
 
 bool Map::spawnCharacter(Character* character)
 {
 	this->character = character;
+	character->setStrategy(new CharacterStrategy());
 	for (int x = 0; x < getWidth(); x++)
 	{
 		for (int y = 0; y < getHeight(); y++)
