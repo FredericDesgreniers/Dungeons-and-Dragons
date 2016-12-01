@@ -4,8 +4,7 @@
 #include <fstream>
 #include <direct.h>
 #include <iostream>
-#include "Wizard.h"
-#include "EntityChest.h"
+
 
 MapBuilder* MapBuilder::createEmptyMap(int w, int h)
 {
@@ -29,7 +28,7 @@ MapBuilder* MapBuilder::saveToFile(std::string fileName, Map* map)
 	{
 		int width = map->getWidth();
 		int height = map->getHeight();
-		string name = fileName;
+		std::string name = fileName;
 
 		mapFile << name << std::endl;
 		mapFile << width << std::endl;
@@ -61,7 +60,7 @@ MapBuilder* MapBuilder::saveToFile(std::string fileName, Map* map)
 				}
 
 				Entity* entity = map->getEntity(x, y);
-				
+
 				if (entity != nullptr)
 				{
 					mapFile << entity->getRenderChar();
@@ -83,11 +82,11 @@ MapBuilder* MapBuilder::saveToFile(std::string fileName, Map* map)
 MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 {
 	MapBuilder* builder = new MapBuilder();
-	std::fstream mapFile("maps/"+fileName+".dnd");
-	if(mapFile.is_open())
+	std::fstream mapFile("maps/" + fileName + ".dnd");
+	if (mapFile.is_open())
 	{
-		int width=20, height=20;
-		string name = "";
+		int width = 20, height = 20;
+		std::string name = "";
 		std::string line;
 		std::getline(mapFile, line);
 		name = line;
@@ -98,14 +97,14 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 
 		Map* map = new Map(name, width, height);
 		int y = 0;
-		while(std::getline(mapFile, line))
-		{	
+		while (std::getline(mapFile, line))
+		{
 			int x = 0;
-			for (int i= 0; i < line.size(); i++)
+			for (int i = 0; i < line.size(); i++)
 			{
 				char c = line[i];
 				int type;
-				switch(c)
+				switch (c)
 				{
 				case 'W':
 					type = TILE_WALL;
@@ -127,23 +126,21 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 				switch (c)
 				{
 				case 'M':
-					map->spawnEntity(new Monster(), x, y);
+					Monster* m = new Monster();
+					m->setHostile(true);
+					m->setStrategy(new HostileStrategy());
+					map->spawnEntity(m, x, y);
 					break;
-				case 'W':
-					map->spawnEntity(new Wizard(), x, y);
-					break;
-				case 'B':
-					map->spawnEntity(new EntityChest(), x, y);
-					break;
+
 				}
 
 				x++;
-				
+
 			}
 			y++;
 		}
 
-		
+
 		builder->map = map;
 		mapFile.close();
 	}
@@ -170,10 +167,16 @@ MapBuilder* MapBuilder::spawnCharacter(Character* character)
 MapBuilder* MapBuilder::spawnRandomMonsters()
 {
 	srand(time(NULL));
-	int monsternNum = rand() % 7+3;
+	int monsternNum = rand() % 7 + 3;
 	for (int i = 0; i < monsternNum; i++)
 	{
 		Monster* m = new Monster();
+		bool hostile = rand() % 2 == 0;
+		m->setHostile(hostile);
+		if (hostile)
+			m->setStrategy(new HostileStrategy());
+		else
+			m->setStrategy(new FriendlyStrategy());
 		int x, y;
 		do
 		{
@@ -205,41 +208,15 @@ MapBuilder* MapBuilder::spawnScaledContent()
 		{
 
 			Entity* entity = map->getEntity(x, y);
-			if(entity!=nullptr)
+			if (entity != nullptr)
 			{
-				int range = rand() % 2-1;
+				int range = rand() % 2 - 1;
 				level += range;
 				if (level < 1)
 					level = 1;
-				if(EntityChest* chest = dynamic_cast<EntityChest*>(entity))
-				{
-					
-					int num = (rand()) % 5;
-					for (int i = 0; i < num; i++)
-					{
-						Item* item = Item::generateRandomItem(level);
-						chest->getContainer()->addItem(item);
-						
-					}
-					std::cout << "CHEST RANDOM SPAWN" << num<< std::endl;
-					chest->getContainer()->printContainer();
-				}else if(Monster* monster = dynamic_cast<Monster*>(entity))
+				if (Monster* monster = dynamic_cast<Monster*>(entity))
 				{
 					monster->setLevel(level);
-					if(rand() % 2 == 0)
-						monster->equip(Item::generateRandomItem(Item::ItemType::WEAPON));
-					if(rand() % 2 == 0)
-						monster->equip(Item::generateRandomItem(Item::ItemType::ARMOR));
-					if(rand() % 2 == 0)
-						monster->equip(Item::generateRandomItem(Item::ItemType::BELT));
-					if(rand() % 2 == 0)
-						monster->equip(Item::generateRandomItem(Item::ItemType::BOOTS));
-					if(rand() % 2 == 0)
-						monster->equip(Item::generateRandomItem(Item::ItemType::HELMET));
-					if(rand() % 2 == 0)
-						monster->equip(Item::generateRandomItem(Item::ItemType::RING));
-					if(rand() % 2 == 0)
-						monster->equip(Item::generateRandomItem(Item::ItemType::SHIELD));
 
 				}
 			}
