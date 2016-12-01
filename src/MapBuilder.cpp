@@ -325,7 +325,10 @@ MapBuilder* MapBuilder::spawnScaledContent()
 					for (int i = 0; i < ic->getSize(); i++)
 					{
 						Item* item = ic->getItemAtIndex(i);
-						//TODO scale items
+						if(item!=nullptr)
+						{
+							item->scale(level);
+						}
 					}
 				}
 			}

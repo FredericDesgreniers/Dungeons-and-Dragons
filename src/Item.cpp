@@ -127,6 +127,27 @@ Item::Item(std::string name, Item::ItemType iType, int str, int dex, int con, in
 	}
 }
 
+void Item::scale(int level)
+{
+	if (strBoost > 0)
+		strBoost += level;
+	if (dexBoost > 0)
+		dexBoost += level;
+	if (conBoost > 0)
+		conBoost += level;
+	if (intBoost > 0)
+		intBoost += level;
+	if (wisBoost > 0)
+		wisBoost += level;
+	if (chaBoost > 0)
+		chaBoost += level;
+	if (atkBoost > 0)
+		atkBoost += level;
+	if (dmgBoost > 0)
+		dmgBoost += level;
+	if (armBoost > 0)
+		armBoost += level;
+}
 
 Item::~Item()
 {
