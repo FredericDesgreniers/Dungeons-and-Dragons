@@ -410,7 +410,6 @@ void ScreenItemCreation::createItem()
 	it->setName(itemName->getText());
 	Item::saveItem(itemName->getText(), it);
 
-	std::cout << it->toString() << std::endl;
 }
 
 void ScreenItemCreation::Update()

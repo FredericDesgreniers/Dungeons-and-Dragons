@@ -55,31 +55,31 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 
 		Screen* screen = this->game->getGuiManager()->setScreen(new ScreenMain(this->game));
 		Renderer::addVoidScreen(screen);
-		std::cout << "Back to main menu!" << std::endl;
+
 	});
 
 	moreWidthBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		setWidth(width + 1);
-		std::cout << "Width +" << std::endl;
+
 	});
 
 	lessWidthBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		setWidth(width - 1);
-		std::cout << "Width -" << std::endl;
+
 	});
 
 	moreHeightBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		setHeight(height + 1);
-		std::cout << "Height +" << std::endl;
+
 	});
 
 	lessHeightBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
 		setHeight(height - 1);
-		std::cout << "Height -" << std::endl;
+
 	});
 
 	confirmBtn->addOnClick_callback([this](Component* comp, int x, int y)
@@ -90,7 +90,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 
 	generateBtn->addOnClick_callback([this](Component* comp, int x, int y)
 	{
-		std::cout << "Map Instantiated" << std::endl;
+
 		createMap();
 		mapSelect->setVisible(false);
 	});
@@ -98,7 +98,7 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	{
 		if (newMap == nullptr)
 		{
-			cout << "no such file" << endl;
+
 			mapComp->setVisible(false);
 			tileMapComp->setVisible(false);
 			entityMapComp->setVisible(false);
@@ -291,27 +291,27 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 
 					if (x == boxX && boxY == y)
 					{
-						cout << "box already contains an item" << endl;
+
 						std::string test = map->itemList.at(i);
 						int count = std::count(test.begin(), test.end(), ' ');
 
 						if (count > ((EntityChest*)map->getEntity(x, y))->getContainer()->getSize())
 						{
-							cout << "box is full" << endl;
+
 							return;
 						}
 
 						map->itemList.at(i) += " " + storedItem;
-						cout << "item added to box" << endl;
+
 						return;
 					}
 				}
-				cout << "placed item in box" << endl;
+
 				map->itemList.push_back(std::to_string(x) + " " + std::to_string(y) + " " + storedItem);
 			}
 			else
 			{
-				cout << "not a box" << endl;
+
 			}
 		}
 
@@ -330,16 +330,16 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 					if (x == charX && charY == y)
 					{
 						map->charList.at(i) = std::to_string(x) + " " + std::to_string(y) + " " + storedCharacter;
-						cout << "character replaced" << endl;
+
 						return;
 					}
 				}
-				cout << "character assigned" << endl;
+
 				map->charList.push_back(std::to_string(x) + " " + std::to_string(y) + " " + storedCharacter);
 			}
 			else
 			{
-				cout << "not a character" << endl;
+
 			}
 		}
 	});
@@ -419,7 +419,6 @@ void ScreenMapCreation::saveMap() {
 	}
 
 	MapBuilder::saveToFile(nameInput->getText(), map);
-	std::cout << "Map saved" << std::endl;
 }
 
 bool ScreenMapCreation::validateMap()
@@ -443,7 +442,6 @@ bool ScreenMapCreation::validateMap()
 				}
 				else
 				{
-					cout << "warning: more than one entry point" << endl;
 					return false;
 				}
 			}
@@ -460,13 +458,13 @@ bool ScreenMapCreation::validateMap()
 
 	if (!entryPoint)
 	{
-		cout << "warning: no entry point" << endl;
+
 		return false;
 	}
 
 	if (!exitPoint)
 	{
-		cout << "warning: no exit point" << endl;
+
 		return false;
 	}
 

@@ -253,7 +253,7 @@ void ScreenCharacterCreation::render()
 void ScreenCharacterCreation::increment(int stat) {
 
 	if ((abilityScores[stat] == "18") || (abilityScores[6]=="0")) {
-		std::cout << "Stat Increment failed" << endl;
+		//std::cout << "Stat Increment failed" << endl;
 		return;
 	}
 	string test = to_string(6);
@@ -305,7 +305,6 @@ void ScreenCharacterCreation::increment(int stat) {
 
 void ScreenCharacterCreation::decrement(int stat) {
 	if (stoi(abilityScores[stat]) <= 3) {
-		std::cout << "Stat Decrement failed" << endl;
 		return;
 	}
 
@@ -398,15 +397,15 @@ void ScreenCharacterCreation::rollCharacter() {
 void ScreenCharacterCreation::saveCharacter() {
 	// Ensure player has rolled stats before saving character
 	if (abilityScores[0] == "0") {
-		std::cout << "Cannot save character, press roll" << std::endl;
+		//std::cout << "Cannot save character, press roll" << std::endl;
 	}
 	// Ensure player does not have unspent points before saving character
 	else if ((stoi(abilityScores[6]) > 0)) {
-		std::cout << "Cannot save character: points not spent" << std::endl;
+		//std::cout << "Cannot save character: points not spent" << std::endl;
 	}
 	// Ensure player has entered a name before saving character
 	else if (nameInput->getText() == "") {
-		std::cout << "Cannot save character: enter a name" << std::endl;
+		//std::cout << "Cannot save character: enter a name" << std::endl;
 	}
 
 	else {
@@ -414,7 +413,7 @@ void ScreenCharacterCreation::saveCharacter() {
 		character->setName(nameInput->getText());
 		// Check if this is a newly rolled character to add con bonus to HP if so
 		character->saveLivingEntity();
-		std::cout << character->toString() << endl;
+		//std::cout << character->toString() << endl;
 	}
 
 }

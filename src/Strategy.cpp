@@ -50,7 +50,7 @@ void FriendlyStrategy::doStrategy(Map* map, LivingEntity* le)
 
 	Strategy::doStrategy(map,le);
 	le->setTurnFinished(true);
-	//std::cout << "Friendly strategy excecuted for entity at " << le->getPositionX() << "," << le->getPositionY() << std::endl;
+
 }
 
 void HostileStrategy::doStrategy(Map* map, LivingEntity* le)

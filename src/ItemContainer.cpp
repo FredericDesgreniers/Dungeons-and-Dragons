@@ -31,7 +31,6 @@ Item* ItemContainer::getItemAtIndex(int i)
 	}
 	else 
 	{
-		std::cout << "No items here, limited size." << std::endl;
 		return nullptr;
 	}
 }
@@ -95,6 +94,7 @@ int ItemContainer::getSize()
 // prints every items in the container
 void ItemContainer::printContainer()
 {
+	return;
 	for (int i = 0; i < maxSize; ++i)
 	{
 		if (arrayPtr[i] == nullptr) {

@@ -123,8 +123,7 @@ Item::Item(std::string name, Item::ItemType iType, int str, int dex, int con, in
 		chaBoost = 0;
 		break;
 
-	default:
-		std::cout << "item should be of a certain type" << std::endl;
+
 	}
 }
 
@@ -157,12 +156,12 @@ Item* Item::loadItem(std::string name)
 		it = new Item(readArray[0], type, std::stoi(readArray[2]), std::stoi(readArray[3]), std::stoi(readArray[4]), std::stoi(readArray[5]), std::stoi(readArray[6]),
 			std::stoi(readArray[7]), std::stoi(readArray[8]), std::stoi(readArray[9]), std::stoi(readArray[10]));
 
-		std::cout << "load item from " << name << ".it" << std::endl;
-		std::cout << it->toString() << std::endl;
+
+
 	}
 	else
 	{
-		std::cout << "Unable to read item file, returning nullptr" << std::endl;
+
 		it = nullptr;
 	}
 	return it;
@@ -184,12 +183,10 @@ bool Item::saveItem(std::string name, Item* item)
 		itemFile.close();
 	}
 	else
-	{
-		std::cout << "Unable to open file for writing" << std::endl;
-		return false;
+	{		return false;
 	}
 
-	std::cout << "Item saved to " + name + ".it" << std::endl;
+
 	return true;
 }
 
@@ -303,7 +300,6 @@ void Item::setArmBoost(int armB) {
 int Item::checkValididty(int boost)
 {
 	if (boost < 0 || boost > 5) {
-		std::cout << "Item boost can only be 1-5, unallowed boost assignment, value will be set to 0" << std::endl;
 		return 0;
 	}
 	else {
@@ -404,7 +400,6 @@ Item::ItemType Item::stringToType(std::string type)
 	}
 	else
 	{
-		std::cout << "Cannot convert this string to an item type" << std::endl;
 		return ItemType::ARMOR;
 	}
 }
@@ -443,7 +438,6 @@ Item* Item::generateRandomItem(ItemType type, int level)
 		}
 		else
 		{
-			std::cout << "Invalid level provided for random item creation" << std::endl;
 			return it = new Item();
 		}
 	}
@@ -530,7 +524,6 @@ void Item::validateItem(Item* it)
 		break;
 
 	default:
-		std::cout << "This item type is not allowed" << std::endl;
 		break;
 	}
 	

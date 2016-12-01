@@ -88,7 +88,6 @@ Campaign* Campaign::loadCampaign(std::string fileName)
 
 		if (campaign->getMapCount() == 0)
 		{
-			cout << "Campaign is empty" << endl;
 		}
 
 		campaignFile.close();

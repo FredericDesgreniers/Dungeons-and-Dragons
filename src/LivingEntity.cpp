@@ -102,6 +102,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	void LivingEntity::outputEquipped()
 	{
+		return;
 		for (int i = 0; i < 7; i++) {
 			switch (i) {
 			case 0:
@@ -141,7 +142,6 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	Item* LivingEntity::equip(Item * toEquip)
 	{
 		if (toEquip == nullptr) {
-			std::cout << "Cannot equip: Nothing to equip";
 			return false;
 		}
 		Item* wasEquipped = nullptr;
@@ -178,7 +178,6 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 			break;
 		}
 
-		std::cout << "Equipped " << toEquip->getName() << endl;
 		updateStats();
 		Notify();
 		return wasEquipped;
@@ -660,12 +659,10 @@ LivingEntity* LivingEntity::loadLivingEntity(std::string name) {
 		}
 		//character->getBackpack()->addItem(new Item("Stale Bread", Item::ItemType::BELT, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 
-		std::cout << "Successfully loaded character from " << name << ".chr" << endl;
 		std::cout << loadedCharacter->toString() << endl;
 
 	}
 	else {
-		std::cout << "Unable to read character file, returning random level 1 character" << endl;
 		loadedCharacter = new LivingEntity(1);
 	}
 	return loadedCharacter;
@@ -711,10 +708,8 @@ bool LivingEntity::saveLivingEntity() {
 		charFile.close();
 	}
 	else {
-		std::cout << "Unable to open file for writing" << endl;
 		return false;
 	}
-	std::cout << "Character saved to " + name + ".chr" << endl;
 	return true;
 }
 

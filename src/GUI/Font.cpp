@@ -17,8 +17,6 @@ TTF_Font* Font::get(const int size)
 		fonts[size] = TTF_OpenFont(("resources/" + name + ".ttf").c_str(), size);
 		if (fonts[size] == nullptr)
 		{
-			std::cout << "Could not load " << name << ".ttf at size " << size << std::endl;
-			std::cout << SDL_GetError() << std::endl;
 			return nullptr;
 
 		}

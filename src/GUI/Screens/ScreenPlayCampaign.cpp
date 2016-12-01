@@ -178,7 +178,7 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 	
 	if(currentmap->getTile(character->getPositionX(), character->getPositionY())->getId() == ENDTILE)
 	{
-		std::cout << "Map Finished" << std::endl;
+		Log::instance()->output(Log::game, "Map finished");
 		character->levelUp();
 		character->saveLivingEntity();
 		
@@ -186,7 +186,7 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 
 		if (campaign->isCompleted())
 		{
-			std::cout << "Campaign Finished" << std::endl;
+			Log::instance()->output(Log::game, "Campaign finished");
 			campaign->setActiveMapIndex(0);
 			Screen* victory = new ScreenVictory(game);
 			character->Detach(eiComp);
@@ -194,7 +194,7 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 		}
 		else
 		{
-			std::cout << "Move to next map" << std::endl;
+			Log::instance()->output(Log::game, "Moving to the next map");
 			character->Detach(eiComp);
 			ScreenPlayCampaign* screen_play_campaign = new ScreenPlayCampaign(game, campaign, character);
 			Renderer::addVoidScreen(this->game->getGuiManager()->setScreen(screen_play_campaign));
