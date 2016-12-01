@@ -31,6 +31,8 @@ public:
 	 */
 	void displayEntityInfo(Entity* entity);
 
+	void tick();
+
 	~ScreenPlayCampaign();
 private:
 

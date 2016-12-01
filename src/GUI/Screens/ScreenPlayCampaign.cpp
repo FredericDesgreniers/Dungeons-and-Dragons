@@ -14,6 +14,7 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 	currentmap = MapBuilder::loadFromFile(campaign->getMaps().at(campaign->getActiveMapIndex())->getName())->spawnCharacter(character)->spawnScaledContent()->get();
 
 	map_component = new MapComponent(currentmap, 0, 0, 450, 450);
+	map_component->setDrawDistance(100);
 	addComponent(map_component);
 
 	character_component = new CharacterComponent(character, 500, 0, 200, 500);
@@ -94,14 +95,15 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 				chestDisplay->setItemContainer(chest->getContainer());
 				chestDisplay->setVisible(true);
 			}
-			if (chara->distanceTo(entity) <= 1)
-			{
-
-				displayEntityInfo(entity);
-
-				if(entity->interact(map, chara))
+			if(!this->character->getTurnFinished()){
+				if (chara->distanceTo(entity) <= 1)
 				{
-					map->simulateMapTick();
+					displayEntityInfo(entity);
+
+					if(entity->interact(map, chara))
+					{
+						this->character->setTurnFinished(true);
+					}
 				}
 			}
 		}
@@ -123,34 +125,35 @@ void ScreenPlayCampaign::displayEntityInfo(Entity* entity)
 
 void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 {
-
-	switch (code)
-	{
-	case(SDLK_w) : {
-		if (currentmap->moveEntity(character, character->getPositionX(), character->getPositionY() - 1) != nullptr) {
-			currentmap->simulateMapTick();
+	if (!character->getTurnFinished()) {
+		switch (code)
+		{
+		case(SDLK_w) : {
+			if (currentmap->moveEntity(character, character->getPositionX(), character->getPositionY() - 1) != nullptr) {
+				character->setTurnFinished(true);
+			}
+			break;
 		}
-		break;
-	}
-	case(SDLK_s) : {
-		if (currentmap->moveEntity(character, character->getPositionX(), character->getPositionY() + 1) != nullptr) {
-			currentmap->simulateMapTick();
+		case(SDLK_s) : {
+			if (currentmap->moveEntity(character, character->getPositionX(), character->getPositionY() + 1) != nullptr) {
+				character->setTurnFinished(true);
+			}
+			break;
 		}
-		break;
-	}
-	case(SDLK_a) : {
-		if (currentmap->moveEntity(character, character->getPositionX()-1, character->getPositionY()) != nullptr) {
-			currentmap->simulateMapTick();
+		case(SDLK_a) : {
+			if (currentmap->moveEntity(character, character->getPositionX() - 1, character->getPositionY()) != nullptr) {
+				character->setTurnFinished(true);
+			}
+			break;
 		}
-		break;
-	}
-	case(SDLK_d) : {
-		if (currentmap->moveEntity(character, character->getPositionX()+1, character->getPositionY()) != nullptr) {
-			currentmap->simulateMapTick();
+		case(SDLK_d) : {
+			if (currentmap->moveEntity(character, character->getPositionX() + 1, character->getPositionY()) != nullptr) {
+				character->setTurnFinished(true);
+			}
+			break;
 		}
-		break;
-	}
-	}
+		}
+	
 	if(currentmap->getTile(character->getPositionX(), character->getPositionY())->getId() == ENDTILE)
 	{
 		std::cout << "Map Finished" << std::endl;
@@ -177,6 +180,7 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 		}
 
 	}
+	}
 }
 
 
@@ -184,6 +188,10 @@ void ScreenPlayCampaign::render()
 {
 	Screen::render();
 
+}
+void ScreenPlayCampaign::tick()
+{
+	currentmap->simulateMapTick();
 }
 
 ScreenPlayCampaign::~ScreenPlayCampaign()
