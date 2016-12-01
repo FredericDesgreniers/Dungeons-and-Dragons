@@ -28,7 +28,7 @@ void NimbleBuilder::buildAbilityScores() {
 void NimbleBuilder::buildEquipped() {
 	// Equip basic items
 	m_livingEntity->equipBasic();
-	// Equip short sword
+	// Equip short sword - delete is called to avoid a memory leak 
 	delete(m_livingEntity->equip(new Item("Short Sword", Item::ItemType::WEAPON, 0, 0, 0, 0, 0, 0, 0, 0, 0)));
 	// TODO (Beyond the scope of this assignment) Equip  nimble specific armor. Added for potential use in project
 }

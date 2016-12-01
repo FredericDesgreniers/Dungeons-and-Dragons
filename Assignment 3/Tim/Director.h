@@ -3,7 +3,7 @@
 
 #pragma once
 #include "LivingEntityBuilder.h"
-#include "LivingEntity.h"
+#include "game/LivingEntity.h"
 
 /**
 * Director class for LivingEntityBuilder. Manages the construction of characters by concrete livingEntityBuilder classes.
