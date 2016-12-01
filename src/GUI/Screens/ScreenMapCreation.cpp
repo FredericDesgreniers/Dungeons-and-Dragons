@@ -3,6 +3,7 @@
 #include "../../Wizard.h"
 #include "../../EntityChest.h"
 #include "../../Pathfinder.h"
+#include "../../LivingEntity.h"
 #include <Windows.h>
 #include <fileapi.h>
 
@@ -139,10 +140,21 @@ ScreenMapCreation::ScreenMapCreation(Game* game) : Screen(game)
 	tileMap->setTile(new MapTile(SPAWNTILE), 0, 0);
 	tileMap->setTile(new MapTile(ENDTILE), 0, 1);
 
-	entityMap->spawnEntity(new Monster(), 0, 0);
-	entityMap->spawnEntity(new Wizard(), 0, 1);
-	entityMap->spawnEntity(new EntityChest(), 0, 2);
+	LivingEntity* friendlyEntity = new LivingEntity('F');
+	friendlyEntity->setHostile(false);
+	friendlyEntity->setStrategy(new FriendlyStrategy());
+	friendlyEntity->setDisplayColor(255, 255, 0, 255);
+	LivingEntity* hostileEntity = new LivingEntity('H');
+	hostileEntity->setHostile(true);
+	hostileEntity->setStrategy(new HostileStrategy());
+	hostileEntity->setDisplayColor(255, 0, 255, 255);
+	EntityChest* chestEntity = new EntityChest();
+	chestEntity->setDisplayColor(0, 255, 255, 255);
 
+	entityMap->spawnEntity(friendlyEntity, 0, 0);
+	entityMap->spawnEntity(hostileEntity, 0, 1);
+	entityMap->spawnEntity(chestEntity, 0, 2);
+	
 	char search_path[200];
 	sprintf_s(search_path, "%s*.*", "items/");
 	WIN32_FIND_DATA fd;

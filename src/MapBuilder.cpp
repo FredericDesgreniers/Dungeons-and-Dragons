@@ -134,21 +134,34 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 					map->setTile(new MapTile(type), x, y);
 				i++;
 				c = line[i];
+
 				switch (c)
 				{
-				case 'M':
-				{Monster* m = new Monster();
-				m->setHostile(true);
-				m->setStrategy(new HostileStrategy());
-				map->spawnEntity(m, x, y);
-				break;
+				case 'F':
+				{
+					LivingEntity* fe = new LivingEntity('F');
+					fe->setHostile(false);
+					fe->setStrategy(new FriendlyStrategy());
+					fe->setDisplayColor(255, 255, 0, 255);
+					map->spawnEntity(fe, x, y);
 				}
-				case 'W':
-						map->spawnEntity(new Wizard(), x, y);
-						break;
+				break;
+				case 'H':
+				{
+					LivingEntity* he = new LivingEntity('H');
+					he->setHostile(true);
+					he->setStrategy(new HostileStrategy());
+					he->setDisplayColor(255, 0, 255, 255);
+					map->spawnEntity(he, x, y);
+				}
+				break;
 				case 'B':
-						map->spawnEntity(new EntityChest(), x, y);
-						break;
+				{
+					EntityChest* ce = new EntityChest();
+					ce->setDisplayColor(0, 255, 255, 255);
+					map->spawnEntity(ce, x, y);
+				}
+				break;
 				}
 
 				x++;

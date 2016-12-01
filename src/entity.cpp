@@ -2,7 +2,7 @@
 #include "Pathfinder.h"
 Entity::Entity(char renderChar):renderChar(renderChar)
 {
-	
+	color = { 255,0,255,255 };
 }
 
 
@@ -57,5 +57,10 @@ void Entity::setPathfinderDistance(int distance)
 
 SDL_Color Entity::getDisplayColor()
 {
-	return { 255,0,255,255 };
+	return color;
+}
+
+void Entity::setDisplayColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+	color = { r,g,b,a };
 }
