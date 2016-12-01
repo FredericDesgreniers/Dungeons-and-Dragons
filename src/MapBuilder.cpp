@@ -149,6 +149,7 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 				{
 					LivingEntity* ne = new LivingEntity('F');
 					ne->setStrategy(new FriendlyStrategy());
+					ne->setPathfinderDistance(8);
 					map->spawnEntity(ne, x, y);
 
 				}
@@ -156,6 +157,7 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 				case 'H':
 				{
 					LivingEntity* ne = new LivingEntity('H');
+					ne->setPathfinderDistance(8);
 					ne->setStrategy(new HostileStrategy());
 					map->spawnEntity(ne, x, y);
 				}
