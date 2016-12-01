@@ -494,3 +494,24 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		turnFinished = tf;
 	}
 
+	void LivingEntity::doStrategy(Map* map)
+	{
+		if (strategy == nullptr)
+			strategy = new Strategy();
+
+		strategy->doStrategy(map, this);
+	}
+
+void LivingEntity::setStrategy(Strategy* strategy)
+{
+	this->strategy = strategy;
+}
+
+bool LivingEntity::getHostile()
+{
+	return hostile;
+}
+void LivingEntity::setHostile(bool hostile)
+{
+	this->hostile = hostile;
+}

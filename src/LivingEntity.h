@@ -3,6 +3,9 @@
 #include "dice.h"
 #include "Item.h"
 #include "ItemContainer.h"
+#include "Strategy.h"
+
+class Strategy;
 /**
  * Extends entity, meant for anything that has health and is "living"
  */
@@ -197,6 +200,13 @@ public:
 	bool getTurnFinished();
 	void setTurnFinished(bool tf);
 
+	void setStrategy(Strategy* strategy);
+
+	void doStrategy(Map* map);
+
+	bool getHostile();
+
+	void setHostile(bool hostile);
 private:
 	/**
 	* The Entity's max Hit Points
@@ -280,6 +290,10 @@ private:
 	int initiative;
 
 	bool turnFinished;
+
+	bool hostile;
+
+	Strategy* strategy;
 };
 
 
