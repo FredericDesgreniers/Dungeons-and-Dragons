@@ -4,6 +4,12 @@
 #include "GUI/Screens/ScreenLoot.h"
 
 
+LivingEntity::LivingEntity(int level) :
+	LivingEntity('c', Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), level)
+{
+}
+
+
 LivingEntity::LivingEntity(char c):
 	LivingEntity(c, Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), 1)
 {

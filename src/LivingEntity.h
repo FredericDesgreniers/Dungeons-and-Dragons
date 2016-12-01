@@ -6,6 +6,7 @@
 #include "Strategy.h"
 #include <fstream>
 #include <iostream>
+#include "Log.h"
 
 class Strategy;
 /**
@@ -13,6 +14,7 @@ class Strategy;
  */
 class LivingEntity :public Entity {
 public:
+	LivingEntity(int level);
 	/**
 	 * Create default LivingEntity given a char to display
 	 */
