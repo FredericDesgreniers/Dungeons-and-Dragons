@@ -63,10 +63,13 @@ public:
 	int getPathfinderDistance();
 
 	virtual SDL_Color getDisplayColor();
+	void setDisplayColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 	
 private:
 	int positionX, positionY;
 	char renderChar = ' ';
 
 	int pathfinderDistance;
+
+	SDL_Color color;
 };
