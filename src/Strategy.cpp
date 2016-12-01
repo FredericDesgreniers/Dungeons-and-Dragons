@@ -58,7 +58,7 @@ void HostileStrategy::doStrategy(Map* map, LivingEntity* le)
 	//attack character if possible
 	Character* character = map->getCharacter();
 	if (character->distanceTo(le) <= 1) {
-		if (character->hit(5)) {
+		if (le->interact(map, character)) {
 			//map->removeEntity(c->getPositionX(), c->getPositionY());
 		}
 	}
