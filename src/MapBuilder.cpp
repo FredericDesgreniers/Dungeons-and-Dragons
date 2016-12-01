@@ -143,6 +143,7 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 					fe->setHostile(false);
 					fe->setStrategy(new FriendlyStrategy());
 					fe->setDisplayColor(255, 255, 0, 255);
+					fe->setPathfinderDistance(8);
 					map->spawnEntity(fe, x, y);
 				}
 				break;
@@ -152,6 +153,7 @@ MapBuilder* MapBuilder::loadFromFile(std::string fileName)
 					he->setHostile(true);
 					he->setStrategy(new HostileStrategy());
 					he->setDisplayColor(255, 0, 255, 255);
+					he->setPathfinderDistance(8);
 					map->spawnEntity(he, x, y);
 				}
 				break;
