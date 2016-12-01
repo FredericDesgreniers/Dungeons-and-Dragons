@@ -16,22 +16,26 @@ Log::~Log()
 void Log::toggle_Dice()
 {
 	l_dice = !l_dice;
+	std::cout << (l_dice ? "Dice logging enabled" : "Dice logging disabled.") << std::endl;
 }
 
 void Log::toggle_Map()
 {
 	l_map = !l_map;
+	std::cout << (l_map ? "Map logging enabled" : "Map logging disabled.") << std::endl;
 }
 
 void Log::toggle_Character()
 {
 	l_character = !l_character;
+	std::cout << (l_character ? "Character logging enabled" : "Character logging disabled.") << std::endl;
 }
 
 
 void Log::toggle_Game()
 {
 	l_game = !l_game;
+	std::cout << (l_game ? "Game logging enabled" : "Game logging disabled.") << std::endl;
 }
 
 
