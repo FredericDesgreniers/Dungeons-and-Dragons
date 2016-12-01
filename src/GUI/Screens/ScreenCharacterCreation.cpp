@@ -9,7 +9,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 		abilityScores[i] = "0";
 	}
 	// Instantiate character and register screen as observer
-	character = new Character(1);
+	character = new LivingEntity(1);
 	character->Attach(this);
 
 	//Text field for name entry
@@ -363,8 +363,12 @@ void ScreenCharacterCreation::rollCharacter() {
 	character->setIntelligence(Dice::rollStat());
 	character->setWisdom(Dice::rollStat());
 	character->setCharisma(Dice::rollStat());
+
 	//Set level to 1
 	character->setLevel(1);
+	// Set max health to 10
+	character->setMaxHealth(10);
+	newCharacter = true; //Set a flag to indicate that this is a newly rolled character, so con bonus can be added to HP
 	// Set name to defaultname
 	character->setName("Defaultname");
 
@@ -401,7 +405,11 @@ void ScreenCharacterCreation::saveCharacter() {
 	else {
 		// All conditions met. Save Character
 		character->setName(nameInput->getText());
-		Character::saveCharacter(nameInput->getText(), character);
+		// Check if this is a newly rolled character to add con bonus to HP if so
+		if (newCharacter) {
+			character->setMaxHealth(character->getMaxHealth() + character->getModifier(2));
+		}
+		character->saveLivingEntity();
 		std::cout << character->toString() << endl;
 	}
 
@@ -409,13 +417,14 @@ void ScreenCharacterCreation::saveCharacter() {
 
 void ScreenCharacterCreation::loadCharacter() {
 	// Instantiate a temp character in case load fails
-	Character* temp;
+	LivingEntity* temp;
 	// Load temp character
-	temp = Character::loadCharacter(nameInput->getText());
+	temp = LivingEntity::loadLivingEntity(nameInput->getText());
 	// Copy stats/items from temp to character
 	character->copyStats(temp);
 	// Set remaining points to 0
 	setRemaining("0");
+	newCharacter = false;
 	delete temp;
 }
 

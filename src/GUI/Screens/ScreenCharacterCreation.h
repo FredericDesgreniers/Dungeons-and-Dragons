@@ -1,7 +1,7 @@
 #pragma once
 #include "Screen.h"
 #include "screenMain.h"
-#include "../../character.h"
+#include "../../LivingEntity.h"
 #include <sstream>
 #include "../Components/TextField.h"
 #include "../Components/EquipedItemComponent.h"
@@ -27,7 +27,7 @@ private:
 	* and displaying their information in the editor.
 	*
 	*/
-	Character* character;
+	LivingEntity* character;
 
 	/**
 	* A text field for inputting character names
@@ -52,6 +52,8 @@ private:
 	* The character's attack bonus for display
 	*/
 	int attackBonus;
+
+	bool newCharacter;
 
 	
 

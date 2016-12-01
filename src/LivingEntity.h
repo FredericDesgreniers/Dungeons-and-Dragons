@@ -39,6 +39,10 @@ public:
 
 	bool interact(Map* map, Entity* entity) override;
 
+	static LivingEntity * loadLivingEntity(std::string name);
+
+	bool saveLivingEntity();
+
 	/**
 	 * Hit entity for some damage 
 	 */

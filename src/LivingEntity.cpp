@@ -3,6 +3,7 @@
 #include "GUI/Screens/ScreenCharacterSelect.h"
 #include "GUI/Screens/ScreenLoot.h"
 
+
 LivingEntity::LivingEntity(char c):
 	LivingEntity(c, Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), 1)
 {
@@ -545,4 +546,114 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 		return true;
 	}
 	return false;
+}
+
+LivingEntity* LivingEntity::loadLivingEntity(std::string name) {
+	LivingEntity* loadedCharacter;
+	std::fstream charFile("characters/" + name + ".chr");
+	if (charFile.is_open()) {
+		int abilities[6] = { 0,0,0,0,0,0 };
+		int loadLevel = 1;
+		int loadHitPoints = 1;
+		std::string equipped[7] = { "","","","","","","" };
+		std::string backpack[10] = { "","","","","","","","","","" };
+		std::string line = "";
+		std::getline(charFile, line);
+		loadLevel = stoi(line);
+		std::getline(charFile, line);
+		loadHitPoints = stoi(line);
+		for (int i = 0; i < 6; i++)
+		{
+			std::getline(charFile, line);
+			abilities[i] = stoi(line);
+		}
+		for (int i = 0; i < 7; i++) {
+			std::getline(charFile, line);
+			equipped[i] = line;
+		}
+		for (int i = 0; i < 10; i++) {
+			std::getline(charFile, line);
+			backpack[i] = line;
+		}
+		// Instantiate character with loaded ability scores, level, and name
+		loadedCharacter = new LivingEntity('c', abilities[0], abilities[1], abilities[2], abilities[3], abilities[4], abilities[5], loadLevel, name);
+		loadedCharacter->setMaxHealth(loadHitPoints); // Set max HP to loaded value
+
+													  //
+		Item* loadedItem;
+		for (int i = 0; i < 7; i++) {
+			if (equipped[i] != "None") {
+				loadedItem = Item::loadItem(equipped[i]);
+				if (loadedItem != nullptr) {
+					loadedCharacter->equip(loadedItem);
+				}
+			}
+		}
+
+		for (int i = 0; i < 10; i++) {
+			if (backpack[i] != "None") {
+				loadedItem = Item::loadItem(backpack[i]);
+				if (loadedItem != nullptr) {
+					loadedCharacter->getBackpack()->addItem(loadedItem);
+				}
+			}
+		}
+		//character->getBackpack()->addItem(new Item("Stale Bread", Item::ItemType::BELT, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+
+		std::cout << "Successfully loaded character from " << name << ".chr" << endl;
+		std::cout << loadedCharacter->toString() << endl;
+
+	}
+	else {
+		std::cout << "Unable to read character file, returning random level 1 character" << endl;
+		loadedCharacter = new LivingEntity(1);
+	}
+	return loadedCharacter;
+}
+
+bool LivingEntity::saveLivingEntity() {
+	std::fstream charFile;
+	charFile.open("characters/" + name + ".chr", std::ios::out);
+	if (charFile.is_open()) {
+		charFile << getLevel() << endl;;
+		charFile << getMaxHealth() << endl;;
+		int *abilities = (getAbilityScoreArray());
+		for (int i = 0; i < 6; i++) {
+			charFile << abilities[i] << endl;
+		}
+		charFile.flush();
+		Item **equipped = (getEquippedItems());
+		for (int i = 0; i < 7; i++) {
+			if (equipped[i] != nullptr) {
+				Item::saveItem(equipped[i]->getName(), equipped[i]);
+				charFile << equipped[i]->getName() << endl;
+			}
+			else {
+				charFile << "None" << endl;
+			}
+		}
+		charFile.flush();
+
+		ItemContainer* backpack = (getBackpack());
+		Item* item;
+		for (int i = 0; i < 10; i++) {
+			item = backpack->getItemAtIndex(i);
+			if (item != nullptr) {
+				Item::saveItem(item->getName(), item);
+				charFile << item->getName() << endl;
+			}
+			else {
+				charFile << "None" << endl;
+			}
+		}
+
+		charFile.flush();
+		charFile.close();
+	}
+	else {
+		std::cout << "Unable to open file for writing" << endl;
+		return false;
+	}
+	std::cout << "Character saved to " + name + ".chr" << endl;
+	return true;
 }
