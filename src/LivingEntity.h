@@ -200,7 +200,7 @@ public:
 
 	void setMovementRemaining(int value);
 
-	int setMovement(int value);
+	void setMovement(int value);
 	
 	~LivingEntity();
 

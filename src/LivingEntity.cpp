@@ -516,13 +516,12 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		return movement;
 	}
 
-void LivingEntity::setMovementRemaining(int value) {
+	void LivingEntity::setMovementRemaining(int value) {
 	 movementRemaining = value;
 	}
 
-	int LivingEntity::setMovement(int value) {
+	void LivingEntity::setMovement(int value) {
 		movement = value;
-		return movement;
 	}
 
 	bool LivingEntity::getTurnFinished()
