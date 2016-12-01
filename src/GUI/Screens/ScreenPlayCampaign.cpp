@@ -179,7 +179,7 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 	if(currentmap->getTile(character->getPositionX(), character->getPositionY())->getId() == ENDTILE)
 	{
 		std::cout << "Map Finished" << std::endl;
-		character->setLevel(character->getLevel() + 1);
+		character->levelUp();
 		character->saveLivingEntity();
 		
 		campaign->setActiveMapIndex(campaign->getActiveMapIndex() + 1);
