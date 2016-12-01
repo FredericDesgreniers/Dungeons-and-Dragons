@@ -139,30 +139,39 @@ void ScreenPlayCampaign::displayEntityInfo(Entity* entity)
 void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 {
 	if (!character->getTurnFinished()) {
+		bool canMove = character->getMovementRemaining() > 0;
 		switch (code)
 		{
 		case(SDLK_w) : {
+			if(canMove)
 			if (currentmap->moveEntity(character, character->getPositionX(), character->getPositionY() - 1) != nullptr) {
-				character->setTurnFinished(true);
+				character->setMovementRemaining(character->getMovementRemaining() - 1);
 			}
 			break;
 		}
 		case(SDLK_s) : {
+			if (canMove)
 			if (currentmap->moveEntity(character, character->getPositionX(), character->getPositionY() + 1) != nullptr) {
-				character->setTurnFinished(true);
+				character->setMovementRemaining(character->getMovementRemaining() - 1);
 			}
 			break;
 		}
 		case(SDLK_a) : {
+			if (canMove)
 			if (currentmap->moveEntity(character, character->getPositionX() - 1, character->getPositionY()) != nullptr) {
-				character->setTurnFinished(true);
+				character->setMovementRemaining(character->getMovementRemaining() - 1);
 			}
 			break;
 		}
 		case(SDLK_d) : {
+			if (canMove)
 			if (currentmap->moveEntity(character, character->getPositionX() + 1, character->getPositionY()) != nullptr) {
-				character->setTurnFinished(true);
+				character->setMovementRemaining(character->getMovementRemaining() - 1);
 			}
+			break;
+		}
+		case(SDLK_e) : {
+			character->setTurnFinished(true);
 			break;
 		}
 		}
@@ -192,6 +201,8 @@ void ScreenPlayCampaign::keyPressed(SDL_Keycode code)
 		}
 
 	}
+	if (character->getAttacksRemaining() == 0 && character->getMovementRemaining() == 0)
+		character->setTurnFinished(true);
 	}
 }
 
