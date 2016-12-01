@@ -108,7 +108,7 @@ ScreenPlayCampaign::ScreenPlayCampaign(Game* game, Campaign* campaign, Character
 				{
 					displayEntityInfo(entity);
 
-					if(entity->interact(map, chara))
+					if(chara->interact(map, entity))
 					{
 						this->character->setTurnFinished(true);
 					}
