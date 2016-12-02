@@ -22,6 +22,7 @@ private:
 	* Stores string versions of ability scores of rolled/loaded characters for display
 	*/
 	std::string abilityScores[7];
+
 	/**
 	* Character object used for character creation. Pointer to a character object used for loading/saving characters
 	* and displaying their information in the editor.
@@ -39,7 +40,6 @@ private:
 	*/
 	int mods[6];
 
-
 	/**
 	* The characters attacks per round for display
 	*/
@@ -50,6 +50,9 @@ private:
 	*/
 	int attackBonus;
 
+	/**
+	* The character's max health for display
+	*/
 	int maxHealth;
 
 	bool newCharacter;

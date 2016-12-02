@@ -48,7 +48,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 	});
 	addComponent(loadBtn);
 
-	// Create stat allocation buttons
+	// Create stat allocation buttons (button to increment strength)
 	Button* strPlus = new Button("+", &Renderer::FONT_ROBOTO, 220, i, 1, 1);
 	strPlus->setFontSize(20)->setBackgroundColor_both(203, 203, 203, 100);
 	strPlus->setFontColor(0, 0, 0, 100);
@@ -64,7 +64,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 		
 	});
 
-
+	// button to decrement strength
 	Button* strMinus = new Button("-", &Renderer::FONT_ROBOTO, 240, i, 1, 1);
 	copyStyle(*strPlus, *strMinus);
 	copySize(*strPlus, *strMinus);
@@ -74,6 +74,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	});
 
+	// button to increment dexterity
 	Button* dexPlus = new Button("+", &Renderer::FONT_ROBOTO, 220, i+35, 1, 1);
 	dexPlus->setFontSize(20)->setBackgroundColor_both(203, 203, 203, 100);
 	copyStyle(*strPlus, *dexPlus);
@@ -84,6 +85,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	});
 
+	// button to decrement dexterity
 	Button* dexMinus = new Button("-", &Renderer::FONT_ROBOTO, 240, i+35, 1, 1);
 	copyStyle(*strPlus, *dexMinus);
 	copySize(*strPlus, *dexMinus);
@@ -93,6 +95,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	});
 
+	// button to increment constitution
 	Button* conPlus = new Button("+", &Renderer::FONT_ROBOTO, 220, i + 70, 1, 1);
 	copyStyle(*strPlus, *conPlus);
 	copySize(*strPlus, *conPlus);
@@ -102,6 +105,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	});
 
+	// button to decrement constitution
 	Button* conMinus = new Button("-", &Renderer::FONT_ROBOTO, 240, i + 70, 1, 1);
 	copyStyle(*strPlus, *conMinus);
 	copySize(*strPlus, *conMinus);
@@ -111,6 +115,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	});
 
+	// button to increment intelligence
 	Button* intPlus = new Button("+", &Renderer::FONT_ROBOTO, 220, i + 105, 1, 1);
 	copyStyle(*strPlus, *intPlus);
 	copySize(*strPlus, *intPlus);
@@ -120,6 +125,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	});
 
+	// button to decrement intelligence
 	Button* intMinus = new Button("-", &Renderer::FONT_ROBOTO, 240, i + 105, 1, 1);
 	copyStyle(*strPlus, *intMinus);
 	copySize(*strPlus, *intMinus);
@@ -129,6 +135,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	});
 
+	// button to increment wisdom
 	Button* wisPlus = new Button("+", &Renderer::FONT_ROBOTO, 220, i + 140, 1, 1);
 	copyStyle(*strPlus, *wisPlus);
 	copySize(*strPlus, *wisPlus);
@@ -138,6 +145,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	});
 
+	// button to decrement wisdom
 	Button* wisMinus = new Button("-", &Renderer::FONT_ROBOTO, 240, i + 140, 1, 1);
 	copyStyle(*strPlus, *wisMinus);
 	copySize(*strPlus, *wisMinus);
@@ -147,6 +155,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	});
 
+	// button to increment charisma
 	Button* chaPlus = new Button("+", &Renderer::FONT_ROBOTO, 220, i + 175, 1, 1);
 	copyStyle(*strPlus, *chaPlus);
 	copySize(*strPlus, *chaPlus);
@@ -156,6 +165,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 
 	});
 
+	// button to decrement charisma
 	Button* chaMinus = new Button("-", &Renderer::FONT_ROBOTO, 240, i + 175, 1, 1);
 	copyStyle(*strPlus, *chaMinus);
 	copySize(*strPlus, *chaMinus);

@@ -22,10 +22,12 @@ public:
 	 * Override screen render method
 	 */
 	void render() override;
+
 	/**
 	 * Override keypress method for game input
 	 */
 	void keyPressed(SDL_Keycode code) override;
+
 	/**
 	 * Display the info for an entity on the screen
 	 */
@@ -33,6 +35,9 @@ public:
 
 	void tick();
 
+	/**
+	 * Destructor
+	 */
 	~ScreenPlayCampaign();
 private:
 

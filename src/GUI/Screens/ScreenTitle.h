@@ -10,12 +10,14 @@ public:
 	 * Constructor given game
 	 */
 	ScreenTitle(Game* game);
+
 	/**
 	 * Override render method
 	 */
 	void render() override;
+
 	/**
-	 * overrude tick method
+	 * Override tick method
 	 */
 	void tick() override;
 private:
