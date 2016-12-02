@@ -20,23 +20,43 @@ class Entity;
 class Map 
 {
 private:
-
+	/**
+	 * map name
+	 */
 	string name;
-
+	/**
+	 * Map tile 2d array
+	 */
 	MapTile ***tileGrid;
+	/**
+	 * Entity 2d array
+	 */
 	Entity ***entityGrid;
-
+	/**
+	 * List of entities on map
+	 */
 	std::vector<Entity*> entities;
-
+	/**
+	 * player entity
+	 */
 	LivingEntity* character;
 
 
-
+	/**
+	 * Spawn locations
+	 */
 	int spawnX = 0, spawnY = 0;
-
+	/**
+	 * current width
+	 */
 	int width;
+	/**
+	 * Current height
+	 */
 	int height;
-
+	/**
+	 * Overriding << operator for output stream
+	 */
 	friend std::ostream& operator<<(std::ostream&, const Map&);
 
 public:
@@ -118,11 +138,20 @@ public:
 	 */
 	std::vector<Entity*>* getEntities();
 
-
+	/**
+	 * ticks since last map simluation
+	 */
 	int ticksSinceLastSimulation = 0;
-
+	/**
+	 * List of items on map
+	 */
 	std::vector<std::string> itemList;
+	/**
+	 * list of characters on map
+	 */
 	std::vector<std::string> charList;
-
+	/**
+	 * Queue for turns
+	 */
 	std::priority_queue < LivingEntity*>  turnQueue;
 };

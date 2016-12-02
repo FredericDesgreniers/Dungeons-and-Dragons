@@ -17,7 +17,13 @@ public:
 	 * Used to render the map
 	 */
 	void render() override;
+	/**
+	 * Tick method
+	 */
 	void tick() override;
+	/**
+	 * override debug renbdering
+	 */
 	void renderDebug() override;
 	/**
 	 * Sets preview mode

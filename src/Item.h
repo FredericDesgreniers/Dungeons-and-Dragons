@@ -214,6 +214,9 @@ public:
 	*/
 	void validateItem(Item* it);
 
+	/**
+	 * Scale items to level
+	 */
 	void scale(int level);
 private:
 

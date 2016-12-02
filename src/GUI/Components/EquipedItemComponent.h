@@ -33,10 +33,21 @@ public:
 	 */
 	void Update() override;
 
+	/**
+	 * Destructor to clean up things
+	 */
 	~EquipedItemComponent();
 private:
+	/**
+	 * Item array to display / use
+	 */
 	Item** items;
+	/**
+	 * List of buttons for items
+	 */
 	std::vector<Button*> itemButtons;
-
+	/**
+	 * callbacks for when item buttons are clicked
+	 */
 	std::vector<std::function<void(Item*,int)>> onItemClickCallback;
 };

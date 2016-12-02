@@ -36,6 +36,9 @@ public:
 	 * get the char that should be used to render the entity on the map
 	 */
 	char getRenderChar();
+	/**
+	 * Set the entities render char
+	 */
 	void setRenderChar(char letter);
 	/**
 	 * returns distance from here to other entity
@@ -62,14 +65,31 @@ public:
 	 */
 	int getPathfinderDistance();
 
+	/**
+	 *
+	 */
 	virtual SDL_Color getDisplayColor();
+	/**
+	 * Set the entities display color
+	 */
 	void setDisplayColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 	
 private:
+	/**
+	 * Positions
+	 */
 	int positionX, positionY;
+	/**
+	 * Char used for rendering on screen
+	 */
 	char renderChar = ' ';
-
+	/**
+	 * Get max distance for pathfinder AI
+	 */
 	int pathfinderDistance;
 
+	/**
+	 * Color to render on display
+	 */
 	SDL_Color color;
 };

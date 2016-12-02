@@ -59,7 +59,16 @@ public:
 	~Label();
 
 private:
+	/**
+	 * Text to display
+	 */
 	std::string text;
+	/*
+	 * Font to use
+	 */
 	Font* font;
+	/**
+	 * Texture for current font and text
+	 */
 	SDL_Texture* texture;
 };

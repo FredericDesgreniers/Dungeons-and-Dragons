@@ -52,7 +52,9 @@ public:
 	* Takes a string in the form xdy or xdy+z and where x, z are integers and y is one of 4, 6, 8, 10, 12, 20, 100. Simulates rolling x y-sided dice and returns the result (+z if applicable)
 	*/
 	static int Dice::roll(string string); 
-
+	/**
+	 * Roll the character stats
+	 */
 	static int rollStat();
 
 };

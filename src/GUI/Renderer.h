@@ -115,13 +115,21 @@ public:
 
 private:
 
-	
+	/**
+	 * Fps counter
+	 */
 	static int fpsCounter;
-
+	/**
+	 * Since last render time
+	 */
 	static Uint32 lastTime;
-
+	/**
+	 * Array of render times
+	 */
 	static Uint32 fpsArray[20];
-
+	/**
+	 * list of screens to void
+	 */
 	static std::stack<Screen*> voidedScreens;
 
 };

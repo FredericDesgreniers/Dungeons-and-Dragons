@@ -15,7 +15,9 @@ class Button : public Label
 {
 public:
 	Button(std::string text,Font* font, int x, int y, int width, int height);
-
+	/**
+	 * Adjust button dimensions
+	 */
 	Button* adjustButtonDimensions();
 
 	friend void copySize(Button &copyFrom, Button &copyTo)

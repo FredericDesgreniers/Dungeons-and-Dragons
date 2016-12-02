@@ -45,5 +45,8 @@ public:
 
 	~Pane();
 private:
+	/**
+	 * Component list of inside the pane
+	 */
 	std::vector<Component*> subComponents;
 };

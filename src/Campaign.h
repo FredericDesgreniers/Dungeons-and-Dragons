@@ -18,9 +18,14 @@ public:
 	 */
 	void addMap(Map* map);
 
-	
+	/**
+	 * Remove map from campaign
+	 */
 	void removeMap(Map* map);
 
+	/**
+	 * Get the number of maps currently in the campaign
+	 */
 	int getMapCount();
 
 	/**
@@ -39,18 +44,38 @@ public:
 	 * Get the first map
 	 */
 	Map* getFirstMap();
-
+	/**
+	 * Load campaign from file
+	 */
 	static Campaign* loadCampaign(std::string fileName);
+	/**
+	 * Save campaign to file
+	 */
 	static void saveCampaign(Campaign* campaign);
-
+	/**
+	 * Get current active map index
+	 */
 	int getActiveMapIndex() { return activeMapIndex; }
+	/**
+	 * Set active map index
+	 */
 	void setActiveMapIndex(int index);
-
+	/**
+	 * Is compaign completed? 
+	 */
 	bool isCompleted() { return activeMapIndex >= getMapCount(); }
 
 private:
+	/**
+	 * Map list
+	 */
 	std::vector<Map*> maps;
+	/**
+	 * camapaign name
+	 */
 	std::string name;
-
+	/**
+	 * Current map index
+	 */
 	int activeMapIndex;
 };

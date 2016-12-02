@@ -17,5 +17,8 @@ public:
 	 */
 	void addOnCharacterClick_callback(std::function<void(std::string name)> func);
 private:
+	/**
+	 * LIst of callbacks for charcter button clicks
+	 */
 	std::vector<std::function<void(std::string name)>> onCharacterClick_callback;
 };

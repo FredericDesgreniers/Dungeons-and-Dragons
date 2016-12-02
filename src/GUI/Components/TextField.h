@@ -42,11 +42,20 @@ public:
 	int getMaxLength();
 
 private:
+	/**
+	 * Text in textfield
+	 */
 	std::string text;
-	
+	/**
+	 * Time since last erase, so erase is not too fast
+	 */
 	Uint32 timeOfLastErase;
-
+	/**
+	 * mas field length
+	 */
 	int maxLength;
-
+	/**
+	 * list of allowed chars
+	 */
 	std::vector<std::string> whiteList;
 };

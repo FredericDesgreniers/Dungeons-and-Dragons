@@ -19,5 +19,8 @@ public:
 
 	SDL_Color getDisplayColor();
 private:
+	/**
+	 * Current spell progress
+	 */
 	int spellProgress;
 };

@@ -49,9 +49,20 @@ public:
 	MapBuilder* spawnScaledContent();
 
 private:
+	/**
+	 * get the map levels
+	 */
 	int getMapLevel();
-
+	/**
+	 * Constructor private so class is Factory
+	 */
 	MapBuilder();
+	/**
+	 * Current map instances
+	 */
 	Map* map;
+	/**
+	 * Current character for map
+	 */
 	LivingEntity* character;
 };

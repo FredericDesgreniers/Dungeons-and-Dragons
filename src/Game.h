@@ -33,11 +33,16 @@ public:
 	GuiManager* getGuiManager();
 
 	
-
+	//Singleton game instance
 	static Game* getInstance();
 
 private:
+	/**
+	 * Gui amnager for this game instance
+	 */
 	GuiManager* gui_manager;
-
+	/**
+	 * Current game instance
+	 */
 	static Game* instance;
 };

@@ -37,9 +37,20 @@ public:
 
 	~ItemContainerComponent();
 private:
+	/**
+	 * Item container to display
+	 */
 	ItemContainer* container;
+	/**
+	 * Labels for each items
+	 */
 	Label** itemLabels;
+	/**
+	 * Label to display name
+	 */
 	Label* nameLabel;
-	
+	/**
+	 * callbacks for items
+	 */
 	std::vector<std::function<void(Item*, int)>> onItemClick_callback;
 };

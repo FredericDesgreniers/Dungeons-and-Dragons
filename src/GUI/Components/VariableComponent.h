@@ -19,6 +19,12 @@ public:
 	 */
 	VariableComponent* setFontSize(int size) override;
 private:
+	/**
+	 * \variable to monitor
+	 */
 	int* variable;
+	/**
+	 * Old value
+	 */
 	int oldValue;
 };

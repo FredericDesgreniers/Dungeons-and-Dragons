@@ -76,6 +76,9 @@ public:
 		dimensions.w *= s;
 	}
 
+	/**
+	 * Toggle visibility of component
+	 */
 	void toggleVisible()
 	{
 		visible = !visible;
@@ -85,12 +88,21 @@ public:
 	 * Add function to callback list. Called when component is clicked. positions are relative
 	 */
 	void addOnClick_callback(std::function<void(Component*, int, int)> func);
-
+	/**
+	 * Clear all callbacks
+	 */
 	void clearCallbacks();
-
+	/**
+	 * render 
+	 */
 	virtual void render();
+	/**
+	 * render debug
+	 */
 	virtual void renderDebug();
-	
+	/**
+	 * process tick
+	 */
 	virtual void tick();
 
 	/**
@@ -119,10 +131,21 @@ public:
 	virtual void keyPressed(SDL_Keycode keycode);
 
 protected:
+	/**
+	 * Dimensions of component
+	 */
 	SDL_Rect dimensions;
+	/**
+	 * Callback list
+	 */
 	std::vector<std::function<void(Component*, int , int)>> onClick_callbacks;
-
+	/**
+	 * Is component visible
+	 */
 	bool visible = true;
 
+	/**
+	 * is component in focus
+	 */
 	bool inFocus;
 };

@@ -19,6 +19,12 @@ public:
 	 */
 	TTF_Font* get(int index);
 private:
+	/**
+	 * Map of font sizes
+	 */
 	std::map<int,TTF_Font*> fonts;
+	/**
+	 * Name of the font
+	 */
 	std::string name;
 };

@@ -137,26 +137,39 @@ public:
 	{
 		setPadding(padding, padding, padding, padding);
 	}
+	/**
+	 * Set font underline for hover and non-hover
+	 */
 	void setFontUnderline_both(int size)
 	{
 		setFontUnderline(size);
 		setFontUnderline_hover(size);
 	}
+	/**
+	 * Set font underline
+	 */
 	void setFontUnderline(int size)
 	{
 		fontUnderline = size;
 	}
-	
+	/**
+	 * Set font underline on hover
+	 */
 	void setFontUnderline_hover(int size)
 	{
 		fontUnderline_hover = size;
 	}
+	/**
+	 * Set font underline color on non-hover and hover
+	 */
 	void setFontUnderlineColor_both(int r, int g, int b, int a)
 	{
 		setFontUnderlineColor(r, g, b, a);
 		setFontUnderlineColor_hover(r, g, b, a);
 	}
-
+	/**
+	 * Set font underline color
+	 */
 	void setFontUnderlineColor(int r, int g, int b, int a)
 	{
 		fontUnderlineColor.r = r;
@@ -164,6 +177,9 @@ public:
 		fontUnderlineColor.b = b;
 		fontUnderlineColor.a = a;
 	}
+	/**
+	 * Set font underline color on hover
+	 */
 	void setFontUnderlineColor_hover(int r, int g, int b, int a)
 	{
 		fontUnderlineColor_hover.r = r;
@@ -175,9 +191,13 @@ public:
 	 * Set color that should be displayed for text
 	 */
 	virtual void setFontColor(int r, int g, int b, int a);
-
+	/**
+	 * Set font size
+	 */
 	virtual Style* setFontSize(int size);
-
+	/**
+	 * Copy style from 1 Style to the other
+	 */
 	friend void copyStyle(Style &copyFrom, Style &copyTo)
 	{
 		copyTo.setFontColor(copyFrom.fontColor.r, copyFrom.fontColor.g, copyFrom.fontColor.b, copyFrom.fontColor.a);
@@ -203,23 +223,54 @@ public:
 
 	virtual ~Style();
 protected:
+	/**
+	 * Background color
+	 */
 	SDL_Color backgroundColor;
+	/**
+	 * Background color on hover
+	 */
 	SDL_Color backgroundColor_hover;
+	/**
+	 * Border color
+	 */
 	SDL_Color borderColor;
+	/**
+	 * Border color on hover
+	 */
 	SDL_Color borderColor_hover;
-
+	/**
+	 * Font color
+	 */
 	SDL_Color fontColor;
+	/**
+	 * Font underline color
+	 */
 	SDL_Color fontUnderlineColor;
+	/**
+	 * Font underline color on hover
+	 */
 	SDL_Color fontUnderlineColor_hover;
 
-
+	/**
+	 * Border size
+	 */
 	int borderSize;
+	/**
+	 * Border size on hover
+	 */
 	int borderSize_hover;
-
+	/**
+	 * Paddings
+	 */
 	int padding_right, padding_left, padding_top, padding_bottom;
-
+	/**
+	 * Font underlines
+	 */
 	int fontUnderline, fontUnderline_hover;
-
+	/**
+	 * Font size
+	 */
 	int fontSize = 24;
 
 };

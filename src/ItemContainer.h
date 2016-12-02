@@ -54,8 +54,16 @@ public:
 
 	
 private:
-
+	/**
+	 * Item array
+	 */
 	Item **arrayPtr;
+	/**
+	 * Name of item container
+	 */
 	std::string name;
+	/**
+	 * Max container size
+	 */
 	int maxSize;
 };

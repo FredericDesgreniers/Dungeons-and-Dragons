@@ -16,6 +16,9 @@ Prototype for CharacterObserver class. Ensures CharacterObserver compatibility w
 class Observer {
 public:
 	~Observer();
+	/**
+	 * Update subjects
+	 */
 	virtual void Update() = 0;
 protected:
 	Observer();

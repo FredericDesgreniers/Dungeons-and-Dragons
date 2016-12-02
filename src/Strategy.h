@@ -44,5 +44,8 @@ public:
 class CharacterStrategy :public Strategy
 {
 public:
+	/**
+	 * Do strategy for character, aka nothing
+	 */
 	void doStrategy(Map* map, LivingEntity* le);
 };

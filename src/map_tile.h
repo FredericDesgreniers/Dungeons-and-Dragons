@@ -5,9 +5,17 @@
 class MapTile
 {
 private:
+	/**
+	 * Tile id
+	 */
 	int id;
+	/**
+	 * Is tile walkable
+	 */
 	bool walkable;
-
+	/**
+	 * Tile movement cost
+	 */
 	int movementCost = 1;
 
 public:

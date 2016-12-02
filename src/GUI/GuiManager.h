@@ -46,7 +46,13 @@ public:
 	Screen* setScreen(Screen* screen);
 	
 private:
+	/**
+	 * current screent to display
+	 */
 	Screen* currentScreen;
+	/**
+	 * Display debug?
+	 */
 	bool debug;
 	
 };

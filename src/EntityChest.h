@@ -19,5 +19,8 @@ public:
 	 */
 	ItemContainer* getContainer();
 private:
+	/**
+	 * Container to store things in
+	 */
 	ItemContainer* container;
 };

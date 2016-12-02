@@ -17,11 +17,23 @@ Prototype for subject functionality.
 */
 class Subject {
   public:
+	/**
+	 * Attack observer s
+	 */
 	virtual void Attach(Observer* o);
+	/**
+	 * Detach observer
+	 */
 	virtual void Detach(Observer* o);
+	/**
+	 * notify observers of change
+	 */
 	virtual void Notify();
 	Subject();
 	~Subject();
   private:
+	/**
+	 * List of observers
+	 */
 	list<Observer*> *_observers;
 };
