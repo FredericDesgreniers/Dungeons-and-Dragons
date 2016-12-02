@@ -16,9 +16,9 @@ LivingEntity::LivingEntity(char c):
 }
 
 LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int level) :
-	LivingEntity(c, strength, dexterity, constitution, intelligence, wisdom, charisma, level, "Defaultname")
-
+	LivingEntity(c, strength, dexterity, constitution, intelligence, wisdom, charisma, level, names[Dice::roll("1d20")-1])
 {
+	
 }
 
 LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int level, std::string cname) :
@@ -265,7 +265,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 			}
 
 		}
-
+		Notify();
 		return;
 	}
 	int LivingEntity::getInitiative()
@@ -302,6 +302,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 			}
 
 		}
+		std::cout << "Copied successfully" << endl;
 		updateStats();
 		// Test item
 		//to->equip(new Item("Helmetfury, Blessed Hat of the Windseeker", Item::ItemType::HELMET, 0, 0, 0, 5, 5, 0, 0, 0, 5)); 
@@ -486,7 +487,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		int roll = Dice::roll("1d20");
 		initiative = roll + getModifier(1);
 		Log::instance()->output(Log::component::character, name + ": rolls initiative :  " + 
-			to_string(roll) + " (+" + to_string(getModifier(1)) + ") = " + to_string(initiative) + "\n");
+			to_string(roll) + " (+" + to_string(getModifier(1)) + ") = " + to_string(initiative));
 		
 		return initiative;
 	}
@@ -655,7 +656,6 @@ LivingEntity* LivingEntity::loadLivingEntity(std::string name) {
 		loadedCharacter = new LivingEntity('c', abilities[0], abilities[1], abilities[2], abilities[3], abilities[4], abilities[5], loadLevel, name);
 		loadedCharacter->setMaxHealth(loadHitPoints); // Set max HP to loaded value
 
-													  //
 		Item* loadedItem;
 		for (int i = 0; i < 7; i++) {
 			if (equipped[i] != "None") {
@@ -674,13 +674,12 @@ LivingEntity* LivingEntity::loadLivingEntity(std::string name) {
 				}
 			}
 		}
-		//character->getBackpack()->addItem(new Item("Stale Bread", Item::ItemType::BELT, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-
-		//std::cout << loadedCharacter->toString() << endl;
 
 	}
 	else {
-		loadedCharacter = new LivingEntity(1);
+		std::cout << "load character failed" << endl;
+		loadedCharacter = new LivingEntity(3);
+		std::cout << loadedCharacter->toString() << endl;
 	}
 	return loadedCharacter;
 }
@@ -735,3 +734,5 @@ void LivingEntity::resetAttacks()
 	attacksRemaining = attacksPerTurn;
 }
 
+const std::string LivingEntity::names[] = { "Aran", "Dagrim", "Sam", "Elibeo", "Iward", "Linjohn",
+"Ceolto", "Kejo", "Sererio", "Egarda", "Berord", "Eadtim", "Mondgar", "Rahever", "Bet", "Royacar", "Wigseanthryth", "Naing", "Leydon", "Werdan" };

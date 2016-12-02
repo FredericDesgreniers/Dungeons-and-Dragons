@@ -271,7 +271,7 @@ private:
 	
 	int movementRemaining;
 
-
+	const static std::string names[];
 
 	/**
 	* An array holding pointers to an Entitys equipped items.
