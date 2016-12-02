@@ -19,7 +19,6 @@ CharacterComponent::CharacterComponent(LivingEntity* character, int x, int y, in
 void CharacterComponent::tick()
 {
 	Pane::tick();
-
 }
 
 
@@ -39,17 +38,17 @@ void CharacterComponent::setLivingEntity(LivingEntity* entity)
 	addComponent((new Label(character->getName(), &Renderer::FONT_ROBOTO, 10, 0, 0, 0))->setFontSize(15)->adjustDimensions());
 	addComponent((new Label("Lvl  - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->setFontSize(15)->adjustDimensions());
 	addComponent((new Label("Str  - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->setFontSize(15)->adjustDimensions());
-	addComponent((new VariableComponent(&character->getAbilityScoreArray()[0], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
+	addComponent((new VariableComponent(&character->getEffectiveAbilityScoreArray()[0], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
 	addComponent((new Label("Dex  - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->setFontSize(15)->adjustDimensions());
-	addComponent((new VariableComponent(&character->getAbilityScoreArray()[1], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
+	addComponent((new VariableComponent(&character->getEffectiveAbilityScoreArray()[1], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
 	addComponent((new Label("Int  - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->setFontSize(15)->adjustDimensions());
-	addComponent((new VariableComponent(&character->getAbilityScoreArray()[2], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
+	addComponent((new VariableComponent(&character->getEffectiveAbilityScoreArray()[2], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
 	addComponent((new Label("Wisd - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->setFontSize(15)->adjustDimensions());
-	addComponent((new VariableComponent(&character->getAbilityScoreArray()[3], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
+	addComponent((new VariableComponent(&character->getEffectiveAbilityScoreArray()[3], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
 	addComponent((new Label("Cons - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->setFontSize(15)->adjustDimensions());
-	addComponent((new VariableComponent(&character->getAbilityScoreArray()[4], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
+	addComponent((new VariableComponent(&character->getEffectiveAbilityScoreArray()[4], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
 	addComponent((new Label("Char - ", &Renderer::FONT_ROBOTO, 10, i += 20, 0, 0))->setFontSize(15)->adjustDimensions());
-	addComponent((new VariableComponent(&character->getAbilityScoreArray()[5], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
+	addComponent((new VariableComponent(&character->getEffectiveAbilityScoreArray()[5], &Renderer::FONT_ROBOTO, 60, i))->setFontSize(15));
 
 }
 

@@ -1,5 +1,5 @@
 #include "VariableComponent.h"
-
+#include <iostream>
 VariableComponent::VariableComponent(int* variable,Font* font, int x, int y) : Label(std::to_string(*variable),font,x,y,10,10), variable(variable)
 {
 	this->adjustDimensions();
@@ -8,6 +8,7 @@ VariableComponent::VariableComponent(int* variable,Font* font, int x, int y) : L
 
 void VariableComponent::tick()
 {
+
 	if(oldValue!=*variable)
 	{
 		this->setText(std::to_string(*variable));

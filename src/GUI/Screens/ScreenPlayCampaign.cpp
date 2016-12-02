@@ -221,10 +221,12 @@ void ScreenPlayCampaign::render()
 }
 void ScreenPlayCampaign::tick()
 {
+	Screen::tick();
 	currentmap->simulateMapTick();
 }
 
 ScreenPlayCampaign::~ScreenPlayCampaign()
 {
+	
 	
 }

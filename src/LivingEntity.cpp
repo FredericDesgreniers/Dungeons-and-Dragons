@@ -752,6 +752,5 @@ bool LivingEntity::saveLivingEntity() {
 	return true;
 }
 
-
 const std::string LivingEntity::names[] = { "Aran", "Dagrim", "Sam", "Shabadoo", "Iward", "Linjohn",
 "Ceolto", "Kejo", "Sererio", "Egarda", "Berord", "Eadtim", "Mondgar", "Rahever", "Bet", "Gorm", "Wigseanthryth", "Burke", "Leydon", "Werdan" };

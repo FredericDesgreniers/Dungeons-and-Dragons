@@ -331,7 +331,6 @@ public:
 	*/
 	bool isPlayer();
 
-
 private:
 	/**
 	* The Entity's max Hit Points
