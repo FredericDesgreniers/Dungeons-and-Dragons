@@ -164,6 +164,8 @@ bool Game::doTests()
 	// Run the tests.
 	return runner.run();
 #endif
+
+	return false;
 }
 
 Game* Game::getInstance()
