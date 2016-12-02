@@ -51,6 +51,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	bool LivingEntity::hit(int damage)
 	{
+		Log::instance()->output(Log::component::character, name + " is hit for " + to_string(damage) + " damage");
 		health -= damage;
 		if (health > maxHealth)
 			health = maxHealth;
@@ -302,8 +303,8 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 			}
 
 		}
-		std::cout << "Copied successfully" << endl;
 		updateStats();
+		Notify();
 		// Test item
 		//to->equip(new Item("Helmetfury, Blessed Hat of the Windseeker", Item::ItemType::HELMET, 0, 0, 0, 5, 5, 0, 0, 0, 5)); 
 		return true;
@@ -677,9 +678,8 @@ LivingEntity* LivingEntity::loadLivingEntity(std::string name) {
 
 	}
 	else {
-		std::cout << "load character failed" << endl;
 		loadedCharacter = new LivingEntity(3);
-		std::cout << loadedCharacter->toString() << endl;
+
 	}
 	return loadedCharacter;
 }
@@ -734,5 +734,5 @@ void LivingEntity::resetAttacks()
 	attacksRemaining = attacksPerTurn;
 }
 
-const std::string LivingEntity::names[] = { "Aran", "Dagrim", "Sam", "Elibeo", "Iward", "Linjohn",
-"Ceolto", "Kejo", "Sererio", "Egarda", "Berord", "Eadtim", "Mondgar", "Rahever", "Bet", "Royacar", "Wigseanthryth", "Naing", "Leydon", "Werdan" };
+const std::string LivingEntity::names[] = { "Aran", "Dagrim", "Sam", "Shabadoo", "Iward", "Linjohn",
+"Ceolto", "Kejo", "Sererio", "Egarda", "Berord", "Eadtim", "Mondgar", "Rahever", "Bet", "Gorm", "Wigseanthryth", "Burke", "Leydon", "Werdan" };
