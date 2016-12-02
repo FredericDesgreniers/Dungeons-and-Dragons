@@ -27,7 +27,6 @@ class GameTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(testDiceModifier); //!test the modifier
 	CPPUNIT_TEST(testMultipleDiceRolls); //!test multiple dice rolls
 	CPPUNIT_TEST(testItemValidity);
-	CPPUNIT_TEST(testItemType);
 	CPPUNIT_TEST_SUITE_END();
 protected:
 	void testDiceRollInputValidity();
