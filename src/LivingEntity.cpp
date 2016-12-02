@@ -598,7 +598,7 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 
 			if (attack >= le->getArmorClass()) {
 				Log::instance()->output(Log::component::character, name + 
-					": rolls attack: " +to_string(attack-attackBonus) + " (+" + to_string(attackBonus) + ") = " + to_string(attack) + 
+					": rolls attack: " +to_string(attack-(attackBonus-5*(attacksPerTurn-attacksRemaining))) + " (+" + to_string(attackBonus - 5 * (attacksPerTurn - attacksRemaining)) + ") = " + to_string(attack) +
 					" vs. " + le->getName() + ": " + to_string(le->getArmorClass()) + " AC: hit!");
 				
 				int damage = rollDamage();
