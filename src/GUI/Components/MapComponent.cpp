@@ -1,8 +1,6 @@
 #include "MapComponent.h"
 #include "../Renderer.h"
 #include "CharacterComponent.h"
-#include "../../Monster.h"
-#include "../../Wizard.h"
 
 MapComponent::MapComponent(Map* map, int x, int y, int width, int height):map(map), Style(x,y,width,height) {
 
@@ -124,25 +122,6 @@ void MapComponent::render() {
 		if (e == nullptr)
 		{
 			continue;
-		}
-
-		//Draw wizard spell things
-		if(Wizard* wiz = dynamic_cast<Wizard*> (e))
-		{
-			if(wiz->getSpellProgress() > 0)
-			{
-				Renderer::setColor(255, 255 - wiz->getSpellProgress() * 2.5, 255 - wiz->getSpellProgress() * 2.5,255);
-				
-				int x1 = wiz->getPositionX()*tileWidth + getPositionX() + tileWidth / 2;
-				int y1 = wiz->getPositionY()*tileHeight + getPositionY() + tileHeight / 2;
-				int x2 = c->getPositionX()*tileWidth + getPositionX() + tileWidth / 2;
-				int y2 = c->getPositionY()*tileHeight + getPositionY() + tileHeight / 2;
-				Renderer::drawLine(x1-2,y1,x2,y2);
-				Renderer::drawLine(x1+2,y1,x2,y2);
-				Renderer::drawLine(x1,y1-2,x2,y2);
-				Renderer::drawLine(x1,y1+2,x2,y2);
-				Renderer::drawLine(x1,y1,x2,y2);
-			}
 		}
 	}
 }

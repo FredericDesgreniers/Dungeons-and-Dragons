@@ -14,6 +14,9 @@ class Font;
 class Button : public Label
 {
 public:
+	/**
+	 * Button constrcutor,
+	 */
 	Button(std::string text,Font* font, int x, int y, int width, int height);
 	/**
 	 * Adjust button dimensions

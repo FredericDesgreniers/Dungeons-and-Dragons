@@ -1,6 +1,4 @@
 #include "ScreenMapCreation.h"
-#include "../../Monster.h"
-#include "../../Wizard.h"
 #include "../../EntityChest.h"
 #include "../../Pathfinder.h"
 #include "../../LivingEntity.h"

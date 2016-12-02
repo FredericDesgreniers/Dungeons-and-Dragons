@@ -1,11 +1,9 @@
 #include "MapBuilder.h"
 #include <ctime>
-#include "Monster.h"
 #include <fstream>
 #include <direct.h>
 #include <iostream>
 #include "EntityChest.h"
-#include "Wizard.h"
 
 
 MapBuilder* MapBuilder::createEmptyMap(int w, int h)
@@ -269,7 +267,7 @@ MapBuilder* MapBuilder::spawnRandomMonsters()
 	int monsternNum = rand() % 7 + 3;
 	for (int i = 0; i < monsternNum; i++)
 	{
-		Monster* m = new Monster();
+		LivingEntity* m = new LivingEntity('M');
 		bool hostile = rand() % 2 == 0;
 		m->setHostile(hostile);
 		if (hostile)
