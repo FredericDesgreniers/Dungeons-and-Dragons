@@ -51,13 +51,15 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	bool LivingEntity::hit(int damage)
 	{
-		Log::instance()->output(Log::component::character, name + " is hit for " + to_string(damage) + " damage");
 		health -= damage;
+		Log::instance()->output(Log::component::character, name + " is hit for " + to_string(damage) + " damage (" +
+			to_string(health>0 ? health : 0) + "HP remaining)");
 		if (health > maxHealth)
 			health = maxHealth;
 		if(health<0)
 		{
 			health = 0;
+			Log::instance()->output(Log::component::character, name + " has died!");
 		}
 		Notify();
 		return health <= 0;
@@ -491,7 +493,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	void LivingEntity::levelUp() {
 		level += 1;
-		Log::instance()->output(Log::component::character, name+" grew to level" + to_string(level));
+		Log::instance()->output(Log::component::character, name+" grew to level " + to_string(level));
 
 		// Roll for health increase
 		maxHealth += Dice::roll("1d10") + getModifier(2);
