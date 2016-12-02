@@ -43,12 +43,12 @@ int Dice::roll(string diceInput) {
 
 		// Output the final roll sum
 		//cout << "Total: " << rollSum << endl << endl; 
-		Log::instance()->output(Log::component::dice, "DICE: Rolling " + diceInput + ": " +to_string(rollSum)+"\n");
+		Log::instance()->output(Log::component::dice, "Rolling " + diceInput + ": " +to_string(rollSum));
 		return rollSum;
 	}
 
 	else {
-		Log::instance()->output(Log::component::dice, "DICE: Invalid dice input: " + diceInput + ", input must be in valid dice notation!\n");
+		Log::instance()->output(Log::component::dice, "Invalid dice input: " + diceInput + ", input must be in valid dice notation!");
 		return -1;
 	}
 
