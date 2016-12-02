@@ -1,7 +1,7 @@
 //! @file
 //! @brief CPPUNIT test cases
 //!
-
+#include "Game.h"
 #ifdef TEST
 
 

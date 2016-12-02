@@ -1,6 +1,6 @@
 #pragma once
 #include "GUI/GuiManager.h"
-
+#define TEST
 class GuiManager;
 
 /**
@@ -26,7 +26,10 @@ public:
 	 * Exit game
 	 */
 	bool exit();
-
+	/**
+	 * Set up cpp unit tests
+	 */
+	bool doTests();
 	/**
 	 *	Get GUI manager instance
 	 */

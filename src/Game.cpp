@@ -5,9 +5,20 @@
 #include <direct.h>
 #include "GUI/Screens/ScreenTitle.h"
 #include "Log.h"
+#include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/CompilerOutputter.h>
+#ifdef TEST
+#include <cppunit/CompilerOutputter.h>
+#include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/ui/text/TestRunner.h>
 
+#endif
 
 #undef main
+
+namespace CppUnit {
+	class Test;
+}
 
 Game* Game::instance = nullptr;
 Game::Game()
@@ -38,6 +49,7 @@ bool Game::ini()
 
 bool Game::run()
 {
+	std::cout << "TESTS: " << doTests();
 	bool running = true;
 
 	//render loop
@@ -135,12 +147,23 @@ int main()
 	}
 
 	//font location / bounds
+	}
+bool Game::doTests()
+{
+#ifdef TEST
+	// Get the top level suite from the registry
+	CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
 
-	
+	// Adds the test to the list of test to run
+	CppUnit::TextUi::TestRunner runner;
+	runner.addTest(suite);
 
-	
-
-
+	// Change the default outputter to a compiler error format outputter
+	runner.setOutputter(new CppUnit::CompilerOutputter(&runner.result(),
+		std::cerr));
+	// Run the tests.
+	return runner.run();
+#endif
 }
 
 Game* Game::getInstance()
