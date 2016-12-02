@@ -77,37 +77,37 @@ void GameTest::testDiceRollingBounds()
 {
 	int result = 0;
 
-	for (int j = 1; j <= 1000; j++) {
+	for (int j = 1; j <= 100; j++) {
 		result = Dice::roll("1d4");
 		CPPUNIT_ASSERT(result >= 1);
 		CPPUNIT_ASSERT(result <= 4);
 	}
-	for (int j = 1; j <= 1000; j++) {
+	for (int j = 1; j <= 100; j++) {
 		result = Dice::roll("1d6");
 		CPPUNIT_ASSERT(result >= 1);
 		CPPUNIT_ASSERT(result <= 6);
 	}
-	for (int j = 1; j <= 1000; j++) {
+	for (int j = 1; j <= 100; j++) {
 		int numbers = Dice::roll("1d8");
 		CPPUNIT_ASSERT(result >= 1);
 		CPPUNIT_ASSERT(result <= 8);
 	}
-	for (int j = 1; j <= 1000; j++) {
+	for (int j = 1; j <= 100; j++) {
 		int numbers = Dice::roll("1d10");
 		CPPUNIT_ASSERT(result >= 1);
 		CPPUNIT_ASSERT(result <= 10);
 	}
-	for (int j = 1; j <= 1000; j++) {
+	for (int j = 1; j <= 100; j++) {
 		int numbers = Dice::roll("1d12");
 		CPPUNIT_ASSERT(result >= 1);
 		CPPUNIT_ASSERT(result <= 12);
 	}
-	for (int j = 1; j <= 1000; j++) {
+	for (int j = 1; j <= 100; j++) {
 		int numbers = Dice::roll("1d20");
 		CPPUNIT_ASSERT(result >= 1);
 		CPPUNIT_ASSERT(result <= 20);
 	}
-	for (int j = 1; j <= 1000; j++) {
+	for (int j = 1; j <= 100; j++) {
 		int numbers = Dice::roll("1d100");
 		CPPUNIT_ASSERT(result >= 1);
 		CPPUNIT_ASSERT(result <= 100);
@@ -167,7 +167,7 @@ void GameTest::testMultipleDiceRolls()
 //! Test case: checks for bounds of values for multiple random items
 void GameTest::testItemValidity()
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		Item* it = Item::generateRandomItem(Item::HELMET, 1);
 
@@ -189,7 +189,7 @@ void GameTest::testItemValidity()
 //! Test case: checks for bounds of values for multiple characters
 void GameTest::testCharacterValidity()
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		LivingEntity* c = new LivingEntity(3);
 
