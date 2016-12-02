@@ -27,7 +27,7 @@ class GameTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(testDiceModifier); //!test the modifier
 	CPPUNIT_TEST(testMultipleDiceRolls); //!test multiple dice rolls
 	CPPUNIT_TEST(testItemValidity);
-	CPPUNIT_TEST(testItemInvalidity);
+	CPPUNIT_TEST(testItemType);
 	CPPUNIT_TEST_SUITE_END();
 protected:
 	void testDiceRollInputValidity();
@@ -35,7 +35,6 @@ protected:
 	void testDiceModifier();
 	void testMultipleDiceRolls();
 	void testItemValidity();
-	void testItemInvalidity();
 };
 
 //! cppunit test cases registration
@@ -156,12 +155,27 @@ void GameTest::testMultipleDiceRolls()
 	CPPUNIT_ASSERT(result <= 400);
 }
 
+//! Test method for the validity of an Item
+//! Test case: checks for bounds of values for multiple random items
 void GameTest::testItemValidity()
 {
-	Item* it = generateRandomItem(ItemType::HELMET)
+	for (int i = 0; i < 100; i++)
+	{
+		Item* it = Item::generateRandomItem(Item::HELMET, 1);
+
+		CPPUNIT_ASSERT(it->getArmBoost() <= 5);
+		CPPUNIT_ASSERT(it->getAtkBoost() <= 5);
+		CPPUNIT_ASSERT(it->getChaBoost() <= 5);
+		CPPUNIT_ASSERT(it->getConBoost() <= 5);
+		CPPUNIT_ASSERT(it->getDexBoost() <= 5);
+		CPPUNIT_ASSERT(it->getDmgBoost() <= 5);
+		CPPUNIT_ASSERT(it->getStrBoost() <= 5);
+		CPPUNIT_ASSERT(it->getWisBoost() <= 5);
+		CPPUNIT_ASSERT(it->getIntBoost() <= 5);
+
+		delete it;
+	}
 }
 
-void GameTest::testItemInvalidity()
-{
 
-}
+
