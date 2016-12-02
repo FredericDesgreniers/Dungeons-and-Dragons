@@ -9,7 +9,7 @@ ScreenCharacterCreation::ScreenCharacterCreation(Game* game) : Screen(game)
 		abilityScores[i] = "0";
 	}
 	// Instantiate character and register screen as observer
-	character = new LivingEntity('c', 1, 1, 1, 1, 1, 1, 1);
+	character = new LivingEntity('c', 1, 1, 1, 1, 1, 1, 3);
 	character->Attach(this);
 
 	//Text field for name entry
@@ -273,10 +273,10 @@ void ScreenCharacterCreation::increment(int stat) {
 	case 2:
 		// Increment con and decrement remaining, set health
 		setRemaining(to_string((stoi(abilityScores[6])) - 1));
+		character->setMaxHealth(character->getMaxHealth() - (character->getLevel()*character->getModifier(2)));
 		character->setConstitution(character->getConstitution() + 1);
-		if (newCharacter) {
-			character->setMaxHealth(10 + character->getModifier(2));
-		}
+		character->setMaxHealth(character->getMaxHealth() + (character->getLevel()*character->getModifier(2)));
+		
 		break;
 
 	case 3:
@@ -324,10 +324,9 @@ void ScreenCharacterCreation::decrement(int stat) {
 		// Decrement CON and increment remaining, update health
 
 		setRemaining(to_string(stoi(abilityScores[6]) + 1));
+		character->setMaxHealth(character->getMaxHealth() - (character->getLevel()*character->getModifier(2)));
 		character->setConstitution(character->getConstitution() - 1);
-		if (newCharacter) {
-			character->setMaxHealth(10 + character->getModifier(2));
-		}
+		character->setMaxHealth(character->getMaxHealth() + (character->getLevel()*character->getModifier(2)));
 		
 		break;
 
@@ -355,7 +354,10 @@ void ScreenCharacterCreation::decrement(int stat) {
 }
 
 void ScreenCharacterCreation::rollCharacter() {
-
+	LivingEntity* temp = new LivingEntity(3);
+	character->copyStats(temp);
+	/**
+	
 	// Reroll all ability scores
 	character->setStrength(Dice::rollStat());
 	character->setDexterity(Dice::rollStat());
@@ -375,18 +377,19 @@ void ScreenCharacterCreation::rollCharacter() {
 		character->getBackpack()->removeItemAtIndex(i);
 	}
 
-	//Set level to 1
-	character->setLevel(1);
+	//Set level to 3
+	character->setLevel(3);
 
 
 
 	// Set max health to 10+con modifier
-	character->setMaxHealth(10+character->getModifier(2));
+	character->setMaxHealth(10+character->getModifier(2)+(2*Dice::roll("1d10")+character->getModifier(2)));
 
 	
 	newCharacter = true; //Set a flag to indicate that this is a newly rolled character, so con bonus can be added to HP upon changes to con
 	// Set name to defaultname
 	character->setName("Artemis");
+	**/
 
 	// Set remaining ability points to 0
 	setRemaining("0");
