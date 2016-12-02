@@ -60,8 +60,19 @@ private:
 	
 
 public:
+	/**
+	* Screen Constructor given a game instance
+	*/
 	ScreenCharacterCreation(Game* game);
+
+	/**
+	*Render method override for screen
+	*/
 	void render() override;
+
+	/**
+	*Screen destructor
+	*/
 	~ScreenCharacterCreation();
 
 	/**

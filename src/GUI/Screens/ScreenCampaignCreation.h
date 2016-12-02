@@ -20,9 +20,12 @@ public:
 	 * Screen Constructor given a game instance
 	 */
 	ScreenCampaignCreation(Game* game);
-	MapSelect* campaignPreview;
-	TextField* nameField;
 
+	/**
+	 * Assigns the campaign
+	 */
 	void setCampaign(Campaign* newCampaign);
 
+	MapSelect* campaignPreview;
+	TextField* nameField;
 };

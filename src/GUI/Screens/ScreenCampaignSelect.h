@@ -9,6 +9,9 @@
 class ScreenCampaignSelect : public Screen
 {
 public:
+	/**
+	* Screen Constructor given a game instance
+	*/
 	ScreenCampaignSelect(Game* game);
 
 	
@@ -19,7 +22,4 @@ public:
 	*Render method override for screen
 	*/
 	void render() override;
-
-private:
-	
 };

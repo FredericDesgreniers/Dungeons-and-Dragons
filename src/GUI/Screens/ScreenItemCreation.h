@@ -7,15 +7,12 @@
 #include "../Renderer.h"
 #include "../../Observer.h"
 
-
-
 /**
  * Class used to display the item creation gui
  */
 class ScreenItemCreation : public Screen, public Observer
 {
 private:
-
 	Item* it;
 	TextField* itemName;
 	std::string abilityScores[9];
@@ -24,7 +21,7 @@ private:
 public:
 
 	/**
-	*Constructor
+	* Screen Constructor given a game instance
 	*/
 	ScreenItemCreation(Game* game);
 
@@ -34,7 +31,7 @@ public:
 	~ScreenItemCreation();
 
 	/**
-	*Renders strings to the screen
+	*Render method override for screen
 	*/
 	void render() override;
 
