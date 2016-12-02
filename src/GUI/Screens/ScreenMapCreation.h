@@ -42,14 +42,17 @@ public:
 	 * Map display component for map that is going to be edited
 	 */
 	MapComponent* mapComp;
+
 	/**
 	 * Map display component for the tiles
 	 */
 	MapComponent* tileMapComp;
+
 	/**
 	 * Map display component for the entities
 	 */
 	MapComponent* entityMapComp;
+
 	/**
 	 * Component used to select a map to edit from saved maps
 	 */
@@ -59,26 +62,32 @@ public:
 	 * Override screen render method
 	 */
 	void render() override;
+
 	/**
 	 * Create a map given the dimensions. 
 	 */
 	void createMap();
+
 	/**
 	 * Save map currently open in editor
 	 */
 	void saveMap();
+
 	/**
 	 * Validate the currently editing map
 	 */
 	bool validateMap();
+
 	/**
 	 * Set the map to edit
 	 */
 	void setMap(Map* map);
+
 	/**
 	 * Set editable map height
 	 */
 	void setHeight(int value);
+
 	/**
 	 * Set editable map width
 	 */

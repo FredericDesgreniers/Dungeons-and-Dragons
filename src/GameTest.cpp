@@ -1,6 +1,6 @@
 //! @file
 //! @brief CPPUNIT test cases
-//! Game related test cases
+//!
 
 #ifdef TEST
 

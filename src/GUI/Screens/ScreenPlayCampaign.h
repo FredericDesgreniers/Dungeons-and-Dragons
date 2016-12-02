@@ -33,6 +33,9 @@ public:
 	 */
 	void displayEntityInfo(Entity* entity);
 
+	/**
+	* Override tick method
+	*/
 	void tick();
 
 	/**
