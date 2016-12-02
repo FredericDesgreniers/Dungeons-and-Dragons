@@ -366,6 +366,7 @@ void ScreenCharacterCreation::decrement(int stat) {
 void ScreenCharacterCreation::rollCharacter() {
 	LivingEntity* temp = new LivingEntity(3);
 	character->copyStats(temp);
+	character->equipBasic();
 	/**
 	
 	// Reroll all ability scores
@@ -403,6 +404,7 @@ void ScreenCharacterCreation::rollCharacter() {
 
 	// Set remaining ability points to 0
 	setRemaining("0");
+	eiComp->Update();
 }
 
 
