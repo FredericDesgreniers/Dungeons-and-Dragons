@@ -203,10 +203,12 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 			effectiveAbilityScores[i] = abilityscores[i];
 		}
 		// Set base armor class and add dexterity modifier
-		armorClass = 10 + getModifier(1);
+		armorClass = 10 + getEffectiveModifier(1);
 
 		// Set attack bonus based on level
-		attackBonus = level;
+		attackBonus = level+getEffectiveModifier(0);
+
+		damageBonus = 0 + getEffectiveModifier(0);
 
 		// Add item bonuses to effective ability scores
 		for (int i = 0; i < 7; i++) {
@@ -452,20 +454,40 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	{
 		switch (score) {
 		case 0:
-			return (getStrength() - 10) / 2;
+			return (abilityscores[0] - 10) / 2;
 		case 1:
-			return (getDexterity() - 10) / 2;
+			return (abilityscores[1] - 10) / 2;
 		case 2:
-			return (getConstitution() - 10) / 2;
+			return (abilityscores[2] - 10) / 2;
 		case 3:
-			return (getIntelligence() - 10) / 2;
+			return (abilityscores[3] - 10) / 2;
 		case 4:
-			return (getWisdom() - 10) / 2;
+			return (abilityscores[4] - 10) / 2;
 		case 5:
-			return (getCharisma() - 10) / 2;
+			return (abilityscores[5] - 10) / 2;
 		}
 		return 0;
 	}
+
+	int LivingEntity::getEffectiveModifier(int score)
+	{
+		switch (score) {
+		case 0:
+			return (effectiveAbilityScores[0] - 10) / 2;
+		case 1:
+			return (effectiveAbilityScores[1] - 10) / 2;
+		case 2:
+			return (effectiveAbilityScores[2] - 10) / 2;
+		case 3:
+			return (effectiveAbilityScores[3] - 10) / 2;
+		case 4:
+			return (effectiveAbilityScores[4] - 10) / 2;
+		case 5:
+			return (effectiveAbilityScores[5] - 10) / 2;
+		}
+		return 0;
+	}
+
 
 	void LivingEntity::levelUp() {
 		level += 1;
@@ -486,7 +508,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 
 	int LivingEntity::rollInitiative() {
 		int roll = Dice::roll("1d20");
-		initiative = roll + getModifier(1);
+		initiative = roll + getEffectiveModifier(1);
 		Log::instance()->output(Log::component::character, name + ": rolls initiative :  " + 
 			to_string(roll) + " (+" + to_string(getModifier(1)) + ") = " + to_string(initiative));
 		
@@ -494,7 +516,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	}
 
 	int LivingEntity::rollDamage() {
-		int dmg=Dice::roll("1d8") + getModifier(0)+ damageBonus;
+		int dmg=Dice::roll("1d8") + damageBonus;
 		return dmg;
 	}
 
@@ -574,14 +596,13 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 
 			if (attack >= le->getArmorClass()) {
 				Log::instance()->output(Log::component::character, name + 
-					": rolls attack: " +to_string(attack-getAttackBonus()) + " (+" + to_string(getAttackBonus()) + ") = " + to_string(attack) + 
+					": rolls attack: " +to_string(attack-attackBonus) + " (+" + to_string(attackBonus) + ") = " + to_string(attack) + 
 					" vs. " + le->getName() + ": " + to_string(le->getArmorClass()) + " AC: hit!");
 				
 				int damage = rollDamage();
 
 				Log::instance()->output(Log::component::character, name +
-					": rolls damage: " + to_string(damage - damageBonus - getModifier(0)) + " (+" + to_string(getModifier(0)) + ") + "
-					+ to_string(damageBonus) + " = " + to_string(damage));
+					": rolls damage: " + to_string(damage - damageBonus) + " (+" + to_string(damageBonus) + ") = " + to_string(damage));
 
 				if (le->hit(damage))
 				{
@@ -598,20 +619,20 @@ bool LivingEntity::interact(Map* map, Entity* entity)
 							}
 						}
 
-						ScreenLoot* lootScreen = new ScreenLoot(game, this->getBackpack(), le->getBackpack());
+						ScreenLoot* lootScreen = new ScreenLoot(game, backpack, le->getBackpack());
 						lootScreen->setBackButton(game->getGuiManager()->setScreen(lootScreen));
 					}
 				}
 			}
 			else {
 				Log::instance()->output(Log::component::character, name +
-					": rolls attack: " + to_string(attack - getAttackBonus()) + " (+" + to_string(getAttackBonus()) + ") = " + to_string(attack) +
+					": rolls attack: " + to_string(attack - attackBonus) + " (+" + to_string(attackBonus) + ") = " + to_string(attack) +
 					" vs. " + le->getName() + ": " + to_string(le->getArmorClass()) + " AC: Miss!");
 			}
 			attacksRemaining--;
 		}else
 		{
-			Log::instance()->output(Log::component::character, name + " could not interact with "+le->getName()+" due to "+to_string(getAttacksRemaining())+" attack remaining out of "+to_string(getAttacksPerTurn()));
+			Log::instance()->output(Log::component::character, name + " could not interact with "+le->getName()+" due to "+to_string(attacksRemaining)+" attack remaining out of "+to_string(attacksPerTurn));
 		}
 			
 			return true;
@@ -729,10 +750,6 @@ bool LivingEntity::saveLivingEntity() {
 	return true;
 }
 
-void LivingEntity::resetAttacks()
-{
-	attacksRemaining = attacksPerTurn;
-}
 
 const std::string LivingEntity::names[] = { "Aran", "Dagrim", "Sam", "Shabadoo", "Iward", "Linjohn",
 "Ceolto", "Kejo", "Sererio", "Egarda", "Berord", "Eadtim", "Mondgar", "Rahever", "Bet", "Gorm", "Wigseanthryth", "Burke", "Leydon", "Werdan" };

@@ -14,9 +14,12 @@ class Strategy;
  */
 class LivingEntity :public Entity {
 public:
+	/**
+	* Create default LivingEntity given a level to spawn at
+	*/
 	LivingEntity(int level);
 	/**
-	 * Create default LivingEntity given a char to display
+	 * Create default level 1LivingEntity given a char to display
 	 */
 	LivingEntity(char c);
 	/**
@@ -38,26 +41,32 @@ public:
 	 * Get current health
 	 */
 	int getHealth();
+
 	/**
-	 * Get entity name
-	 */
+	* Return name of LivingEntity
+	*/
 	std::string getName();
 
 	/**
-	 * Interact with entity on the map
-	 */
+	* Interact with objects or characters on map
+	*/
 	bool interact(Map* map, Entity* entity) override;
+
 	/**
-	 * Reset entity
-	 */
+	* Reset to default state. Restores health, attacks, and movement. To be called at end or start of map
+	*/
 	void reset();
+
 	/**
-	 * Load entity from file
-	 */
+	* Load a livingEntity from a text file.
+	* Given a name, this function will load the character from the characters folder with that name.
+	* If the character does not exist, returns a random level 3 character
+	*/
 	static LivingEntity * loadLivingEntity(std::string name);
+
 	/**
-	 * Save entity to file
-	 */
+	* Save a livingEntity to file called [name].chr
+	*/
 	bool saveLivingEntity();
 
 	/**
@@ -96,17 +105,18 @@ public:
 	int getCharisma();
 
 	/**
-	 * Get Amor Class
-	 */
+	* Get armor class at int
+	*/
 	int getArmorClass();
 
 	/**
 	* Get attack bonus as an int
 	*/
 	int getAttackBonus();
+
 	/**
-	 * Get number of attacks allowed per turn
-	 */
+	* Get total attacks per turn as int
+	*/
 	int getAttacksPerTurn();
 
 
@@ -140,21 +150,24 @@ public:
 	* Set wisdom as int
 	*/
 	void setWisdom(int value);
+
 	/**
-	 * Set the max health
-	 */
+	* Set max health as int
+	*/
 	void setMaxHealth(int value);
+
 	/**
-	 *Set current health
-	 */
+	* Set Current health as int
+	*/
 	void setHealth(int value);
 	/**
 	* Set charisma as int
 	*/
 	void setCharisma(int value);
+
 	/**
-	 * Set if the entity is a player
-	 */
+	* Set the LivingEntity to be the player.
+	*/
 	void setPlayer(bool value);
 
 
@@ -167,6 +180,9 @@ public:
 	*/
 	int* getAbilityScoreArray();
 
+	/**
+	* Return the characters backpack
+	*/
 	ItemContainer* getBackpack();
 
 	/**
@@ -217,87 +233,102 @@ public:
 	* The modifier is calculated as per game rules using (score-10)/2
 	*/
 	int getModifier(int stat);
+
 	/**
-	 * Get remaining attacks
-	 */
+	* Get modifier from effective ability score.
+	* Like getModifier, except this also takes into account ability scores that are modified by items
+	*/
+	int getEffectiveModifier(int score);
+
+	/**
+	* REturn the number of attacks remaining in the turn as int
+	*/
 	int getAttacksRemaining();
+
 	/**
-	 * Get remaining movements. 
-	 */
+	* REturn the number of movement points remaining in the turn as int
+	*/
 	int getMovementRemaining();
+
 	/**
-	 * Get max movements
-	 */
+	* REturn the total movement points as int
+	*/
 	int getMovement();
+
 	/**
-	 * Set movements remaining
-	 */
+	* Set the number of movement points remaining
+	*/
 	void setMovementRemaining(int value);
+
 	/**
-	 * Set max movement
-	 */
+	* Set total movement points
+	*/
 	void setMovement(int value);
 	
 	~LivingEntity();
+
 	/**
-	 * Level up entity
-	 */
+	* Level up by 1 level
+	*/
 	void levelUp();
 
 	/**
-	 * Roll and store the initiative
-	 */
+	* Roll initiative for combat.
+	* 1d20 + dex modifier
+	*/
 	int rollInitiative();
+
 	/**
-	 * Roll damage
-	 */
+	* Roll damage for combat.
+	* Currently 1d8 + str modifier
+	*/
 	int rollDamage();
 
 	/**
-	 * Roll attack
-	 */
+	* Roll attack. 1d20 + str modifier + attackbonus.
+	*/
 	int rollAttack();
 
 	/**
-	 * Reset turn (movement / attack)
-	 */
+	* Reset movement and attacks for the turn
+	*/
 	void resetTurn();
+
 	/**
-	 * Resert attacks to max attacks
-	 */
-	void resetAttacks();
-	/**
-	 * Get last initiative role
-	 */
+	* Return last initiative roll as int
+	*/
 	int getInitiative();
+
 	/**
-	 * Get if turn is finished
-	 */
+	* Check if turn is finished
+	*/
 	bool getTurnFinished();
+
 	/**
-	 * Set if turn is finished
-	 */
+	* Set turn to finished or unfinished
+	*/
 	void setTurnFinished(bool tf);
+
 	/**
-	 * Set strategy
-	 */
+	* Set strategy
+	*/
 	void setStrategy(Strategy* strategy);
-	/**
-	 * Do strategy
-	 */
+
 	void doStrategy(Map* map);
 
 	/**
-	 * get if hostile
-	 */
+	* Return true if entity is hostile
+	*/
 	bool getHostile();
+
 	/**
-	 * Set if hostile
-	 */
+	* Set entity to hostile or friendly
+	*/
 	void setHostile(bool hostile);
+
 	/**
-	 * get if entity is a player
-	 */
+	* Return true of entity is the player character
+	*/
 	bool isPlayer();
 
 
@@ -380,29 +411,35 @@ private:
 	* Armor class calculated from the total armor on equipped items. Updated on equip/unequip
 	*/
 	int armorClass;
+
 	/**
-	 * Number of attacks remaining
-	 */
+	* Attacks remaining in the turn
+	*/
 	int attacksRemaining;
+
 	/**
-	 * last initiative rolled
-	 */
+	* Last initiative roll
+	*/
 	int initiative;
+
 	/**
-	 * Is turn finished?
-	 */
+	* Flag for turn finished
+	*/
 	bool turnFinished;
+
 	/**
-	 * Is hostile?
-	 */
+	* Flag for hostile or friendly
+	*/
 	bool hostile;
+
 	/**
-	 * is a player?
-	 */
+	* Flag for player character
+	*/
 	bool player;
+
 	/**
-	 * Current strategy
-	 */
+	* Strategy for the LivingEntity
+	*/
 	Strategy* strategy;
 };
 
