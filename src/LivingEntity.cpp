@@ -37,7 +37,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		equipped[i] = nullptr;
 	}
 	
-	attacksRemaining = attacksPerTurn = 1 + (level / 6);
+	attacksRemaining = attacksPerTurn = 1 + ((level - 1) / 5);
 	movementRemaining = movement = 5;
 
 
@@ -371,7 +371,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	{
 		level = value;
 		health = maxHealth = 10 + getModifier(2) + ((level - 1)*(Dice::roll("1d10") + getModifier(2)));
-		attacksRemaining = attacksPerTurn = 1 + (level / 6);
+		attacksRemaining = attacksPerTurn = 1 + ((level-1) / 5);
 		movementRemaining = movement = 5;
 		updateStats();
 		Notify();
@@ -499,7 +499,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		maxHealth += Dice::roll("1d10") + getModifier(2);
 		Log::instance()->output(Log::component::character, "New Max HP: " +to_string(maxHealth));
 
-		attacksRemaining = attacksPerTurn = 1 + (level / 6);
+		attacksRemaining = attacksPerTurn = 1 + ((level-1) / 5);
 		Log::instance()->output(Log::component::character, "New Attacks Per Turn: " + to_string(attacksPerTurn));
 
 
