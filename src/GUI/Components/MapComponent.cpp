@@ -99,16 +99,22 @@ void MapComponent::render() {
 				SDL_Color color = entity->getDisplayColor();
 				
 				//render entity chracter
-				Renderer::drawString(std::string(1, entity->getRenderChar()), Renderer::FONT_ROBOTO.get(tileHeight), x+2, y-3,1,color);
+				
 				//if entity is living, render health bar
 				if(LivingEntity* le = dynamic_cast<LivingEntity*>(entity)){
-					Renderer::setColor(255, 0, 0, 255);
-					double healthBar = (static_cast<double>(le->getHealth()) / static_cast<double>(le->getMaxHealth()));
-					
-					Renderer::RenderRect(x, y, healthBar*(tileWidth-2)+2,5);
-					Renderer::setColor(0, 0, 0, 255);
-					Renderer::RenderRectOutline(x,y,tileWidth,5);
+					if (le->getHealth() > 0) {
+						Renderer::drawString(std::string(1, entity->getRenderChar()), Renderer::FONT_ROBOTO.get(tileHeight), x + 2, y - 3, 1, color);
+						Renderer::setColor(255, 0, 0, 255);
+						double healthBar = (static_cast<double>(le->getHealth()) / static_cast<double>(le->getMaxHealth()));
+
+						Renderer::RenderRect(x, y, healthBar*(tileWidth - 2) + 2, 5);
+						Renderer::setColor(0, 0, 0, 255);
+						Renderer::RenderRectOutline(x, y, tileWidth, 5);
+					}
 				
+				}else
+				{
+					Renderer::drawString(std::string(1, entity->getRenderChar()), Renderer::FONT_ROBOTO.get(tileHeight), x + 2, y - 3, 1, color);
 				}
 			}
 			

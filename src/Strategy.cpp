@@ -55,6 +55,8 @@ void FriendlyStrategy::doStrategy(Map* map, LivingEntity* le)
 
 void HostileStrategy::doStrategy(Map* map, LivingEntity* le)
 {
+	if (le->getHealth() <= 0)
+		le->setTurnFinished(true);
 	Strategy::doStrategy(map, le);
 	//attack character if possible
 	LivingEntity* character = map->getCharacter();
