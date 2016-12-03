@@ -5,8 +5,7 @@
 #include <direct.h>
 #include "GUI/Screens/ScreenTitle.h"
 #include "Log.h"
-#include <cppunit/extensions/TestFactoryRegistry.h>
-#include <cppunit/CompilerOutputter.h>
+
 #ifdef TEST
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
@@ -31,6 +30,7 @@ bool Game::ini()
 	_mkdir("maps/");
 	_mkdir("characters/");
 	_mkdir("items/");
+	_mkdir("campaigns/");
 
 	if (!Renderer::init())
 		return false;
