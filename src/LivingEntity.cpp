@@ -6,14 +6,7 @@
 
 LivingEntity::LivingEntity(int level) :
 	LivingEntity('c', Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), level)
-{
-}
-
-
-LivingEntity::LivingEntity(char c):
-	LivingEntity(c, Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), Dice::rollStat(), 1)
-{
-}
+{}
 
 LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int level) :
 	LivingEntity(c, strength, dexterity, constitution, intelligence, wisdom, charisma, level, names[Dice::roll("1d20")-1])
@@ -31,7 +24,6 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 	effectiveAbilityScores[4] = abilityscores[4] = wisdom;
 	effectiveAbilityScores[5] = abilityscores[5] = charisma;
 
-	// TODO: Update HP calculation
 	health = maxHealth = 10+ getModifier(2) + (level-1)*(Dice::roll("1d10") + getModifier(2));
 	for (int i = 0; i < 7; i++) {
 		equipped[i] = nullptr;
@@ -100,12 +92,9 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		return backpack;
 	}
 
-
-
-
+	
 	void LivingEntity::outputEquipped()
 	{
-		return;
 		for (int i = 0; i < 7; i++) {
 			switch (i) {
 			case 0:
@@ -147,7 +136,7 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		if (toEquip == nullptr) {
 			return false;
 		}
-		Item* wasEquipped = nullptr;
+		Item* wasEquipped;
 		switch (toEquip->getItemType()) {
 		case Item::ItemType::HELMET:
 			wasEquipped = unequip(0);
@@ -289,15 +278,20 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 		for (int i = 0; i < 6; i++) {
 			abilityscores[i] = toCopy[i];
 		}
-				
+		
+		// Copy level				
 		level = from->getLevel();
+		// Copy name
 		name = from->getName();
+		// Copy health
 		health=maxHealth=from->getMaxHealth();
+		// Copy equipped items
 		Item** toEquip = from->getEquippedItems();
 		for (int i = 0; i < 7; i++) {
 			if (toEquip[i]!=nullptr)
 			equip(new Item(toEquip[i]));
 		}
+		// Copy backpack items
 		Item* toBackpack = nullptr;
 		for (int i = 0; i < 10; i++) {
 			backpack->removeItemAtIndex(i);
@@ -307,10 +301,10 @@ LivingEntity::LivingEntity(char c, int strength, int dexterity, int constitution
 			}
 
 		}
+		// Recalculate secondary stats
 		updateStats();
+		// Notify observers
 		Notify();
-		// Test item
-		//to->equip(new Item("Helmetfury, Blessed Hat of the Windseeker", Item::ItemType::HELMET, 0, 0, 0, 5, 5, 0, 0, 0, 5)); 
 		return true;
 	}
 
@@ -583,10 +577,12 @@ void LivingEntity::setHostile(bool hostile)
 {
 	this->hostile = hostile;
 }
+
 bool LivingEntity::isPlayer()
 {
 	return player;
 }
+
 bool LivingEntity::interact(Map* map, Entity* entity)
 {
 	if (entity == this)
